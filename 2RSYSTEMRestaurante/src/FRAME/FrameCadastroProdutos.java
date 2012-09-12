@@ -44,7 +44,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Produtos");
-        setLocation(new java.awt.Point(200, 85));
+        setLocation(new java.awt.Point(200, 100));
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setResizable(false);
 
@@ -145,11 +145,11 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 743, Short.MAX_VALUE)
+            .add(0, 751, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 369, Short.MAX_VALUE)
+            .add(0, 377, Short.MAX_VALUE)
         );
 
         jtbpProdutos.addTab("Cadastro", jPanel3);
