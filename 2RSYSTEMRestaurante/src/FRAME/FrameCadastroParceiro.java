@@ -4,6 +4,8 @@
  */
 package FRAME;
 
+import java.text.ParseException;
+
 /**
  *
  * @author ricardosassanovicz
@@ -15,6 +17,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
      */
     public FrameCadastroParceiro() {
         initComponents();
+
     }
 
     /**
@@ -73,6 +76,8 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         jtfLimite = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jtfSaldo = new javax.swing.JTextField();
+        jcbTipoPessoa = new javax.swing.JComboBox();
+        jLabel32 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Parceiros");
@@ -192,7 +197,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         jLabel21.setText("Sexo");
 
         jLabel22.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel22.setText("RG");
+        jLabel22.setText("RG/Insc.Estadual");
 
         jLabel23.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel23.setText("Data Nacimento");
@@ -269,7 +274,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         jLabel30.setText("UF");
 
         jLabel18.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel18.setText("CPF");
+        jLabel18.setText("CPF/CNPJ");
 
         try {
             jtfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -277,6 +282,11 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         jtfCpf.setToolTipText("CPF");
+        jtfCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfCpfActionPerformed(evt);
+            }
+        });
 
         jcbSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Feminino" }));
 
@@ -299,6 +309,18 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         jLabel3.setText("Saldo");
 
         jtfSaldo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        jcbTipoPessoa.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jcbTipoPessoa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Física", "Jurídica" }));
+        jcbTipoPessoa.setToolTipText("Tipo de Pessoa");
+        jcbTipoPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbTipoPessoaActionPerformed(evt);
+            }
+        });
+
+        jLabel32.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jLabel32.setText("Pessoa");
 
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -362,14 +384,12 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                             .add(jtfCpf, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 274, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel3Layout.createSequentialGroup()
-                                .add(jLabel22)
-                                .add(143, 143, 143)
-                                .add(jLabel23))
-                            .add(jPanel3Layout.createSequentialGroup()
-                                .add(jtfRg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jtfDataNacimento, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(jtfRg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel22))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel23)
+                            .add(jtfDataNacimento, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jcbSexo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -383,13 +403,22 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                             .add(jPanel3Layout.createSequentialGroup()
                                 .add(jLabel3)
                                 .add(0, 109, Short.MAX_VALUE))
-                            .add(jtfSaldo))))
+                            .add(jtfSaldo)))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jLabel32)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jcbTipoPessoa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 143, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .add(8, 8, 8)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jcbTipoPessoa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel32))
+                .add(18, 18, 18)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel19)
                     .add(jLabel18))
@@ -441,7 +470,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                     .add(jtfRua, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jtfNumero, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jtfBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         jtbpParceiros.addTab("Cadastro", jPanel3);
@@ -494,8 +523,8 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
         jtbpParceiros.setSelectedIndex(1);
-        
-        
+
+
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jtfDataNacimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfDataNacimentoActionPerformed
@@ -523,10 +552,30 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfCepActionPerformed
 
     private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
-    
+
         dispose();
 
     }//GEN-LAST:event_jbtCancelarActionPerformed
+
+    private void jtfCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfCpfActionPerformed
+
+    private void jcbTipoPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoPessoaActionPerformed
+        if (jcbTipoPessoa.getSelectedIndex() == 0) {
+            try {
+                jtfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            } catch (ParseException ex) {
+            }
+        }
+           else if (jcbTipoPessoa.getSelectedIndex() == 1) {
+                try {
+                    jtfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+                } catch (ParseException ex) {
+                }
+            
+        }
+    }//GEN-LAST:event_jcbTipoPessoaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -580,6 +629,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
@@ -593,6 +643,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     private javax.swing.JButton jbtSalvar;
     private javax.swing.JComboBox jcbCidade;
     private javax.swing.JComboBox jcbSexo;
+    private javax.swing.JComboBox jcbTipoPessoa;
     private javax.swing.JTable jtbParceiros;
     private javax.swing.JTabbedPane jtbpParceiros;
     private javax.swing.JTextField jtfBairro;
