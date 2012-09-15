@@ -56,7 +56,6 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        jtfUf = new javax.swing.JTextField();
         jtfBairro = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
@@ -67,6 +66,10 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jtfCep = new javax.swing.JTextField();
         jcbCidade = new javax.swing.JComboBox();
         jLabel30 = new javax.swing.JLabel();
+        jlbDataCadastro = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jtfCodigo = new javax.swing.JTextField();
+        jcbUF = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Fornecedor");
@@ -197,7 +200,7 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jLabel21.setText("Inscrição Estadual");
 
         jLabel22.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel22.setText("Contato/Nome Fantasia");
+        jLabel22.setText("Nome Fantasia");
 
         jLabel23.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel23.setText("Data Fundação");
@@ -219,13 +222,6 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
 
         jLabel24.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel24.setText("Cidade");
-
-        jtfUf.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jtfUf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfUfActionPerformed(evt);
-            }
-        });
 
         jtfBairro.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jtfBairro.addActionListener(new java.awt.event.ActionListener() {
@@ -273,6 +269,17 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jLabel30.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel30.setText("UF");
 
+        jlbDataCadastro.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jLabel4.setText("Codigo");
+
+        jtfCodigo.setEditable(false);
+        jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        jcbUF.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jcbUF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SC", "RJ", "SP", "PR", "RS" }));
+
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -316,29 +323,40 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
                                 .add(0, 0, Short.MAX_VALUE))))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel26)
                             .add(jPanel3Layout.createSequentialGroup()
                                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jcbCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 157, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(jLabel24))
+                                    .add(jcbUF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 139, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(jPanel3Layout.createSequentialGroup()
+                                        .add(6, 6, 6)
+                                        .add(jLabel30)))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel30)
-                                    .add(jtfUf, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 80, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                            .add(jPanel3Layout.createSequentialGroup()
-                                .add(jLabel26)
-                                .add(225, 225, 225)
-                                .add(jLabel28))
-                            .add(jPanel3Layout.createSequentialGroup()
-                                .add(jtfRua, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 241, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jtfNumero, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 78, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                    .add(jLabel24)
+                                    .add(jcbCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 157, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jtfCep)
                             .add(jPanel3Layout.createSequentialGroup()
-                                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel27)
-                                    .add(jLabel29))
+                                .add(jLabel29)
+                                .add(0, 409, Short.MAX_VALUE))))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(jLabel4)
+                        .add(1, 1, 1)
+                        .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jlbDataCadastro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jtfRua, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 331, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jtfNumero, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 78, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel28))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel3Layout.createSequentialGroup()
+                                .add(jLabel27)
                                 .add(0, 0, Short.MAX_VALUE))
                             .add(jtfBairro))))
                 .addContainerGap())
@@ -346,7 +364,12 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .add(7, 7, 7)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel4)
+                    .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jlbDataCadastro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(18, 18, 18)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel18)
                     .add(jLabel19))
@@ -375,24 +398,24 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel24)
-                    .add(jLabel30)
-                    .add(jLabel29))
+                    .add(jLabel29)
+                    .add(jLabel30))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jtfUf, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jcbCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jcbUF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jcbCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel26)
                     .add(jLabel28)
-                    .add(jLabel27))
+                    .add(jLabel27)
+                    .add(jLabel26))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jtfRua, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jtfNumero, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jtfBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         jtbpFornecedores.addTab("Cadastro", jPanel3);
@@ -452,10 +475,6 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     private void jtfDataFundacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfDataFundacaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfDataFundacaoActionPerformed
-
-    private void jtfUfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfUfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfUfActionPerformed
 
     private void jtfBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfBairroActionPerformed
         // TODO add your handling code here:
@@ -528,6 +547,7 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
@@ -541,11 +561,14 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JButton jbtPesquisar;
     private javax.swing.JButton jbtSalvar;
     private javax.swing.JComboBox jcbCidade;
+    private javax.swing.JComboBox jcbUF;
+    private javax.swing.JLabel jlbDataCadastro;
     private javax.swing.JTable jtbFornecedores;
     private javax.swing.JTabbedPane jtbpFornecedores;
     private javax.swing.JTextField jtfBairro;
     private javax.swing.JTextField jtfCep;
     private javax.swing.JFormattedTextField jtfCnpj;
+    private javax.swing.JTextField jtfCodigo;
     private javax.swing.JTextField jtfDataFundacao;
     private javax.swing.JTextField jtfEmail;
     private javax.swing.JTextField jtfInsEstadual;
@@ -554,6 +577,5 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField jtfRazaoSocial;
     private javax.swing.JTextField jtfRua;
     private javax.swing.JFormattedTextField jtfTelefone;
-    private javax.swing.JTextField jtfUf;
     // End of variables declaration//GEN-END:variables
 }

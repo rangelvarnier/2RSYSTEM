@@ -1,6 +1,8 @@
 
 package RESTAURANTE.DAO.IMPL;
 
-public class FornecedorDAOIMPL {
+import RESTAURANTE.DAO.FornecedorDAO;
+
+public class FornecedorDAOIMPL implements FornecedorDAO {
     
 }
