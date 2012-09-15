@@ -1,18 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package FRAME;
 
-/**
- *
- * @author ricardosassanovicz
- */
 public class FrameCadastroFuncionario extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FramePrincipal
-     */
     public FrameCadastroFuncionario() {
         initComponents();
     }
