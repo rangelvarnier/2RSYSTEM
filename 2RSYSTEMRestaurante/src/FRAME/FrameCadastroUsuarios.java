@@ -193,6 +193,7 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new FrameCadastroUsuarios().setVisible(true);
             }

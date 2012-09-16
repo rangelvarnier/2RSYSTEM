@@ -1,11 +1,11 @@
-
 package FRAME;
 
-
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JTextArea;
 
 public class FramePrincipal extends javax.swing.JFrame {
 
@@ -13,7 +13,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -35,18 +34,25 @@ public class FramePrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jmiParceiros = new javax.swing.JMenuItem();
         jmiFornecedores = new javax.swing.JMenuItem();
-        jmiFuncionarios = new javax.swing.JMenuItem();
-        jmiProdutos = new javax.swing.JMenuItem();
-        jmiUsuarios = new javax.swing.JMenuItem();
+        jmiColaboradores = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jmiProduto = new javax.swing.JMenuItem();
+        jmiGrupoItem = new javax.swing.JMenuItem();
+        jmiSubGrupoItem = new javax.swing.JMenuItem();
         jmiTrasnportadoras = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jmiCopiar = new javax.swing.JMenuItem();
+        jmiColar = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
+        jmiUsuarios = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("2RSystem");
 
         jbtParceiros.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -85,6 +91,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         jbtEntrada.setToolTipText("Entrada de Mercadoria");
 
         jLabel1.setFont(new java.awt.Font("Letter Gothic Std", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("2RSytem - Beta Version");
 
         jbtProduto.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -97,7 +104,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
 
         jDesktopPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jDesktopPane1.setToolTipText("Mesa");
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel2.setText("Usuário Logado:");
@@ -159,33 +165,43 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jmiFornecedores);
 
-        jmiFuncionarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
-        jmiFuncionarios.setText("Colaboradores");
-        jmiFuncionarios.setToolTipText("Colaboradores/Funcionários");
-        jmiFuncionarios.addActionListener(new java.awt.event.ActionListener() {
+        jmiColaboradores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        jmiColaboradores.setText("Colaboradores");
+        jmiColaboradores.setToolTipText("Colaboradores/Funcionários");
+        jmiColaboradores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiFuncionariosActionPerformed(evt);
+                jmiColaboradoresActionPerformed(evt);
             }
         });
-        jMenu1.add(jmiFuncionarios);
+        jMenu1.add(jmiColaboradores);
 
-        jmiProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
-        jmiProdutos.setText("Produtos");
-        jmiProdutos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiProdutosActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jmiProdutos);
+        jMenu2.setText("Produtos");
 
-        jmiUsuarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
-        jmiUsuarios.setText("Usuários");
-        jmiUsuarios.addActionListener(new java.awt.event.ActionListener() {
+        jmiProduto.setText("Produto");
+        jmiProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiUsuariosActionPerformed(evt);
+                jmiProdutoActionPerformed(evt);
             }
         });
-        jMenu1.add(jmiUsuarios);
+        jMenu2.add(jmiProduto);
+
+        jmiGrupoItem.setText("Grupo de Item");
+        jmiGrupoItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiGrupoItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmiGrupoItem);
+
+        jmiSubGrupoItem.setText("Subgrupo de Item");
+        jmiSubGrupoItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSubGrupoItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmiSubGrupoItem);
+
+        jMenu1.add(jMenu2);
 
         jmiTrasnportadoras.setText("Transportadora");
         jmiTrasnportadoras.addActionListener(new java.awt.event.ActionListener() {
@@ -204,7 +220,41 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu7.setText("Editar");
+
+        jmiCopiar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        jmiCopiar.setText("Copiar");
+        jmiCopiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCopiarActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jmiCopiar);
+
+        jmiColar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        jmiColar.setText("Colar");
+        jmiColar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiColarActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jmiColar);
+
+        jMenuBar1.add(jMenu7);
+
         jMenu6.setText("Ferramentas");
+
+        jmiUsuarios.setText("Cadastro de Usuários");
+        jmiUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiUsuariosActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jmiUsuarios);
+
+        jMenuItem1.setText("Cadastro da Empresa");
+        jMenu6.add(jMenuItem1);
+
         jMenuBar1.add(jMenu6);
 
         jMenu4.setText("Ajuda");
@@ -229,20 +279,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabel2)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jlbUsuarioLogado, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 84, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLabel3)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jlbData, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jlbHora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jLabel1)
-                .addContainerGap())
-            .add(layout.createSequentialGroup()
                 .add(12, 12, 12)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -254,7 +290,21 @@ public class FramePrincipal extends javax.swing.JFrame {
                     .add(jbtEntrada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 118, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jbtProduto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 118, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jDesktopPane1))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(jLabel2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jlbUsuarioLogado, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 84, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jLabel3)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jlbData, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jlbHora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jLabel1)
+                        .addContainerGap())
+                    .add(jDesktopPane1)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -322,13 +372,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         new FrameCadastroParceiro().setVisible(true);
     }//GEN-LAST:event_jmiParceirosActionPerformed
 
-    private void jmiFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFuncionariosActionPerformed
+    private void jmiColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiColaboradoresActionPerformed
         new FrameCadastroFuncionario().setVisible(true);
-    }//GEN-LAST:event_jmiFuncionariosActionPerformed
-
-    private void jmiProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProdutosActionPerformed
-        new FrameCadastroProdutos().setVisible(true);
-    }//GEN-LAST:event_jmiProdutosActionPerformed
+    }//GEN-LAST:event_jmiColaboradoresActionPerformed
 
     private void jmiUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuariosActionPerformed
         new FrameCadastroUsuarios().setVisible(true);
@@ -347,16 +393,12 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void jlbDataAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jlbDataAncestorAdded
 
-
         jlbData.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis())));
 
     }//GEN-LAST:event_jlbDataAncestorAdded
 
     private void jlbHoraAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jlbHoraAncestorAdded
         Timer timer = new Timer();
-
-
-
         TimerTask tasks = new TimerTask() {
             @Override
             public void run() {
@@ -364,12 +406,33 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         };
         timer.schedule(tasks, 1000, 1000);
-
     }//GEN-LAST:event_jlbHoraAncestorAdded
 
     private void jbtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtProdutoActionPerformed
         new FrameCadastroProdutos().setVisible(true);
     }//GEN-LAST:event_jbtProdutoActionPerformed
+
+    private void jmiSubGrupoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSubGrupoItemActionPerformed
+        new FrameSubGrupoItem().setVisible(true);
+    }//GEN-LAST:event_jmiSubGrupoItemActionPerformed
+
+    private void jmiProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProdutoActionPerformed
+        new FrameCadastroProdutos().setVisible(true);
+    }//GEN-LAST:event_jmiProdutoActionPerformed
+
+    private void jmiGrupoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGrupoItemActionPerformed
+        new FrameGrupoItem().setVisible(true);
+    }//GEN-LAST:event_jmiGrupoItemActionPerformed
+
+    private void jmiCopiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCopiarActionPerformed
+            JTextArea area = new JTextArea();
+            area.copy();
+    }//GEN-LAST:event_jmiCopiarActionPerformed
+
+    private void jmiColarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiColarActionPerformed
+         JTextArea area = new JTextArea();
+            area.paste();
+    }//GEN-LAST:event_jmiColarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -400,6 +463,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new FramePrincipal().setVisible(true);
             }
@@ -411,11 +475,14 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JButton jbtColaboradores;
@@ -427,11 +494,18 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jlbData;
     private javax.swing.JLabel jlbHora;
     private javax.swing.JLabel jlbUsuarioLogado;
+    private javax.swing.JMenuItem jmiColaboradores;
+    private javax.swing.JMenuItem jmiColar;
+    private javax.swing.JMenuItem jmiCopiar;
     private javax.swing.JMenuItem jmiFornecedores;
-    private javax.swing.JMenuItem jmiFuncionarios;
+    private javax.swing.JMenuItem jmiGrupoItem;
     private javax.swing.JMenuItem jmiParceiros;
-    private javax.swing.JMenuItem jmiProdutos;
+    private javax.swing.JMenuItem jmiProduto;
+    private javax.swing.JMenuItem jmiSubGrupoItem;
     private javax.swing.JMenuItem jmiTrasnportadoras;
     private javax.swing.JMenuItem jmiUsuarios;
     // End of variables declaration//GEN-END:variables
+
+ 
+
 }

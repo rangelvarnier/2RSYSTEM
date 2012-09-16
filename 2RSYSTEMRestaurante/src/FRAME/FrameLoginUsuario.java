@@ -42,6 +42,7 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
         jLabel3.setText("2RSystem");
 
         jLabel4.setFont(new java.awt.Font("Letter Gothic Std", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Sistema de Login");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -132,6 +133,7 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new FrameLoginUsuario().setVisible(true);
             }
