@@ -1,11 +1,11 @@
 package FRAME;
 
-import java.awt.Toolkit;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.JTextArea;
+
 
 public class FramePrincipal extends javax.swing.JFrame {
 
@@ -425,13 +425,11 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiGrupoItemActionPerformed
 
     private void jmiCopiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCopiarActionPerformed
-            JTextArea area = new JTextArea();
-            area.copy();
+
     }//GEN-LAST:event_jmiCopiarActionPerformed
 
     private void jmiColarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiColarActionPerformed
-         JTextArea area = new JTextArea();
-            area.paste();
+
     }//GEN-LAST:event_jmiColarActionPerformed
 
     /**
