@@ -16,17 +16,14 @@ public class SubGrupoItensDAOIMPL implements SubGrupoItensDAO {
 
     @Override
     public void inserir(SubGrupoItens subGrupoItens) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void alterar(SubGrupoItens subGrupoItens) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void remover(SubGrupoItens subGrupoItens) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
