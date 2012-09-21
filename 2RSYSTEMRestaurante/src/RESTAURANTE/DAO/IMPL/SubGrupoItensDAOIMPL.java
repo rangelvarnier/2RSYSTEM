@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author ricardosassanovicz
  */
-public class SubGrupoItensDAOIMPL implements SubGrupoItensDAO{
+public class SubGrupoItensDAOIMPL implements SubGrupoItensDAO {
 
     @Override
     public void inserir(SubGrupoItens subGrupoItens) {
@@ -43,5 +43,4 @@ public class SubGrupoItensDAOIMPL implements SubGrupoItensDAO{
     public List<SubGrupoItens> buscarTodos() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
 }

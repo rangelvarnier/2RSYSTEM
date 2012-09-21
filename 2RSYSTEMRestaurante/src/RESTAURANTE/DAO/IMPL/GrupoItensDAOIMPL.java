@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author ricardosassanovicz
  */
-public class GrupoItensDAOIMPL implements GrupoItensDAO{
+public class GrupoItensDAOIMPL implements GrupoItensDAO {
 
     @Override
     public void inserir(GrupoItens grupoItens) {
@@ -43,5 +43,4 @@ public class GrupoItensDAOIMPL implements GrupoItensDAO{
     public List<GrupoItens> buscarTodos() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
 }
