@@ -13,11 +13,12 @@ import java.sql.SQLException;
  * @author rangel
  */
 public class Conexao {
+    private Connection con;
     
     public Connection conexaoUtil() {
         String endereco = "JDBC:mysql://localhost/2RSYSTEMRestaurante?autoReconnect=true";
         String user = "root";
-        String password = "483729";
+        String password = "";
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(endereco,
@@ -29,4 +30,7 @@ public class Conexao {
         return connection;
     }
     
+    public Connection criarConexao(){
+        return con;
+    }
 }
