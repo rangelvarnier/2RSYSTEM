@@ -1,12 +1,16 @@
 package RESTAURANTE.MODEL;
 
-public class GrupoItens {
+public class GrupoItem {
+
     private Integer codigo;
     private String descricao;
 
-    public GrupoItens(Integer codigo, String descricao) {
+    public GrupoItem(Integer codigo, String descricao) {
         setCodigo(codigo);
         setDescricao(descricao);
+    }
+
+    public GrupoItem() {
     }
 
     public Integer getCodigo() {
@@ -24,6 +28,4 @@ public class GrupoItens {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
-    
 }

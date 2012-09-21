@@ -4,9 +4,9 @@ public class SubGrupoItens {
     
     private Integer codigo;
     private String descricao;
-    private GrupoItens grupoItens;
+    private GrupoItem grupoItens;
 
-    public SubGrupoItens(Integer codigo, String descricao, GrupoItens grupoItens) {
+    public SubGrupoItens(Integer codigo, String descricao, GrupoItem grupoItens) {
         setCodigo(codigo);
         setDescricao(descricao);
         setGrupoItens(grupoItens);
@@ -28,11 +28,11 @@ public class SubGrupoItens {
         this.descricao = descricao;
     }
 
-    public GrupoItens getGrupoItens() {
+    public GrupoItem getGrupoItens() {
         return grupoItens;
     }
 
-    public void setGrupoItens(GrupoItens grupoItens) {
+    public void setGrupoItens(GrupoItem grupoItens) {
         this.grupoItens = grupoItens;
     }
 
