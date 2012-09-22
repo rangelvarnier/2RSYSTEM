@@ -12,9 +12,9 @@ public class Colaborador {
     private Date dataDemissao;
     private Float salario;
     private Pessoa pessoa;
-    private GrupoColaborador grupoColaboradores;
+    private GrupoColaborador grupoColaborador;
 
-    public Colaborador(Integer codigo, String cpf, String rg, Date dataNascimento, Date dataContradacao, Date dataDemissao, Float salario, Pessoa pessoa, GrupoColaborador grupoColaboradores) {
+    public Colaborador(Integer codigo, String cpf, String rg, Date dataNascimento, Date dataContradacao, Date dataDemissao, Float salario, Pessoa pessoa, GrupoColaborador grupoColaborador) {
         this.codigo = codigo;
         this.cpf = cpf;
         this.rg = rg;
@@ -23,13 +23,19 @@ public class Colaborador {
         this.dataDemissao = dataDemissao;
         this.salario = salario;
         this.pessoa = pessoa;
-        this.grupoColaboradores = grupoColaboradores;
+        this.grupoColaborador = grupoColaborador;
     }
 
 
 
     public Colaborador() {
         
+    }
+    public Colaborador(GrupoColaborador grupoColaborador){
+        this.grupoColaborador = grupoColaborador;
+    }
+    public Colaborador(Pessoa pessoa){
+        this.pessoa = pessoa;
     }
 
     public Integer getCodigo() {
@@ -96,11 +102,11 @@ public class Colaborador {
         this.pessoa = pessoa;
     }
 
-    public GrupoColaborador getGrupoColaboradores() {
-        return grupoColaboradores;
+    public GrupoColaborador getGrupoColaborador() {
+        return grupoColaborador;
     }
 
-    public void setGrupoColaboradores(GrupoColaborador grupoColaboradores) {
-        this.grupoColaboradores = grupoColaboradores;
+    public void setGrupoColaborador(GrupoColaborador grupoColaborador) {
+        this.grupoColaborador = grupoColaborador;
     }
 }
