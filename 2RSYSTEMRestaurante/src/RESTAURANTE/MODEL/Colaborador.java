@@ -12,21 +12,24 @@ public class Colaborador {
     private Date dataDemissao;
     private Float salario;
     private Pessoa pessoa;
-    private GrupoColaboradores grupoColaboradores;
+    private GrupoColaborador grupoColaboradores;
 
-    public Colaborador(Integer codigo, String cpf, String rg, Date dataNascimento, Date dataContradacao,
-                Date dataDemissao, Float salario, Pessoa pessoa, GrupoColaboradores grupoColaboradores) {
+    public Colaborador(Integer codigo, String cpf, String rg, Date dataNascimento, Date dataContradacao, Date dataDemissao, Float salario, Pessoa pessoa, GrupoColaborador grupoColaboradores) {
+        this.codigo = codigo;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.dataNascimento = dataNascimento;
+        this.dataContradacao = dataContradacao;
+        this.dataDemissao = dataDemissao;
+        this.salario = salario;
+        this.pessoa = pessoa;
+        this.grupoColaboradores = grupoColaboradores;
+    }
+
+
+
+    public Colaborador() {
         
-        setCodigo(codigo);
-        setCpf(cpf);
-        setRg(rg);
-        setDataNascimento(dataNascimento);
-        setDataContradacao(dataContradacao);
-        setDataDemissao(dataDemissao);
-        setSalario(salario);
-        setPessoa(pessoa);
-        setGrupoColaboradores(grupoColaboradores);
-
     }
 
     public Integer getCodigo() {
@@ -93,15 +96,11 @@ public class Colaborador {
         this.pessoa = pessoa;
     }
 
-    public GrupoColaboradores getGrupoColaboradores() {
+    public GrupoColaborador getGrupoColaboradores() {
         return grupoColaboradores;
     }
 
-    public void setGrupoColaboradores(GrupoColaboradores grupoColaboradores) {
+    public void setGrupoColaboradores(GrupoColaborador grupoColaboradores) {
         this.grupoColaboradores = grupoColaboradores;
     }
-    
-    
-    
-    
 }
