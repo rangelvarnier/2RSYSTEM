@@ -1,7 +1,8 @@
 package RESTAURANTE.DAO.IMPL;
 
-import RESTAURANTE.DAO.UTIL.Conexao;
+
 import RESTAURANTE.DAO.GrupoColaboradorDAO;
+import RESTAURANTE.DAO.UTIL.Conexao;
 import RESTAURANTE.MODEL.GrupoColaborador;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
