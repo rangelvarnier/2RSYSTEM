@@ -1,7 +1,7 @@
 package RESTAURANTE.DAO.IMPL;
 
-import CONEXAO.Conexao;
 import RESTAURANTE.DAO.GrupoItemDAO;
+import RESTAURANTE.DAO.UTIL.Conexao;
 import RESTAURANTE.MODEL.GrupoItem;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ public class GrupoItemDAOIMPL implements GrupoItemDAO {
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setLong(1, grupoItem.getCodigo());
+            stmt.setInt(1, grupoItem.getCodigo());
             stmt.setString(2, grupoItem.getDescricao());
 
             stmt.executeUpdate();
@@ -104,7 +104,7 @@ public class GrupoItemDAOIMPL implements GrupoItemDAO {
 
     @Override
     public List<GrupoItem> buscarTodos() {
-        List<GrupoItem> grupoItens = new ArrayList<>();
+        List<GrupoItem> grupoItens = new ArrayList<GrupoItem>();
         Connection con = new Conexao().criarConexao();
         String sql = "select * from grupoitem";
 
@@ -118,8 +118,8 @@ public class GrupoItemDAOIMPL implements GrupoItemDAO {
                 grupoItem.setDescricao(rs.getString("descricao"));
                 grupoItens.add(grupoItem);
             }
+
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
         return grupoItens;
     }

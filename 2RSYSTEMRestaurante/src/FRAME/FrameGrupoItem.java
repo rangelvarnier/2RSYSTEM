@@ -1,15 +1,25 @@
-
 package FRAME;
+
+import RESTAURANTE.DAO.GrupoItemDAO;
+import RESTAURANTE.DAO.IMPL.GrupoItemDAOIMPL;
+import RESTAURANTE.MODEL.GrupoItem;
+import java.util.List;
+import java.util.Observable;
+import org.jdesktop.observablecollections.ObservableCollections;
 
 public class FrameGrupoItem extends javax.swing.JFrame {
 
     public FrameGrupoItem() {
         initComponents();
+        grupoItemDao = new GrupoItemDAOIMPL();
+        setGrupoItem(new GrupoItem());
+        atualizaTabela();
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jLabel1 = new javax.swing.JLabel();
         jbtEditar = new javax.swing.JButton();
@@ -31,7 +41,6 @@ public class FrameGrupoItem extends javax.swing.JFrame {
         jtfDescricaoGrupo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setLocation(new java.awt.Point(200, 100));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
@@ -45,6 +54,11 @@ public class FrameGrupoItem extends javax.swing.JFrame {
 
         jbtSalvar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtSalvar.setText("Salvar");
+        jbtSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtSalvarActionPerformed(evt);
+            }
+        });
 
         jbtCancelar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtCancelar.setText("Calcelar");
@@ -65,33 +79,33 @@ public class FrameGrupoItem extends javax.swing.JFrame {
         jtbpGrupoItem.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jtbpGrupoItem.setToolTipText("");
 
-        jtbGrupoItem.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        jtbGrupoItem.setColumnSelectionAllowed(true);
 
-            },
-            new String [] {
-                "Código", "Descrição do Grupo"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${grupoItens}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbGrupoItem);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
+        columnBinding.setColumnName("cod");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descricao}"));
+        columnBinding.setColumnName("nome");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
         jScrollPane1.setViewportView(jtbGrupoItem);
-        jtbGrupoItem.getColumnModel().getColumn(0).setMinWidth(50);
-        jtbGrupoItem.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jtbGrupoItem.getColumnModel().getColumn(1).setMinWidth(300);
-        jtbGrupoItem.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jtbGrupoItem.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jtfPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jtfPesquisar.setToolTipText("Campo de Pesquisa");
 
         jbtPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtPesquisar.setText("Pesquisar");
+        jbtPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtPesquisarActionPerformed(evt);
+            }
+        });
 
         jbtDetalhar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtDetalhar.setText("Detalhar");
@@ -127,7 +141,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
                     .add(jbtPesquisar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 218, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 31, Short.MAX_VALUE)
                 .add(jbtDetalhar))
         );
 
@@ -136,7 +150,6 @@ public class FrameGrupoItem extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel2.setText("Código");
 
-        jtfCodigo.setEditable(false);
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -155,7 +168,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
                     .add(jLabel3)
                     .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jtfDescricaoGrupo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 256, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addContainerGap(248, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -168,7 +181,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
                 .add(jLabel3)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jtfDescricaoGrupo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
 
         jtbpGrupoItem.addTab("Cadastro", jPanel3);
@@ -213,6 +226,8 @@ public class FrameGrupoItem extends javax.swing.JFrame {
                     .add(jbtCancelar)))
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -223,7 +238,9 @@ public class FrameGrupoItem extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
-        jtbpGrupoItem.setSelectedIndex(1);
+       jtbpGrupoItem.setSelectedIndex(1);
+        setGrupoItem(new GrupoItem());
+        
 
     }//GEN-LAST:event_jbtNovoActionPerformed
 
@@ -231,14 +248,29 @@ public class FrameGrupoItem extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
+    private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
+        setGrupoItem(grupoItemDao.buscarPorCodigo(Integer.valueOf(jtfPesquisar.getText())));
+
+    }//GEN-LAST:event_jbtPesquisarActionPerformed
+
+    private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
+       
+        grupoItemDao.inserir(grupoItem);
+        atualizaTabela();
+    }//GEN-LAST:event_jbtSalvarActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /*
+         * Set the Nimbus look and feel
+         */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /*
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the
+         * default look and feel. For details see
+         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -258,8 +290,11 @@ public class FrameGrupoItem extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /*
+         * Create and display the form
+         */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new FrameGrupoItem().setVisible(true);
             }
@@ -284,5 +319,35 @@ public class FrameGrupoItem extends javax.swing.JFrame {
     private javax.swing.JTextField jtfCodigo;
     private javax.swing.JTextField jtfDescricaoGrupo;
     private javax.swing.JTextField jtfPesquisar;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+    private GrupoItem grupoItem;
+    private List<GrupoItem> grupoItens;
+    private GrupoItemDAO grupoItemDao;
+
+    public GrupoItem getGrupoItem() {
+        return grupoItem;
+    }
+
+    public void setGrupoItem(GrupoItem grupoItem) {
+        GrupoItem grupoItemVelho = this.grupoItem;
+        this.grupoItem = grupoItem;
+        firePropertyChange("GrupoItem", grupoItemVelho, this.grupoItem);
+    }
+
+    public List<GrupoItem> getGrupoItens() {
+        return grupoItens;
+    }
+
+    public void setGrupoItens(List<GrupoItem> grupoItens) {
+        List<GrupoItem> GrupoItensVelhos = this.grupoItens;
+        this.grupoItens = ObservableCollections.observableList(grupoItens);
+        firePropertyChange("GruposItens", GrupoItensVelhos, this.grupoItens);
+    }
+    
+    private void atualizaTabela(){
+        setGrupoItens(grupoItemDao.buscarTodos());
+    }
+    
+    
 }

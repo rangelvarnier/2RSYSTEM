@@ -18,7 +18,9 @@ public class GrupoItem {
     }
 
     public void setCodigo(Integer codigo) {
+
         this.codigo = codigo;
+
     }
 
     public String getDescricao() {
@@ -26,6 +28,8 @@ public class GrupoItem {
     }
 
     public void setDescricao(String descricao) {
+
         this.descricao = descricao;
+
     }
 }
