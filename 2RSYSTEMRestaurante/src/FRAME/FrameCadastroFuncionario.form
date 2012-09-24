@@ -758,10 +758,7 @@
             <Component class="javax.swing.JComboBox" name="jcbSexo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="Masculino"/>
-                    <StringItem index="1" value="Feminino"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
               <BindingProperties>
@@ -879,13 +876,7 @@
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
-                    <StringItem index="0" value="SC"/>
-                    <StringItem index="1" value="RJ"/>
-                    <StringItem index="2" value="SP"/>
-                    <StringItem index="3" value="PR"/>
-                    <StringItem index="4" value="RS"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
               <BindingProperties>
@@ -898,10 +889,7 @@
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="Xaxim"/>
-                    <StringItem index="1" value="Chapec&#xf3;"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
               <BindingProperties>
