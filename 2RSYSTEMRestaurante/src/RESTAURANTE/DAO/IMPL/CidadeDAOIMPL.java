@@ -2,34 +2,119 @@
 package RESTAURANTE.DAO.IMPL;
 
 import RESTAURANTE.DAO.CidadeDAO;
+import RESTAURANTE.DAO.UTIL.Conexao;
+import RESTAURANTE.DAO.UnidadeFederativaDAO;
 import RESTAURANTE.MODEL.Cidade;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CidadeDAOIMPL implements CidadeDAO{
 
     @Override
     public void inserir(Cidade cidade) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Connection con = new Conexao().criarConexao();
+        String sql = "insert into Cidade value(?, ?, ?)";
+        try{
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setInt(1, cidade.getCodigo());
+            stmt.setString(2, cidade.getNome());
+            stmt.setInt(3, cidade.getUnidadeFederativa_codigo().getCodigo());
+
+            stmt.executeUpdate();
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public void alterar(Cidade cidade) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Connection con = new Conexao().criarConexao();
+        String sql = "update Cidade set nome = ?, unidadeFederativa_codigo = ?"
+                + " where codigo = ?";
+        try{
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, cidade.getNome());            
+            stmt.setInt(2, cidade.getUnidadeFederativa_codigo().getCodigo());
+            stmt.setInt(3, cidade.getCodigo());
+            
+            stmt.executeUpdate();
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public void remover(Cidade cidade) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Connection con = new Conexao().criarConexao();
+        String sql = "delete from Cidade"
+                + " where codigo = ?";
+        try{
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, cidade.getCodigo());
+            
+            stmt.executeUpdate();
+        } catch (SQLException ex){
+            
+        }
     }
 
     @Override
     public Cidade buscaPorId(Integer codigo) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Cidade cidade = null;
+        UnidadeFederativaDAO unidadeFederativaDao = new UnidadeFederativaDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from Cidade"
+                + " where codigo = ?";
+        try{
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setInt(1, codigo);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                cidade = new Cidade();
+                cidade.setCodigo(rs.getInt("codico"));
+                cidade.setNome(rs.getString("nome"));
+                cidade.setUnidadeFederativa_codigo(unidadeFederativaDao.buscarPorCodigo(rs.getInt("codigo")));
+
+            }
+            
+        } catch (SQLException ex){
+            
+        }
+        return cidade;
     }
 
     @Override
     public List<Cidade> buscarTodos() {
-        throw new UnsupportedOperationException("Not supported yet.");
+     List<Cidade> cidades = new ArrayList<Cidade>();
+        UnidadeFederativaDAO unidadeFederativaDao = new UnidadeFederativaDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from cidade";
+        
+        try{
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Cidade cidade = new Cidade();
+                cidade.setCodigo(rs.getInt("codigo"));
+                cidade.setNome(rs.getString("nome"));
+                cidade.setUnidadeFederativa_codigo(unidadeFederativaDao.buscarPorCodigo
+                        (rs.getInt("codigo")));
+                cidades.add(cidade);
+            }
+            
+        } catch (SQLException ex){
+            
+        }
+        return cidades;
     }
     
 }

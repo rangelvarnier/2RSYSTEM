@@ -2,25 +2,22 @@
 package RESTAURANTE.MODEL;
 
 public class GrupoColaborador {
-    private Integer codigo;
+    private Long codigo;
     private String descricao;
 
-    public GrupoColaborador(Integer codigo, String descricao) {
-        setCodigo(codigo);
-        setDescricao(descricao);
-       
-    }
-
     public GrupoColaborador() {
-        
     }
- 
 
-    public Integer getCodigo() {
+    public GrupoColaborador(Long codigo, String descricao) {
+        this.codigo = codigo;
+        this.descricao = descricao;
+    }
+
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(Integer codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
@@ -31,5 +28,7 @@ public class GrupoColaborador {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-        
+    
+    
+
 }
