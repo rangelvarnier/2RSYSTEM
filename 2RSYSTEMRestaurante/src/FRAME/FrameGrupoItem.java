@@ -286,10 +286,9 @@ public class FrameGrupoItem extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
-
         grupoItemDao.alterar(grupoItem);
-        novoGrupo();
-        atualizaTabela();
+        //novoGrupo();
+        //atualizaTabela();
     }//GEN-LAST:event_jbtEditarActionPerformed
 
     /**
