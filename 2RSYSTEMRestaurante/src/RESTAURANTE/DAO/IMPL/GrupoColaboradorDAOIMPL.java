@@ -23,7 +23,7 @@ public class GrupoColaboradorDAOIMPL implements GrupoColaboradorDAO {
             
             stmt.setLong(1, grupoColaborador.getCodigo());
             stmt.setString(2, grupoColaborador.getDescricao());
-           
+            
             stmt.executeUpdate();
 
         } catch (SQLException ex) {
@@ -34,12 +34,12 @@ public class GrupoColaboradorDAOIMPL implements GrupoColaboradorDAO {
     @Override
     public void alterar(GrupoColaborador grupoColaborador) {
        Connection con = new Conexao().criarConexao();
-        String sql = "update GrupoColaboradores set codigo = ?, descricao = ? where codigo = ?";
+        String sql = "update grupoColaboradores set descricao = ? where codigo = ?";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
             
             stmt.setString(1, grupoColaborador.getDescricao());
-            stmt.setLong(4, grupoColaborador.getCodigo());
+            stmt.setLong(2, grupoColaborador.getCodigo());
             
             stmt.executeUpdate();
         } catch (SQLException ex){
@@ -50,7 +50,7 @@ public class GrupoColaboradorDAOIMPL implements GrupoColaboradorDAO {
     @Override
     public void remover(GrupoColaborador grupoColaborador) {
         Connection con = new Conexao().criarConexao();
-        String sql = "delete from GrupoColaboradores"
+        String sql = "delete from grupoColaboradores"
                 + " where codigo = ?";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -66,7 +66,7 @@ public class GrupoColaboradorDAOIMPL implements GrupoColaboradorDAO {
     public GrupoColaborador buscaPorId(Long codigo) {
         GrupoColaborador grupoColaborador = null;
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from GrupoColaboradores"
+        String sql = "select * from grupoColaboradores"
                 + " where codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -87,7 +87,7 @@ public class GrupoColaboradorDAOIMPL implements GrupoColaboradorDAO {
     public List<GrupoColaborador> buscarTodos() {
         List<GrupoColaborador> grupoColaboradores = new ArrayList<GrupoColaborador>();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from GrupoColaboradores";
+        String sql = "select * from grupoColaboradores";
         
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
