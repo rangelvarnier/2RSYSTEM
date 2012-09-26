@@ -12,7 +12,7 @@ public class Conexao {
         String url = "jdbc:mysql://localhost/2RSITEM?"
                 + "autoReconnect=true";
         String user = "root";
-        String password = "";
+        String password = "483729";
 
         try {
             con = DriverManager.getConnection(url, user,
