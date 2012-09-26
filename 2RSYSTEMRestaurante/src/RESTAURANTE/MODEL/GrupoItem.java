@@ -12,6 +12,7 @@ public class GrupoItem {
 
     public GrupoItem() {
     }
+    
 
     public Integer getCodigo() {
         return codigo;
