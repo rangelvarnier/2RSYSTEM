@@ -5,9 +5,11 @@ import RESTAURANTE.DAO.GrupoColaboradorDAO;
 import RESTAURANTE.DAO.IMPL.ColaboradorDAOIMPL;
 import RESTAURANTE.DAO.IMPL.GrupoColaboradorDAOIMPL;
 import RESTAURANTE.DAO.PessoaDAO;
+import RESTAURANTE.MODEL.Cidade;
 import RESTAURANTE.MODEL.Colaborador;
 import RESTAURANTE.MODEL.GrupoColaborador;
 import RESTAURANTE.MODEL.Pessoa;
+import RESTAURANTE.MODEL.UnidadeFederativa;
 import java.util.List;
 import org.jdesktop.observablecollections.ObservableCollections;
 
@@ -367,13 +369,11 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
 
         jcbUF.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${colaborador.pessoa.endereco_codigo.cidade_codigo.unidadeFederativa_codigo.sigla}"), jcbUF, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
-
         jcbCidade.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${colaborador.pessoa.endereco_codigo.cidade_codigo.nome}"), jcbCidade, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${cidades}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jcbCidade);
+        bindingGroup.addBinding(jComboBoxBinding);
 
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -768,6 +768,57 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     private ColaboradorDAO colaboradorDao;
     private GrupoColaboradorDAO grupoColaboradorDao;
     private PessoaDAO pessoaDao;
+    private Cidade cidade;
+    private List<Cidade> cidades;
+    private UnidadeFederativa unidadeFederativa;
+    private List<UnidadeFederativa> unidadeFederativas;
+
+    public List<Cidade> getCidades() {
+        return cidades;
+    }
+
+    public void setCidades(List<Cidade> cidades) {
+        List<Cidade> cidadesVelhos = this.cidades;
+        this.cidades = ObservableCollections.observableList(cidades);
+        firePropertyChange("cidades", cidadesVelhos, this.colaboradores);
+    }
+
+    public UnidadeFederativa getUnidadeFederativa() {
+        return unidadeFederativa;
+    }
+
+    public void setUnidadeFederativa(UnidadeFederativa unidadeFederativa) {
+        this.unidadeFederativa = unidadeFederativa;
+    }
+
+    public List<UnidadeFederativa> getUnidadeFederativas() {
+        return unidadeFederativas;
+    }
+
+    public void setUnidadeFederativas(List<UnidadeFederativa> unidadeFederativas) {
+        this.unidadeFederativas = unidadeFederativas;
+    }
+    
+    
+
+    public ColaboradorDAO getColaboradorDao() {
+        return colaboradorDao;
+    }
+
+    public void setColaboradorDao(ColaboradorDAO colaboradorDao) {
+        this.colaboradorDao = colaboradorDao;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        Cidade cidadeVelho = this.cidade;
+        this.cidade = cidade;
+        firePropertyChange("cidade", cidadeVelho, this.cidade);
+    }
+    
 
     public Colaborador getColaborador() {
         return colaborador;

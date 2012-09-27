@@ -1,11 +1,14 @@
-
 package FRAME;
+
+import com.sun.org.apache.bcel.internal.generic.Select;
 
 public class FrameCadastroProdutos extends javax.swing.JFrame {
 
     public FrameCadastroProdutos() {
         initComponents();
+
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -62,6 +65,37 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
         jtbpProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jtbpProdutos.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        jtbpProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jtbpProdutosMousePressed(evt);
+            }
+        });
+        jtbpProdutos.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jtbpProdutosStateChanged(evt);
+            }
+        });
+        jtbpProdutos.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                jtbpProdutosComponentMoved(evt);
+            }
+        });
+        jtbpProdutos.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                jtbpProdutosCaretPositionChanged(evt);
+            }
+        });
+        jtbpProdutos.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+                jtbpProdutosAncestorMoved(evt);
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         jtbProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -116,7 +150,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                     .add(jbtPesquisar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 309, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 61, Short.MAX_VALUE)
                 .add(jbtDetalhar))
         );
 
@@ -133,7 +167,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 377, Short.MAX_VALUE)
+            .add(0, 430, Short.MAX_VALUE)
         );
 
         jtbpProdutos.addTab("Cadastro", jPanel3);
@@ -168,8 +202,8 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jLabel1)
                 .add(18, 18, 18)
-                .add(jtbpProdutos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 71, Short.MAX_VALUE)
+                .add(jtbpProdutos, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jbtSalvar)
                     .add(jbtExcluir)
@@ -186,15 +220,44 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
         jtbpProdutos.setSelectedIndex(1);
-        
-        
+
+
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
 
         dispose();
-        
+
     }//GEN-LAST:event_jbtCancelarActionPerformed
+
+    private void jtbpProdutosAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jtbpProdutosAncestorMoved
+    }//GEN-LAST:event_jtbpProdutosAncestorMoved
+
+    private void jtbpProdutosStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpProdutosStateChanged
+        if (jtbpProdutos.getSelectedIndex() == 0) {
+            jbtDetalhar.setVisible(false);
+            jbtEditar.setVisible(false);
+            jbtExcluir.setVisible(false);
+            jbtNovo.setVisible(false);
+            jbtSalvar.setVisible(false);
+        } else {
+            jbtSalvar.setVisible(true);
+            jbtDetalhar.setVisible(true);
+            jbtEditar.setVisible(true);
+            jbtExcluir.setVisible(true);
+            jbtNovo.setVisible(true);
+        }
+    }//GEN-LAST:event_jtbpProdutosStateChanged
+
+    private void jtbpProdutosComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jtbpProdutosComponentMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtbpProdutosComponentMoved
+
+    private void jtbpProdutosCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jtbpProdutosCaretPositionChanged
+    }//GEN-LAST:event_jtbpProdutosCaretPositionChanged
+
+    private void jtbpProdutosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbpProdutosMousePressed
+    }//GEN-LAST:event_jtbpProdutosMousePressed
 
     /**
      * @param args the command line arguments
@@ -248,4 +311,12 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jtbpProdutos;
     private javax.swing.JTextField jtfPesquisar;
     // End of variables declaration//GEN-END:variables
+
+    private void tirabotao() {
+
+
+        jtbpProdutos.setSelectedIndex(1);
+
+
+    }
 }
