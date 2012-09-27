@@ -879,9 +879,6 @@
                   <StringArray count="0"/>
                 </Property>
               </Properties>
-              <BindingProperties>
-                <BindingProperty name="selectedItem" source="Form" sourcePath="${colaborador.pessoa.endereco_codigo.cidade_codigo.unidadeFederativa_codigo.sigla}" target="jcbUF" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
-              </BindingProperties>
             </Component>
             <Component class="javax.swing.JComboBox" name="jcbCidade">
               <Properties>
@@ -893,7 +890,7 @@
                 </Property>
               </Properties>
               <BindingProperties>
-                <BindingProperty name="selectedItem" source="Form" sourcePath="${colaborador.pessoa.endereco_codigo.cidade_codigo.nome}" target="jcbCidade" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+                <BindingProperty name="elements" source="Form" sourcePath="${cidades}" target="jcbCidade" targetPath="elements" updateStrategy="0" immediately="false"/>
               </BindingProperties>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfCodigo">

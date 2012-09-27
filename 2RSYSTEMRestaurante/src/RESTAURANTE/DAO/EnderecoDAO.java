@@ -5,7 +5,7 @@ import RESTAURANTE.MODEL.Endereco;
 import java.util.List;
 
 public interface EnderecoDAO {
-     void inserir(Endereco endereco);
+    void inserir(Endereco endereco);
 
     void alterar(Endereco endereco);
 
