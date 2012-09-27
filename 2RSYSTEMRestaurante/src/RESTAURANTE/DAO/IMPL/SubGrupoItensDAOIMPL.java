@@ -4,40 +4,117 @@
  */
 package RESTAURANTE.DAO.IMPL;
 
-import RESTAURANTE.DAO.SubGrupoItensDAO;
-import RESTAURANTE.MODEL.SubGrupoItens;
+import RESTAURANTE.DAO.GrupoItemDAO;
+import RESTAURANTE.DAO.SubGrupoItemDAO;
+import RESTAURANTE.DAO.UTIL.Conexao;
+import RESTAURANTE.MODEL.GrupoItem;
+import RESTAURANTE.MODEL.SubGrupoItem;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author ricardosassanovicz
  */
-public class SubGrupoItensDAOIMPL implements SubGrupoItensDAO {
+public class SubGrupoItensDAOIMPL implements SubGrupoItemDAO {
 
     @Override
-    public void inserir(SubGrupoItens subGrupoItens) {
+    public void inserir(SubGrupoItem subGrupoItem) {
+        Connection con = new Conexao().criarConexao();
+        String sql = "insert into subgrupoitem value(?, ?, ?)";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, subGrupoItem.getCodigo());
+            stmt.setString(2, subGrupoItem.getDescricao());
+            stmt.setInt(3, subGrupoItem.getGrupoItem().getCodigo());
+
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
-    public void alterar(SubGrupoItens subGrupoItens) {
+    public void alterar(SubGrupoItem subGrupoItem) {
+        Connection con = new Conexao().criarConexao();
+        String sql = "update subgrupoitem set descricao = ?,"
+                + " grupoItem_codigo = ? where codigo = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, subGrupoItem.getDescricao());
+            stmt.setInt(2, subGrupoItem.getGrupoItem().getCodigo());
+            stmt.setInt(3, subGrupoItem.getCodigo());
+
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
-    public void remover(SubGrupoItens subGrupoItens) {
+    public void remover(SubGrupoItem subGrupoItem) {
+        Connection con = new Conexao().criarConexao();
+        String sql = "delete from subgrupoitem whwre codigo = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, subGrupoItem.getCodigo());
+
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
-    public SubGrupoItens buscarPorDescricao(String descricao) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public SubGrupoItem buscarPorCodigo(Integer codigo) {
+        SubGrupoItem subGrupoItem = null;
+        GrupoItemDAO grupoItemDao = new GrupoItemDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from subgrupoitem where codigo = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setLong(1, codigo);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                subGrupoItem = new SubGrupoItem();
+                subGrupoItem.setCodigo(rs.getInt("codigo"));
+                subGrupoItem.setDescricao(rs.getString("descricao"));
+                subGrupoItem.setGrupoItem(grupoItemDao.buscarPorCodigo(rs.getInt("grupoItem_codigo")));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return subGrupoItem;
     }
 
     @Override
-    public SubGrupoItens buscarPorCodigo(Integer codigo) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public List<SubGrupoItem> buscarTodos() {
+        List<SubGrupoItem> subGrupoItens = new ArrayList<SubGrupoItem>();
+        GrupoItemDAO grupoItemDao = new GrupoItemDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from subgrupoitem";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                SubGrupoItem subGrupoItem = new SubGrupoItem();
+                subGrupoItem.setCodigo(rs.getInt("codigo"));
+                subGrupoItem.setDescricao(rs.getString("descricao"));
+                subGrupoItem.setGrupoItem(grupoItemDao.buscarPorCodigo(rs.getInt("grupoItem_codigo")));
+                subGrupoItens.add(subGrupoItem);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
 
-    @Override
-    public List<SubGrupoItens> buscarTodos() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return subGrupoItens;
     }
 }

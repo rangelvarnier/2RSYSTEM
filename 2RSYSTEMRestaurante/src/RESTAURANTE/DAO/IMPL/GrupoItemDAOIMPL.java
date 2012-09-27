@@ -58,29 +58,6 @@ public class GrupoItemDAOIMPL implements GrupoItemDAO {
     }
 
     @Override
-    public GrupoItem buscarPorDescricao(String descricao) {
-
-        GrupoItem grupoItem = null;
-        Connection con = new Conexao().criarConexao();
-        String sql = "select * from grupoitem where descricao like %?%";
-
-        try {
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, descricao);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                grupoItem = new GrupoItem();
-                grupoItem.setCodigo(rs.getInt("codigo"));
-                grupoItem.setDescricao(rs.getString("descricao"));
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return grupoItem;
-    }
-
-    @Override
     public GrupoItem buscarPorCodigo(Integer codigo) {
         GrupoItem grupoItem = null;
         Connection con = new Conexao().criarConexao();

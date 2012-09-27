@@ -1,17 +1,20 @@
 package RESTAURANTE.MODEL;
 
-public class SubGrupoItens {
+public class SubGrupoItem {
     
     private Integer codigo;
     private String descricao;
-    private GrupoItem grupoItens;
+    private GrupoItem grupoItem;
 
-    public SubGrupoItens(Integer codigo, String descricao, GrupoItem grupoItens) {
+    public SubGrupoItem(Integer codigo, String descricao, GrupoItem grupoItem) {
         setCodigo(codigo);
         setDescricao(descricao);
-        setGrupoItens(grupoItens);
+        setGrupoItem(grupoItem);
     }
-    
+
+    public SubGrupoItem() {
+    }
+
     public Integer getCodigo() {
         return codigo;
     }
@@ -28,14 +31,16 @@ public class SubGrupoItens {
         this.descricao = descricao;
     }
 
-    public GrupoItem getGrupoItens() {
-        return grupoItens;
+    public GrupoItem getGrupoItem() {
+        return grupoItem;
     }
 
-    public void setGrupoItens(GrupoItem grupoItens) {
-        this.grupoItens = grupoItens;
+    public void setGrupoItem(GrupoItem grupoItem) {
+        this.grupoItem = grupoItem;
     }
-
+    
+    
+    
     
     
 }

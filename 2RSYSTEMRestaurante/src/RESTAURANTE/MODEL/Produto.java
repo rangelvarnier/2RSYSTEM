@@ -10,10 +10,10 @@ public class Produto {
     private Float precoCompra;
     private Float saldoEstoque;
     private UnidadeMedida unidadeMedida;
-    private SubGrupoItens subGrupoItens;
+    private SubGrupoItem subGrupoItens;
     private Fornecedor fornecedor;
 
-    public Produto(Integer codigo, String codigoFabrica, String descricao, Float precoVenda, Float precoCompra, Float saldoEstoque, UnidadeMedida unidadeMedida, SubGrupoItens subGrupoItens, Fornecedor fornecedor) {
+    public Produto(Integer codigo, String codigoFabrica, String descricao, Float precoVenda, Float precoCompra, Float saldoEstoque, UnidadeMedida unidadeMedida, SubGrupoItem subGrupoItens, Fornecedor fornecedor) {
         setCodigo(codigo);
         setCodigoFabrica(codigoFabrica);
         setDescricao(descricao);
@@ -82,11 +82,11 @@ public class Produto {
         this.unidadeMedida = unidadeMedida;
     }
 
-    public SubGrupoItens getSubGrupoItens() {
+    public SubGrupoItem getSubGrupoItens() {
         return subGrupoItens;
     }
 
-    public void setSubGrupoItens(SubGrupoItens subGrupoItens) {
+    public void setSubGrupoItens(SubGrupoItem subGrupoItens) {
         this.subGrupoItens = subGrupoItens;
     }
 

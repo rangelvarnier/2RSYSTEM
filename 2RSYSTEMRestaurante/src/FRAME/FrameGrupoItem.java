@@ -13,6 +13,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
         novoGrupo();
         grupoItemDao = new GrupoItemDAOIMPL();
         atualizaTabela();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -87,6 +88,11 @@ public class FrameGrupoItem extends javax.swing.JFrame {
 
         jtbpGrupoItem.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jtbpGrupoItem.setToolTipText("");
+        jtbpGrupoItem.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jtbpGrupoItemStateChanged(evt);
+            }
+        });
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${grupoItens}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbGrupoItem);
@@ -291,6 +297,10 @@ public class FrameGrupoItem extends javax.swing.JFrame {
         //atualizaTabela();
     }//GEN-LAST:event_jbtEditarActionPerformed
 
+    private void jtbpGrupoItemStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpGrupoItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtbpGrupoItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -382,5 +392,13 @@ public class FrameGrupoItem extends javax.swing.JFrame {
 
     private void novoGrupo() {
         setGrupoItem(new GrupoItem());
+    }
+    
+    private void mostraBotao() {
+        if(jtbpGrupoItem.getSelectedIndex()==0){
+            jbtCancelar.setVisible(false);
+        }else{
+            jbtCancelar.setVisible(true);
+        }
     }
 }

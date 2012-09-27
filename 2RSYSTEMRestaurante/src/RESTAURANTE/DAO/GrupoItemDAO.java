@@ -11,10 +11,7 @@ public interface GrupoItemDAO {
 
     void remover(GrupoItem grupoItem);
 
-    GrupoItem buscarPorDescricao(String descricao);
-
     GrupoItem buscarPorCodigo(Integer codigo);
 
     List<GrupoItem> buscarTodos();
-    
 }
