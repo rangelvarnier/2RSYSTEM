@@ -12,7 +12,6 @@ public class GrupoItem {
         this.codigo = codigo;
         this.descricao = descricao;
     }
-    
 
     public Integer getCodigo() {
         return codigo;
@@ -29,6 +28,4 @@ public class GrupoItem {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
-
 }

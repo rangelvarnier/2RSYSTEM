@@ -268,13 +268,13 @@ public class FrameGrupoItem extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
-        setGrupoItem(grupoItemDao.buscarPorCodigo(Integer.valueOf(jtfPesquisar.getText())));
+        setGrupoItens(grupoItemDao.buscarPorDescricao(jtfPesquisar.getText()));
     }//GEN-LAST:event_jbtPesquisarActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-        grupoItemDao.inserir(grupoItem);
-        novoGrupo();
-        atualizaTabela();
+            grupoItemDao.inserir(grupoItem);
+            novoGrupo();
+            atualizaTabela();
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jtbGrupoItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbGrupoItemMouseClicked
@@ -292,26 +292,20 @@ public class FrameGrupoItem extends javax.swing.JFrame {
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
         grupoItemDao.alterar(grupoItem);
-        //novoGrupo();
-        //atualizaTabela();
+        atualizaTabela();
     }//GEN-LAST:event_jbtEditarActionPerformed
 
     private void jtbpGrupoItemStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpGrupoItemStateChanged
         if (jtbpGrupoItem.getSelectedIndex() == 0) {
-
             jbtEditar.setVisible(false);
             jbtExcluir.setVisible(false);
-
             jbtSalvar.setVisible(false);
         } else {
             jbtSalvar.setVisible(true);
-
             jbtEditar.setVisible(true);
             jbtExcluir.setVisible(true);
-
         }
     }//GEN-LAST:event_jtbpGrupoItemStateChanged
-                                        
 
     /**
      * @param args the command line arguments
@@ -348,6 +342,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new FrameGrupoItem().setVisible(true);
             }

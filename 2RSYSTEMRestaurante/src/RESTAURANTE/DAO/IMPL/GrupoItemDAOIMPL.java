@@ -100,4 +100,28 @@ public class GrupoItemDAOIMPL implements GrupoItemDAO {
         }
         return grupoItens;
     }
+
+    @Override
+    public List<GrupoItem> buscarPorDescricao(String descricao) {
+        List<GrupoItem> grupoItens = new ArrayList<GrupoItem>();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from grupoitem where descricao like ? ";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, "%"+descricao+"%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                GrupoItem grupoItem = new GrupoItem();
+                grupoItem.setCodigo(rs.getInt("codigo"));
+                grupoItem.setDescricao(rs.getString("descricao"));
+                grupoItens.add(grupoItem);
+            }
+
+        } catch (SQLException ex) {
+        }
+        return grupoItens;
+    }
+          
 }

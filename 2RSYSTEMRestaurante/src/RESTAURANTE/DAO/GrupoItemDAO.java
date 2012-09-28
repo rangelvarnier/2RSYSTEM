@@ -13,5 +13,9 @@ public interface GrupoItemDAO {
 
     GrupoItem buscarPorCodigo(Integer codigo);
 
+    List<GrupoItem> buscarPorDescricao(String descricao);
+    
     List<GrupoItem> buscarTodos();
+
+    
 }
