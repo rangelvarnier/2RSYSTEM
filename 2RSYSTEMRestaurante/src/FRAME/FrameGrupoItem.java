@@ -13,7 +13,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
         novoGrupo();
         grupoItemDao = new GrupoItemDAOIMPL();
         atualizaTabela();
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -41,7 +41,6 @@ public class FrameGrupoItem extends javax.swing.JFrame {
         jbtSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setLocation(new java.awt.Point(200, 100));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
@@ -151,7 +150,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
                     .add(jbtPesquisar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 218, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 31, Short.MAX_VALUE)
                 .add(jbtDetalhar))
         );
 
@@ -184,7 +183,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
                     .add(jLabel3)
                     .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jtfDescricaoGrupo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 256, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(340, Short.MAX_VALUE))
+                .addContainerGap(344, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -197,7 +196,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
                 .add(jLabel3)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jtfDescricaoGrupo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
 
         jtbpGrupoItem.addTab("Cadastro", jPanel3);
@@ -298,24 +297,21 @@ public class FrameGrupoItem extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtEditarActionPerformed
 
     private void jtbpGrupoItemStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpGrupoItemStateChanged
-       if (jtbpGrupoItem.getSelectedIndex() == 0) {
-            
+        if (jtbpGrupoItem.getSelectedIndex() == 0) {
+
             jbtEditar.setVisible(false);
             jbtExcluir.setVisible(false);
-           
+
             jbtSalvar.setVisible(false);
         } else {
             jbtSalvar.setVisible(true);
-          
+
             jbtEditar.setVisible(true);
             jbtExcluir.setVisible(true);
-           
+
         }
     }//GEN-LAST:event_jtbpGrupoItemStateChanged
-
-    private void jtbpGrupoItemStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpGrupoItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtbpGrupoItemStateChanged
+                                        
 
     /**
      * @param args the command line arguments
@@ -408,13 +404,5 @@ public class FrameGrupoItem extends javax.swing.JFrame {
 
     private void novoGrupo() {
         setGrupoItem(new GrupoItem());
-    }
-    
-    private void mostraBotao() {
-        if(jtbpGrupoItem.getSelectedIndex()==0){
-            jbtCancelar.setVisible(false);
-        }else{
-            jbtCancelar.setVisible(true);
-        }
     }
 }
