@@ -1,7 +1,9 @@
 package FRAME;
 
+import RESTAURANTE.DAO.CidadeDAO;
 import RESTAURANTE.DAO.ColaboradorDAO;
 import RESTAURANTE.DAO.GrupoColaboradorDAO;
+import RESTAURANTE.DAO.IMPL.CidadeDAOIMPL;
 import RESTAURANTE.DAO.IMPL.ColaboradorDAOIMPL;
 import RESTAURANTE.DAO.IMPL.GrupoColaboradorDAOIMPL;
 import RESTAURANTE.DAO.PessoaDAO;
@@ -19,6 +21,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         initComponents();
         grupoColaboradorDao = new GrupoColaboradorDAOIMPL();
         colaboradorDao = new ColaboradorDAOIMPL();
+        cidadeDao = new CidadeDAOIMPL();
         
     }
 
@@ -96,7 +99,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         });
 
         jbtCancelar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtCancelar.setText("Calcelar");
+        jbtCancelar.setText("Sair");
         jbtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtCancelarActionPerformed(evt);
@@ -374,6 +377,12 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${cidades}");
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jcbCidade);
         bindingGroup.addBinding(jComboBoxBinding);
+
+        jcbCidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbCidadeActionPerformed(evt);
+            }
+        });
 
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -672,6 +681,10 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
+    private void jcbCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbCidadeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -768,8 +781,9 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     private ColaboradorDAO colaboradorDao;
     private GrupoColaboradorDAO grupoColaboradorDao;
     private PessoaDAO pessoaDao;
-    private Cidade cidade;
+    
     private List<Cidade> cidades;
+    private CidadeDAO cidadeDao;
     private UnidadeFederativa unidadeFederativa;
     private List<UnidadeFederativa> unidadeFederativas;
 
@@ -778,11 +792,11 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     }
 
     public void setCidades(List<Cidade> cidades) {
-        List<Cidade> cidadesVelhos = this.cidades;
-        this.cidades = ObservableCollections.observableList(cidades);
-        firePropertyChange("cidades", cidadesVelhos, this.colaboradores);
+        this.cidades = cidades;
     }
+    
 
+    
     public UnidadeFederativa getUnidadeFederativa() {
         return unidadeFederativa;
     }
@@ -809,15 +823,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         this.colaboradorDao = colaboradorDao;
     }
 
-    public Cidade getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(Cidade cidade) {
-        Cidade cidadeVelho = this.cidade;
-        this.cidade = cidade;
-        firePropertyChange("cidade", cidadeVelho, this.cidade);
-    }
     
 
     public Colaborador getColaborador() {
@@ -843,7 +848,15 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
      public void atualizaTabela() {
         setColaboradores(colaboradorDao.buscarTodos());
     }
-    
+   
+     public void atualizaJcbCidade() {
+
+        cidades = cidadeDao.buscarTodos();
+
+        for (Cidade cidade : cidades) {
+            jcbCidade.addItem(cidade);
+        }
+    }
 
 
 
