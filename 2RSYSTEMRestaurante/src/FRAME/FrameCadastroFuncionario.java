@@ -6,9 +6,15 @@ import RESTAURANTE.DAO.GrupoColaboradorDAO;
 import RESTAURANTE.DAO.IMPL.CidadeDAOIMPL;
 import RESTAURANTE.DAO.IMPL.ColaboradorDAOIMPL;
 import RESTAURANTE.DAO.IMPL.GrupoColaboradorDAOIMPL;
+import RESTAURANTE.DAO.IMPL.PessoaDAOIMPL;
+import RESTAURANTE.DAO.IMPL.UnidadeFederativaDAOIMPL;
 import RESTAURANTE.DAO.PessoaDAO;
+import RESTAURANTE.DAO.UnidadeFederativaDAO;
 import RESTAURANTE.MODEL.Cidade;
 import RESTAURANTE.MODEL.Colaborador;
+import RESTAURANTE.MODEL.ComboBoxCidade;
+import RESTAURANTE.MODEL.ComboBoxPessoa;
+import RESTAURANTE.MODEL.ComboBoxUF;
 import RESTAURANTE.MODEL.GrupoColaborador;
 import RESTAURANTE.MODEL.Pessoa;
 import RESTAURANTE.MODEL.UnidadeFederativa;
@@ -19,9 +25,29 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
 
     public FrameCadastroFuncionario() {
         initComponents();
+        pessoaDao = new PessoaDAOIMPL();
+        cidadeDao = new CidadeDAOIMPL();
+        unidadeFederativaDao = new UnidadeFederativaDAOIMPL();
         grupoColaboradorDao = new GrupoColaboradorDAOIMPL();
         colaboradorDao = new ColaboradorDAOIMPL();
-        cidadeDao = new CidadeDAOIMPL();
+        
+        unidadeFederativas = unidadeFederativaDao.buscarTodos();
+        for (UnidadeFederativa un : unidadeFederativas) {
+            jcbUF.addItem(un);
+        }
+        jcbUF.setRenderer(new ComboBoxUF());
+        
+        cidades = cidadeDao.buscarTodos();
+        for (Cidade ci : cidades) {
+            jcbCidade.addItem(ci);
+        }
+        jcbCidade.setRenderer(new ComboBoxCidade());
+
+        pessoas = pessoaDao.buscarTodos();
+        for (Pessoa pe : pessoas) {
+            jcbSexo.addItem(pe);
+        }
+        jcbSexo.setRenderer(new ComboBoxPessoa());
         
     }
 
@@ -780,55 +806,17 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     private List<Colaborador> colaboradores;
     private ColaboradorDAO colaboradorDao;
     private GrupoColaboradorDAO grupoColaboradorDao;
-    private PessoaDAO pessoaDao;
-    
     private List<Cidade> cidades;
     private CidadeDAO cidadeDao;
-    private UnidadeFederativa unidadeFederativa;
+    private UnidadeFederativaDAO unidadeFederativaDao;
     private List<UnidadeFederativa> unidadeFederativas;
-
-    public List<Cidade> getCidades() {
-        return cidades;
-    }
-
-    public void setCidades(List<Cidade> cidades) {
-        this.cidades = cidades;
-    }
-    
+    private PessoaDAO pessoaDao;
+    private List<Pessoa> pessoas;
 
     
-    public UnidadeFederativa getUnidadeFederativa() {
-        return unidadeFederativa;
-    }
-
-    public void setUnidadeFederativa(UnidadeFederativa unidadeFederativa) {
-        this.unidadeFederativa = unidadeFederativa;
-    }
-
-    public List<UnidadeFederativa> getUnidadeFederativas() {
-        return unidadeFederativas;
-    }
-
-    public void setUnidadeFederativas(List<UnidadeFederativa> unidadeFederativas) {
-        this.unidadeFederativas = unidadeFederativas;
-    }
-    
-    
-
-    public ColaboradorDAO getColaboradorDao() {
-        return colaboradorDao;
-    }
-
-    public void setColaboradorDao(ColaboradorDAO colaboradorDao) {
-        this.colaboradorDao = colaboradorDao;
-    }
-
-    
-
     public Colaborador getColaborador() {
         return colaborador;
     }
-
     public void setColaborador(Colaborador colaborador) {
         Colaborador colaboradorVelho = this.colaborador;
         this.colaborador = colaborador;
@@ -848,16 +836,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
      public void atualizaTabela() {
         setColaboradores(colaboradorDao.buscarTodos());
     }
-   
-     public void atualizaJcbCidade() {
-
-        cidades = cidadeDao.buscarTodos();
-
-        for (Cidade cidade : cidades) {
-            jcbCidade.addItem(cidade);
-        }
-    }
-
-
+ 
 
 }

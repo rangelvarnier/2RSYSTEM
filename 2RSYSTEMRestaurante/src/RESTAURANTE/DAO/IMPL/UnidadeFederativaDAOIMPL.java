@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UnidadeFederativaDAOIMPL implements UnidadeFederativaDAO{
 
     @Override
@@ -87,9 +88,8 @@ public class UnidadeFederativaDAOIMPL implements UnidadeFederativaDAO{
     }
 
     @Override
-    public List<UnidadeFederativa> buscarTodos() {  
-        
-    List<UnidadeFederativa> unidadeFederativas = new ArrayList<UnidadeFederativa>();
+    public List<UnidadeFederativa> buscarTodos() {
+        List<UnidadeFederativa> unidadeFederativas = new ArrayList<UnidadeFederativa>();
         Connection con = new Conexao().criarConexao();
         String sql = "select * from unidadeFederativa";
         
