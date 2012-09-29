@@ -4,6 +4,7 @@ import RESTAURANTE.DAO.GrupoItemDAO;
 import RESTAURANTE.DAO.IMPL.GrupoItemDAOIMPL;
 import RESTAURANTE.MODEL.GrupoItem;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 public class FrameGrupoItem extends javax.swing.JFrame {
@@ -41,13 +42,14 @@ public class FrameGrupoItem extends javax.swing.JFrame {
         jbtSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Grupo de item");
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
         jLabel1.setText("Grupo de Item");
 
         jbtEditar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtEditar.setText("Editar");
+        jbtEditar.setText("Alterar");
         jbtEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtEditarActionPerformed(evt);
@@ -106,7 +108,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jtbGrupoItem);
 
         jtfPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jtfPesquisar.setToolTipText("Campo de Pesquisa");
+        jtfPesquisar.setToolTipText("pesquisa item");
 
         jbtPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtPesquisar.setText("Pesquisar");
@@ -156,6 +158,8 @@ public class FrameGrupoItem extends javax.swing.JFrame {
 
         jtbpGrupoItem.addTab("Grupos", jPanel2);
 
+        jPanel3.setToolTipText("");
+
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel2.setText("Código");
 
@@ -200,6 +204,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
         );
 
         jtbpGrupoItem.addTab("Cadastro", jPanel3);
+        jPanel3.getAccessibleContext().setAccessibleName("");
 
         jbtSair.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtSair.setText("Sair");
@@ -263,8 +268,12 @@ public class FrameGrupoItem extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
-        setGrupoItem(grupoItens.get(jtbGrupoItem.getSelectedRow()));
-        jtbpGrupoItem.setSelectedIndex(1);
+        if (jtbGrupoItem.getSelectedRow() != -1) {
+            setGrupoItem(grupoItens.get(jtbGrupoItem.getSelectedRow()));
+            jtbpGrupoItem.setSelectedIndex(1);
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhum item foi selecionado!");
+        }
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
@@ -272,9 +281,9 @@ public class FrameGrupoItem extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtPesquisarActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-            grupoItemDao.inserir(grupoItem);
-            novoGrupo();
-            atualizaTabela();
+        grupoItemDao.inserir(grupoItem);
+        novoGrupo();
+        atualizaTabela();
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jtbGrupoItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbGrupoItemMouseClicked
