@@ -13,7 +13,6 @@ import RESTAURANTE.DAO.UnidadeFederativaDAO;
 import RESTAURANTE.MODEL.Cidade;
 import RESTAURANTE.MODEL.Colaborador;
 import RESTAURANTE.MODEL.ComboBoxCidade;
-import RESTAURANTE.MODEL.ComboBoxPessoa;
 import RESTAURANTE.MODEL.ComboBoxUF;
 import RESTAURANTE.MODEL.GrupoColaborador;
 import RESTAURANTE.MODEL.Pessoa;
@@ -25,6 +24,10 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
 
     public FrameCadastroFuncionario() {
         initComponents();
+        setColaborador(new Colaborador(new Pessoa()));
+        setColaborador(new Colaborador(new GrupoColaborador()));
+        
+        
         pessoaDao = new PessoaDAOIMPL();
         cidadeDao = new CidadeDAOIMPL();
         unidadeFederativaDao = new UnidadeFederativaDAOIMPL();
@@ -42,13 +45,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
             jcbCidade.addItem(ci);
         }
         jcbCidade.setRenderer(new ComboBoxCidade());
-
-        pessoas = pessoaDao.buscarTodos();
-        for (Pessoa pe : pessoas) {
-            jcbSexo.addItem(pe);
-        }
-        jcbSexo.setRenderer(new ComboBoxPessoa());
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -336,8 +332,12 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${colaborador.cpf}"), jtfCpf, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${colaborador.pessoa.sexo}"), jcbSexo, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
+        jcbSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Feminino", "Masculino" }));
+        jcbSexo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbSexoActionPerformed(evt);
+            }
+        });
 
         jLabel31.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel31.setText("Telefone Celular");
@@ -397,6 +397,11 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jLabel32.setText("Data Nacimento");
 
         jcbUF.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jcbUF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbUFActionPerformed(evt);
+            }
+        });
 
         jcbCidade.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -459,11 +464,11 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel24)
-                            .add(jcbCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 157, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(18, 18, 18)
+                            .add(jcbCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 187, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 179, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel29))
+                            .add(jLabel29)
+                            .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 179, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(0, 0, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -694,22 +699,36 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfCodigoActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-        
-    
-    
+
     colaboradorDao.inserir(colaborador);
     grupoColaboradorDao.inserir(colaborador.getGrupoColaborador());
     pessoaDao.inserir(colaborador.getPessoa());
     setColaborador(new Colaborador(new Pessoa()));
     setColaborador(new Colaborador(new GrupoColaborador()));
     atualizaTabela();
-  
-        
+    
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jcbCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCidadeActionPerformed
-        // TODO add your handling code here:
+        
+     System.out.println(((Cidade)jcbCidade.getSelectedItem()).getNome()); 
+     //colaborador.getPessoa().getEndereco_codigo().setCidade_codigo(((Cidade)jcbCidade.getSelectedItem()));
+       
     }//GEN-LAST:event_jcbCidadeActionPerformed
+
+    private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
+      System.out.println(((UnidadeFederativa) jcbUF.getSelectedItem()));
+        //  colaborador.getPessoa().getEndereco_codigo().getCidade_codigo().
+        //        setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
+    }//GEN-LAST:event_jcbUFActionPerformed
+
+    private void jcbSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSexoActionPerformed
+        if(jcbSexo.getSelectedIndex() == 0){
+            colaborador.getPessoa().setSexo("Feminino");
+        }else{
+            colaborador.getPessoa().setSexo("Masculino");
+        }
+    }//GEN-LAST:event_jcbSexoActionPerformed
 
     /**
      * @param args the command line arguments

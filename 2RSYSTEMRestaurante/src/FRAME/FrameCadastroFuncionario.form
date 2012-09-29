@@ -328,12 +328,12 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jcbCidade" min="-2" pref="157" max="-2" attributes="0"/>
+                                  <Component id="jcbCidade" min="-2" pref="187" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jtfCep" min="-2" pref="179" max="-2" attributes="0"/>
                                   <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jtfCep" min="-2" pref="179" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -758,12 +758,15 @@
             <Component class="javax.swing.JComboBox" name="jcbSexo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
+                  <StringArray count="2">
+                    <StringItem index="0" value="Feminino"/>
+                    <StringItem index="1" value="Masculino"/>
+                  </StringArray>
                 </Property>
               </Properties>
-              <BindingProperties>
-                <BindingProperty name="selectedItem" source="Form" sourcePath="${colaborador.pessoa.sexo}" target="jcbSexo" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
-              </BindingProperties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbSexoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel31">
               <Properties>
@@ -879,6 +882,9 @@
                   <StringArray count="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbUFActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="jcbCidade">
               <Properties>
