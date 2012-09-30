@@ -1,7 +1,10 @@
 package FRAME;
 
 import RESTAURANTE.DAO.GrupoItemDAO;
+import RESTAURANTE.DAO.IMPL.GrupoItemDAOIMPL;
+import RESTAURANTE.DAO.IMPL.SubGrupoItensDAOIMPL;
 import RESTAURANTE.DAO.SubGrupoItemDAO;
+import RESTAURANTE.MODEL.GrupoItem;
 import RESTAURANTE.MODEL.SubGrupoItem;
 import java.util.List;
 import org.jdesktop.observablecollections.ObservableCollections;
@@ -10,7 +13,11 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
 
     public FrameSubGrupoItem() {
         initComponents();
-       atualizaTabela();
+        novoSubgrupo();
+        grupoItemDao = new GrupoItemDAOIMPL();
+        subGrupoItemDao = new SubGrupoItensDAOIMPL();
+        atualizaTabela();
+        atualizaComboBoxGrupoItem();
     }
 
     @SuppressWarnings("unchecked")
@@ -19,10 +26,10 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jLabel1 = new javax.swing.JLabel();
-        jbtEditar = new javax.swing.JButton();
+        jbtAlterar = new javax.swing.JButton();
         jbtExcluir = new javax.swing.JButton();
         jbtSalvar = new javax.swing.JButton();
-        jbtCancelar = new javax.swing.JButton();
+        jbtSair = new javax.swing.JButton();
         jbtNovo = new javax.swing.JButton();
         jtbpSubGrupoItem = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -40,25 +47,42 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Sub Grupo Item");
+        setPreferredSize(new java.awt.Dimension(615, 440));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
-        jLabel1.setText("Subgrupo de Item");
+        jLabel1.setText("Sub Grupo de Item");
 
-        jbtEditar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtEditar.setText("Editar");
+        jbtAlterar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jbtAlterar.setText("Alterar");
+        jbtAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAlterarActionPerformed(evt);
+            }
+        });
 
         jbtExcluir.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtExcluir.setText("Excluir");
+        jbtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtExcluirActionPerformed(evt);
+            }
+        });
 
         jbtSalvar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtSalvar.setText("Salvar");
-
-        jbtCancelar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtCancelar.setText("Calcelar");
-        jbtCancelar.addActionListener(new java.awt.event.ActionListener() {
+        jbtSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtCancelarActionPerformed(evt);
+                jbtSalvarActionPerformed(evt);
+            }
+        });
+
+        jbtSair.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jbtSair.setText("Sair");
+        jbtSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtSairActionPerformed(evt);
             }
         });
 
@@ -72,19 +96,25 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
 
         jtbpSubGrupoItem.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jtbpSubGrupoItem.setToolTipText("");
+        jtbpSubGrupoItem.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jtbpSubGrupoItemStateChanged(evt);
+            }
+        });
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${subGrupoItens}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbSubGrupoItem);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
-        columnBinding.setColumnName("Codigo");
+        columnBinding.setColumnName("Código");
         columnBinding.setColumnClass(Integer.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descricao}"));
-        columnBinding.setColumnName("Descricao");
+        columnBinding.setColumnName("Descrição");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
-        columnBinding.setColumnName("Grupo Item");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${grupoItem.descricao}"));
+        columnBinding.setColumnName("Grupo");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
@@ -95,6 +125,11 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
 
         jbtPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtPesquisar.setText("Pesquisar");
+        jbtPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtPesquisarActionPerformed(evt);
+            }
+        });
 
         jbtDetalhar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtDetalhar.setText("Detalhar");
@@ -139,7 +174,6 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel2.setText("Código");
 
-        jtfCodigo.setEditable(false);
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${subGrupoItem.codigo}"), jtfCodigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -153,6 +187,12 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${subGrupoItem.descricao}"), jtfDescricaoSubGrupo, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        jcbGrupoItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbGrupoItemActionPerformed(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel4.setText("Grupo de Item");
 
@@ -162,14 +202,14 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jLabel2)
                     .add(jLabel3)
                     .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jtfDescricaoSubGrupo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 256, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jtfDescricaoSubGrupo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                     .add(jLabel4)
-                    .add(jcbGrupoItem, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 260, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(244, Short.MAX_VALUE))
+                    .add(jcbGrupoItem, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(248, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -200,15 +240,15 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jbtSalvar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jbtEditar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jbtAlterar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jbtExcluir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jbtCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jbtSair, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(0, 0, Short.MAX_VALUE))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jtbpSubGrupoItem, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
                         .add(0, 0, Short.MAX_VALUE)
@@ -227,8 +267,8 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
                     .add(jbtSalvar)
                     .add(jbtExcluir)
                     .add(jbtNovo)
-                    .add(jbtEditar)
-                    .add(jbtCancelar)))
+                    .add(jbtAlterar)
+                    .add(jbtSair)))
         );
 
         bindingGroup.bind();
@@ -236,20 +276,58 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
-
+    private void jbtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSairActionPerformed
         dispose();
-
-    }//GEN-LAST:event_jbtCancelarActionPerformed
+    }//GEN-LAST:event_jbtSairActionPerformed
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
         jtbpSubGrupoItem.setSelectedIndex(1);
-
+        novoSubgrupo();
+        atualizaComboBoxGrupoItem();
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
-        // TODO add your handling code here:
+        setSubGrupoItem(subGrupoItens.get(jtbSubGrupoItem.getSelectedRow()));
+        jtbpSubGrupoItem.setSelectedIndex(1);
     }//GEN-LAST:event_jbtDetalharActionPerformed
+
+    private void jtbpSubGrupoItemStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpSubGrupoItemStateChanged
+        if (jtbpSubGrupoItem.getSelectedIndex() == 0) {
+            jbtAlterar.setVisible(false);
+            jbtExcluir.setVisible(false);
+            jbtSalvar.setVisible(false);
+        } else {
+            jbtSalvar.setVisible(true);
+            jbtAlterar.setVisible(true);
+            jbtExcluir.setVisible(true);
+        }
+    }//GEN-LAST:event_jtbpSubGrupoItemStateChanged
+
+    private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
+        subGrupoItemDao.inserir(subGrupoItem);
+        novoSubgrupo();
+        atualizaTabela();
+    }//GEN-LAST:event_jbtSalvarActionPerformed
+
+    private void jbtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAlterarActionPerformed
+        subGrupoItemDao.alterar(subGrupoItem);
+        atualizaTabela();
+    }//GEN-LAST:event_jbtAlterarActionPerformed
+
+    private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
+        subGrupoItemDao.remover(subGrupoItem);
+        novoSubgrupo();
+        atualizaTabela();
+    }//GEN-LAST:event_jbtExcluirActionPerformed
+
+    private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
+        setSubGrupoItens(subGrupoItemDao.buscarPorDescricao(jtfPesquisar.getText()));
+        jtbSubGrupoItem.addRowSelectionInterval(0, 0);
+    }//GEN-LAST:event_jbtPesquisarActionPerformed
+
+    private void jcbGrupoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbGrupoItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbGrupoItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,12 +371,12 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jbtCancelar;
+    private javax.swing.JButton jbtAlterar;
     private javax.swing.JButton jbtDetalhar;
-    private javax.swing.JButton jbtEditar;
     private javax.swing.JButton jbtExcluir;
     private javax.swing.JButton jbtNovo;
     private javax.swing.JButton jbtPesquisar;
+    private javax.swing.JButton jbtSair;
     private javax.swing.JButton jbtSalvar;
     private javax.swing.JComboBox jcbGrupoItem;
     private javax.swing.JTable jtbSubGrupoItem;
@@ -312,6 +390,7 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
     private SubGrupoItemDAO subGrupoItemDao;
     private List<SubGrupoItem> subGrupoItens;
     private GrupoItemDAO grupoItemDao;
+    List<GrupoItem> grupoItens;
 
     public SubGrupoItem getSubGrupoItem() {
         return subGrupoItem;
@@ -332,8 +411,20 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
         this.subGrupoItens = ObservableCollections.observableList(subGrupoItens);
         firePropertyChange("subGrupoItens", subGrupoItensVelho, this.subGrupoItens);
     }
-    
-    private void atualizaTabela(){
+
+    private void atualizaTabela() {
         setSubGrupoItens(subGrupoItemDao.buscarTodos());
+        jtbSubGrupoItem.addRowSelectionInterval(0, 0);
+    }
+
+    private void novoSubgrupo() {
+        setSubGrupoItem(new SubGrupoItem(new GrupoItem()));
+    }
+
+    private void atualizaComboBoxGrupoItem() {
+        grupoItens = grupoItemDao.buscarTodos();
+        for (SubGrupoItem subGpItem : subGrupoItens) {
+            jcbGrupoItem.addItem(subGpItem);
+        }
     }
 }

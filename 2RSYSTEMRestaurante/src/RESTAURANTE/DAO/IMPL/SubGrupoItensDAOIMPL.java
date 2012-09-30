@@ -80,7 +80,7 @@ public class SubGrupoItensDAOIMPL implements SubGrupoItemDAO {
         String sql = "select * from subgrupoitem where codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setLong(1, codigo);
+            stmt.setInt(1, codigo);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 subGrupoItem = new SubGrupoItem();
@@ -114,7 +114,32 @@ public class SubGrupoItensDAOIMPL implements SubGrupoItemDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
         return subGrupoItens;
     }
+
+    @Override
+    public List<SubGrupoItem> buscarPorDescricao(String descricao) {
+        List<SubGrupoItem> subGrupoItens = new ArrayList<SubGrupoItem>();
+        GrupoItemDAO grupoItemDao = new GrupoItemDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from subgrupoitem where descricao like ? ";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, "%"+descricao+"%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                SubGrupoItem subGrupoItem = new SubGrupoItem();
+                subGrupoItem.setCodigo(rs.getInt("codigo"));
+                subGrupoItem.setDescricao(rs.getString("descricao"));
+                subGrupoItem.setGrupoItem(grupoItemDao.buscarPorCodigo(rs.getInt("grupoItem_codigo")));
+                subGrupoItens.add(subGrupoItem);
+            }
+
+        } catch (SQLException ex) {
+        }
+        return subGrupoItens;
+    }
+    
 }

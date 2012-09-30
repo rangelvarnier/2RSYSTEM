@@ -13,5 +13,7 @@ public interface SubGrupoItemDAO {
 
     SubGrupoItem buscarPorCodigo(Integer codigo);
 
+    List<SubGrupoItem> buscarPorDescricao(String descricao);
+
     List<SubGrupoItem> buscarTodos();
 }

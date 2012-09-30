@@ -1,7 +1,7 @@
 package RESTAURANTE.MODEL;
 
 public class SubGrupoItem {
-    
+
     private Integer codigo;
     private String descricao;
     private GrupoItem grupoItem;
@@ -14,6 +14,12 @@ public class SubGrupoItem {
 
     public SubGrupoItem() {
     }
+
+    public SubGrupoItem(GrupoItem grupoItem) {
+        this.grupoItem = grupoItem;
+    }
+    
+    
 
     public Integer getCodigo() {
         return codigo;
@@ -38,9 +44,4 @@ public class SubGrupoItem {
     public void setGrupoItem(GrupoItem grupoItem) {
         this.grupoItem = grupoItem;
     }
-    
-    
-    
-    
-    
 }

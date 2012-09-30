@@ -61,7 +61,7 @@ public class GrupoItemDAOIMPL implements GrupoItemDAO {
     public GrupoItem buscarPorCodigo(Integer codigo) {
         GrupoItem grupoItem = null;
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from grupoitem where descricao = ? ";
+        String sql = "select * from grupoitem where codigo = ? ";
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);

@@ -158,8 +158,6 @@ public class FrameGrupoItem extends javax.swing.JFrame {
 
         jtbpGrupoItem.addTab("Grupos", jPanel2);
 
-        jPanel3.setToolTipText("");
-
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel2.setText("Código");
 
@@ -268,16 +266,13 @@ public class FrameGrupoItem extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
-        if (jtbGrupoItem.getSelectedRow() != -1) {
-            setGrupoItem(grupoItens.get(jtbGrupoItem.getSelectedRow()));
-            jtbpGrupoItem.setSelectedIndex(1);
-        }else{
-            JOptionPane.showMessageDialog(null, "Nenhum item foi selecionado!");
-        }
+        setGrupoItem(grupoItens.get(jtbGrupoItem.getSelectedRow()));
+        jtbpGrupoItem.setSelectedIndex(1);
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
         setGrupoItens(grupoItemDao.buscarPorDescricao(jtfPesquisar.getText()));
+        jtbGrupoItem.addRowSelectionInterval(0, 0);
     }//GEN-LAST:event_jbtPesquisarActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
@@ -351,7 +346,6 @@ public class FrameGrupoItem extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new FrameGrupoItem().setVisible(true);
             }
@@ -404,6 +398,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
 
     private void atualizaTabela() {
         setGrupoItens(grupoItemDao.buscarTodos());
+        jtbGrupoItem.addRowSelectionInterval(0, 0);
     }
 
     private void novoGrupo() {
