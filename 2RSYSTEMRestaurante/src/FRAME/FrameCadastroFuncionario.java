@@ -26,25 +26,16 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         initComponents();
         setColaborador(new Colaborador(new Pessoa()));
         setColaborador(new Colaborador(new GrupoColaborador()));
-        
-        
+
         pessoaDao = new PessoaDAOIMPL();
         cidadeDao = new CidadeDAOIMPL();
-        unidadeFederativaDao = new UnidadeFederativaDAOIMPL();
-        grupoColaboradorDao = new GrupoColaboradorDAOIMPL();
         colaboradorDao = new ColaboradorDAOIMPL();
-        
-        unidadeFederativas = unidadeFederativaDao.buscarTodos();
-        for (UnidadeFederativa un : unidadeFederativas) {
-            jcbUF.addItem(un);
-        }
-        jcbUF.setRenderer(new ComboBoxUF());
-        
-        cidades = cidadeDao.buscarTodos();
-        for (Cidade ci : cidades) {
-            jcbCidade.addItem(ci);
-        }
-        jcbCidade.setRenderer(new ComboBoxCidade());
+        grupoColaboradorDao = new GrupoColaboradorDAOIMPL();
+        cidadeDao = new CidadeDAOIMPL();
+        unidadeFederativaDao = new UnidadeFederativaDAOIMPL();
+        atualizaTabela();
+        atualizarCombobox();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -700,32 +691,28 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
 
-    colaboradorDao.inserir(colaborador);
-    grupoColaboradorDao.inserir(colaborador.getGrupoColaborador());
-    pessoaDao.inserir(colaborador.getPessoa());
-    setColaborador(new Colaborador(new Pessoa()));
-    setColaborador(new Colaborador(new GrupoColaborador()));
-    atualizaTabela();
-    
+        colaboradorDao.inserir(colaborador);
+        grupoColaboradorDao.inserir(colaborador.getGrupoColaborador());
+        pessoaDao.inserir(colaborador.getPessoa());
+        cidadeDao.inserir(colaborador.getPessoa().getEndereco_codigo().getCidade_codigo());
+        unidadeFederativaDao.inserir(colaborador.getPessoa().getEndereco_codigo().getCidade_codigo().getUnidadeFederativa_codigo());
+
+        atualizaTabela();
+
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jcbCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCidadeActionPerformed
-        
-     System.out.println(((Cidade)jcbCidade.getSelectedItem()).getNome()); 
-     //colaborador.getPessoa().getEndereco_codigo().setCidade_codigo(((Cidade)jcbCidade.getSelectedItem()));
-       
+        colaborador.getPessoa().getEndereco_codigo().setCidade_codigo(((Cidade) jcbCidade.getSelectedItem()));
     }//GEN-LAST:event_jcbCidadeActionPerformed
 
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
-      System.out.println(((UnidadeFederativa) jcbUF.getSelectedItem()));
-        //  colaborador.getPessoa().getEndereco_codigo().getCidade_codigo().
-        //        setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
+        colaborador.getPessoa().getEndereco_codigo().getCidade_codigo().
+                setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
     }//GEN-LAST:event_jcbUFActionPerformed
-
     private void jcbSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSexoActionPerformed
-        if(jcbSexo.getSelectedIndex() == 0){
+        if (jcbSexo.getSelectedIndex() == 0) {
             colaborador.getPessoa().setSexo("Feminino");
-        }else{
+        } else {
             colaborador.getPessoa().setSexo("Masculino");
         }
     }//GEN-LAST:event_jcbSexoActionPerformed
@@ -832,10 +819,10 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     private PessoaDAO pessoaDao;
     private List<Pessoa> pessoas;
 
-    
     public Colaborador getColaborador() {
         return colaborador;
     }
+
     public void setColaborador(Colaborador colaborador) {
         Colaborador colaboradorVelho = this.colaborador;
         this.colaborador = colaborador;
@@ -851,10 +838,23 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         this.colaboradores = ObservableCollections.observableList(colaboradores);
         firePropertyChange("colaboradores", colaboradoresVelhos, this.colaboradores);
     }
-    
-     public void atualizaTabela() {
+
+    public void atualizaTabela() {
         setColaboradores(colaboradorDao.buscarTodos());
     }
- 
 
+    public void atualizarCombobox() {
+        unidadeFederativas = unidadeFederativaDao.buscarTodos();
+        for (UnidadeFederativa un : unidadeFederativas) {
+            jcbUF.addItem(un);
+        }
+        jcbUF.setRenderer(new ComboBoxUF());
+
+        cidades = cidadeDao.buscarTodos();
+        for (Cidade ci : cidades) {
+            jcbCidade.addItem(ci);
+        }
+        jcbCidade.setRenderer(new ComboBoxCidade());
+
+    }
 }
