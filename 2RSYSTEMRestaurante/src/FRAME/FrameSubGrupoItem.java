@@ -4,6 +4,7 @@ import RESTAURANTE.DAO.GrupoItemDAO;
 import RESTAURANTE.DAO.IMPL.GrupoItemDAOIMPL;
 import RESTAURANTE.DAO.IMPL.SubGrupoItensDAOIMPL;
 import RESTAURANTE.DAO.SubGrupoItemDAO;
+import RESTAURANTE.DAO.UTIL.ComboBoxGrupoItem;
 import RESTAURANTE.MODEL.GrupoItem;
 import RESTAURANTE.MODEL.SubGrupoItem;
 import java.util.List;
@@ -118,6 +119,11 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
+        jtbSubGrupoItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbSubGrupoItemMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtbSubGrupoItem);
 
         jtfPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -187,6 +193,7 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${subGrupoItem.descricao}"), jtfDescricaoSubGrupo, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        jcbGrupoItem.setRenderer(new ComboBoxGrupoItem());
         jcbGrupoItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbGrupoItemActionPerformed(evt);
@@ -326,8 +333,16 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtPesquisarActionPerformed
 
     private void jcbGrupoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbGrupoItemActionPerformed
-        // TODO add your handling code here:
+        subGrupoItem.setGrupoItem((GrupoItem) jcbGrupoItem.getSelectedItem());
     }//GEN-LAST:event_jcbGrupoItemActionPerformed
+
+    private void jtbSubGrupoItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbSubGrupoItemMouseClicked
+        if (evt.getClickCount() == 2) {
+            setSubGrupoItem(subGrupoItens.get(jtbSubGrupoItem.getSelectedRow()));
+            jtbpSubGrupoItem.setSelectedIndex(1);
+        }
+
+    }//GEN-LAST:event_jtbSubGrupoItemMouseClicked
 
     /**
      * @param args the command line arguments
@@ -422,9 +437,13 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
     }
 
     private void atualizaComboBoxGrupoItem() {
-        grupoItens = grupoItemDao.buscarTodos();
-        for (SubGrupoItem subGpItem : subGrupoItens) {
-            jcbGrupoItem.addItem(subGpItem);
+        if (grupoItens != null) {
+            grupoItens.clear();
+        } else {
+            grupoItens = grupoItemDao.buscarTodos();
+            for (GrupoItem gpItem : grupoItens) {
+                jcbGrupoItem.addItem(gpItem);
+            }
         }
     }
 }

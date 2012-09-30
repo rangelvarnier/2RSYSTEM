@@ -20,7 +20,6 @@ public class UsuarioDAOIMPL implements UsuarioDAO{
         String sql = "insert into usuario value(?, ?, ?)";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
-            
             stmt.setInt(1, usuario.getCodigo());
             stmt.setString(2, usuario.getUsuario());
             stmt.setString(3, usuario.getSenha());
