@@ -60,7 +60,7 @@ public class SubGrupoItensDAOIMPL implements SubGrupoItemDAO {
     @Override
     public void remover(SubGrupoItem subGrupoItem) {
         Connection con = new Conexao().criarConexao();
-        String sql = "delete from subgrupoitem whwre codigo = ?";
+        String sql = "delete from subgrupoitem where codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
