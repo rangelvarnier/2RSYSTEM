@@ -138,7 +138,6 @@
     <Container class="javax.swing.JTabbedPane" name="jtbpSubGrupoItem">
       <Properties>
         <Property name="tabLayoutPolicy" type="int" value="1"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jtbpSubGrupoItemStateChanged"/>

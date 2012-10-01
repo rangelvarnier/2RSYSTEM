@@ -96,7 +96,6 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
         });
 
         jtbpSubGrupoItem.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
-        jtbpSubGrupoItem.setToolTipText("");
         jtbpSubGrupoItem.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jtbpSubGrupoItemStateChanged(evt);
@@ -295,6 +294,7 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
 
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
         setSubGrupoItem(subGrupoItens.get(jtbSubGrupoItem.getSelectedRow()));
+        setaGrupoJCBGrupoItem();
         jtbpSubGrupoItem.setSelectedIndex(1);
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
@@ -339,6 +339,7 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
     private void jtbSubGrupoItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbSubGrupoItemMouseClicked
         if (evt.getClickCount() == 2) {
             setSubGrupoItem(subGrupoItens.get(jtbSubGrupoItem.getSelectedRow()));
+            setaGrupoJCBGrupoItem();
             jtbpSubGrupoItem.setSelectedIndex(1);
         }
 
@@ -445,5 +446,10 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
                 jcbGrupoItem.addItem(gpItem);
             }
         }
+    }
+
+    //metodo pega um objeto e seleciona no comboBox
+    private void setaGrupoJCBGrupoItem() {
+        jcbGrupoItem.getModel().setSelectedItem(subGrupoItem.getGrupoItem());
     }
 }
