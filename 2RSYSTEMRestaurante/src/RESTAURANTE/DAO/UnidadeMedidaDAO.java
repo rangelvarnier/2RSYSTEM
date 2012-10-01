@@ -12,17 +12,16 @@ import java.util.List;
  * @author Rangel
  */
 public interface UnidadeMedidaDAO {
-    
+
     void inserir(UnidadeMedida unidadeMedida);
 
     void alterar(UnidadeMedida unidadeMedida);
 
     void remover(UnidadeMedida unidadeMedida);
 
-    UnidadeMedida buscarPorDescricao(String descricao);
-
     UnidadeMedida buscarPorCodigo(Integer codigo);
 
-    List<UnidadeMedida> buscarTodos();
+    List<UnidadeMedida> buscaPorDescricao(String descricao);
     
+    List<UnidadeMedida> buscarTodos();
 }
