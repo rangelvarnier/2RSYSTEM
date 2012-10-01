@@ -13,6 +13,8 @@ public interface UsuarioDAO {
     void remover(Usuario usuario);
 
     Usuario buscarPorCodigo(Integer codigo);
+    
+    Usuario buscarPorUsuarioeSenha(String usuario, String senha);
 
     List<Usuario> buscarTodos();
     

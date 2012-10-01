@@ -1,11 +1,19 @@
-
 package FRAME;
+
+import RESTAURANTE.DAO.UTIL.Conexao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 public class FrameLoginUsuario extends javax.swing.JFrame {
 
     public FrameLoginUsuario() {
         initComponents();
         setLocationRelativeTo(null);
+
+
     }
 
     @SuppressWarnings("unchecked")
@@ -17,15 +25,20 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
         jtfLogin = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jpfSenha = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jtfsenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema de Login");
         setResizable(false);
 
         jbtCancelar.setText("Cancelar");
+        jbtCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtCancelarActionPerformed(evt);
+            }
+        });
 
         jbtLogar.setText("Logar");
         jbtLogar.addActionListener(new java.awt.event.ActionListener() {
@@ -59,9 +72,11 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
                             .add(jLabel2)
                             .add(jLabel1))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                            .add(jpfSenha)
-                            .add(jtfLogin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 134, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jtfLogin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 134, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(layout.createSequentialGroup()
+                                .add(jtfsenha)
+                                .add(3, 3, 3))))
                     .add(layout.createSequentialGroup()
                         .addContainerGap()
                         .add(jbtLogar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -83,8 +98,8 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
                         .add(jtfLogin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jpfSenha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel2))
+                            .add(jLabel2)
+                            .add(jtfsenha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(18, 18, 18))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                         .add(jLabel3)
@@ -100,9 +115,19 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLogarActionPerformed
-    new FramePrincipal().setVisible(true);
-    dispose();
+
+        if (verificaLogin() == true) {
+            new FramePrincipal().setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário ou Senha Incorretos!");
+        }
+
     }//GEN-LAST:event_jbtLogarActionPerformed
+
+    private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_jbtCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,7 +171,28 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JButton jbtCancelar;
     private javax.swing.JButton jbtLogar;
-    private javax.swing.JPasswordField jpfSenha;
     private javax.swing.JTextField jtfLogin;
+    private javax.swing.JPasswordField jtfsenha;
     // End of variables declaration//GEN-END:variables
+
+    public boolean verificaLogin() {
+        Connection con = new Conexao().criarConexao();
+        String sql = "select usuario, senha from usuario";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs3 = stmt.executeQuery();
+
+            while (rs3.next()) {
+                String usu = rs3.getString("usuario");
+                String sen = rs3.getString("senha");
+
+                if (usu.equals(jtfLogin.getText()) && sen.equals(jtfsenha.getText()) == true) {
+                    return true;
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getCause());
+        }
+        return false;
+    }
 }

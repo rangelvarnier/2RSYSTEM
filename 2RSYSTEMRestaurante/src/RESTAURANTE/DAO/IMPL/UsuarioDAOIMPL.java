@@ -1,6 +1,7 @@
 
 package RESTAURANTE.DAO.IMPL;
 
+import FRAME.FramePrincipal;
 import RESTAURANTE.DAO.UTIL.Conexao;
 import RESTAURANTE.DAO.UsuarioDAO;
 import RESTAURANTE.MODEL.Endereco;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class UsuarioDAOIMPL implements UsuarioDAO{
 
@@ -123,6 +125,33 @@ public class UsuarioDAOIMPL implements UsuarioDAO{
     
     
         
+    }
+
+    @Override
+    public Usuario buscarPorUsuarioeSenha(String usuario, String senha) {
+        Usuario us = null;
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from usuario"
+                + " where usuario = ? and senha = ?";
+        try{
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setInt(1,2);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                us = new Usuario();
+                us.setUsuario(rs.getString("usuario"));
+                us.setSenha(rs.getString("senha")); 
+                
+                }
+            
+            
+        } catch (SQLException ex){
+            
+        }
+        return us;
     }
     
 
