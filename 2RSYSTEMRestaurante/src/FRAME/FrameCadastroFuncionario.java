@@ -3,7 +3,6 @@ package FRAME;
 import RESTAURANTE.DAO.CidadeDAO;
 import RESTAURANTE.DAO.ColaboradorDAO;
 import RESTAURANTE.DAO.GrupoColaboradorDAO;
-import RESTAURANTE.DAO.IMPL.CidadeDAOIMPL;
 import RESTAURANTE.DAO.IMPL.ColaboradorDAOIMPL;
 import RESTAURANTE.DAO.IMPL.GrupoColaboradorDAOIMPL;
 import RESTAURANTE.DAO.IMPL.PessoaDAOIMPL;
@@ -24,15 +23,15 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
 
     public FrameCadastroFuncionario() {
         initComponents();
+        //SET
         setColaborador(new Colaborador(new Pessoa()));
-        setColaborador(new Colaborador(new GrupoColaborador()));
-
+        setColaborador(new Colaborador(new GrupoColaborador()));       
+        //IMPL
         pessoaDao = new PessoaDAOIMPL();
-        cidadeDao = new CidadeDAOIMPL();
         colaboradorDao = new ColaboradorDAOIMPL();
         grupoColaboradorDao = new GrupoColaboradorDAOIMPL();
-        cidadeDao = new CidadeDAOIMPL();
         unidadeFederativaDao = new UnidadeFederativaDAOIMPL();
+        //Metodos
         atualizaTabela();
         atualizarCombobox();
 
@@ -685,7 +684,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jtfCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jtfCodigoActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
@@ -693,28 +692,35 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         colaboradorDao.inserir(colaborador);
         grupoColaboradorDao.inserir(colaborador.getGrupoColaborador());
         pessoaDao.inserir(colaborador.getPessoa());
-        cidadeDao.inserir(colaborador.getPessoa().getEndereco_codigo().getCidade_codigo());
-        unidadeFederativaDao.inserir(colaborador.getPessoa().getEndereco_codigo().getCidade_codigo().getUnidadeFederativa_codigo());
-
+              
         atualizaTabela();
 
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jcbCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCidadeActionPerformed
-        //colaborador.getPessoa().getEndereco_codigo().setCidade_codigo(((Cidade)jcbCidade.getSelectedItem()));
 
+        colaborador.getPessoa()
+                .getEndereco_codigo()
+                .setCidade_codigo(((Cidade) jcbCidade.getSelectedItem()));
+        
     }//GEN-LAST:event_jcbCidadeActionPerformed
 
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
-        //     colaborador.getPessoa().getEndereco_codigo().getCidade_codigo().
-        //             setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
+        
+        colaborador.getPessoa()
+                .getEndereco_codigo()
+                .getCidade_codigo()
+                .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
+        
     }//GEN-LAST:event_jcbUFActionPerformed
     private void jcbSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSexoActionPerformed
+        
         if (jcbSexo.getSelectedIndex() == 0) {
             colaborador.getPessoa().setSexo("Feminino");
         } else {
             colaborador.getPessoa().setSexo("Masculino");
         }
+        
     }//GEN-LAST:event_jcbSexoActionPerformed
 
     /**
@@ -808,42 +814,59 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jtfTelefoneCelular;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+    //Colaborador
     private Colaborador colaborador;
     private List<Colaborador> colaboradores;
     private ColaboradorDAO colaboradorDao;
+    //GrupoColaborador    
     private GrupoColaboradorDAO grupoColaboradorDao;
+    //Cidade
     private List<Cidade> cidades;
     private CidadeDAO cidadeDao;
+    //UnidadeFederativa
     private UnidadeFederativaDAO unidadeFederativaDao;
     private List<UnidadeFederativa> unidadeFederativas;
+    //Pessoa
     private PessoaDAO pessoaDao;
     private List<Pessoa> pessoas;
-
+    
+    //Metodos
     public Colaborador getColaborador() {
+        
         return colaborador;
+        
     }
 
     public void setColaborador(Colaborador colaborador) {
+        
         Colaborador colaboradorVelho = this.colaborador;
         this.colaborador = colaborador;
         firePropertyChange("colaborador", colaboradorVelho, this.colaborador);
+        
     }
 
     public List<Colaborador> getColaboradores() {
+        
         return colaboradores;
+        
     }
 
     public void setColaboradores(List<Colaborador> colaboradores) {
+        
         List<Colaborador> colaboradoresVelhos = this.colaboradores;
         this.colaboradores = ObservableCollections.observableList(colaboradores);
         firePropertyChange("colaboradores", colaboradoresVelhos, this.colaboradores);
+        
     }
 
     public void atualizaTabela() {
+        
         setColaboradores(colaboradorDao.buscarTodos());
+        
     }
 
     public void atualizarCombobox() {
+       
         unidadeFederativas = unidadeFederativaDao.buscarTodos();
         for (UnidadeFederativa un : unidadeFederativas) {
             jcbUF.addItem(un);

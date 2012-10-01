@@ -1,13 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package RESTAURANTE.DAO;
 
-/**
- *
- * @author ricardosassanovicz
- */
+import RESTAURANTE.MODEL.Usuario;
+import java.util.List;
+
 public interface UsuarioDAO {
+    
+    void inserir(Usuario usuario);
+
+    void alterar(Usuario usuario);
+
+    void remover(Usuario usuario);
+
+    Usuario buscarPorCodigo(Integer codigo);
+
+    List<Usuario> buscarTodos();
     
 }
