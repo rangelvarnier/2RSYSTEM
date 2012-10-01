@@ -4,16 +4,18 @@ package RESTAURANTE.DAO.UTIL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Conexao {
      private static Connection con;
+     ResultSet resultado;
 
     static{
         String url = "jdbc:mysql://localhost/2rsitem?"
                 + "autoReconnect=true";
         String user = "root";
-        String password = "483729";
+        String password = "";
 
         try {
             con = DriverManager.getConnection(url, user,
