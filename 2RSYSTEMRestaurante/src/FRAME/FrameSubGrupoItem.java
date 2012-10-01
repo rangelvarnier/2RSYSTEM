@@ -448,6 +448,7 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
             for (GrupoItem gpItem : grupoItens) {
                 jcbGrupoItem.addItem(gpItem);
             }
+            jcbGrupoItem.setSelectedIndex(0);
         }
     }
 
