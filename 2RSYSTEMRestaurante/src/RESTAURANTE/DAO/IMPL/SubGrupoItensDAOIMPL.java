@@ -7,7 +7,6 @@ package RESTAURANTE.DAO.IMPL;
 import RESTAURANTE.DAO.GrupoItemDAO;
 import RESTAURANTE.DAO.SubGrupoItemDAO;
 import RESTAURANTE.DAO.UTIL.Conexao;
-import RESTAURANTE.MODEL.GrupoItem;
 import RESTAURANTE.MODEL.SubGrupoItem;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

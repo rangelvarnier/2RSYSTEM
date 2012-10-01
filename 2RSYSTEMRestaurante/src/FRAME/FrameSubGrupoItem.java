@@ -430,7 +430,10 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
 
     private void atualizaTabela() {
         setSubGrupoItens(subGrupoItemDao.buscarTodos());
-        jtbSubGrupoItem.addRowSelectionInterval(0, 0);
+        if (subGrupoItemDao.buscarTodos().isEmpty()) {
+        } else {
+            jtbSubGrupoItem.addRowSelectionInterval(0, 0);
+        }
     }
 
     private void novoSubgrupo() {
