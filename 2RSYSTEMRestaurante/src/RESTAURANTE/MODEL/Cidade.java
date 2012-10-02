@@ -8,6 +8,9 @@ public class Cidade {
 
     public Cidade() {
     }
+    public Cidade(UnidadeFederativa unidadeFederativa) {
+           this.unidadeFederativa_codigo = unidadeFederativa;
+    }
 
     public Cidade(Integer codigo, String nome, UnidadeFederativa unidadeFederativa_codigo) {
         this.codigo = codigo;

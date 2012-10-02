@@ -14,6 +14,9 @@ public class Endereco {
 
     public Endereco() {
     }
+    public Endereco(Cidade cidade) {
+        this.cidade_codigo = cidade;
+    }
     
     public Endereco(Integer codigo, String rua, String numero, String cep, String bairro, String telefone, String celular, String email, Cidade cidade_codigo) {
         this.codigo = codigo;

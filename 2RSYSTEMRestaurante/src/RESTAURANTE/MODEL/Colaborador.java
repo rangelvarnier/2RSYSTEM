@@ -31,13 +31,14 @@ public class Colaborador {
     public Colaborador() {
         
     }
-    public Colaborador(GrupoColaborador grupoColaborador){
+    public Colaborador(GrupoColaborador grupoColaborador) {
         this.grupoColaborador = grupoColaborador;
     }
-    public Colaborador(Pessoa pessoa){
+    
+    public Colaborador(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
-
+    
     public Integer getCodigo() {
         return codigo;
     }

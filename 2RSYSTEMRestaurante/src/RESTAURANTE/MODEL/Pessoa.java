@@ -17,6 +17,9 @@ public class Pessoa {
     public Pessoa() {
         
     }
+    public Pessoa(Endereco endereco) {
+        this.endereco_codigo = endereco;
+    }
 
     public Integer getCodigo() {
         return codigo;
