@@ -133,7 +133,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel2Layout.createSequentialGroup()
@@ -185,7 +185,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
                     .add(jLabel3)
                     .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jtfDescricaoGrupo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 256, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(344, Short.MAX_VALUE))
+                .addContainerGap(296, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -216,7 +216,6 @@ public class FrameGrupoItem extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jtbpGrupoItem)
             .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
@@ -235,6 +234,10 @@ public class FrameGrupoItem extends javax.swing.JFrame {
                         .add(0, 0, Short.MAX_VALUE)
                         .add(jLabel1)))
                 .addContainerGap())
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jtbpGrupoItem, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 567, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -398,7 +401,10 @@ public class FrameGrupoItem extends javax.swing.JFrame {
 
     private void atualizaTabela() {
         setGrupoItens(grupoItemDao.buscarTodos());
-        jtbGrupoItem.addRowSelectionInterval(0, 0);
+        if (grupoItemDao.buscarTodos().isEmpty()) {
+        } else {
+            jtbGrupoItem.addRowSelectionInterval(0, 0);
+        }
     }
 
     private void novoGrupo() {
