@@ -24,7 +24,7 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
         novaUnidadeMedida();
         unidadeMedidaDao = new UnidadeMedidaDAOIMPL();
         atualizaTabela();
-
+        
     }
 
     /**
@@ -65,7 +65,7 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
-        jLabel.setText("Grupo de Item");
+        jLabel.setText("Unidade de Medida");
 
         jtbpUnidadeMedida.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jtbpUnidadeMedida.setToolTipText("");
@@ -203,14 +203,11 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfDescricaoGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addContainerGap(296, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfDescricaoGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jtfQuantidade, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
@@ -218,12 +215,9 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jcbFragmentaQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                            .addComponent(jLabel5)
+                            .addComponent(jcbFragmentaQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(296, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,18 +342,18 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
             jtbpUnidadeMedida.setSelectedIndex(1);
         }
     }//GEN-LAST:event_jtbUnidadeMedidaMouseClicked
-
+    
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
         setUnidadesDeMedidas(unidadeMedidaDao.buscaPorDescricao(jtfPesquisar.getText()));
         jtbUnidadeMedida.addRowSelectionInterval(0, 0);
     }//GEN-LAST:event_jbtPesquisarActionPerformed
-
+    
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
         setUnidadeMedida(unidadesDeMedidas.get(jtbUnidadeMedida.getSelectedRow()));
         setaFragmentaqtd();
         jtbpUnidadeMedida.setSelectedIndex(1);
     }//GEN-LAST:event_jbtDetalharActionPerformed
-
+    
     private void jtbpUnidadeMedidaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpUnidadeMedidaStateChanged
         if (jtbpUnidadeMedida.getSelectedIndex() == 0) {
             jbtEditar.setVisible(false);
@@ -371,25 +365,38 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
             jbtExcluir.setVisible(true);
         }
     }//GEN-LAST:event_jtbpUnidadeMedidaStateChanged
-
+    
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
         novaUnidadeMedida();
         jtbpUnidadeMedida.setSelectedIndex(1);
     }//GEN-LAST:event_jbtNovoActionPerformed
-
+    
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
+        getSelectetCbxFragmentaQtg();
+        unidadeMedidaDao.inserir(unidadeMedida);
+        novaUnidadeMedida();
+        atualizaTabela();
+        
     }//GEN-LAST:event_jbtSalvarActionPerformed
-
+    
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
+        getSelectetCbxFragmentaQtg();
+        unidadeMedidaDao.alterar(unidadeMedida);
+        novaUnidadeMedida();
+        atualizaTabela();
     }//GEN-LAST:event_jbtEditarActionPerformed
-
+    
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
+        getSelectetCbxFragmentaQtg();
+        unidadeMedidaDao.remover(unidadeMedida);
+        novaUnidadeMedida();
+        atualizaTabela();
     }//GEN-LAST:event_jbtExcluirActionPerformed
-
+    
     private void jbtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSairActionPerformed
         dispose();
     }//GEN-LAST:event_jbtSairActionPerformed
-
+    
     private void jcbFragmentaQtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbFragmentaQtdActionPerformed
     }//GEN-LAST:event_jcbFragmentaQtdActionPerformed
 
@@ -397,10 +404,14 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /*
+         * Set the Nimbus look and feel
+         */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /*
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the
+         * default look and feel. For details see
+         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -420,8 +431,11 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /*
+         * Create and display the form
+         */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            
             public void run() {
                 new FrameUnidadeMedida().setVisible(true);
             }
@@ -457,27 +471,27 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
     private UnidadeMedida unidadeMedida;
     private UnidadeMedidaDAO unidadeMedidaDao;
     private List<UnidadeMedida> unidadesDeMedidas;
-
+    
     public UnidadeMedida getUnidadeMedida() {
         return unidadeMedida;
     }
-
+    
     public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
         UnidadeMedida unVelho = this.unidadeMedida;
         this.unidadeMedida = unidadeMedida;
         firePropertyChange("unidadeMedida", unVelho, this.unidadeMedida);
     }
-
+    
     public List<UnidadeMedida> getUnidadesDeMedidas() {
         return unidadesDeMedidas;
     }
-
+    
     public void setUnidadesDeMedidas(List<UnidadeMedida> unidadesDeMedidas) {
         List<UnidadeMedida> unVelho = this.unidadesDeMedidas;
         this.unidadesDeMedidas = ObservableCollections.observableList(unidadesDeMedidas);
         firePropertyChange("unidadesDeMedidas", unVelho, this.unidadesDeMedidas);
     }
-
+    
     private void atualizaTabela() {
         setUnidadesDeMedidas(unidadeMedidaDao.buscarTodos());
         if (unidadeMedidaDao.buscarTodos().isEmpty()) {
@@ -485,18 +499,25 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
             jtbUnidadeMedida.addRowSelectionInterval(0, 0);
         }
     }
-
+    
     private void novaUnidadeMedida() {
         setUnidadeMedida(new UnidadeMedida());
     }
-
+    
     private void setaFragmentaqtd() {
         if (unidadeMedida.getFragmentaQtd().equals(true)) {
             jcbFragmentaQtd.setSelectedIndex(0);
         } else {
             jcbFragmentaQtd.setSelectedIndex(1);
         }
-
-
+    }
+    
+    private void getSelectetCbxFragmentaQtg() {
+        if (jcbFragmentaQtd.getSelectedIndex() == 0) {
+            unidadeMedida.setFragmentaQtd(true);
+        } else {
+            unidadeMedida.setFragmentaQtd(false);
+        }
+        
     }
 }

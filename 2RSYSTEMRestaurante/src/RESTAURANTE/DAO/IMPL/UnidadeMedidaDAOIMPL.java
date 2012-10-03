@@ -43,7 +43,7 @@ public class UnidadeMedidaDAOIMPL implements UnidadeMedidaDAO {
     public void alterar(UnidadeMedida unidadeMedida) {
         Connection con = new Conexao().criarConexao();
         String sql = "update unidademedida set descricao = ?, sigla = ?,"
-                + " fragmentaQtd = ?, quantidade ? where codigo = ?)";
+                + " fragmentaQtd = ?, quantidade = ? where codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -66,7 +66,7 @@ public class UnidadeMedidaDAOIMPL implements UnidadeMedidaDAO {
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setString(1, unidadeMedida.getDescricao());
+            stmt.setInt(1, unidadeMedida.getCodigo());
 
             stmt.executeUpdate();
         } catch (SQLException ex) {
