@@ -10,9 +10,9 @@ public interface ProdutoDAO {
 
     void remover(Produto produto);
 
-    Produto buscarPorDescricao(String descricao);
-
     Produto buscarPorCodigo(Integer codigo);
+    
+    List<Produto> buscarPorDescricao(String descricao);
 
     List<Produto> buscarTodos();
 }

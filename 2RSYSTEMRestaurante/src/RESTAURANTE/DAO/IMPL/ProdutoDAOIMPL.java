@@ -1,22 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package RESTAURANTE.DAO.IMPL;
 
 import RESTAURANTE.DAO.ProdutoDAO;
 import RESTAURANTE.MODEL.Produto;
 import java.util.List;
 
-/**
- *
- * @author ricardosassanovicz
- */
-public class ProdutoDAOIMPL implements ProdutoDAO{
+
+public class ProdutoDAOIMPL implements ProdutoDAO {
 
     @Override
     public void inserir(Produto produto) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     @Override
@@ -30,12 +23,12 @@ public class ProdutoDAOIMPL implements ProdutoDAO{
     }
 
     @Override
-    public Produto buscarPorDescricao(String descricao) {
+    public Produto buscarPorCodigo(Integer codigo) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Produto buscarPorCodigo(Integer codigo) {
+    public List<Produto> buscarPorDescricao(String descricao) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -43,5 +36,4 @@ public class ProdutoDAOIMPL implements ProdutoDAO{
     public List<Produto> buscarTodos() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
 }

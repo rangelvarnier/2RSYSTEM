@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package RESTAURANTE.DAO.IMPL;
 
 import RESTAURANTE.DAO.UTIL.Conexao;
@@ -14,10 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Rangel
- */
+
 public class UnidadeMedidaDAOIMPL implements UnidadeMedidaDAO {
 
     @Override
