@@ -20,7 +20,11 @@ import RESTAURANTE.MODEL.Endereco;
 import RESTAURANTE.MODEL.GrupoColaborador;
 import RESTAURANTE.MODEL.Pessoa;
 import RESTAURANTE.MODEL.UnidadeFederativa;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 public class FrameCadastroFuncionario extends javax.swing.JFrame {
@@ -101,6 +105,8 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jtfCodigo = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
         jcbfuncao = new javax.swing.JComboBox();
+        jtfCodigoPessoa = new javax.swing.JTextField();
+        jtfCodigoPessoaEndereco = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Colaboradores");
@@ -231,10 +237,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jLabel23.setText("Data Contratação");
 
         jtfDataContratação.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${colaborador.dataContradacao}"), jtfDataContratação, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         jtfDataContratação.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfDataContrataçãoActionPerformed(evt);
@@ -356,10 +358,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jtfDataDemissão.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${colaborador.dataDemissao}"), jtfDataDemissão, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         jtfDataDemissão.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfDataDemissãoActionPerformed(evt);
@@ -373,10 +371,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jLabel2.setText("Função");
 
         jtfDataNacimento.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${colaborador.dataNascimento}"), jtfDataNacimento, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         jtfDataNacimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfDataNacimentoActionPerformed(evt);
@@ -406,6 +400,10 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         });
 
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${colaborador.codigo}"), jtfCodigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jtfCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfCodigoActionPerformed(evt);
@@ -419,6 +417,28 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jcbfuncao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbfuncaoActionPerformed(evt);
+            }
+        });
+
+        jtfCodigoPessoa.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${colaborador.pessoa.codigo}"), jtfCodigoPessoa, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jtfCodigoPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfCodigoPessoaActionPerformed(evt);
+            }
+        });
+
+        jtfCodigoPessoaEndereco.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${colaborador.pessoa.endereco_codigo.codigo}"), jtfCodigoPessoaEndereco, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jtfCodigoPessoaEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfCodigoPessoaEnderecoActionPerformed(evt);
             }
         });
 
@@ -518,7 +538,11 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                             .add(jLabel32)
                             .add(jtfDataNacimento, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 167, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
+                        .add(36, 36, 36)
+                        .add(jtfCodigoPessoa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 167, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(60, 60, 60)
+                        .add(jtfCodigoPessoaEndereco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 167, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(jLabel34)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 167, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
@@ -530,7 +554,9 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel34))
+                    .add(jLabel34)
+                    .add(jtfCodigoPessoa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jtfCodigoPessoaEndereco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 37, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel19)
@@ -687,20 +713,47 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_jbtCancelarActionPerformed
-
     private void jtfCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoActionPerformed
-        
+     
     }//GEN-LAST:event_jtfCodigoActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-                
+         
+        Date datainicial = null;
+        String data = jtfDataContratação.getText(); //pegando dados de um formulário WEB
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); //você pode usar outras máscaras
+        try {
+            datainicial = sdf.parse(data);
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro");
+        }
+        Date datainicial2 = null;
+        String data2 = jtfDataDemissão.getText(); //pegando dados de um formulário WEB
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy"); //você pode usar outras máscaras
+        try {
+            datainicial = sdf.parse(data);
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro");
+        }
+        Date datainicial3 = null;
+        String data3 = jtfDataNacimento.getText(); //pegando dados de um formulário WEB
+        SimpleDateFormat sdf3 = new SimpleDateFormat("dd/MM/yyyy"); //você pode usar outras máscaras
+        try {
+            datainicial = sdf.parse(data);
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro");
+        }
         
+        colaborador.setDataContradacao(datainicial);
+        colaborador.setDataDemissao(datainicial2);
+        colaborador.setDataNascimento(datainicial3);
+        //colaborador.getPessoa().setCodigo(11);
+       //colaborador.getPessoa().getEndereco_codigo().setCodigo(1);
         
-        
-        colaboradorDao.inserir(colaborador);
-        grupoColaboradorDao.inserir(colaborador.getGrupoColaborador());
-        //pessoa.setCodigo(1);
+        enderecoDao.inserir(colaborador.getPessoa().getEndereco_codigo());
         pessoaDao.inserir(colaborador.getPessoa());
+         
+        colaboradorDao.inserir(colaborador);
               
         atualizaTabela();
 
@@ -723,13 +776,13 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
        
     }//GEN-LAST:event_jcbUFActionPerformed
     private void jcbSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSexoActionPerformed
-        
-        if (jcbSexo.getSelectedIndex() == 0) {
-            colaborador.getPessoa().setSexo("Feminino");
+ 
+        if (jcbSexo.getSelectedIndex() == 1) {
+            colaborador.getPessoa().setSexo("F");
         } else {
-            colaborador.getPessoa().setSexo("Masculino");
+            colaborador.getPessoa().setSexo("M");
         }
-        
+
     }//GEN-LAST:event_jcbSexoActionPerformed
 
     private void jcbfuncaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbfuncaoActionPerformed
@@ -737,6 +790,14 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         colaborador.setGrupoColaborador((GrupoColaborador) jcbfuncao.getSelectedItem());
         
     }//GEN-LAST:event_jcbfuncaoActionPerformed
+
+    private void jtfCodigoPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoPessoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfCodigoPessoaActionPerformed
+
+    private void jtfCodigoPessoaEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoPessoaEnderecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfCodigoPessoaEnderecoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -814,6 +875,8 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField jtfBairro;
     private javax.swing.JTextField jtfCep;
     private javax.swing.JTextField jtfCodigo;
+    private javax.swing.JTextField jtfCodigoPessoa;
+    private javax.swing.JTextField jtfCodigoPessoaEndereco;
     private javax.swing.JFormattedTextField jtfCpf;
     private javax.swing.JTextField jtfDataContratação;
     private javax.swing.JTextField jtfDataDemissão;
@@ -855,7 +918,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     private List<Pessoa> pessoas;
     
     //Metodos gets e sets
-
+/*
     public GrupoColaborador getGrupoColaborador() {
         return grupoColaborador;
     }
@@ -863,15 +926,17 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     public void setGrupoColaborador(GrupoColaborador grupoColaborador) {
         this.grupoColaborador = grupoColaborador;
     }
-
+    
     public Endereco getEndereco() {
         return endereco;
     }
 
     public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+        Endereco enderecoVelho = this.endereco;
+        this.endereco= endereco;
+        firePropertyChange("endereco", enderecoVelho, this.endereco);
     }
-
+    
     public UnidadeFederativa getUnidadeFederativa() {
         return unidadeFederativa;
     }
@@ -901,7 +966,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         firePropertyChange("cidade", cidadeVelho, this.cidade);
     }
     
-    
+    */
     
     public Colaborador getColaborador() {
         
@@ -959,5 +1024,10 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         }
         jcbfuncao.setRenderer(new ComboBoxGrpColaborador());
 
+    }
+    
+    public void formatadata(){
+        
+      
     }
 }

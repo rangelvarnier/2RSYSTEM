@@ -7,10 +7,11 @@ public class Endereco {
     private String numero;
     private String cep;
     private String bairro;
+    private Cidade cidade_codigo;
     private String telefone;
     private String celular;
     private String email;
-    private Cidade cidade_codigo;
+    
 
     public Endereco() {
     }
@@ -18,16 +19,17 @@ public class Endereco {
         this.cidade_codigo = cidade;
     }
     
-    public Endereco(Integer codigo, String rua, String numero, String cep, String bairro, String telefone, String celular, String email, Cidade cidade_codigo) {
+    public Endereco(Integer codigo, String rua, String numero, String cep, String bairro, Cidade cidade_codigo, String telefone, String celular, String email) {
         this.codigo = codigo;
         this.rua = rua;
         this.numero = numero;
         this.cep = cep;
         this.bairro = bairro;
+        this.cidade_codigo = cidade_codigo;
         this.telefone = telefone;
         this.celular = celular;
         this.email = email;
-        this.cidade_codigo = cidade_codigo;
+        
     }
 
     public Integer getCodigo() {

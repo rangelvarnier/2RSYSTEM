@@ -408,7 +408,11 @@
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                              <Component id="jtfCodigoPessoa" min="-2" pref="167" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="jtfCodigoPessoaEndereco" min="-2" pref="167" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jtfCodigo" min="-2" pref="167" max="-2" attributes="0"/>
@@ -425,6 +429,8 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jtfCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtfCodigoPessoa" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtfCodigoPessoaEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="37" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -589,11 +595,6 @@
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
               </Properties>
-              <BindingProperties>
-                <BindingProperty name="text" source="Form" sourcePath="${colaborador.dataContradacao}" target="jtfDataContrata&#xe7;&#xe3;o" targetPath="text" updateStrategy="0" immediately="false">
-                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
-                </BindingProperty>
-              </BindingProperties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfDataContrata&#xe7;&#xe3;oActionPerformed"/>
               </Events>
@@ -811,11 +812,6 @@
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
               </Properties>
-              <BindingProperties>
-                <BindingProperty name="text" source="Form" sourcePath="${colaborador.dataDemissao}" target="jtfDataDemiss&#xe3;o" targetPath="text" updateStrategy="0" immediately="false">
-                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
-                </BindingProperty>
-              </BindingProperties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfDataDemiss&#xe3;oActionPerformed"/>
               </Events>
@@ -842,11 +838,6 @@
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
               </Properties>
-              <BindingProperties>
-                <BindingProperty name="text" source="Form" sourcePath="${colaborador.dataNascimento}" target="jtfDataNacimento" targetPath="text" updateStrategy="0" immediately="false">
-                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
-                </BindingProperty>
-              </BindingProperties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfDataNacimentoActionPerformed"/>
               </Events>
@@ -894,6 +885,11 @@
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="Form" sourcePath="${colaborador.codigo}" target="jtfCodigo" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfCodigoActionPerformed"/>
               </Events>
@@ -917,6 +913,36 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbfuncaoActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jtfCodigoPessoa">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Lucida Grande" size="12" style="0"/>
+                </Property>
+              </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="Form" sourcePath="${colaborador.pessoa.codigo}" target="jtfCodigoPessoa" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfCodigoPessoaActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jtfCodigoPessoaEndereco">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Lucida Grande" size="12" style="0"/>
+                </Property>
+              </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="Form" sourcePath="${colaborador.pessoa.endereco_codigo.codigo}" target="jtfCodigoPessoaEndereco" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfCodigoPessoaEnderecoActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
