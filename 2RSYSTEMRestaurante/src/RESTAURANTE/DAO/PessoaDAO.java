@@ -13,6 +13,8 @@ public interface PessoaDAO {
     void remover(Pessoa pessoa);
 
     Pessoa buscarPorCodigo(Integer codigo);
+    
+    Integer buscarIdMaior();
 
     List<Pessoa> buscarTodos();
     

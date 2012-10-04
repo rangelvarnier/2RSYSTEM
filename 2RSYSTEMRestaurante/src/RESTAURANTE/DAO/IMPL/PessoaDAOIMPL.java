@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PessoaDAOIMPL implements PessoaDAO{
 
@@ -121,5 +123,27 @@ public class PessoaDAOIMPL implements PessoaDAO{
         return pessoas;
     
     }
-    
+
+    @Override
+    public Integer buscarIdMaior() {
+        Integer idmaior = null;
+        Connection con = new Conexao().criarConexao();
+        String sql = "select max(codigo) as codigo from pessoa";
+        PreparedStatement stmt; 
+        try {
+            stmt = con.prepareStatement(sql);
+            ResultSet rs1 = stmt.executeQuery(); 
+            rs1.next(); 
+            idmaior = rs1.getInt("codigo"); 
+
+            rs1.close(); 
+            stmt.close(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(ColaboradorDAOIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ 
+        return idmaior;
+    }
 }
+    
+

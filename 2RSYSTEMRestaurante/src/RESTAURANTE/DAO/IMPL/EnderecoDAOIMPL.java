@@ -9,7 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EnderecoDAOIMPL implements EnderecoDAO{
 
@@ -92,15 +95,22 @@ public class EnderecoDAOIMPL implements EnderecoDAO{
             
             ResultSet rs = stmt.executeQuery();
             
-       /*     while(rs.next()){
+            while(rs.next()){
                 endereco = new Endereco();
-                endereco.setCodigo(rs.getInt("codico"));
-                endereco.setNome(rs.getString("nome"));
-                endereco.setUnidadeFederativa_codigo(unidadeFederativaDao.buscarPorCodigo(rs.getInt("codigo")));
+                endereco.setCodigo(rs.getInt("codigo"));
+                endereco.setRua(rs.getString("rua"));
+                endereco.setNumero(rs.getString("numero"));
+                endereco.setCep(rs.getString("cep"));
+                endereco.setBairro(rs.getString("bairro"));
+                endereco.setCidade_codigo(cidadeDao.buscaPorId(rs.getInt("cidade_codigo")));
+                endereco.setTelefone(rs.getString("telefone"));
+                endereco.setCelular(rs.getString("celular"));
+                endereco.setEmail(rs.getString("email"));
 
-            }*/
             
-        } catch (SQLException ex){
+            
+            } 
+        }catch (SQLException ex){
             
         }
         return endereco;
@@ -108,8 +118,59 @@ public class EnderecoDAOIMPL implements EnderecoDAO{
 
     @Override
     public List<Endereco> buscarTodos() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<Endereco> enderecos = new ArrayList<Endereco>();
+        CidadeDAO cidadeDao = new CidadeDAOIMPL();
+
+
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from endereco";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Endereco endereco = new Endereco();
+                endereco.setCodigo(rs.getInt("codigo"));
+                endereco.setRua(rs.getString("rua"));
+                endereco.setNumero(rs.getString("numero"));
+                endereco.setCep(rs.getString("cep"));
+                endereco.setBairro(rs.getString("bairro"));
+                endereco.setCidade_codigo(cidadeDao.buscaPorId(rs.getInt("cidade_codigo")));
+                endereco.setTelefone(rs.getString("telefone"));
+                endereco.setCelular(rs.getString("celular"));
+                endereco.setEmail(rs.getString("email"));
+
+                enderecos.add(endereco);
+            }
+
+        } catch (SQLException ex) {
+        }
+        return enderecos;
+        
     }
+
+    @Override
+    public Integer buscarIdMaior() {
+        Integer idmaior = null;
+        Connection con = new Conexao().criarConexao();
+        String sql = "select max(codigo) as codigo from endereco";
+        PreparedStatement stmt; 
+        try {
+            stmt = con.prepareStatement(sql);
+            ResultSet rs2 = stmt.executeQuery(); 
+            rs2.next(); 
+            idmaior = rs2.getInt("codigo"); 
+
+            rs2.close(); 
+            stmt.close(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(ColaboradorDAOIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ 
+        return idmaior;
+    }
+    
     
     
     

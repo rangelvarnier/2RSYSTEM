@@ -12,6 +12,8 @@ public interface EnderecoDAO {
     void remover(Endereco endereco);
 
     Endereco buscarPorCodigo(Integer codigo);
+    
+    Integer buscarIdMaior();
 
     List<Endereco> buscarTodos();
     
