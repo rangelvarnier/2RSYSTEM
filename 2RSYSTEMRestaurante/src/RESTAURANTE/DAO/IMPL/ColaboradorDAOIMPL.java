@@ -6,11 +6,14 @@ import RESTAURANTE.DAO.PessoaDAO;
 import RESTAURANTE.DAO.UTIL.Conexao;
 import RESTAURANTE.MODEL.Colaborador;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ColaboradorDAOIMPL implements ColaboradorDAO {
 
@@ -138,6 +141,60 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
                 colaborador.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
 
                 colaboradores.add(colaborador);
+            }
+
+        } catch (SQLException ex) {
+        }
+        return colaboradores;
+    }
+
+    @Override
+    public Integer buscaIdMaio() {
+        Integer idmaior = null;
+        Connection con = new Conexao().criarConexao();
+        String sql = "select max(codigo) as codigo from colaborador";
+        PreparedStatement stmt; 
+        try {
+            stmt = con.prepareStatement(sql);
+            ResultSet rs1 = stmt.executeQuery(); 
+            rs1.next(); 
+            idmaior = rs1.getInt("codigo"); 
+
+            rs1.close(); 
+            stmt.close(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(ColaboradorDAOIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ 
+        return idmaior;
+    }
+
+    @Override
+    public List<Colaborador> buscarPorNome(String nome) {
+        List<Colaborador> colaboradores = new ArrayList<Colaborador>();
+        GrupoColaboradorDAO grupoColaboradoresDao = new GrupoColaboradorDAOIMPL();
+        PessoaDAO pessoaDao = new PessoaDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from colaborador join pessoa using(codigo) where nome like ? ";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, "%"+nome+"%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Colaborador colaborador = new Colaborador();
+                colaborador.setCodigo(rs.getInt("codigo"));
+                colaborador.setCpf(rs.getString("cpf"));
+                colaborador.setRg(rs.getString("rg"));
+                colaborador.setDataNascimento(rs.getDate("dataNascimento"));
+                colaborador.setDataContradacao(rs.getDate("dataContradacao"));
+                colaborador.setDataDemissao(rs.getDate("dataDemissao"));
+                colaborador.setGrupoColaborador(grupoColaboradoresDao.buscaPorId(rs.getLong("grupoColaboradores_codigo")));
+                colaborador.setSalario(rs.getFloat("salario"));
+                colaborador.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
+                colaboradores.add(colaborador);
+                
             }
 
         } catch (SQLException ex) {

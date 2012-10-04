@@ -110,4 +110,11 @@ public class Colaborador {
     public void setGrupoColaborador(GrupoColaborador grupoColaborador) {
         this.grupoColaborador = grupoColaborador;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(codigo);
+    }
+
+    
 }
