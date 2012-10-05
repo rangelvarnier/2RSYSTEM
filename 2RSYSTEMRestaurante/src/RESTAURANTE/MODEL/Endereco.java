@@ -103,6 +103,12 @@ public class Endereco {
     public void setCidade_codigo(Cidade cidade_codigo) {
         this.cidade_codigo = cidade_codigo;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(codigo);
+    }
+    
     
     
     

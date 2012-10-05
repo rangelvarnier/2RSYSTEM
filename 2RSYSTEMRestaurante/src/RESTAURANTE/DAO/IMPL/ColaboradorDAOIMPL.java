@@ -6,7 +6,6 @@ import RESTAURANTE.DAO.PessoaDAO;
 import RESTAURANTE.DAO.UTIL.Conexao;
 import RESTAURANTE.MODEL.Colaborador;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -153,19 +152,19 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
         Integer idmaior = null;
         Connection con = new Conexao().criarConexao();
         String sql = "select max(codigo) as codigo from colaborador";
-        PreparedStatement stmt; 
+        PreparedStatement stmt;
         try {
             stmt = con.prepareStatement(sql);
-            ResultSet rs1 = stmt.executeQuery(); 
-            rs1.next(); 
-            idmaior = rs1.getInt("codigo"); 
+            ResultSet rs1 = stmt.executeQuery();
+            rs1.next();
+            idmaior = rs1.getInt("codigo");
 
-            rs1.close(); 
-            stmt.close(); 
+            rs1.close();
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(ColaboradorDAOIMPL.class.getName()).log(Level.SEVERE, null, ex);
         }
- 
+
         return idmaior;
     }
 
@@ -179,7 +178,7 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, "%"+nome+"%");
+            stmt.setString(1, "%" + nome + "%");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -194,7 +193,7 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
                 colaborador.setSalario(rs.getFloat("salario"));
                 colaborador.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
                 colaboradores.add(colaborador);
-                
+
             }
 
         } catch (SQLException ex) {

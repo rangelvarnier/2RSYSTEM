@@ -52,6 +52,11 @@ public class Pessoa {
     public void setEndereco_codigo(Endereco endereco_codigo) {
         this.endereco_codigo = endereco_codigo;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(codigo);
+    }
     
     
     
