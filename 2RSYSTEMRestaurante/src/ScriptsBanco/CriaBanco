@@ -1,0 +1,378 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+
+CREATE SCHEMA IF NOT EXISTS `2RSITEM` ;
+USE `2RSITEM` ;
+
+-- -----------------------------------------------------
+-- Table `unidadeFederativa`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `unidadeFederativa` (
+  `codigo` INT NOT NULL AUTO_INCREMENT ,
+  `nome` VARCHAR(45) NOT NULL ,
+  `sigla` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`codigo`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cidade`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cidade` (
+  `codigo` INT NOT NULL AUTO_INCREMENT ,
+  `nome` VARCHAR(45) NOT NULL ,
+  `unidadeFederativa_codigo` INT NOT NULL ,
+  PRIMARY KEY (`codigo`) ,
+  INDEX `fk_cidade_unidadeFederativa` (`unidadeFederativa_codigo` ASC) ,
+  CONSTRAINT `fk_cidade_unidadeFederativa`
+    FOREIGN KEY (`unidadeFederativa_codigo` )
+    REFERENCES `unidadeFederativa` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `endereco`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `endereco` (
+  `codigo` INT NOT NULL AUTO_INCREMENT ,
+  `rua` VARCHAR(45) NOT NULL ,
+  `numero` VARCHAR(10) NOT NULL ,
+  `cep` VARCHAR(9) NOT NULL ,
+  `bairro` VARCHAR(45) NOT NULL ,
+  `cidade_codigo` INT NOT NULL ,
+  `telefone` VARCHAR(10) NULL ,
+  `celular` VARCHAR(10) NULL ,
+  `email` VARCHAR(45) NULL ,
+  PRIMARY KEY (`codigo`) ,
+  INDEX `fk_endereco_cidade1` (`cidade_codigo` ASC) ,
+  CONSTRAINT `fk_endereco_cidade1`
+    FOREIGN KEY (`cidade_codigo` )
+    REFERENCES `cidade` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `empresa`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `empresa` (
+  `codigo` INT NOT NULL AUTO_INCREMENT ,
+  `razaoSocial` VARCHAR(45) NOT NULL ,
+  `nomeFantasia` VARCHAR(45) NULL ,
+  `cnpj` VARCHAR(14) NOT NULL ,
+  `inscricaoEstadual` VARCHAR(15) NULL ,
+  `nomeProprietario` VARCHAR(45) NULL ,
+  `email` VARCHAR(50) NULL ,
+  `dataFundacao` DATE NULL ,
+  `endereco_codigo` INT NOT NULL ,
+  PRIMARY KEY (`codigo`) ,
+  INDEX `fk_empresa_endereco1` (`endereco_codigo` ASC) ,
+  CONSTRAINT `fk_empresa_endereco1`
+    FOREIGN KEY (`endereco_codigo` )
+    REFERENCES `endereco` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `grupoColaboradores`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `grupoColaboradores` (
+  `codigo` INT NOT NULL AUTO_INCREMENT ,
+  `descricao` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`codigo`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pessoa`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `pessoa` (
+  `codigo` INT NOT NULL AUTO_INCREMENT ,
+  `nome` VARCHAR(45) NOT NULL ,
+  `sexo` CHAR(1) NOT NULL ,
+  `endereco_codigo` INT NOT NULL ,
+  PRIMARY KEY (`codigo`) ,
+  INDEX `fk_colaborador_endereco1` (`endereco_codigo` ASC) ,
+  CONSTRAINT `fk_colaborador_endereco101`
+    FOREIGN KEY (`endereco_codigo` )
+    REFERENCES `endereco` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `colaborador`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `colaborador` (
+  `codigo` INT NOT NULL AUTO_INCREMENT ,
+  `cpf` VARCHAR(11) NOT NULL ,
+  `rg` VARCHAR(15) NULL ,
+  `dataNascimento` DATE NULL ,
+  `dataContradacao` DATE NOT NULL ,
+  `dataDemissao` DATE NULL ,
+  `grupoColaboradores_codigo` INT NOT NULL ,
+  `salario` FLOAT NOT NULL ,
+  `pessoa_codigo` INT NOT NULL ,
+  PRIMARY KEY (`codigo`) ,
+  INDEX `fk_colaborador_grupoColaboradores1` (`grupoColaboradores_codigo` ASC) ,
+  INDEX `fk_colaborador_pessoa1` (`pessoa_codigo` ASC) ,
+  CONSTRAINT `fk_colaborador_grupoColaboradores1`
+    FOREIGN KEY (`grupoColaboradores_codigo` )
+    REFERENCES `grupoColaboradores` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_colaborador_pessoa1`
+    FOREIGN KEY (`pessoa_codigo` )
+    REFERENCES `pessoa` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cliente`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cliente` (
+  `codigo` INT NOT NULL AUTO_INCREMENT ,
+  `cpf` VARCHAR(11) NOT NULL ,
+  `rg` VARCHAR(15) NULL ,
+  `dataNascimento` DATE NULL ,
+  `dataCadastro` DATE NOT NULL ,
+  `limite` FLOAT NULL ,
+  `saldo` FLOAT NULL ,
+  `pessoa_codigo` INT NOT NULL ,
+  PRIMARY KEY (`codigo`) ,
+  INDEX `fk_cliente_pessoa1` (`pessoa_codigo` ASC) ,
+  CONSTRAINT `fk_cliente_pessoa1`
+    FOREIGN KEY (`pessoa_codigo` )
+    REFERENCES `pessoa` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `unidadeMedidda`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `unidadeMedidda` (
+  `codigo` INT NOT NULL AUTO_INCREMENT ,
+  `descricao` VARCHAR(45) NOT NULL ,
+  `sigla` VARCHAR(5) NOT NULL ,
+  `fragmentaQtd` TINYINT(1) NOT NULL ,
+  `quantidade` FLOAT NOT NULL ,
+  PRIMARY KEY (`codigo`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `grupoItens`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `grupoItens` (
+  `codigo` INT NOT NULL AUTO_INCREMENT ,
+  `descricao` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`codigo`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `subGrupoItens`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `subGrupoItens` (
+  `codigo` INT NOT NULL AUTO_INCREMENT ,
+  `descricao` VARCHAR(45) NOT NULL ,
+  `grupoItens_codigo` INT NOT NULL ,
+  PRIMARY KEY (`codigo`) ,
+  INDEX `fk_subGrupoItens_grupoItens1` (`grupoItens_codigo` ASC) ,
+  CONSTRAINT `fk_subGrupoItens_grupoItens1`
+    FOREIGN KEY (`grupoItens_codigo` )
+    REFERENCES `grupoItens` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fornecedor`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `fornecedor` (
+  `codigo` INT NOT NULL AUTO_INCREMENT ,
+  `nomeFantasia` VARCHAR(45) NOT NULL ,
+  `razaoSocial` VARCHAR(45) NULL ,
+  `cnpj` VARCHAR(11) NOT NULL ,
+  `inscEstadual` VARCHAR(15) NULL ,
+  `dataFundacao` DATE NULL ,
+  `dataCadastro` DATE NOT NULL ,
+  `pessoa_codigo` INT NOT NULL ,
+  PRIMARY KEY (`codigo`) ,
+  INDEX `fk_fornecedor_pessoa1` (`pessoa_codigo` ASC) ,
+  CONSTRAINT `fk_fornecedor_pessoa1`
+    FOREIGN KEY (`pessoa_codigo` )
+    REFERENCES `pessoa` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `produto`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `produto` (
+  `codigo` INT NOT NULL AUTO_INCREMENT ,
+  `codigoFabrica` VARCHAR(45) NOT NULL ,
+  `decricao` VARCHAR(45) NOT NULL ,
+  `precoVenda` FLOAT NULL ,
+  `precoCompra` FLOAT NULL ,
+  `saldoEstoque` FLOAT NOT NULL ,
+  `unidadeMedidda_codigo` INT NOT NULL ,
+  `subGrupoItens_codigo` INT NOT NULL ,
+  `fornecedor_codigo` INT NOT NULL ,
+  PRIMARY KEY (`codigo`) ,
+  INDEX `fk_produto_unidadeMedidda1` (`unidadeMedidda_codigo` ASC) ,
+  INDEX `fk_produto_subGrupoItens1` (`subGrupoItens_codigo` ASC) ,
+  INDEX `fk_produto_fornecedor1` (`fornecedor_codigo` ASC) ,
+  CONSTRAINT `fk_produto_unidadeMedidda1`
+    FOREIGN KEY (`unidadeMedidda_codigo` )
+    REFERENCES `unidadeMedidda` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_produto_subGrupoItens1`
+    FOREIGN KEY (`subGrupoItens_codigo` )
+    REFERENCES `subGrupoItens` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_produto_fornecedor1`
+    FOREIGN KEY (`fornecedor_codigo` )
+    REFERENCES `fornecedor` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `compra`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `compra` (
+  `codigo` INT NOT NULL AUTO_INCREMENT ,
+  `dataCompra` DATE NOT NULL ,
+  `valorCompra` FLOAT NOT NULL ,
+  `fornecedor_codigo` INT NOT NULL ,
+  `colaborador_codigo` INT NOT NULL ,
+  PRIMARY KEY (`codigo`) ,
+  INDEX `fk_compra_fornecedor1` (`fornecedor_codigo` ASC) ,
+  INDEX `fk_compra_colaborador1` (`colaborador_codigo` ASC) ,
+  CONSTRAINT `fk_compra_fornecedor1`
+    FOREIGN KEY (`fornecedor_codigo` )
+    REFERENCES `fornecedor` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_compra_colaborador1`
+    FOREIGN KEY (`colaborador_codigo` )
+    REFERENCES `colaborador` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `produtosDaCompra`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `produtosDaCompra` (
+  `compra_codigo` INT NOT NULL ,
+  `produto_codigo` INT NOT NULL ,
+  `quantidade` FLOAT NOT NULL ,
+  `valorUnitario` FLOAT NOT NULL ,
+  `valorTotal` FLOAT NOT NULL ,
+  PRIMARY KEY (`compra_codigo`, `produto_codigo`) ,
+  INDEX `fk_compra_has_produto_produto1` (`produto_codigo` ASC) ,
+  INDEX `fk_compra_has_produto_compra1` (`compra_codigo` ASC) ,
+  CONSTRAINT `fk_compra_has_produto_compra1`
+    FOREIGN KEY (`compra_codigo` )
+    REFERENCES `compra` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_compra_has_produto_produto1`
+    FOREIGN KEY (`produto_codigo` )
+    REFERENCES `produto` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `venda`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `venda` (
+  `codigo` INT NOT NULL AUTO_INCREMENT ,
+  `dataVenda` DATE NOT NULL ,
+  `valorVenda` FLOAT NOT NULL ,
+  `cliente_codigo` INT NOT NULL ,
+  `colaborador_codigo` INT NOT NULL ,
+  PRIMARY KEY (`codigo`) ,
+  INDEX `fk_venda_cliente1` (`cliente_codigo` ASC) ,
+  INDEX `fk_venda_colaborador1` (`colaborador_codigo` ASC) ,
+  CONSTRAINT `fk_venda_cliente1`
+    FOREIGN KEY (`cliente_codigo` )
+    REFERENCES `cliente` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_venda_colaborador1`
+    FOREIGN KEY (`colaborador_codigo` )
+    REFERENCES `colaborador` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `produtosDaVenda`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `produtosDaVenda` (
+  `venda_codigo` INT NOT NULL ,
+  `produto_codigo` INT NOT NULL ,
+  `quantidade` FLOAT NOT NULL ,
+  `valorUnitario` FLOAT NOT NULL ,
+  `valorTotal` FLOAT NOT NULL ,
+  PRIMARY KEY (`venda_codigo`, `produto_codigo`) ,
+  INDEX `fk_produto_has_venda_venda1` (`venda_codigo` ASC) ,
+  INDEX `fk_produto_has_venda_produto1` (`produto_codigo` ASC) ,
+  CONSTRAINT `fk_produto_has_venda_produto1`
+    FOREIGN KEY (`produto_codigo` )
+    REFERENCES `produto` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_produto_has_venda_venda1`
+    FOREIGN KEY (`venda_codigo` )
+    REFERENCES `venda` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `usuario`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `usuario` (
+  `idusuario` INT NOT NULL AUTO_INCREMENT ,
+  `usuario` VARCHAR(8) NULL ,
+  `senha` VARCHAR(8) NULL ,
+  PRIMARY KEY (`idusuario`) ,
+  INDEX `usuario_colaborador` (`idusuario` ASC) ,
+  CONSTRAINT `usuario_colaborador`
+    FOREIGN KEY (`idusuario` )
+    REFERENCES `colaborador` (`codigo` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

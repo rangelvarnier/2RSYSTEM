@@ -1,0 +1,41 @@
+
+create table cidade(
+codigo int not null AUTO_INCREMENT,
+nome varchar(150) not null,
+unidadefederativa_codigo int not null,
+PRIMARY KEY(codigo),
+FOREIGN KEY(unidadefederativa_codigo) references unidadefederativa(codigo));
+
+create table unidadefederativa(
+codigo int not null AUTO_INCREMENT, 
+nome varchar(150) not null,
+sigla char(2) not null,
+PRIMARY KEY(codigo)
+);
+
+
+
+
+//1 altera nome tabela GrupoItens
+ALTER TABLE `2rsitem`.`grupoitens` RENAME TO  `2rsitem`.`grupoitem` ;
+
+//2 altera nome tabela SubGrupoItens e nome da Fk
+ALTER TABLE `2rsitem`.`subgrupoitens` DROP FOREIGN KEY `fk_subGrupoItens_grupoItens1` ;
+ALTER TABLE `2rsitem`.`subgrupoitens` CHANGE COLUMN `grupoItens_codigo` `grupoItem_codigo` INT(11) NOT NULL  , 
+  ADD CONSTRAINT `fk_subGrupoItem_grupoItem1`
+  FOREIGN KEY (`grupoItem_codigo` )
+  REFERENCES `2rsitem`.`grupoitem` (`codigo` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION, RENAME TO  `2rsitem`.`subgrupoitem` ;
+
+//3 altera index nome do index
+ALTER TABLE `2rsitem`.`subgrupoitem` 
+DROP INDEX `fk_subGrupoItens_grupoItens1` 
+, ADD INDEX `fk_subGrupoItem_grupoItem1` (`grupoItem_codigo` ASC) ;
+
+//4 altera tamanho do campo cpf para 15
+ALTER TABLE `2rsitem`.`colaborador` CHANGE COLUMN `cpf` `cpf` VARCHAR(15) NOT NULL  ;
+
+//5 altera tamanho do campo telefone e celulat para 15
+ALTER TABLE `2rsitem`.`endereco` CHANGE COLUMN `telefone` `telefone` VARCHAR(15) NULL DEFAULT NULL 
+ , CHANGE COLUMN `celular` `celular` VARCHAR(15) NULL DEFAULT NULL  ;

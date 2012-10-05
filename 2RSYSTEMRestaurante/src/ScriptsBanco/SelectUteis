@@ -1,0 +1,13 @@
+#--pesquisa pelo nome da cidade
+SELECT cid.codigo codCidade, cid.nome cidade, uf.nome uf FROM cidade cid
+join unidadefederativa uf on uf.codigo = cid.unidadefederativa_codigo 
+where cid.nome like '%chape%';
+
+#--pesquisa todas cidades da sigla
+SELECT cid.codigo codCidade, cid.nome
+FROM cidade cid
+JOIN unidadefederativa uf ON uf.codigo = cid.unidadefederativa_codigo
+WHERE uf.sigla = 'SP';
+
+#--pesquisa todos os estados
+select * from unidadefederativa;

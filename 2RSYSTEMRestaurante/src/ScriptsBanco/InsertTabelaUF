@@ -1,0 +1,31 @@
+/*
+-- Query: SELECT * FROM clinica.unidadefederativa
+-- Date: 2012-09-19 23:56
+*/
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (1,'Acre','AC');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (2,'Alagoas','AL');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (3,'Amazonas','AM');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (4,'Amapá','AP');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (5,'Bahia','BA');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (6,'Ceará','CE');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (7,'Distrito Federal','DF');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (8,'Espírito Santo','ES');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (9,'Goiás','GO');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (10,'Maranhão','MA');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (11,'Minas Gerais','MG');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (12,'Mato Grosso Do Sul','MS');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (13,'Mato Grosso','MT');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (14,'Pará','PA');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (15,'Paraíba','PB');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (16,'Pernambuco','PE');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (17,'Piauí','PI');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (18,'Paraná','PR');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (19,'Rio De Janeiro','RJ');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (20,'Rio Grande Do Norte','RN');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (21,'Rondônia','RO');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (22,'Roraima','RR');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (23,'Rio Grande Do Sul','RS');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (24,'Santa Catarina','SC');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (25,'Sergipe','SE');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (26,'São Paulo','SP');
+INSERT INTO `unidadefederativa` (`codigo`,`nome`,`sigla`) VALUES (27,'Tocantins','TO');
