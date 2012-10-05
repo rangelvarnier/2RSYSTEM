@@ -1,8 +1,7 @@
 package RESTAURANTE.MODEL;
 
-
 public class Produto {
- 
+
     private Integer codigo;
     private String codigoFabrica;
     private String descricao;
@@ -25,7 +24,15 @@ public class Produto {
         setFornecedor(fornecedor);
     }
 
-    
+    public Produto() {
+    }
+
+    public Produto(UnidadeMedida unidadeMedida, SubGrupoItem subGrupoItens, Fornecedor fornecedor) {
+        this.unidadeMedida = unidadeMedida;
+        this.subGrupoItens = subGrupoItens;
+        this.fornecedor = fornecedor;
+    }
+
     public Integer getCodigo() {
         return codigo;
     }
@@ -97,7 +104,4 @@ public class Produto {
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
     }
-    
-    
-    
 }
