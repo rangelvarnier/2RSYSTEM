@@ -1,18 +1,27 @@
 package FRAME;
 
+import RESTAURANTE.DAO.FornecedorDAO;
+import RESTAURANTE.DAO.IMPL.FornecedorDAOIMPL;
+import RESTAURANTE.DAO.IMPL.ProdutoDAOIMPL;
+import RESTAURANTE.DAO.ProdutoDAO;
 import RESTAURANTE.MODEL.Produto;
 import java.util.List;
+import org.jdesktop.observablecollections.ObservableCollections;
 
 public class FrameCadastroProdutos extends javax.swing.JFrame {
 
     public FrameCadastroProdutos() {
         initComponents();
+        produtoDao = new ProdutoDAOIMPL();
+        fornecedorDao = new FornecedorDAOIMPL();
+        atualizaTabela();
 
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jbtSalvar = new javax.swing.JButton();
@@ -117,10 +126,10 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
             }
         });
         jtbpProdutos.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 jtbpProdutosCaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jtbpProdutos.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -133,14 +142,50 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
             }
         });
 
-        jtbProdutos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${produtos}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbProdutos);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
+        columnBinding.setColumnName("Código");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigoFabrica}"));
+        columnBinding.setColumnName("CodFabrica");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descricao}"));
+        columnBinding.setColumnName("Descrição");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fornecedor.pessoa.nome}"));
+        columnBinding.setColumnName("Fornecedor");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${precoCompra}"));
+        columnBinding.setColumnName("Preço Compra");
+        columnBinding.setColumnClass(Float.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${precoVenda}"));
+        columnBinding.setColumnName("Preço venda");
+        columnBinding.setColumnClass(Float.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${saldoEstoque}"));
+        columnBinding.setColumnName("Estoque");
+        columnBinding.setColumnClass(Float.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${subGrupoItens.grupoItem.descricao}"));
+        columnBinding.setColumnName("Grupo");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${subGrupoItens.descricao}"));
+        columnBinding.setColumnName("SubGrupo");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${unidadeMedida.sigla}"));
+        columnBinding.setColumnName("UN");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
         jScrollPane1.setViewportView(jtbProdutos);
 
         jtfPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -389,6 +434,8 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jtbpProdutos.getAccessibleContext().setAccessibleName("Fornecedores");
         jtbpProdutos.getAccessibleContext().setAccessibleDescription("Fornecedores");
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -515,11 +562,38 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     private javax.swing.JTextField jtfPrecoVenda;
     private javax.swing.JTextField jtfPrecoVenda1;
     private javax.swing.JTextField jtfSaldoEstoque;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
-
     private Produto produto;
     private List<Produto> produtos;
-    
-    
-    
+    private ProdutoDAO produtoDao;
+    private FornecedorDAO fornecedorDao;
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        Produto produtoVelho = this.produto;
+        this.produto = produto;
+        firePropertyChange("produto", produtoVelho, this.produto);
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        List<Produto> produtosVelhos = this.produtos;
+        this.produtos = ObservableCollections.observableList(produtos);
+        firePropertyChange("produtos", produtosVelhos, this.produtos);
+    }
+
+    private void atualizaTabela() {
+        setProdutos(produtoDao.buscarTodos());
+        if (produtoDao.buscarTodos().isEmpty()) {
+        } else {
+            jtbProdutos.addRowSelectionInterval(0, 0);
+        }
+    }
 }

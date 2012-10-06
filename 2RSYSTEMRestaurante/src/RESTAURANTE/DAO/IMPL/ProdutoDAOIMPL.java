@@ -1,12 +1,16 @@
 package RESTAURANTE.DAO.IMPL;
 
+import RESTAURANTE.DAO.FornecedorDAO;
 import RESTAURANTE.DAO.ProdutoDAO;
+import RESTAURANTE.DAO.SubGrupoItemDAO;
 import RESTAURANTE.DAO.UTIL.Conexao;
+import RESTAURANTE.DAO.UnidadeMedidaDAO;
 import RESTAURANTE.MODEL.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoDAOIMPL implements ProdutoDAO {
@@ -79,6 +83,9 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
     @Override
     public Produto buscarPorCodigo(Integer codigo) {
         Produto produto = null;
+        UnidadeMedidaDAO unidadeMedidaDao = new UnidadeMedidaDAOIMPL();
+        SubGrupoItemDAO subGrupoItemDao = new SubGrupoItensDAOIMPL();
+        FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
         Connection con = new Conexao().criarConexao();
         String sql = "select * from produto where codigo = ?";
         try {
@@ -90,18 +97,15 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-              /*  produto = new Produto();
-                produto.setCodigo();
-                produto.setDescricao(rs.getString(""));
-                produto.setPrecoVenda();
-                produto.setPrecoCompra();
-                produto.setSaldoEstoque();
-                produto.setUnidadeMedida().getCodigo();
-                produto.setSubGrupoItens().getCodigo();
-                produto.setFornecedor().getCodigo();
-                */
-
-                stmt.executeUpdate();
+                produto = new Produto();
+                produto.setCodigo(rs.getInt("codigoFabrica"));
+                produto.setDescricao(rs.getString("descricao"));
+                produto.setPrecoVenda(rs.getFloat("precoVenda"));
+                produto.setPrecoCompra(rs.getFloat("precoVenda"));
+                produto.setSaldoEstoque(rs.getFloat("saldoEstoque"));
+                produto.setUnidadeMedida(unidadeMedidaDao.buscarPorCodigo(rs.getInt("unidadeMedida_codigo")));
+                produto.setSubGrupoItens(subGrupoItemDao.buscarPorCodigo(rs.getInt("subGrupoItens_codigo")));
+                produto.setFornecedor(fornecedorDao.buscarPorCodigo(rs.getInt("fornecedor_codigo")));
             }
 
         } catch (SQLException ex) {
@@ -112,11 +116,71 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
 
     @Override
     public List<Produto> buscarPorDescricao(String descricao) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<Produto> produtos = new ArrayList<Produto>();
+        UnidadeMedidaDAO unidadeMedidaDao = new UnidadeMedidaDAOIMPL();
+        SubGrupoItemDAO subGrupoItemDao = new SubGrupoItensDAOIMPL();
+        FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+
+        String sql = "select * from produto where descricao like ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, "%" + descricao + "%");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Produto produto = new Produto();
+                produto.setCodigo(rs.getInt("codigoFabrica"));
+                produto.setDescricao(rs.getString("descricao"));
+                produto.setPrecoVenda(rs.getFloat("precoVenda"));
+                produto.setPrecoCompra(rs.getFloat("precoVenda"));
+                produto.setSaldoEstoque(rs.getFloat("saldoEstoque"));
+                produto.setUnidadeMedida(unidadeMedidaDao.buscarPorCodigo(rs.getInt("unidadeMedida_codigo")));
+                produto.setSubGrupoItens(subGrupoItemDao.buscarPorCodigo(rs.getInt("subGrupoItens_codigo")));
+                produto.setFornecedor(fornecedorDao.buscarPorCodigo(rs.getInt("fornecedor_codigo")));
+                produtos.add(produto);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return produtos;
     }
 
     @Override
     public List<Produto> buscarTodos() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<Produto> produtos = new ArrayList<Produto>();
+        UnidadeMedidaDAO unidadeMedidaDao = new UnidadeMedidaDAOIMPL();
+        SubGrupoItemDAO subGrupoItemDao = new SubGrupoItensDAOIMPL();
+        FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+
+        String sql = "select * from produto";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Produto produto = new Produto();
+                
+                produto.setCodigo(rs.getInt("codigo"));
+                produto.setCodigoFabrica(rs.getString("codigoFabrica"));
+                produto.setDescricao(rs.getString("descricao"));
+                produto.setPrecoVenda(rs.getFloat("precoVenda"));
+                produto.setPrecoCompra(rs.getFloat("precoVenda"));
+                produto.setSaldoEstoque(rs.getFloat("saldoEstoque"));
+                produto.setUnidadeMedida(unidadeMedidaDao.buscarPorCodigo(rs.getInt("unidadeMedida_codigo")));
+                produto.setSubGrupoItens(subGrupoItemDao.buscarPorCodigo(rs.getInt("subGrupoItens_codigo")));
+                produto.setFornecedor(fornecedorDao.buscarPorCodigo(rs.getInt("fornecedor_codigo")));
+                produtos.add(produto);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return produtos;
     }
 }

@@ -39,3 +39,6 @@ ALTER TABLE `2rsitem`.`colaborador` CHANGE COLUMN `cpf` `cpf` VARCHAR(15) NOT NU
 //5 altera tamanho do campo telefone e celulat para 15
 ALTER TABLE `2rsitem`.`endereco` CHANGE COLUMN `telefone` `telefone` VARCHAR(15) NULL DEFAULT NULL 
  , CHANGE COLUMN `celular` `celular` VARCHAR(15) NULL DEFAULT NULL  ;
+
+// 6/10/12 altera nome da coluda descricao na tabela produto 
+ALTER TABLE `2rsitem`.`produto` CHANGE COLUMN `decricao` `descricao` VARCHAR(45) NOT NULL  ;

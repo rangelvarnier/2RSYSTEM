@@ -23,6 +23,9 @@ public class Fornecedor {
         this.dataCadastro = dataCadastro;
         this.pessoa = pessoa;
     }
+
+    public Fornecedor() {
+    }
     
     public Integer getCodigo() {
         return codigo;
