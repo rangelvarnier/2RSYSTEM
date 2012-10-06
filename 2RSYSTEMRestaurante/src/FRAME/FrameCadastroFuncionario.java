@@ -101,8 +101,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
         jcbfuncao = new javax.swing.JComboBox();
         jtfCep = new javax.swing.JFormattedTextField();
-        jtfCodigoendereco = new javax.swing.JTextField();
-        jtfCodigopessoa = new javax.swing.JTextField();
         jtfDataNacimento = new com.toedter.calendar.JDateChooser();
         jtfDataDemissão = new com.toedter.calendar.JDateChooser();
         jtfDataContratação = new com.toedter.calendar.JDateChooser();
@@ -168,30 +166,11 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
         columnBinding.setColumnName("Codigo");
         columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cpf}"));
-        columnBinding.setColumnName("Cpf");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dataContradacao}"));
-        columnBinding.setColumnName("Data Contradacao");
-        columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dataDemissao}"));
-        columnBinding.setColumnName("Data Demissao");
-        columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dataNascimento}"));
-        columnBinding.setColumnName("Data Nascimento");
-        columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${grupoColaborador}"));
-        columnBinding.setColumnName("Grupo Colaborador");
-        columnBinding.setColumnClass(RESTAURANTE.MODEL.GrupoColaborador.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pessoa}"));
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pessoa.nome}"));
         columnBinding.setColumnName("Pessoa");
-        columnBinding.setColumnClass(RESTAURANTE.MODEL.Pessoa.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rg}"));
-        columnBinding.setColumnName("Rg");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${salario}"));
-        columnBinding.setColumnName("Salario");
-        columnBinding.setColumnClass(Float.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jtbColaboradores.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -460,22 +439,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${colaborador.pessoa.endereco_codigo.cep}"), jtfCep, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
-        jtfCodigoendereco.setEditable(false);
-        jtfCodigoendereco.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jtfCodigoendereco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCodigoenderecoActionPerformed(evt);
-            }
-        });
-
-        jtfCodigopessoa.setEditable(false);
-        jtfCodigopessoa.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jtfCodigopessoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCodigopessoaActionPerformed(evt);
-            }
-        });
-
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -541,10 +504,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                             .add(jtfDataNacimento, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                         .add(0, 0, Short.MAX_VALUE)
-                        .add(jtfCodigopessoa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 167, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(48, 48, 48)
-                        .add(jtfCodigoendereco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 167, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(43, 43, 43)
                         .add(jLabel34)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 167, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -587,9 +546,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel34)
-                    .add(jtfCodigoendereco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jtfCodigopessoa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jLabel34))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 40, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel19)
@@ -866,14 +823,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jtbColaboradores.addRowSelectionInterval(0, 0);
     }//GEN-LAST:event_jbtPesquisarActionPerformed
 
-    private void jtfCodigoenderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoenderecoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCodigoenderecoActionPerformed
-
-    private void jtfCodigopessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigopessoaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCodigopessoaActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -950,8 +899,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField jtfBairro;
     private javax.swing.JFormattedTextField jtfCep;
     private javax.swing.JTextField jtfCodigo;
-    private javax.swing.JTextField jtfCodigoendereco;
-    private javax.swing.JTextField jtfCodigopessoa;
     private javax.swing.JFormattedTextField jtfCpf;
     private com.toedter.calendar.JDateChooser jtfDataContratação;
     private com.toedter.calendar.JDateChooser jtfDataDemissão;
@@ -1061,8 +1008,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         }
 
         jtfCodigo.setText(colaborador.getCodigo().toString());
-        jtfCodigoendereco.setText(colaborador.getPessoa().getEndereco_codigo().getCodigo().toString());
-        jtfCodigopessoa.setText(colaborador.getPessoa().getCodigo().toString());
+        
     }
 
     private void limpacampodatas() {

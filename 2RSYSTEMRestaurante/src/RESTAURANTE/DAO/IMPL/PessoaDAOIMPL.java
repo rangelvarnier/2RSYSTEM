@@ -83,10 +83,10 @@ public class PessoaDAOIMPL implements PessoaDAO{
             
             while(rs.next()){
                 pessoa = new Pessoa();
-                pessoa.setCodigo(rs.getInt("codico"));
+                pessoa.setCodigo(rs.getInt("codigo"));
                 pessoa.setNome(rs.getString("nome"));
                 pessoa.setSexo(rs.getString("sexo"));
-                pessoa.setEndereco_codigo(enderecoDao.buscarPorCodigo(rs.getInt("codigo")));
+                pessoa.setEndereco_codigo(enderecoDao.buscarPorCodigo(rs.getInt("endereco_codigo")));
 
             }
             
