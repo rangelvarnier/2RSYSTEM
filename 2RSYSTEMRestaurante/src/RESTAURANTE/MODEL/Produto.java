@@ -9,10 +9,13 @@ public class Produto {
     private Float precoCompra;
     private Float saldoEstoque;
     private UnidadeMedida unidadeMedida;
+    private GrupoItem grupoItem;
     private SubGrupoItem subGrupoItens;
     private Fornecedor fornecedor;
 
-    public Produto(Integer codigo, String codigoFabrica, String descricao, Float precoVenda, Float precoCompra, Float saldoEstoque, UnidadeMedida unidadeMedida, SubGrupoItem subGrupoItens, Fornecedor fornecedor) {
+    public Produto(Integer codigo, String codigoFabrica, String descricao, Float precoVenda,
+            Float precoCompra, Float saldoEstoque, UnidadeMedida unidadeMedida,
+            GrupoItem grupoItem, SubGrupoItem subGrupoItens, Fornecedor fornecedor) {
         setCodigo(codigo);
         setCodigoFabrica(codigoFabrica);
         setDescricao(descricao);
@@ -20,6 +23,7 @@ public class Produto {
         setPrecoCompra(precoCompra);
         setSaldoEstoque(saldoEstoque);
         setUnidadeMedida(unidadeMedida);
+        setGrupoItem(grupoItem);
         setSubGrupoItens(subGrupoItens);
         setFornecedor(fornecedor);
     }
@@ -27,8 +31,9 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(UnidadeMedida unidadeMedida, SubGrupoItem subGrupoItens, Fornecedor fornecedor) {
+    public Produto(UnidadeMedida unidadeMedida, GrupoItem grupoItem, SubGrupoItem subGrupoItens, Fornecedor fornecedor) {
         this.unidadeMedida = unidadeMedida;
+        this.grupoItem = grupoItem;
         this.subGrupoItens = subGrupoItens;
         this.fornecedor = fornecedor;
     }
@@ -87,6 +92,14 @@ public class Produto {
 
     public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
         this.unidadeMedida = unidadeMedida;
+    }
+    
+     public GrupoItem getGrupoItem() {
+        return grupoItem;
+    }
+
+    public void setGrupoItem(GrupoItem grupoItem) {
+        this.grupoItem = grupoItem;
     }
 
     public SubGrupoItem getSubGrupoItens() {

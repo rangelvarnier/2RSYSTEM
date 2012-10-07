@@ -451,7 +451,7 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
             jcbGrupoItem.setSelectedIndex(0);
         }
     }
-
+    
     //metodo pega um objeto e seleciona no comboBox
     private void setaGrupoJCBGrupoItem() {
         jcbGrupoItem.getModel().setSelectedItem(subGrupoItem.getGrupoItem());

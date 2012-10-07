@@ -1,10 +1,22 @@
 package FRAME;
 
 import RESTAURANTE.DAO.FornecedorDAO;
+import RESTAURANTE.DAO.GrupoItemDAO;
 import RESTAURANTE.DAO.IMPL.FornecedorDAOIMPL;
+import RESTAURANTE.DAO.IMPL.GrupoItemDAOIMPL;
 import RESTAURANTE.DAO.IMPL.ProdutoDAOIMPL;
+import RESTAURANTE.DAO.IMPL.SubGrupoItensDAOIMPL;
+import RESTAURANTE.DAO.IMPL.UnidadeMedidaDAOIMPL;
 import RESTAURANTE.DAO.ProdutoDAO;
+import RESTAURANTE.DAO.SubGrupoItemDAO;
+import RESTAURANTE.DAO.UTIL.ComboBoxGrupoItem;
+import RESTAURANTE.DAO.UTIL.ComboBoxUnidadeMedida;
+import RESTAURANTE.DAO.UTIL.ComboBoxSubGrupoItem;
+import RESTAURANTE.DAO.UnidadeMedidaDAO;
+import RESTAURANTE.MODEL.GrupoItem;
 import RESTAURANTE.MODEL.Produto;
+import RESTAURANTE.MODEL.SubGrupoItem;
+import RESTAURANTE.MODEL.UnidadeMedida;
 import java.util.List;
 import org.jdesktop.observablecollections.ObservableCollections;
 
@@ -14,7 +26,12 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         initComponents();
         produtoDao = new ProdutoDAOIMPL();
         fornecedorDao = new FornecedorDAOIMPL();
+        grupoItemDao = new GrupoItemDAOIMPL();
+        subGrupoItemDao = new SubGrupoItensDAOIMPL();
+        unidadeMedidaDao = new UnidadeMedidaDAOIMPL();
         atualizaTabela();
+        atualizaComponentes();
+
 
     }
 
@@ -44,7 +61,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jtfDescricaoProduto = new javax.swing.JTextField();
         jtfDescricaoProduto1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jcbGrupo = new javax.swing.JComboBox();
+        jcbGrupoItem = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jcbSubGrupo = new javax.swing.JComboBox();
@@ -264,7 +281,13 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel5.setText("Código de fábrica");
 
-        jcbGrupo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbGrupoItem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbGrupoItem.setRenderer(new ComboBoxGrupoItem());
+        jcbGrupoItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbGrupoItemActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel6.setText("Grupo");
@@ -273,11 +296,13 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jLabel7.setText("Sub Grupo");
 
         jcbSubGrupo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbSubGrupo.setRenderer(new ComboBoxSubGrupoItem());
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel8.setText("Unidade Medida");
 
         jcbUnMedida.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbUnMedida.setRenderer(new ComboBoxUnidadeMedida());
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel3.setText("Preço Compra");
@@ -333,7 +358,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel6)
-                            .add(jcbGrupo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 137, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jcbGrupoItem, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 137, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(18, 18, 18)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel7)
@@ -387,7 +412,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel6)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jcbGrupo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jcbGrupoItem, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel7)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -518,16 +543,26 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtPesquisarActionPerformed
 
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
-
-        
+        setProduto(produtos.get(jtbProdutos.getSelectedRow()));
+        jtbpProdutos.setSelectedIndex(1);
+        setaGrupoJCBGrupoItem();
+        setaUNJcbUnidadeMedida();
+        setaSubGrupoJCBSubGrupoItem();
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
     private void jtbProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbProdutosMouseClicked
-        if(evt.getClickCount()==2){
+        if (evt.getClickCount() == 2) {
             setProduto(produtos.get(jtbProdutos.getSelectedRow()));
             jtbpProdutos.setSelectedIndex(1);
+            setaGrupoJCBGrupoItem();
+            setaUNJcbUnidadeMedida();
+            setaSubGrupoJCBSubGrupoItem();
         }
     }//GEN-LAST:event_jtbProdutosMouseClicked
+
+    private void jcbGrupoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbGrupoItemActionPerformed
+        //atualizaComboBoxSubGrupoItem();
+    }//GEN-LAST:event_jcbGrupoItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -588,7 +623,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     private javax.swing.JButton jbtPesquisar;
     private javax.swing.JButton jbtSair;
     private javax.swing.JButton jbtSalvar;
-    private javax.swing.JComboBox jcbGrupo;
+    private javax.swing.JComboBox jcbGrupoItem;
     private javax.swing.JComboBox jcbSubGrupo;
     private javax.swing.JComboBox jcbUnMedida;
     private javax.swing.JTable jtbProdutos;
@@ -607,6 +642,13 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     private List<Produto> produtos;
     private ProdutoDAO produtoDao;
     private FornecedorDAO fornecedorDao;
+    private GrupoItem grupoItem;
+    private GrupoItemDAO grupoItemDao;
+    List<GrupoItem> grupoItens;
+    private SubGrupoItemDAO subGrupoItemDao;
+    List<SubGrupoItem> subGrupoItens;
+    private UnidadeMedidaDAO unidadeMedidaDao;
+    List<UnidadeMedida> unidadeMedidas;
 
     public Produto getProduto() {
         return produto;
@@ -634,5 +676,59 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         } else {
             jtbProdutos.addRowSelectionInterval(0, 0);
         }
+    }
+
+    private void atualizaComponentes() {
+        atualizaComboBoxGrupoItem();
+        atualizaComboBoxUnidadeMedida();
+
+    }
+
+    private void atualizaComboBoxUnidadeMedida() {
+        if (unidadeMedidas != null) {
+            unidadeMedidas.clear();
+        } else {
+            unidadeMedidas = unidadeMedidaDao.buscarTodos();
+            for (UnidadeMedida un : unidadeMedidas) {
+                jcbUnMedida.addItem(un);
+            }
+            jcbUnMedida.setSelectedIndex(0);
+        }
+    }
+
+    private void setaUNJcbUnidadeMedida() {
+        jcbUnMedida.getModel().setSelectedItem(produto.getUnidadeMedida());
+    }
+
+    private void atualizaComboBoxGrupoItem() {
+        if (grupoItens != null) {
+            grupoItens.clear();
+        } else {
+            grupoItens = grupoItemDao.buscarTodos();
+            for (GrupoItem gpItem : grupoItens) {
+                jcbGrupoItem.addItem(gpItem);
+            }
+            jcbGrupoItem.setSelectedIndex(0);
+        }
+    }
+
+    private void setaGrupoJCBGrupoItem() {
+        jcbGrupoItem.getModel().setSelectedItem(produto.getGrupoItem());
+    }
+
+    private void atualizaComboBoxSubGrupoItem() {
+        if (subGrupoItens != null) {
+            subGrupoItens.clear();
+        } else {
+            subGrupoItens = subGrupoItemDao.buscarPorGrupoItem(jcbGrupoItem.getSelectedIndex());
+            for (SubGrupoItem subGrupo : subGrupoItens) {
+                jcbSubGrupo.addItem(subGrupo);
+            }
+            jcbSubGrupo.setSelectedIndex(0);
+        }
+    }
+
+    private void setaSubGrupoJCBSubGrupoItem() {
+        jcbSubGrupo.getModel().setSelectedItem(produto.getSubGrupoItens());
     }
 }

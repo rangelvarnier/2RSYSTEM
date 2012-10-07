@@ -7,6 +7,7 @@ package RESTAURANTE.DAO.IMPL;
 import RESTAURANTE.DAO.GrupoItemDAO;
 import RESTAURANTE.DAO.SubGrupoItemDAO;
 import RESTAURANTE.DAO.UTIL.Conexao;
+import RESTAURANTE.MODEL.GrupoItem;
 import RESTAURANTE.MODEL.SubGrupoItem;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -125,7 +126,7 @@ public class SubGrupoItensDAOIMPL implements SubGrupoItemDAO {
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, "%"+descricao+"%");
+            stmt.setString(1, "%" + descricao + "%");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -140,5 +141,32 @@ public class SubGrupoItensDAOIMPL implements SubGrupoItemDAO {
         }
         return subGrupoItens;
     }
-    
+
+    @Override
+    public List<SubGrupoItem> buscarPorGrupoItem(Integer codigo) {
+        List<SubGrupoItem> subGrupoItens = new ArrayList<SubGrupoItem>();
+        GrupoItemDAO grupoItemDao = new GrupoItemDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select sub.codigo, sub.descricao subGrupo, sub.grupoItem_codigo,"
+                + " grup.descricao grupo , grup.codigo grupcod from subgrupoitem sub"
+                + " join grupoitem grup on sub.grupoItem_codigo = grup.codigo "
+                + "where sub.grupoItem_codigo = ? ";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1,codigo);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                SubGrupoItem subGrupoItem = new SubGrupoItem();
+                subGrupoItem.setCodigo(rs.getInt("codigo"));
+                subGrupoItem.setDescricao(rs.getString("descricao"));
+                subGrupoItem.setGrupoItem(grupoItemDao.buscarPorCodigo(rs.getInt("grupoItem_codigo")));
+                subGrupoItens.add(subGrupoItem);
+            }
+
+        } catch (SQLException ex) {
+        }
+        return subGrupoItens;
+    }
 }
