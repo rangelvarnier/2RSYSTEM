@@ -160,12 +160,8 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         columnBinding.setColumnName("Fornecedor");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${precoCompra}"));
-        columnBinding.setColumnName("Preço Compra");
-        columnBinding.setColumnClass(Float.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${precoVenda}"));
-        columnBinding.setColumnName("Preço venda");
+        columnBinding.setColumnName("Preço Venda");
         columnBinding.setColumnClass(Float.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${saldoEstoque}"));
@@ -186,6 +182,11 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
+        jtbProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbProdutosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtbProdutos);
 
         jtfPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -193,6 +194,11 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
         jbtDetalhar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtDetalhar.setText("Detalhar");
+        jbtDetalhar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtDetalharActionPerformed(evt);
+            }
+        });
 
         jbtPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtPesquisar.setText("Pesquisar");
@@ -239,12 +245,21 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produto.codigo}"), jtfCodigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel4.setText("Descrição");
 
         jtfDescricaoProduto.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produto.descricao}"), jtfDescricaoProduto, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jtfDescricaoProduto1.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produto.codigoFabrica}"), jtfDescricaoProduto1, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel5.setText("Código de fábrica");
@@ -269,15 +284,24 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
         jtfPrecoCompra.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produto.precoCompra}"), jtfPrecoCompra, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel9.setText("Preço Venda");
 
         jtfPrecoVenda.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produto.precoVenda}"), jtfPrecoVenda, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel10.setText("Fornecedor");
 
         jtfPrecoVenda1.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produto.fornecedor.pessoa.nome}"), jtfPrecoVenda1, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         jbtPesquisaFornecedor.setText("?");
 
@@ -285,6 +309,9 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jLabel11.setText("Saldo em estoque");
 
         jtfSaldoEstoque.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produto.saldoEstoque}"), jtfSaldoEstoque, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -489,6 +516,18 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtPesquisarActionPerformed
+
+    private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
+
+        
+    }//GEN-LAST:event_jbtDetalharActionPerformed
+
+    private void jtbProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbProdutosMouseClicked
+        if(evt.getClickCount()==2){
+            setProduto(produtos.get(jtbProdutos.getSelectedRow()));
+            jtbpProdutos.setSelectedIndex(1);
+        }
+    }//GEN-LAST:event_jtbProdutosMouseClicked
 
     /**
      * @param args the command line arguments
