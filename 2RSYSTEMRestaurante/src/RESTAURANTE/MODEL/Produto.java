@@ -31,9 +31,8 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(UnidadeMedida unidadeMedida, GrupoItem grupoItem, SubGrupoItem subGrupoItens, Fornecedor fornecedor) {
+    public Produto(UnidadeMedida unidadeMedida, SubGrupoItem subGrupoItens, Fornecedor fornecedor) {
         this.unidadeMedida = unidadeMedida;
-        this.grupoItem = grupoItem;
         this.subGrupoItens = subGrupoItens;
         this.fornecedor = fornecedor;
     }
