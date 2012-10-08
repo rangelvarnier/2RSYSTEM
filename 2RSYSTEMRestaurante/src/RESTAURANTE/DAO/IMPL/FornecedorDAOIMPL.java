@@ -8,39 +8,89 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class FornecedorDAOIMPL implements FornecedorDAO {
 
     @Override
     public void inserir(Fornecedor fornecedor) {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+
+        Connection con = new Conexao().criarConexao();
+        String sql = "insert into fornecedor value(?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, fornecedor.getCodigo());
+            stmt.setString(2, fornecedor.getRazaoSocial());
+            stmt.setString(3, fornecedor.getCnpj());
+            stmt.setString(4, fornecedor.getInscEstadual());
+            stmt.setDate(5, new java.sql.Date(fornecedor.getDataFuncacao().getTime()));
+            stmt.setDate(6, new java.sql.Date(fornecedor.getDataCadastro().getTime()));
+            stmt.setInt(7, fornecedor.getPessoa().getCodigo());
+
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public void alterar(Fornecedor fornecedor) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Connection con = new Conexao().criarConexao();
+        String sql = "update fornecedor set razaoSocial = ?, cnpj = ?, inscEstadual = ?, dataFundacao = ?"
+                + "dataCadastro = ?, pessoa_codigo = ?"
+                + " where codigo = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setString(1, fornecedor.getRazaoSocial());
+            stmt.setString(2, fornecedor.getCnpj());
+            stmt.setString(3, fornecedor.getInscEstadual());
+            stmt.setDate(4, new java.sql.Date(fornecedor.getDataFuncacao().getTime()));
+            stmt.setDate(5, new java.sql.Date(fornecedor.getDataCadastro().getTime()));
+            stmt.setInt(6, fornecedor.getPessoa().getCodigo());
+            stmt.setInt(7, fornecedor.getCodigo());
+
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     @Override
     public void remover(Fornecedor fornecedor) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Connection con = new Conexao().criarConexao();
+        String sql = "delete from fornecedor"
+                + " where codigo = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, fornecedor.getCodigo());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+        }
     }
 
     @Override
-    public Fornecedor buscarPorCodigo(Integer codigo) {
+    public Fornecedor buscaPorId(Integer codigo) {
         Fornecedor fornecedor = null;
         PessoaDAO pessoaDao = new PessoaDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from fornecedor where codigo = ?";
+        String sql = "select * from fornecedor"
+                + " where codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, codigo);
+            stmt.setLong(1, codigo);
+
             ResultSet rs = stmt.executeQuery();
+
             while (rs.next()) {
                 fornecedor = new Fornecedor();
                 fornecedor.setCodigo(rs.getInt("codigo"));
-                fornecedor.setNomeFantasia(rs.getString("nomeFantasia"));
                 fornecedor.setRazaoSocial(rs.getString("razaoSocial"));
                 fornecedor.setCnpj(rs.getString("cnpj"));
                 fornecedor.setInscEstadual(rs.getString("inscEstadual"));
@@ -48,19 +98,92 @@ public class FornecedorDAOIMPL implements FornecedorDAO {
                 fornecedor.setDataCadastro(rs.getDate("dataCadastro"));
                 fornecedor.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
             }
+
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
         return fornecedor;
     }
 
     @Override
-    public List<Fornecedor> buscarPorDescricao(String descricao) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Integer buscaIdMaio() {
+        Integer idmaior = null;
+        Connection con = new Conexao().criarConexao();
+        String sql = "select max(codigo) as codigo from fornecedor";
+        PreparedStatement stmt;
+        try {
+            stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            idmaior = rs.getInt("codigo");
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ColaboradorDAOIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return idmaior;
     }
 
     @Override
     public List<Fornecedor> buscarTodos() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
+        PessoaDAO pessoaDao = new PessoaDAOIMPL();
+
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from fornecedor";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Fornecedor fornecedor = new Fornecedor();
+                fornecedor.setCodigo(rs.getInt("codigo"));
+                fornecedor.setRazaoSocial(rs.getString("razaoSocial"));
+                fornecedor.setCnpj(rs.getString("cnpj"));
+                fornecedor.setInscEstadual(rs.getString("inscEstadual"));
+                fornecedor.setDataFuncacao(rs.getDate("dataFundacao"));
+                fornecedor.setDataCadastro(rs.getDate("dataCadastro"));
+                fornecedor.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
+
+                fornecedores.add(fornecedor);
+            }
+
+        } catch (SQLException ex) {
+        }
+        return fornecedores;
     }
+
+    @Override
+    public List<Fornecedor> buscarPorNome(String razaoSocial) {
+        List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
+        PessoaDAO pessoaDao = new PessoaDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from fornecedor where razaoSocial like ? ";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, "%" + razaoSocial + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Fornecedor fornecedor = new Fornecedor();
+                fornecedor.setCodigo(rs.getInt("codigo"));
+                fornecedor.setRazaoSocial(rs.getString("razaoSocial"));
+                fornecedor.setCnpj(rs.getString("cnpj"));
+                fornecedor.setInscEstadual(rs.getString("inscEstadual"));
+                fornecedor.setDataFuncacao(rs.getDate("dataFundacao"));
+                fornecedor.setDataCadastro(rs.getDate("dataCadastro"));
+                fornecedor.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
+                fornecedores.add(fornecedor);
+            }
+
+        } catch (SQLException ex) {
+        }
+        return fornecedores;
+    }
+
+    
 }
+

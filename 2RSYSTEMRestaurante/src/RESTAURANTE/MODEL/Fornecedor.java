@@ -26,6 +26,9 @@ public class Fornecedor {
 
     public Fornecedor() {
     }
+    public Fornecedor(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
     
     public Integer getCodigo() {
         return codigo;

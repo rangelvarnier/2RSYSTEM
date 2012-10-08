@@ -11,5 +11,6 @@ public interface CidadeDAO {
     void remover(Cidade cidade);
     Cidade buscaPorId(Integer codigo);
     List<Cidade> buscarTodos();
+    List<Cidade> buscaCidades(Integer unidadeFederativa_codigo);
     
 }

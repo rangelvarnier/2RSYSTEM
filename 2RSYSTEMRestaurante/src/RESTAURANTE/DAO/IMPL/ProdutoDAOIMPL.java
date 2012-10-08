@@ -105,7 +105,7 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
                 produto.setSaldoEstoque(rs.getFloat("saldoEstoque"));
                 produto.setUnidadeMedida(unidadeMedidaDao.buscarPorCodigo(rs.getInt("unidadeMedida_codigo")));
                 produto.setSubGrupoItens(subGrupoItemDao.buscarPorCodigo(rs.getInt("subGrupoItens_codigo")));
-                produto.setFornecedor(fornecedorDao.buscarPorCodigo(rs.getInt("fornecedor_codigo")));
+                produto.setFornecedor(fornecedorDao.buscaPorId(rs.getInt("fornecedor_codigo")));
             }
 
         } catch (SQLException ex) {
@@ -139,7 +139,7 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
                 produto.setSaldoEstoque(rs.getFloat("saldoEstoque"));
                 produto.setUnidadeMedida(unidadeMedidaDao.buscarPorCodigo(rs.getInt("unidadeMedida_codigo")));
                 produto.setSubGrupoItens(subGrupoItemDao.buscarPorCodigo(rs.getInt("subGrupoItens_codigo")));
-                produto.setFornecedor(fornecedorDao.buscarPorCodigo(rs.getInt("fornecedor_codigo")));
+                produto.setFornecedor(fornecedorDao.buscaPorId(rs.getInt("fornecedor_codigo")));
                 produtos.add(produto);
             }
 
@@ -174,7 +174,7 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
                 produto.setSaldoEstoque(rs.getFloat("saldoEstoque"));
                 produto.setUnidadeMedida(unidadeMedidaDao.buscarPorCodigo(rs.getInt("unidadeMedida_codigo")));
                 produto.setSubGrupoItens(subGrupoItemDao.buscarPorCodigo(rs.getInt("subGrupoItens_codigo")));
-                produto.setFornecedor(fornecedorDao.buscarPorCodigo(rs.getInt("fornecedor_codigo")));
+                produto.setFornecedor(fornecedorDao.buscaPorId(rs.getInt("fornecedor_codigo")));
                 produtos.add(produto);
             }
 

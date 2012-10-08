@@ -1,14 +1,50 @@
 package FRAME;
 
+import RESTAURANTE.DAO.CidadeDAO;
+import RESTAURANTE.DAO.EnderecoDAO;
+import RESTAURANTE.DAO.FornecedorDAO;
+import RESTAURANTE.DAO.IMPL.CidadeDAOIMPL;
+import RESTAURANTE.DAO.IMPL.EnderecoDAOIMPL;
+import RESTAURANTE.DAO.IMPL.FornecedorDAOIMPL;
+import RESTAURANTE.DAO.IMPL.PessoaDAOIMPL;
+import RESTAURANTE.DAO.IMPL.UnidadeFederativaDAOIMPL;
+import RESTAURANTE.DAO.PessoaDAO;
+import RESTAURANTE.DAO.UTIL.ComboBoxCidade;
+import RESTAURANTE.DAO.UTIL.ComboBoxUF;
+import RESTAURANTE.DAO.UnidadeFederativaDAO;
+import RESTAURANTE.MODEL.Cidade;
+import RESTAURANTE.MODEL.Endereco;
+import RESTAURANTE.MODEL.Fornecedor;
+import RESTAURANTE.MODEL.Pessoa;
+import RESTAURANTE.MODEL.UnidadeFederativa;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import org.jdesktop.observablecollections.ObservableCollections;
+
 public class FrameCadastroFornecedor extends javax.swing.JFrame {
 
     public FrameCadastroFornecedor() {
         initComponents();
+        
+        unidadeFederativaDao = new UnidadeFederativaDAOIMPL();
+        cidadeDao = new CidadeDAOIMPL();
+        enderecoDao = new EnderecoDAOIMPL();
+        pessoaDao = new PessoaDAOIMPL();
+        fornecedorDao = new FornecedorDAOIMPL();
+       
+        novoGrupo();
+        atualizaTabela();
+        
+        atualizarCBUF();
+        atualizaCBCidade();
+        setcodigos();
+        
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jbtSalvar = new javax.swing.JButton();
@@ -21,7 +57,7 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbFornecedores = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        jtfPesquisar = new javax.swing.JTextField();
         jbtDetalhar = new javax.swing.JButton();
         jbtPesquisar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -35,7 +71,6 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jtfDataFundacao = new javax.swing.JTextField();
         jtfEmail = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -47,13 +82,18 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jtfNumero = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
-        jtfCep = new javax.swing.JTextField();
         jcbCidade = new javax.swing.JComboBox();
         jLabel30 = new javax.swing.JLabel();
         jlbDataCadastro = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jtfCodigo = new javax.swing.JTextField();
         jcbUF = new javax.swing.JComboBox();
+        jtfDataFundacao = new com.toedter.calendar.JDateChooser();
+        jLabel31 = new javax.swing.JLabel();
+        jtfTelefoneCelular = new javax.swing.JFormattedTextField();
+        jLabel32 = new javax.swing.JLabel();
+        jcbSexo = new javax.swing.JComboBox();
+        jtfCep = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Fornecedor");
@@ -63,9 +103,14 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
 
         jbtSalvar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtSalvar.setText("Salvar");
+        jbtSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtSalvarActionPerformed(evt);
+            }
+        });
 
         jbtCancelar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtCancelar.setText("Calcelar");
+        jbtCancelar.setText("Sair");
         jbtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtCancelarActionPerformed(evt);
@@ -73,10 +118,20 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         });
 
         jbtEditar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtEditar.setText("Editar");
+        jbtEditar.setText("Alterar");
+        jbtEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtEditarActionPerformed(evt);
+            }
+        });
 
         jbtExcluir.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtExcluir.setText("Excluir");
+        jbtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtExcluirActionPerformed(evt);
+            }
+        });
 
         jbtNovo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtNovo.setText("Novo");
@@ -91,47 +146,57 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
 
         jtbpFornecedores.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jtbpFornecedores.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
-
-        jtbFornecedores.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo", "Razão Social"
+        jtbpFornecedores.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jtbpFornecedoresStateChanged(evt);
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
+        });
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${fornecedores}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbFornecedores);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
+        columnBinding.setColumnName("Código");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${razaoSocial}"));
+        columnBinding.setColumnName("Razão Social");
+        columnBinding.setColumnClass(String.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jtbFornecedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbFornecedoresMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jtbFornecedores);
-        jtbFornecedores.getColumnModel().getColumn(0).setMinWidth(50);
-        jtbFornecedores.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jtbFornecedores.getColumnModel().getColumn(1).setMinWidth(600);
-        jtbFornecedores.getColumnModel().getColumn(1).setPreferredWidth(600);
 
-        jTextField1.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jTextField1.setToolTipText("Campo de Pesquisa");
+        jtfPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jtfPesquisar.setToolTipText("Campo de Pesquisa");
 
         jbtDetalhar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtDetalhar.setText("Detalhar");
+        jbtDetalhar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtDetalharActionPerformed(evt);
+            }
+        });
 
         jbtPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtPesquisar.setText("Pesquisar");
+        jbtPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtPesquisarActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE)
             .add(jPanel4Layout.createSequentialGroup()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel4Layout.createSequentialGroup()
-                        .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 148, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jtfPesquisar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 148, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jbtPesquisar))
                     .add(jbtDetalhar))
@@ -141,11 +206,11 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jtfPesquisar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jbtPesquisar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 309, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 10, Short.MAX_VALUE)
                 .add(jbtDetalhar))
         );
 
@@ -160,11 +225,17 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${fornecedor.cnpj}"), jtfCnpj, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
+
         jLabel18.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel18.setText("CNPJ");
 
         jtfRazaoSocial.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jtfRazaoSocial.setToolTipText("Razão Social");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${fornecedor.razaoSocial}"), jtfRazaoSocial, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         try {
             jtfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-####")));
@@ -173,12 +244,21 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         }
         jtfTelefone.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${fornecedor.pessoa.endereco_codigo.telefone}"), jtfTelefone, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
+
         jLabel20.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel20.setText("Telefone");
 
         jtfInsEstadual.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${fornecedor.inscEstadual}"), jtfInsEstadual, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jtfNomeFantasia.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${fornecedor.nomeFantasia}"), jtfNomeFantasia, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         jLabel21.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel21.setText("Inscrição Estadual");
@@ -189,14 +269,10 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jLabel23.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel23.setText("Data Fundação");
 
-        jtfDataFundacao.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jtfDataFundacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfDataFundacaoActionPerformed(evt);
-            }
-        });
-
         jtfEmail.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${fornecedor.pessoa.endereco_codigo.email}"), jtfEmail, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         jLabel25.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel25.setText("E-mail");
@@ -208,6 +284,10 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jLabel24.setText("Cidade");
 
         jtfRua.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${fornecedor.pessoa.endereco_codigo.rua}"), jtfRua, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jtfRua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfRuaActionPerformed(evt);
@@ -221,6 +301,10 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jLabel27.setText("Bairro");
 
         jtfBairro.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${fornecedor.pessoa.endereco_codigo.bairro}"), jtfBairro, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jtfBairro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfBairroActionPerformed(evt);
@@ -231,6 +315,10 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jLabel28.setText("Numero");
 
         jtfNumero.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${fornecedor.pessoa.endereco_codigo.numero}"), jtfNumero, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jtfNumero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfNumeroActionPerformed(evt);
@@ -240,15 +328,12 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jLabel29.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel29.setText("CEP");
 
-        jtfCep.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jtfCep.addActionListener(new java.awt.event.ActionListener() {
+        jcbCidade.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jcbCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCepActionPerformed(evt);
+                jcbCidadeActionPerformed(evt);
             }
         });
-
-        jcbCidade.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jcbCidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Xaxim", "Chapecó" }));
 
         jLabel30.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel30.setText("UF");
@@ -262,7 +347,61 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         jcbUF.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jcbUF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SC", "RJ", "SP", "PR", "RS" }));
+        jcbUF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbUFActionPerformed(evt);
+            }
+        });
+
+        jLabel31.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jLabel31.setText("Telefone Celular");
+
+        try {
+            jtfTelefoneCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jtfTelefoneCelular.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${fornecedor.pessoa.endereco_codigo.celular}"), jtfTelefoneCelular, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
+
+        jLabel32.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jLabel32.setText("Sexo");
+
+        jcbSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Feminino", "Masculino" }));
+        jcbSexo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbSexoActionPerformed(evt);
+            }
+        });
+        jcbSexo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jcbSexoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbSexoFocusLost(evt);
+            }
+        });
+        jcbSexo.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+                jcbSexoAncestorMoved(evt);
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jcbSexoAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
+        try {
+            jtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${fornecedor.pessoa.endereco_codigo.cep}"), jtfCep, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
 
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -273,34 +412,34 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jtfNomeFantasia)
-                            .add(jPanel3Layout.createSequentialGroup()
-                                .add(jLabel22)
-                                .add(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(jLabel22)
+                            .add(jtfNomeFantasia, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 501, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel21)
-                            .add(jtfInsEstadual, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 206, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(jLabel21)
+                                .add(141, 141, 141))
+                            .add(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jtfInsEstadual))))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jtfCnpj, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 274, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jLabel18))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jtfRazaoSocial)
                             .add(jPanel3Layout.createSequentialGroup()
                                 .add(jLabel19)
-                                .add(0, 0, Short.MAX_VALUE))))
+                                .add(0, 0, Short.MAX_VALUE))
+                            .add(jtfRazaoSocial)))
                     .add(jPanel3Layout.createSequentialGroup()
-                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(jLabel24)
-                            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(jtfTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 139, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(jLabel20)))
-                        .add(6, 6, 6)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jtfDataFundacao, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel23))
+                            .add(jLabel20)
+                            .add(jtfTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 161, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jtfTelefoneCelular, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel31))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel3Layout.createSequentialGroup()
@@ -308,51 +447,70 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
                                 .add(0, 0, Short.MAX_VALUE))
                             .add(jtfEmail)))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
                         .add(jLabel4)
-                        .add(1, 1, 1)
-                        .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jlbDataCadastro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jlbDataCadastro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(140, 140, 140))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel3Layout.createSequentialGroup()
-                                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel27)
-                                    .add(jtfBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jtfRua))
-                            .add(jPanel3Layout.createSequentialGroup()
-                                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jPanel3Layout.createSequentialGroup()
-                                        .add(6, 6, 6)
-                                        .add(jLabel30)
-                                        .add(241, 241, 241)
-                                        .add(jLabel29))
-                                    .add(jPanel3Layout.createSequentialGroup()
-                                        .add(jcbUF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(jcbCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 157, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(jLabel26)
-                                            .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 169, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                                .add(0, 216, Short.MAX_VALUE)))
+                            .add(jLabel27)
+                            .add(jtfBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jtfRua)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel28)
-                            .add(jtfNumero, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 93, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                            .add(jtfNumero, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 93, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jcbUF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel30))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel3Layout.createSequentialGroup()
+                                .add(jLabel24)
+                                .add(0, 0, Short.MAX_VALUE))
+                            .add(jPanel3Layout.createSequentialGroup()
+                                .add(jcbCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 151, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jPanel3Layout.createSequentialGroup()
+                                        .add(25, 25, 25)
+                                        .add(jLabel26))
+                                    .add(jPanel3Layout.createSequentialGroup()
+                                        .add(18, 18, 18)
+                                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jPanel3Layout.createSequentialGroup()
+                                                .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                .add(0, 0, Short.MAX_VALUE))
+                                            .add(jPanel3Layout.createSequentialGroup()
+                                                .add(jLabel29)
+                                                .add(160, 160, 160)
+                                                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                                    .add(jPanel3Layout.createSequentialGroup()
+                                                        .add(jLabel23)
+                                                        .add(100, 100, 100)
+                                                        .add(jLabel32)
+                                                        .add(0, 0, Short.MAX_VALUE))
+                                                    .add(jPanel3Layout.createSequentialGroup()
+                                                        .add(jtfDataFundacao, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                                        .add(jcbSexo, 0, 0, Short.MAX_VALUE)))))))))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
-                .add(7, 7, 7)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jlbDataCadastro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jLabel4)
-                        .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(14, 14, 14)
+                        .add(jlbDataCadastro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel4)
+                            .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .add(18, 18, 18)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel18)
@@ -372,35 +530,42 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel20)
-                    .add(jLabel23)
-                    .add(jLabel25))
+                    .add(jLabel25)
+                    .add(jLabel31))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jtfTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jtfDataFundacao, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jtfEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jtfEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jtfTelefoneCelular, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel24)
-                    .add(jLabel29)
-                    .add(jLabel30))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jcbUF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jcbCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel27)
-                    .add(jLabel26)
-                    .add(jLabel28))
+                    .add(jLabel30)
+                    .add(jLabel23)
+                    .add(jLabel32)
+                    .add(jLabel29))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jtfRua, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jtfBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jtfNumero, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(jcbUF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jcbCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jtfDataFundacao, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel27)
+                            .add(jLabel26)
+                            .add(jLabel28))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jtfRua, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(jtfBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jtfNumero, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                    .add(jcbSexo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         jtbpFornecedores.addTab("Cadastro", jPanel3);
@@ -436,7 +601,7 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
                 .add(jLabel1)
                 .add(18, 18, 18)
                 .add(jtbpFornecedores, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 79, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 77, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jbtSalvar)
                     .add(jbtExcluir)
@@ -448,18 +613,23 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jtbpFornecedores.getAccessibleContext().setAccessibleName("Fornecedores");
         jtbpFornecedores.getAccessibleContext().setAccessibleDescription("Fornecedores");
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
 
+        novoGrupo();
         jtbpFornecedores.setSelectedIndex(1);
 
     }//GEN-LAST:event_jbtNovoActionPerformed
 
-    private void jtfDataFundacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfDataFundacaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfDataFundacaoActionPerformed
+    private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
+
+        dispose();
+
+    }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jtfRuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfRuaActionPerformed
         // TODO add your handling code here:
@@ -473,15 +643,114 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfNumeroActionPerformed
 
-    private void jtfCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCepActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCepActionPerformed
+    private void jcbCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCidadeActionPerformed
+         fornecedor.getPessoa()
+                .getEndereco_codigo()
+                .setCidade_codigo(((Cidade) jcbCidade.getSelectedItem()));
+    }//GEN-LAST:event_jcbCidadeActionPerformed
 
-    private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
+    private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
+        var = jcbUF.getSelectedIndex()+1; 
+        fornecedor.getPessoa()
+                .getEndereco_codigo()
+                .getCidade_codigo()
+                .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
+        atualizaCBCidade();
+    }//GEN-LAST:event_jcbUFActionPerformed
 
-        dispose();
+    private void jcbSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSexoActionPerformed
 
-    }//GEN-LAST:event_jbtCancelarActionPerformed
+        if (jcbSexo.getSelectedIndex() == 0) {
+            fornecedor.getPessoa().setSexo("F");
+        } else {
+            fornecedor.getPessoa().setSexo("M");
+        }
+    }//GEN-LAST:event_jcbSexoActionPerformed
+
+    private void jcbSexoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbSexoFocusGained
+
+    }//GEN-LAST:event_jcbSexoFocusGained
+
+    private void jcbSexoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbSexoFocusLost
+
+    }//GEN-LAST:event_jcbSexoFocusLost
+
+    private void jcbSexoAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jcbSexoAncestorMoved
+
+    }//GEN-LAST:event_jcbSexoAncestorMoved
+
+    private void jcbSexoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jcbSexoAncestorAdded
+
+    }//GEN-LAST:event_jcbSexoAncestorAdded
+
+    private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
+        try {
+            
+        fornecedor.setDataFuncacao(jtfDataFundacao.getDate());
+        fornecedor.setDataCadastro(new Date());
+
+        enderecoDao.inserir(fornecedor.getPessoa().getEndereco_codigo());
+        pessoaDao.inserir(fornecedor.getPessoa());
+        fornecedorDao.inserir(fornecedor);
+
+        atualizaTabela();
+        limpacampodatas();
+        novoGrupo();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Alguns campos do cadastro ainda não foram preenchidos!");
+        }
+    }//GEN-LAST:event_jbtSalvarActionPerformed
+
+    private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
+        enderecoDao.alterar(fornecedor.getPessoa().getEndereco_codigo());
+        pessoaDao.alterar(fornecedor.getPessoa());
+        fornecedorDao.alterar(fornecedor);
+        atualizaTabela();
+    }//GEN-LAST:event_jbtEditarActionPerformed
+
+    private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
+        enderecoDao.remover(fornecedor.getPessoa().getEndereco_codigo());
+        pessoaDao.remover(fornecedor.getPessoa());
+        fornecedorDao.remover(fornecedor);
+        novoGrupo();
+        atualizaTabela();
+    }//GEN-LAST:event_jbtExcluirActionPerformed
+
+    private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
+        try {
+            setFornecedor(fornecedores.get(jtbFornecedores.getSelectedRow()));
+            setaJCB();
+            jtbpFornecedores.setSelectedIndex(1);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Favor Selecione um Fornecedor para Detalhar.");
+        }
+    }//GEN-LAST:event_jbtDetalharActionPerformed
+
+    private void jtbFornecedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbFornecedoresMouseClicked
+        if (evt.getClickCount() == 2) {
+            setFornecedor(fornecedores.get(jtbFornecedores.getSelectedRow()));
+            jtbpFornecedores.setSelectedIndex(1);
+            setaJCB();
+        }
+    }//GEN-LAST:event_jtbFornecedoresMouseClicked
+
+    private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
+        setFornecedores(fornecedorDao.buscarPorNome(jtfPesquisar.getText()));        
+        jtbFornecedores.addRowSelectionInterval(0, 0);
+    }//GEN-LAST:event_jbtPesquisarActionPerformed
+
+    private void jtbpFornecedoresStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpFornecedoresStateChanged
+        if (jtbpFornecedores.getSelectedIndex() == 0) {
+            jbtEditar.setVisible(false);
+            jbtExcluir.setVisible(false);
+            jbtSalvar.setVisible(false);
+        } else {
+            jbtSalvar.setVisible(true);
+            jbtEditar.setVisible(true);
+            jbtExcluir.setVisible(true);
+        }
+    }//GEN-LAST:event_jtbpFornecedoresStateChanged
 
     /**
      * @param args the command line arguments
@@ -533,12 +802,13 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton jbtCancelar;
     private javax.swing.JButton jbtDetalhar;
     private javax.swing.JButton jbtEditar;
@@ -547,21 +817,134 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JButton jbtPesquisar;
     private javax.swing.JButton jbtSalvar;
     private javax.swing.JComboBox jcbCidade;
+    private javax.swing.JComboBox jcbSexo;
     private javax.swing.JComboBox jcbUF;
     private javax.swing.JLabel jlbDataCadastro;
     private javax.swing.JTable jtbFornecedores;
     private javax.swing.JTabbedPane jtbpFornecedores;
     private javax.swing.JTextField jtfBairro;
-    private javax.swing.JTextField jtfCep;
+    private javax.swing.JFormattedTextField jtfCep;
     private javax.swing.JFormattedTextField jtfCnpj;
     private javax.swing.JTextField jtfCodigo;
-    private javax.swing.JTextField jtfDataFundacao;
+    private com.toedter.calendar.JDateChooser jtfDataFundacao;
     private javax.swing.JTextField jtfEmail;
     private javax.swing.JTextField jtfInsEstadual;
     private javax.swing.JTextField jtfNomeFantasia;
     private javax.swing.JTextField jtfNumero;
+    private javax.swing.JTextField jtfPesquisar;
     private javax.swing.JTextField jtfRazaoSocial;
     private javax.swing.JTextField jtfRua;
     private javax.swing.JFormattedTextField jtfTelefone;
+    private javax.swing.JFormattedTextField jtfTelefoneCelular;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+private Integer var = null;
+    private Fornecedor fornecedor;
+    private List<Fornecedor> fornecedores;
+    private FornecedorDAO fornecedorDao;
+    //Cidade
+    private List<Cidade> cidades;
+    private CidadeDAO cidadeDao;
+    //Endereco
+    private EnderecoDAO enderecoDao;
+    //UnidadeFederativa
+    private UnidadeFederativaDAO unidadeFederativaDao;
+    private List<UnidadeFederativa> unidadeFederativas;
+    //Pessoa
+    private PessoaDAO pessoaDao;
+    private List<Pessoa> pessoas;
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        Fornecedor fornecedorVelho = this.fornecedor;
+        this.fornecedor = fornecedor;
+        firePropertyChange("fornecedor", fornecedorVelho, this.fornecedor);
+    }
+
+    public List<Fornecedor> getFornecedores() {
+        return fornecedores;
+    }
+
+    public void setFornecedores(List<Fornecedor> fornecedores) {
+        List<Fornecedor> fornecedoresVelhos = this.fornecedores;
+        this.fornecedores = ObservableCollections.observableList(fornecedores);
+        firePropertyChange("fornecedores", fornecedoresVelhos, this.fornecedores);
+    }
+    public void atualizaTabela() {
+        setFornecedores(fornecedorDao.buscarTodos());
+        if (fornecedorDao.buscarTodos().isEmpty()) {
+        } else {
+            jtbFornecedores.addRowSelectionInterval(0, 0);
+        }
+        
+    }
+    public void atualizarCBUF() {
+       unidadeFederativas = unidadeFederativaDao.buscarTodos();
+        for (UnidadeFederativa un : unidadeFederativas) {
+            jcbUF.addItem(un);
+        }
+        jcbUF.setRenderer(new ComboBoxUF());
+   
+
+    }
+    public void atualizaCBCidade(){
+
+            jcbCidade.removeAllItems();
+            cidades = null;
+            cidades = cidadeDao.buscaCidades(var);
+        for (Cidade ci : cidades) {
+            jcbCidade.addItem(ci);
+            
+        }
+        jcbCidade.setRenderer(new ComboBoxCidade());
+    }
+
+    private void novoGrupo() {
+       setFornecedor(new Fornecedor(new Pessoa(new Endereco(new Cidade(new UnidadeFederativa())))));
+        setcodigos();
+        
+    }
+    
+    private void setcodigos() {
+        if (enderecoDao.buscarIdMaior() == null) {
+            fornecedor.getPessoa().getEndereco_codigo().setCodigo(1);
+        } else {
+            fornecedor.getPessoa().getEndereco_codigo().setCodigo(enderecoDao.buscarIdMaior() + 1);
+        }
+        if (pessoaDao.buscarIdMaior() == null) {
+            fornecedor.getPessoa().setCodigo(1);
+        } else {
+            fornecedor.getPessoa().setCodigo(pessoaDao.buscarIdMaior() + 1);
+        }
+        if (fornecedorDao.buscaIdMaio() == null) {
+            fornecedor.setCodigo(1);
+        } else {
+            fornecedor.setCodigo(fornecedorDao.buscaIdMaio() + 1);
+        }
+
+        jtfCodigo.setText(fornecedor.getCodigo().toString());
+        
+    }
+    private void limpacampodatas() {
+        jtfDataFundacao.setCalendar(null);
+    }
+    private void setaJCB() {
+        jcbUF.getModel().setSelectedItem(fornecedor.getPessoa().getEndereco_codigo().getCidade_codigo()
+                .getUnidadeFederativa_codigo());
+        
+        jcbCidade.getModel().setSelectedItem(fornecedor.getPessoa().getEndereco_codigo().
+                getCidade_codigo().getCodigo());
+        
+        //jcbCidade.getModel().setSelectedItem(fornecedor.getPessoa().getSexo().toString());
+        
+        jtfCodigo.setText(fornecedor.getCodigo().toString());
+        
+    }
+
+
 }
+
+

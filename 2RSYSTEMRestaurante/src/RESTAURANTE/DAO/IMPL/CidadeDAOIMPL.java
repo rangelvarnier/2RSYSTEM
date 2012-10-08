@@ -116,5 +116,33 @@ public class CidadeDAOIMPL implements CidadeDAO{
         }
         return cidades;
     }
+
+    @Override
+    public List<Cidade> buscaCidades(Integer unidadeFederativa_codigo) {
+        List<Cidade> cidades = new ArrayList<Cidade>();
+        UnidadeFederativaDAO unidadeFederativaDao = new UnidadeFederativaDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from cidade where unidadeFederativa_codigo like ?";
+        
+        try{
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, unidadeFederativa_codigo);
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Cidade cidade = new Cidade();
+                cidade.setCodigo(rs.getInt("codigo"));
+                cidade.setNome(rs.getString("nome"));
+                cidade.setUnidadeFederativa_codigo(unidadeFederativaDao.buscarPorCodigo
+                        (rs.getInt("unidadeFederativa_codigo")));
+                cidades.add(cidade);
+            }
+            
+        } catch (SQLException ex){
+            
+        }
+        return cidades;
+    
+    }
     
 }
