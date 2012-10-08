@@ -147,10 +147,7 @@ public class SubGrupoItensDAOIMPL implements SubGrupoItemDAO {
         List<SubGrupoItem> subGrupoItens = new ArrayList<SubGrupoItem>();
         GrupoItemDAO grupoItemDao = new GrupoItemDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select sub.codigo, sub.descricao subGrupo, sub.grupoItem_codigo,"
-                + " grup.descricao grupo , grup.codigo grupcod from subgrupoitem sub"
-                + " join grupoitem grup on sub.grupoItem_codigo = grup.codigo "
-                + "where sub.grupoItem_codigo = ? ";
+        String sql = "select * from subgrupoitem where grupoItem_codigo = ? ";
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
