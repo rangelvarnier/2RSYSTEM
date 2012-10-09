@@ -275,7 +275,10 @@ public class FrameGrupoItem extends javax.swing.JFrame {
 
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
         setGrupoItens(grupoItemDao.buscarPorDescricao(jtfPesquisar.getText()));
-        jtbGrupoItem.addRowSelectionInterval(0, 0);
+        if (grupoItemDao.buscarPorDescricao(jtfPesquisar.getText()).isEmpty()) {
+        } else {
+            jtbGrupoItem.addRowSelectionInterval(0, 0);
+        }
     }//GEN-LAST:event_jbtPesquisarActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed

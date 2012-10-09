@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 public class FornecedorDAOIMPL implements FornecedorDAO {
 
     @Override
@@ -45,7 +46,7 @@ public class FornecedorDAOIMPL implements FornecedorDAO {
                 + " where codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            
+
             stmt.setString(1, fornecedor.getRazaoSocial());
             stmt.setString(2, fornecedor.getCnpj());
             stmt.setString(3, fornecedor.getInscEstadual());
@@ -183,7 +184,4 @@ public class FornecedorDAOIMPL implements FornecedorDAO {
         }
         return fornecedores;
     }
-
-    
 }
-

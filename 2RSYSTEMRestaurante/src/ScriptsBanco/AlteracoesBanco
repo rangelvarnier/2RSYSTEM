@@ -43,6 +43,23 @@ ALTER TABLE `2rsitem`.`endereco` CHANGE COLUMN `telefone` `telefone` VARCHAR(15)
 // 6/10/12 altera nome da coluda descricao na tabela produto 
 ALTER TABLE `2rsitem`.`produto` CHANGE COLUMN `decricao` `descricao` VARCHAR(45) NOT NULL  ;
 
-alteracao tabela fornecedor
+// 7 alteracao tabela fornecedor
 ALTER TABLE `2RSITEM`.`fornecedor` DROP COLUMN `nomeFantasia`
  , CHANGE COLUMN `cnpj` `cnpj` VARCHAR(20) NOT NULL  ;
+
+// 8 renomeia tabela unidadeMedida
+ALTER TABLE `2rsitem`.`unidademedidda` RENAME TO  `2rsitem`.`unidademedida` ;
+
+//9 altera tabela produto (nomes e FK errados)
+ALTER TABLE `2rsitem`.`produto` DROP FOREIGN KEY `fk_produto_subGrupoItens1` , DROP FOREIGN KEY `fk_produto_unidadeMedidda1` ;
+ALTER TABLE `2rsitem`.`produto` CHANGE COLUMN `decricao` `descricao` VARCHAR(45) NOT NULL  , CHANGE COLUMN `unidadeMedidda_codigo` `unidadeMedida_codigo` INT(11) NOT NULL  , 
+  ADD CONSTRAINT `fk_produto_subGrupoItem`
+  FOREIGN KEY (`subGrupoItens_codigo` )
+  REFERENCES `2rsitem`.`subgrupoitem` (`codigo` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION, 
+  ADD CONSTRAINT `fk_produto_unidadeMedidda1`
+  FOREIGN KEY (`unidadeMedida_codigo` )
+  REFERENCES `2rsitem`.`unidademedida` (`codigo` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
