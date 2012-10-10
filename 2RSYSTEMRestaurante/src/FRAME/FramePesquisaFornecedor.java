@@ -76,6 +76,8 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
             }
         });
 
+        jtbFornecedores.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${fornecedores}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbFornecedores);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
@@ -163,13 +165,17 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jbtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmarActionPerformed
-        setFornecedor(fornecedores.get(jtbFornecedores.getSelectedRow()));
-        dispose();
+        if (jtbFornecedores.getSelectedRow() != -1) {
+            frCadproduto.setFornecedor(fornecedores.get(jtbFornecedores.getSelectedRow()));
+            frCadproduto.setCampoFornecedor();
+            dispose();
+        }
     }//GEN-LAST:event_jbtConfirmarActionPerformed
 
     private void jtbFornecedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbFornecedoresMouseClicked
         if (evt.getClickCount() == 2) {
-            setFornecedor(fornecedores.get(jtbFornecedores.getSelectedRow()));
+            frCadproduto.setFornecedor(fornecedores.get(jtbFornecedores.getSelectedRow()));
+            frCadproduto.setCampoFornecedor();
             dispose();
         }
     }//GEN-LAST:event_jtbFornecedoresMouseClicked
@@ -209,6 +215,7 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new FramePesquisaFornecedor().setVisible(true);
             }
@@ -228,17 +235,16 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
     private Fornecedor fornecedor;
     private List<Fornecedor> fornecedores;
     private FornecedorDAO fornecedorDao;
+    //Frame Produto
+    FrameCadastroProdutos frCadproduto;
 
-    public Fornecedor getFornecedor() {
-        return fornecedor;
-    }
-
-    public void setFornecedor(Fornecedor fornecedor) {
-        Fornecedor fornecedorVelho = this.fornecedor;
-        this.fornecedor = fornecedor;
-        firePropertyChange("fornecedor", fornecedorVelho, this.fornecedor);
-    }
-
+    /*
+     * public Fornecedor getFornecedor() { return fornecedor; }
+     *
+     * public void setFornecedor(Fornecedor fornecedor) { Fornecedor
+     * fornecedorVelho = this.fornecedor; this.fornecedor = fornecedor;
+     * firePropertyChange("fornecedor", fornecedorVelho, this.fornecedor); }
+     */
     public List<Fornecedor> getFornecedores() {
         return fornecedores;
     }
@@ -255,6 +261,10 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
         } else {
             jtbFornecedores.addRowSelectionInterval(0, 0);
         }
-
+    }
+    
+    public void setFrameFornecedor(FrameCadastroProdutos frameCadastroProdutos){
+        this.frCadproduto = frameCadastroProdutos;
+        
     }
 }

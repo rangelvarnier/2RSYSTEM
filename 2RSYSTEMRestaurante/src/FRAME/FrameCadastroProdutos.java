@@ -13,10 +13,7 @@ import RESTAURANTE.DAO.UTIL.ComboBoxGrupoItem;
 import RESTAURANTE.DAO.UTIL.ComboBoxUnidadeMedida;
 import RESTAURANTE.DAO.UTIL.ComboBoxSubGrupoItem;
 import RESTAURANTE.DAO.UnidadeMedidaDAO;
-import RESTAURANTE.MODEL.GrupoItem;
-import RESTAURANTE.MODEL.Produto;
-import RESTAURANTE.MODEL.SubGrupoItem;
-import RESTAURANTE.MODEL.UnidadeMedida;
+import RESTAURANTE.MODEL.*;
 import java.util.List;
 import org.jdesktop.observablecollections.ObservableCollections;
 
@@ -72,7 +69,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jtfPrecoVenda = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jtfPrecoVenda1 = new javax.swing.JTextField();
+        jtfFornecedor = new javax.swing.JTextField();
         jbtPesquisaFornecedor = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jtfSaldoEstoque = new javax.swing.JTextField();
@@ -127,35 +124,9 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
         jtbpProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jtbpProdutos.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
-        jtbpProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jtbpProdutosMousePressed(evt);
-            }
-        });
         jtbpProdutos.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jtbpProdutosStateChanged(evt);
-            }
-        });
-        jtbpProdutos.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentMoved(java.awt.event.ComponentEvent evt) {
-                jtbpProdutosComponentMoved(evt);
-            }
-        });
-        jtbpProdutos.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                jtbpProdutosCaretPositionChanged(evt);
-            }
-        });
-        jtbpProdutos.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-                jtbpProdutosAncestorMoved(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
             }
         });
 
@@ -322,9 +293,9 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel10.setText("Fornecedor");
 
-        jtfPrecoVenda1.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jtfFornecedor.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produto.fornecedor.pessoa.nome}"), jtfPrecoVenda1, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produto.fornecedor.pessoa.nome}"), jtfFornecedor, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         jbtPesquisaFornecedor.setText("?");
@@ -383,7 +354,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jbtPesquisaFornecedor)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jtfPrecoVenda1)))
+                        .add(jtfFornecedor)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 183, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jtfSaldoEstoque)
@@ -430,7 +401,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jbtPesquisaFornecedor)
-                    .add(jtfPrecoVenda1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jtfFornecedor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jPanel3Layout.createSequentialGroup()
@@ -499,9 +470,6 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jtbpProdutos.setSelectedIndex(1);
     }//GEN-LAST:event_jbtNovoActionPerformed
 
-    private void jtbpProdutosAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jtbpProdutosAncestorMoved
-    }//GEN-LAST:event_jtbpProdutosAncestorMoved
-
     private void jtbpProdutosStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpProdutosStateChanged
         if (jtbpProdutos.getSelectedIndex() == 0) {
             jbtEditar.setVisible(false);
@@ -515,16 +483,6 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
             jbtNovo.setVisible(true);
         }
     }//GEN-LAST:event_jtbpProdutosStateChanged
-
-    private void jtbpProdutosComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jtbpProdutosComponentMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtbpProdutosComponentMoved
-
-    private void jtbpProdutosCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jtbpProdutosCaretPositionChanged
-    }//GEN-LAST:event_jtbpProdutosCaretPositionChanged
-
-    private void jtbpProdutosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbpProdutosMousePressed
-    }//GEN-LAST:event_jtbpProdutosMousePressed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
         // TODO add your handling code here:
@@ -543,7 +501,11 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtSairActionPerformed
 
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
-        // TODO add your handling code here:
+        setProdutos(produtoDao.buscarPorDescricao(jtfPesquisar.getText()));
+        if (produtoDao.buscarTodos().isEmpty()) {
+        } else {
+            jtbProdutos.addRowSelectionInterval(0, 0);
+        }
     }//GEN-LAST:event_jbtPesquisarActionPerformed
 
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
@@ -569,17 +531,23 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbGrupoItemActionPerformed
 
     private void jbtPesquisaFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisaFornecedorActionPerformed
-        new FramePesquisaFornecedor().setVisible(true);
+        FramePesquisaFornecedor pesquisaFornecedor = new FramePesquisaFornecedor();
+        pesquisaFornecedor.setVisible(true);
+        pesquisaFornecedor.setFrameFornecedor(this);
     }//GEN-LAST:event_jbtPesquisaFornecedorActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /*
+         * Set the Nimbus look and feel
+         */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /*
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the
+         * default look and feel. For details see
+         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -599,8 +567,11 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /*
+         * Create and display the form
+         */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 new FrameCadastroProdutos().setVisible(true);
@@ -639,22 +610,29 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     private javax.swing.JTextField jtfCodigo;
     private javax.swing.JTextField jtfDescricaoProduto;
     private javax.swing.JTextField jtfDescricaoProduto1;
+    private javax.swing.JTextField jtfFornecedor;
     private javax.swing.JTextField jtfPesquisar;
     private javax.swing.JTextField jtfPrecoCompra;
     private javax.swing.JTextField jtfPrecoVenda;
-    private javax.swing.JTextField jtfPrecoVenda1;
     private javax.swing.JTextField jtfSaldoEstoque;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+    //produto
     private Produto produto;
     private List<Produto> produtos;
     private ProdutoDAO produtoDao;
+    //Fornecedor
+    private Fornecedor fornecedor;
     private FornecedorDAO fornecedorDao;
+    //Grupo
     private GrupoItem grupoItem;
     private GrupoItemDAO grupoItemDao;
     List<GrupoItem> grupoItens;
+    //SubGrupo
+    private SubGrupoItem subGrupoItem;
     private SubGrupoItemDAO subGrupoItemDao;
     List<SubGrupoItem> subGrupoItens;
+    //UnidadeMedida
     private UnidadeMedidaDAO unidadeMedidaDao;
     List<UnidadeMedida> unidadeMedidas;
 
@@ -678,6 +656,16 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         firePropertyChange("produtos", produtosVelhos, this.produtos);
     }
 
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        Fornecedor fornecedorVelho = this.fornecedor;
+        this.fornecedor = fornecedor;
+        firePropertyChange("fornecedor", fornecedorVelho, this.fornecedor);
+    }
+
     private void atualizaTabela() {
         setProdutos(produtoDao.buscarTodos());
         if (produtoDao.buscarTodos().isEmpty()) {
@@ -690,7 +678,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         atualizaComboBoxGrupoItem();
         atualizaComboBoxUnidadeMedida();
         atualizaComboBoxSubGrupoItem();
-        
+
     }
 
     private void atualizaComboBoxUnidadeMedida() {
@@ -726,10 +714,12 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     }
 
     private void atualizaComboBoxSubGrupoItem() {
+        jcbSubGrupo.removeAllItems();
+        subGrupoItens = null;
         if (subGrupoItens != null) {
             subGrupoItens.clear();
         } else {
-            subGrupoItens = subGrupoItemDao.buscarPorGrupoItem(jcbGrupoItem.getSelectedIndex() +1);
+            subGrupoItens = subGrupoItemDao.buscarPorGrupoItem(jcbGrupoItem.getSelectedIndex() + 1);
             for (SubGrupoItem subGrupo : subGrupoItens) {
                 jcbSubGrupo.addItem(subGrupo);
             }
@@ -740,4 +730,12 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     private void setaSubGrupoJCBSubGrupoItem() {
         jcbSubGrupo.getModel().setSelectedItem(produto.getSubGrupoItens());
     }
+    
+    
+    
+    
+    public void setCampoFornecedor(){
+        jtfFornecedor.setText(fornecedor.getPessoa().getNome());
+    }
+    
 }
