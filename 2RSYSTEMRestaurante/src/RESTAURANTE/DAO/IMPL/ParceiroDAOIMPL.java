@@ -1,15 +1,195 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package RESTAURANTE.DAO.IMPL;
 
 import RESTAURANTE.DAO.ParceiroDAO;
+import RESTAURANTE.DAO.PessoaDAO;
+import RESTAURANTE.DAO.UTIL.Conexao;
+import RESTAURANTE.MODEL.Parceiro;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- *
- * @author ricardosassanovicz
- */
 public class ParceiroDAOIMPL implements ParceiroDAO{
+    
+    @Override
+    public void inserir(Parceiro parceiro) {
+
+
+        Connection con = new Conexao().criarConexao();
+        String sql = "insert into parceiro value(?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, parceiro.getCodigo());
+            stmt.setString(2, parceiro.getCpf());
+            stmt.setString(3, parceiro.getRg());          
+            stmt.setDate(4, new java.sql.Date(parceiro.getDataNascimento().getTime()));
+            stmt.setDate(5, new java.sql.Date(parceiro.getDataCadastro().getTime()));
+            stmt.setFloat(6, parceiro.getLimite());
+            stmt.setFloat(7, parceiro.getSaldo());
+            stmt.setInt(8, parceiro.getPessoa().getCodigo());
+
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void alterar(Parceiro parceiro) {
+        Connection con = new Conexao().criarConexao();
+        String sql = "update parceiro set cpf = ?, rg = ?, dataNascimento = ?, dataCadastro = ?"
+                + "limite = ?,saldo = ?,pessoa_codigo = ?"
+                + " where codigo = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setString(1, parceiro.getCpf());
+            stmt.setString(2, parceiro.getRg());
+            stmt.setDate(3, new java.sql.Date(parceiro.getDataNascimento().getTime()));
+            stmt.setDate(4, new java.sql.Date(parceiro.getDataCadastro().getTime()));
+            stmt.setFloat(5, parceiro.getLimite());
+            stmt.setFloat(6, parceiro.getSaldo());
+            stmt.setInt(7, parceiro.getPessoa().getCodigo());
+            stmt.setInt(8, parceiro.getCodigo());
+            
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void remover(Parceiro parceiro) {
+        Connection con = new Conexao().criarConexao();
+        String sql = "delete from parceiro"
+                + " where codigo = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, parceiro.getCodigo());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+        }
+    }
+
+    @Override
+    public Parceiro buscaPorId(Integer codigo) {
+        Parceiro parceiro = null;
+        PessoaDAO pessoaDao = new PessoaDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from parceiro"
+                + " where codigo = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setLong(1, codigo);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                parceiro = new Parceiro();
+                parceiro.setCodigo(rs.getInt("codigo"));
+                parceiro.setCpf(rs.getString("cpf"));
+                parceiro.setRg(rs.getString("rg"));
+                parceiro.setDataNascimento(rs.getDate("dataNascimento"));
+                parceiro.setDataCadastro(rs.getDate("dataCadastro"));
+                parceiro.setLimite(rs.getFloat("limite"));
+                parceiro.setSaldo(rs.getFloat("saldo"));
+                parceiro.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
+            }
+
+        } catch (SQLException ex) {
+        }
+        return parceiro;
+    }
+
+    @Override
+    public Integer buscaIdMaio() {
+        Integer idmaior = null;
+        Connection con = new Conexao().criarConexao();
+        String sql = "select max(codigo) as codigo from parceiro";
+        PreparedStatement stmt;
+        try {
+            stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            idmaior = rs.getInt("codigo");
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ColaboradorDAOIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return idmaior;
+    }
+
+    @Override
+    public List<Parceiro> buscarTodos() {
+        List<Parceiro> parceiros = new ArrayList<Parceiro>();
+        PessoaDAO pessoaDao = new PessoaDAOIMPL();
+
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from parceiro";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Parceiro parceiro = new Parceiro();
+                parceiro.setCodigo(rs.getInt("codigo"));
+                parceiro.setCpf(rs.getString("cpf"));
+                parceiro.setRg(rs.getString("rg"));
+                parceiro.setDataNascimento(rs.getDate("dataNascimento"));
+                parceiro.setDataCadastro(rs.getDate("dataCadastro"));
+                parceiro.setLimite(rs.getFloat("limite"));
+                parceiro.setSaldo(rs.getFloat("saldo"));
+                parceiro.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
+
+                parceiros.add(parceiro);
+            }
+
+        } catch (SQLException ex) {
+        }
+        return parceiros;
+    }
+
+    @Override
+    public List<Parceiro> buscarPorNome(String nome) {
+        List<Parceiro> parceiros = new ArrayList<Parceiro>();
+        PessoaDAO pessoaDao = new PessoaDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from parceiro join pessoa using(codigo) where nome like ? ";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, "%" + nome + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+               Parceiro parceiro = new Parceiro();
+                parceiro.setCodigo(rs.getInt("codigo"));
+                parceiro.setCpf(rs.getString("cpf"));
+                parceiro.setRg(rs.getString("rg"));
+                parceiro.setDataNascimento(rs.getDate("dataNascimento"));
+                parceiro.setDataCadastro(rs.getDate("dataCadastro"));
+                parceiro.setLimite(rs.getFloat("limite"));
+                parceiro.setSaldo(rs.getFloat("saldo"));
+                parceiro.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
+                parceiros.add(parceiro);
+            }
+
+        } catch (SQLException ex) {
+        }
+        return parceiros;
+    }
+
     
 }

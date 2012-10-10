@@ -12,7 +12,6 @@ import RESTAURANTE.DAO.IMPL.PessoaDAOIMPL;
 import RESTAURANTE.DAO.IMPL.UnidadeFederativaDAOIMPL;
 import RESTAURANTE.DAO.PessoaDAO;
 import RESTAURANTE.DAO.UTIL.ComboBoxCidade;
-import RESTAURANTE.DAO.UTIL.ComboBoxGrpColaborador;
 import RESTAURANTE.DAO.UTIL.ComboBoxUF;
 import RESTAURANTE.DAO.UnidadeFederativaDAO;
 import RESTAURANTE.MODEL.Cidade;
@@ -21,9 +20,6 @@ import RESTAURANTE.MODEL.Endereco;
 import RESTAURANTE.MODEL.GrupoColaborador;
 import RESTAURANTE.MODEL.Pessoa;
 import RESTAURANTE.MODEL.UnidadeFederativa;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
@@ -42,7 +38,8 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         //Metodos
         novoGrupo();
         atualizaTabela();
-        atualizarCombobox();
+        atualizarCBUF();
+        atualizaCBCidade();
         setcodigos();
     }
 
@@ -694,48 +691,24 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfCodigoActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-       /* 
-         Date datainicial = null;
-         String data = jtfDataContratação.getText(); //pegando dados de um formulário WEB
-         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); //você pode usar outras máscaras
-         try {
-         datainicial = sdf.parse(data);
-         } catch (ParseException ex) {
-         JOptionPane.showMessageDialog(null, "Ocorreu um erro");
-         }
-         Date datainicial2 = null;
-         String data2 = jtfDataDemissão.getText(); //pegando dados de um formulário WEB
-         SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy"); //você pode usar outras máscaras
-         try {
-         datainicial2 = sdf2.parse(data2);
-         } catch (ParseException ex) {
-         JOptionPane.showMessageDialog(null, "Ocorreu um erro");
-         }
-         Date datainicial3 = null;
-         String data3 = jtfDataNacimento.getText(); //pegando dados de um formulário WEB
-         SimpleDateFormat sdf3 = new SimpleDateFormat("dd/MM/yyyy"); //você pode usar outras máscaras
-         try {
-         datainicial3 = sdf3.parse(data3);
-         } catch (ParseException ex) {
-         JOptionPane.showMessageDialog(null, "Ocorreu um erro");
-         }*/
+
         try {
-        colaborador.setDataNascimento(jtfDataNacimento.getDate());
-        colaborador.setDataContradacao(jtfDataContratação.getDate());
-        colaborador.setDataDemissao(jtfDataDemissão.getDate());
+            colaborador.setDataNascimento(jtfDataNacimento.getDate());
+            colaborador.setDataContradacao(jtfDataContratação.getDate());
+            colaborador.setDataDemissao(jtfDataDemissão.getDate());
 
-        enderecoDao.inserir(colaborador.getPessoa().getEndereco_codigo());
-        pessoaDao.inserir(colaborador.getPessoa());
-        colaboradorDao.inserir(colaborador);
+            enderecoDao.inserir(colaborador.getPessoa().getEndereco_codigo());
+            pessoaDao.inserir(colaborador.getPessoa());
+            colaboradorDao.inserir(colaborador);
 
-        atualizaTabela();
-        limpacampodatas();
-        novoGrupo();
+            atualizaTabela();
+            limpacampodatas();
+            novoGrupo();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Alguns campos do cadastro ainda não foram preenchidos!");
         }
-        
+
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jcbCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCidadeActionPerformed
@@ -743,16 +716,15 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         colaborador.getPessoa()
                 .getEndereco_codigo()
                 .setCidade_codigo(((Cidade) jcbCidade.getSelectedItem()));
-        System.out.println((Cidade) jcbCidade.getSelectedItem());
     }//GEN-LAST:event_jcbCidadeActionPerformed
 
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
-
+        var = jcbUF.getSelectedIndex() + 1;
         colaborador.getPessoa()
                 .getEndereco_codigo()
                 .getCidade_codigo()
                 .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
-        System.out.println((UnidadeFederativa) jcbUF.getSelectedItem());
+        atualizaCBCidade();
     }//GEN-LAST:event_jcbUFActionPerformed
     private void jcbSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSexoActionPerformed
 
@@ -914,6 +886,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jtfTelefoneCelular;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+    private Integer var = null;
     //Colaborador
     private Colaborador colaborador;
     private List<Colaborador> colaboradores;
@@ -945,7 +918,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     }
 
     public List<Colaborador> getColaboradores() {
-       return colaboradores;
+        return colaboradores;
     }
 
     public void setColaboradores(List<Colaborador> colaboradores) {
@@ -954,7 +927,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         firePropertyChange("colaboradores", colaboradoresVelhos, this.colaboradores);
     }
     //Metodos
-    
+
     public void atualizaTabela() {
         setColaboradores(colaboradorDao.buscarTodos());
         setColaboradores(getColaboradores());
@@ -962,27 +935,29 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         } else {
             jtbColaboradores.addRowSelectionInterval(0, 0);
         }
-        
+
     }
 
-    public void atualizarCombobox() {
+    public void atualizarCBUF() {
         unidadeFederativas = unidadeFederativaDao.buscarTodos();
         for (UnidadeFederativa un : unidadeFederativas) {
             jcbUF.addItem(un);
         }
         jcbUF.setRenderer(new ComboBoxUF());
 
-        cidades = cidadeDao.buscarTodos();
+
+    }
+
+    public void atualizaCBCidade() {
+
+        jcbCidade.removeAllItems();
+        cidades = null;
+        cidades = cidadeDao.buscaCidades(var);
         for (Cidade ci : cidades) {
             jcbCidade.addItem(ci);
+
         }
         jcbCidade.setRenderer(new ComboBoxCidade());
-
-        grupoColaboradores = grupoColaboradorDao.buscarTodos();
-        for (GrupoColaborador gc : grupoColaboradores) {
-            jcbfuncao.addItem(gc);
-        }
-        jcbfuncao.setRenderer(new ComboBoxGrpColaborador());
     }
 
     private void novoGrupo() {
@@ -1008,7 +983,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         }
 
         jtfCodigo.setText(colaborador.getCodigo().toString());
-        
+
     }
 
     private void limpacampodatas() {
@@ -1016,5 +991,4 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jtfDataDemissão.setCalendar(null);
         jtfDataNacimento.setCalendar(null);
     }
-    
 }
