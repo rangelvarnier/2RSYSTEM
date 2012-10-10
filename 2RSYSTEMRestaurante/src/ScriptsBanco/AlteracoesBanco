@@ -63,3 +63,7 @@ ALTER TABLE `2rsitem`.`produto` CHANGE COLUMN `decricao` `descricao` VARCHAR(45)
   REFERENCES `2rsitem`.`unidademedida` (`codigo` )
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+
+//alteracao tabela parceiro
+ALTER TABLE `2RSITEM`.`cliente` RENAME TO  `2RSITEM`.`parceiro` ;
+ALTER TABLE `2RSITEM`.`parceiro` CHANGE COLUMN `cpf` `cpf` VARCHAR(20) NOT NULL  ;

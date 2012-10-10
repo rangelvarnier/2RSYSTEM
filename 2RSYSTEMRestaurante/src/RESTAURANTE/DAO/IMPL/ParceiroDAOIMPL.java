@@ -21,7 +21,7 @@ public class ParceiroDAOIMPL implements ParceiroDAO{
 
 
         Connection con = new Conexao().criarConexao();
-        String sql = "insert into parceiro value(?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into parceiro value(?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
