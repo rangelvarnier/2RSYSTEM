@@ -153,9 +153,9 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
                 jtbpProdutosAncestorMoved(evt);
             }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
             }
         });
 
@@ -255,7 +255,6 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jtbpProdutos.addTab("Produtos", jPanel4);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.TRAILING, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Grande", 0, 12))); // NOI18N
-        jPanel3.setToolTipText("Cadastro");
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel2.setText("Código");
@@ -329,6 +328,11 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jbtPesquisaFornecedor.setText("?");
+        jbtPesquisaFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtPesquisaFornecedorActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel11.setText("Saldo em estoque");
@@ -561,8 +565,12 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbProdutosMouseClicked
 
     private void jcbGrupoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbGrupoItemActionPerformed
-        //atualizaComboBoxSubGrupoItem();
+        atualizaComboBoxSubGrupoItem();
     }//GEN-LAST:event_jcbGrupoItemActionPerformed
+
+    private void jbtPesquisaFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisaFornecedorActionPerformed
+        new FramePesquisaFornecedor().setVisible(true);
+    }//GEN-LAST:event_jbtPesquisaFornecedorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -681,7 +689,8 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     private void atualizaComponentes() {
         atualizaComboBoxGrupoItem();
         atualizaComboBoxUnidadeMedida();
-
+        atualizaComboBoxSubGrupoItem();
+        
     }
 
     private void atualizaComboBoxUnidadeMedida() {
@@ -720,7 +729,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         if (subGrupoItens != null) {
             subGrupoItens.clear();
         } else {
-            subGrupoItens = subGrupoItemDao.buscarPorGrupoItem(jcbGrupoItem.getSelectedIndex());
+            subGrupoItens = subGrupoItemDao.buscarPorGrupoItem(jcbGrupoItem.getSelectedIndex() +1);
             for (SubGrupoItem subGrupo : subGrupoItens) {
                 jcbSubGrupo.addItem(subGrupo);
             }

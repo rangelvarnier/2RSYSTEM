@@ -5,6 +5,8 @@
 package FRAME;
 
 import RESTAURANTE.DAO.FornecedorDAO;
+import RESTAURANTE.DAO.IMPL.FornecedorDAOIMPL;
+import RESTAURANTE.DAO.IMPL.PessoaDAOIMPL;
 import RESTAURANTE.DAO.PessoaDAO;
 import RESTAURANTE.MODEL.Fornecedor;
 import java.util.List;
@@ -21,8 +23,8 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
      */
     public FramePesquisaFornecedor() {
         initComponents();
-        //pessoaDao = new PessoaDAOIMPL();
-        //fornecedorDao = new FornecedorDAOIMPL();
+        pessoaDao = new PessoaDAOIMPL();
+        fornecedorDao = new FornecedorDAOIMPL();
         atualizaTabela();
     }
 
@@ -34,14 +36,15 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jtfPesquisar = new javax.swing.JTextField();
         jbtPesquisar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtbFornecedores = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jbtConfirmar = new javax.swing.JButton();
         jbtCancelar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtbFornecedores = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,20 +59,15 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
             }
         });
 
-        jtbFornecedores.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane1.setViewportView(jtbFornecedores);
-
         jLabel1.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
         jLabel1.setText("Pesquisa de Fornecedores");
 
         jbtConfirmar.setText("Confirmar");
+        jbtConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtConfirmarActionPerformed(evt);
+            }
+        });
 
         jbtCancelar.setText("Cancelar");
         jbtCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -78,6 +76,33 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
             }
         });
 
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${fornecedores}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbFornecedores);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
+        columnBinding.setColumnName("Código");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pessoa.nome}"));
+        columnBinding.setColumnName("Nome");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${razaoSocial}"));
+        columnBinding.setColumnName("Razao Social");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cnpj}"));
+        columnBinding.setColumnName("Cnpj");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jtbFornecedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbFornecedoresMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtbFornecedores);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,9 +110,9 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 342, Short.MAX_VALUE)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,14 +136,16 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtPesquisar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtConfirmar)
                     .addComponent(jbtCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -134,6 +161,18 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
     private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_jbtCancelarActionPerformed
+
+    private void jbtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmarActionPerformed
+        setFornecedor(fornecedores.get(jtbFornecedores.getSelectedRow()));
+        dispose();
+    }//GEN-LAST:event_jbtConfirmarActionPerformed
+
+    private void jtbFornecedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbFornecedoresMouseClicked
+        if (evt.getClickCount() == 2) {
+            setFornecedor(fornecedores.get(jtbFornecedores.getSelectedRow()));
+            dispose();
+        }
+    }//GEN-LAST:event_jtbFornecedoresMouseClicked
 
     /**
      * @param args the command line arguments
@@ -170,7 +209,6 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new FramePesquisaFornecedor().setVisible(true);
             }
@@ -184,6 +222,7 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
     private javax.swing.JButton jbtPesquisar;
     private javax.swing.JTable jtbFornecedores;
     private javax.swing.JTextField jtfPesquisar;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
     private PessoaDAO pessoaDao;
     private Fornecedor fornecedor;

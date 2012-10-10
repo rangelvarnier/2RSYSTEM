@@ -1,11 +1,10 @@
-
 package RESTAURANTE.MODEL;
 
 import java.util.Date;
 
 public class Fornecedor {
+
     private Integer codigo;
-    private String nomeFantasia;
     private String razaoSocial;
     private String cnpj;
     private String inscEstadual;
@@ -13,9 +12,9 @@ public class Fornecedor {
     private Date dataCadastro;
     private Pessoa pessoa;
 
-    public Fornecedor(Integer codigo, String nomeFantasia, String razaoSocial, String cnpj, String inscEstadual, Date dataFuncacao, Date dataCadastro, Pessoa pessoa) {
+    public Fornecedor(Integer codigo, String razaoSocial, String cnpj, String inscEstadual, 
+            Date dataFuncacao, Date dataCadastro, Pessoa pessoa) {
         this.codigo = codigo;
-        this.nomeFantasia = nomeFantasia;
         this.razaoSocial = razaoSocial;
         this.cnpj = cnpj;
         this.inscEstadual = inscEstadual;
@@ -26,24 +25,17 @@ public class Fornecedor {
 
     public Fornecedor() {
     }
+
     public Fornecedor(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
-    
+
     public Integer getCodigo() {
         return codigo;
     }
 
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
-    }
-
-    public String getNomeFantasia() {
-        return nomeFantasia;
-    }
-
-    public void setNomeFantasia(String nomeFantasia) {
-        this.nomeFantasia = nomeFantasia;
     }
 
     public String getRazaoSocial() {
@@ -93,7 +85,4 @@ public class Fornecedor {
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
-    
-    
-    
 }
