@@ -15,12 +15,14 @@ import RESTAURANTE.DAO.UTIL.ComboBoxSubGrupoItem;
 import RESTAURANTE.DAO.UnidadeMedidaDAO;
 import RESTAURANTE.MODEL.*;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 public class FrameCadastroProdutos extends javax.swing.JFrame {
 
     public FrameCadastroProdutos() {
         initComponents();
+        novoProduto();
         produtoDao = new ProdutoDAOIMPL();
         fornecedorDao = new FornecedorDAOIMPL();
         grupoItemDao = new GrupoItemDAOIMPL();
@@ -28,7 +30,6 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         unidadeMedidaDao = new UnidadeMedidaDAOIMPL();
         atualizaTabela();
         atualizaComponentes();
-
 
     }
 
@@ -144,7 +145,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         columnBinding.setColumnName("Descrição");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fornecedor.pessoa.nome}"));
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fornecedor.razaoSocial}"));
         columnBinding.setColumnName("Fornecedor");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
@@ -295,7 +296,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
         jtfFornecedor.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produto.fornecedor.pessoa.nome}"), jtfFornecedor, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produto.fornecedor.razaoSocial}"), jtfFornecedor, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         jbtPesquisaFornecedor.setText("?");
@@ -468,6 +469,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
         jtbpProdutos.setSelectedIndex(1);
+        novoProduto();
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jtbpProdutosStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpProdutosStateChanged
@@ -485,7 +487,12 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbpProdutosStateChanged
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-        // TODO add your handling code here:
+        System.out.println(produto.getUnidadeMedida().getDescricao());
+        System.out.println(produto.getSubGrupoItens().getDescricao());
+        System.out.println(produto.getSubGrupoItens().getGrupoItem().getDescricao());
+        produtoDao.inserir(produto);
+        novoProduto();
+        atualizaTabela();
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
@@ -512,8 +519,8 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         setProduto(produtos.get(jtbProdutos.getSelectedRow()));
         jtbpProdutos.setSelectedIndex(1);
         setaGrupoJCBGrupoItem();
-        setaUNJcbUnidadeMedida();
         setaSubGrupoJCBSubGrupoItem();
+        setaUNJcbUnidadeMedida();
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
     private void jtbProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbProdutosMouseClicked
@@ -521,8 +528,8 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
             setProduto(produtos.get(jtbProdutos.getSelectedRow()));
             jtbpProdutos.setSelectedIndex(1);
             setaGrupoJCBGrupoItem();
-            setaUNJcbUnidadeMedida();
             setaSubGrupoJCBSubGrupoItem();
+            setaUNJcbUnidadeMedida();
         }
     }//GEN-LAST:event_jtbProdutosMouseClicked
 
@@ -698,6 +705,8 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     }
 
     private void atualizaComboBoxGrupoItem() {
+        jcbGrupoItem.removeAllItems();
+        grupoItens = null;
         if (grupoItens != null) {
             grupoItens.clear();
         } else {
@@ -710,7 +719,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     }
 
     private void setaGrupoJCBGrupoItem() {
-        jcbGrupoItem.getModel().setSelectedItem(produto.getGrupoItem());
+        jcbGrupoItem.getModel().setSelectedItem(produto.getSubGrupoItens().getGrupoItem());
     }
 
     private void atualizaComboBoxSubGrupoItem() {
@@ -723,19 +732,19 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
             for (SubGrupoItem subGrupo : subGrupoItens) {
                 jcbSubGrupo.addItem(subGrupo);
             }
-            jcbSubGrupo.setSelectedIndex(0);
+            //  jcbSubGrupo.setSelectedIndex(0);
         }
     }
 
     private void setaSubGrupoJCBSubGrupoItem() {
         jcbSubGrupo.getModel().setSelectedItem(produto.getSubGrupoItens());
     }
-    
-    
-    
-    
-    public void setCampoFornecedor(){
-        jtfFornecedor.setText(fornecedor.getPessoa().getNome());
+
+    public void setCampoFornecedor() {
+        jtfFornecedor.setText(fornecedor.getRazaoSocial());
     }
-    
+
+    private void novoProduto() {
+        setProduto(new Produto(new UnidadeMedida(), new SubGrupoItem(new GrupoItem()), new Fornecedor()));
+    }
 }

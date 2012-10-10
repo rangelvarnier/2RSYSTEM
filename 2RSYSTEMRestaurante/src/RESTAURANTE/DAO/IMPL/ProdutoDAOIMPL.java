@@ -18,7 +18,10 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
     @Override
     public void inserir(Produto produto) {
         Connection con = new Conexao().criarConexao();
-        String sql = "insert into produto value(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into produto (codigo, codigoFabrica, descricao,"
+                + " precoVenda, precoCompra, unidadeMedida_codigo,"
+                + " subGrupoItens_codigo, fornecedor_codigo)"
+                + " values(?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -27,10 +30,10 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
             stmt.setString(3, produto.getDescricao());
             stmt.setFloat(4, produto.getPrecoVenda());
             stmt.setFloat(5, produto.getPrecoCompra());
-            stmt.setFloat(6, produto.getSaldoEstoque());
-            stmt.setInt(7, produto.getUnidadeMedida().getCodigo());
-            stmt.setInt(8, produto.getSubGrupoItens().getCodigo());
-            stmt.setInt(9, produto.getFornecedor().getCodigo());
+            //stmt.setFloat(6, produto.getSaldoEstoque());
+            stmt.setInt(6, produto.getUnidadeMedida().getCodigo());
+            stmt.setInt(7, produto.getSubGrupoItens().getCodigo());
+            stmt.setInt(8, produto.getFornecedor().getCodigo());
 
             stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -165,7 +168,7 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
 
             while (rs.next()) {
                 Produto produto = new Produto();
-                
+
                 produto.setCodigo(rs.getInt("codigo"));
                 produto.setCodigoFabrica(rs.getString("codigoFabrica"));
                 produto.setDescricao(rs.getString("descricao"));
