@@ -21,7 +21,7 @@ public class ParceiroDAOIMPL implements ParceiroDAO{
 
 
         Connection con = new Conexao().criarConexao();
-        String sql = "insert into parceiro value(?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into parceiro value(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -33,6 +33,7 @@ public class ParceiroDAOIMPL implements ParceiroDAO{
             stmt.setFloat(6, parceiro.getLimite());
             stmt.setFloat(7, parceiro.getSaldo());
             stmt.setInt(8, parceiro.getPessoa().getCodigo());
+            stmt.setString(9, parceiro.getTipoPessoa());
 
             stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -44,7 +45,7 @@ public class ParceiroDAOIMPL implements ParceiroDAO{
     public void alterar(Parceiro parceiro) {
         Connection con = new Conexao().criarConexao();
         String sql = "update parceiro set cpf = ?, rg = ?, dataNascimento = ?, dataCadastro = ?"
-                + "limite = ?,saldo = ?,pessoa_codigo = ?"
+                + "limite = ?,saldo = ?,pessoa_codigo = ?, tipoPessoa = ?"
                 + " where codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -56,7 +57,9 @@ public class ParceiroDAOIMPL implements ParceiroDAO{
             stmt.setFloat(5, parceiro.getLimite());
             stmt.setFloat(6, parceiro.getSaldo());
             stmt.setInt(7, parceiro.getPessoa().getCodigo());
-            stmt.setInt(8, parceiro.getCodigo());
+            stmt.setString(8, parceiro.getTipoPessoa());
+            stmt.setInt(9, parceiro.getCodigo());
+            
             
             stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -102,6 +105,7 @@ public class ParceiroDAOIMPL implements ParceiroDAO{
                 parceiro.setLimite(rs.getFloat("limite"));
                 parceiro.setSaldo(rs.getFloat("saldo"));
                 parceiro.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
+                parceiro.setTipoPessoa(rs.getString("tipoPessoa"));
             }
 
         } catch (SQLException ex) {
@@ -152,6 +156,7 @@ public class ParceiroDAOIMPL implements ParceiroDAO{
                 parceiro.setLimite(rs.getFloat("limite"));
                 parceiro.setSaldo(rs.getFloat("saldo"));
                 parceiro.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
+                parceiro.setTipoPessoa(rs.getString("tipoPessoa"));
 
                 parceiros.add(parceiro);
             }
@@ -183,6 +188,7 @@ public class ParceiroDAOIMPL implements ParceiroDAO{
                 parceiro.setLimite(rs.getFloat("limite"));
                 parceiro.setSaldo(rs.getFloat("saldo"));
                 parceiro.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
+                parceiro.setTipoPessoa(rs.getString("tipoPessoa"));
                 parceiros.add(parceiro);
             }
 
