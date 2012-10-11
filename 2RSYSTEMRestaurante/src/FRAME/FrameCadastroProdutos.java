@@ -77,6 +77,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Produtos");
+        setLocation(new java.awt.Point(200, 100));
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setResizable(false);
 
@@ -221,7 +222,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 293, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jbtDetalhar)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jtbpProdutos.addTab("Produtos", jPanel4);
@@ -356,7 +357,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                         .add(jbtPesquisaFornecedor)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jtfFornecedor)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 183, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 189, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jtfSaldoEstoque)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel11))

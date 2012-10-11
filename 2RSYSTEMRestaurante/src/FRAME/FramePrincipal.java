@@ -52,7 +52,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("2RSystem");
 
         jbtParceiros.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -343,7 +343,7 @@ public class FramePrincipal extends javax.swing.JFrame {
                         .addContainerGap())))
         );
 
-        getAccessibleContext().setAccessibleDescription("2RSystem");
+        getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
