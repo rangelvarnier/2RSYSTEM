@@ -12,6 +12,7 @@ public class Parceiro {
     private Float limite;
     private Float Saldo;
     private Pessoa pessoa;
+    private String tipoPessoa;
 
     public Parceiro() {
     }
@@ -20,7 +21,7 @@ public class Parceiro {
         this.pessoa = pessoa;
     }
 
-    public Parceiro(Integer codigo, String cpf, String rg, Date dataNascimento, Date dataCadastro, Float limite, Float Saldo, Pessoa pessoa) {
+    public Parceiro(Integer codigo, String cpf, String rg, Date dataNascimento, Date dataCadastro, Float limite, Float Saldo, Pessoa pessoa, String tipoPessoa) {
         this.codigo = codigo;
         this.cpf = cpf;
         this.rg = rg;
@@ -29,6 +30,7 @@ public class Parceiro {
         this.limite = limite;
         this.Saldo = Saldo;
         this.pessoa = pessoa;
+        this.tipoPessoa = tipoPessoa;
     }
 
     public Integer getCodigo() {
@@ -93,6 +95,14 @@ public class Parceiro {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+    }
+
+    public String getTipoPessoa() {
+        return tipoPessoa;
+    }
+
+    public void setTipoPessoa(String tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
     }
     
     

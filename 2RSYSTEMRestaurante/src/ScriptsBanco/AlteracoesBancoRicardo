@@ -1,0 +1,3 @@
+//1-    ALTER TABLE `2RSITEM`.`parceiro` ADD COLUMN `tipoPessoa` CHAR(1) NULL  AFTER `pessoa_codigo` ;
+
+//2-
