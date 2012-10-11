@@ -490,6 +490,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         System.out.println(produto.getUnidadeMedida().getDescricao());
         System.out.println(produto.getSubGrupoItens().getDescricao());
         System.out.println(produto.getSubGrupoItens().getGrupoItem().getDescricao());
+        System.out.println(produto.getFornecedor().getRazaoSocial());
         produtoDao.inserir(produto);
         novoProduto();
         atualizaTabela();
