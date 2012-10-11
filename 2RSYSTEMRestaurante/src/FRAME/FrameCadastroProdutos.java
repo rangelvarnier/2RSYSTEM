@@ -268,12 +268,22 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
         jcbSubGrupo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbSubGrupo.setRenderer(new ComboBoxSubGrupoItem());
+        jcbSubGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbSubGrupoActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel8.setText("Unidade Medida");
 
         jcbUnMedida.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbUnMedida.setRenderer(new ComboBoxUnidadeMedida());
+        jcbUnMedida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbUnMedidaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel3.setText("Preço Compra");
@@ -503,7 +513,9 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtEditarActionPerformed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        // TODO add your handling code here:
+       produtoDao.remover(produto);
+       novoProduto();
+       atualizaTabela();
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSairActionPerformed
@@ -545,6 +557,14 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         pesquisaFornecedor.setVisible(true);
         pesquisaFornecedor.setFrameFornecedor(this);
     }//GEN-LAST:event_jbtPesquisaFornecedorActionPerformed
+
+    private void jcbSubGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSubGrupoActionPerformed
+        produto.setSubGrupoItens((SubGrupoItem) jcbSubGrupo.getSelectedItem());
+    }//GEN-LAST:event_jcbSubGrupoActionPerformed
+
+    private void jcbUnMedidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUnMedidaActionPerformed
+        produto.setUnidadeMedida((UnidadeMedida) jcbUnMedida.getSelectedItem());
+    }//GEN-LAST:event_jcbUnMedidaActionPerformed
 
     /**
      * @param args the command line arguments

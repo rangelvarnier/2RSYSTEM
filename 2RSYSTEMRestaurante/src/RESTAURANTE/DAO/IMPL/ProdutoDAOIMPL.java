@@ -28,7 +28,7 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
             stmt.setFloat(4, produto.getPrecoVenda());
             stmt.setFloat(5, produto.getPrecoCompra());
             stmt.setFloat(6, produto.getSaldoEstoque());
-            stmt.setInt(7, produto.getUnidadeMedida() .getCodigo());
+            stmt.setInt(7, produto.getUnidadeMedida().getCodigo());
             stmt.setInt(8, produto.getSubGrupoItens().getCodigo());
             stmt.setInt(9, produto.getFornecedor().getCodigo());
 
