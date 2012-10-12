@@ -695,8 +695,6 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                 .getCidade_codigo()
                 .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
         atualizaCBCidade();
-        System.out.println((UnidadeFederativa) jcbUF.getSelectedItem());
-        
     }//GEN-LAST:event_jcbUFActionPerformed
 
     private void jcbSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSexoActionPerformed
