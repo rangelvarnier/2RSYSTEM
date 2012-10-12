@@ -1,10 +1,25 @@
 
 package FRAME;
 
+import RESTAURANTE.DAO.IMPL.ProdutoDAOIMPL;
+import RESTAURANTE.DAO.IMPL.produtosDaVendaDAOIMPL;
+import RESTAURANTE.DAO.ProdutoDAO;
+import RESTAURANTE.DAO.UTIL.ComboBoxProduto;
+import RESTAURANTE.DAO.produtosDaVendaDAO;
+import RESTAURANTE.MODEL.Produto;
+import RESTAURANTE.MODEL.ProdutosDaVenda;
+import java.util.List;
+
 public class FrameVenda extends javax.swing.JFrame {
 
     public FrameVenda() {
         initComponents();
+        produtoDao = new ProdutoDAOIMPL();
+        produtosDaVendaDao = new produtosDaVendaDAOIMPL();
+        
+        
+        
+        atualizarCBProduto();
     }
 
     @SuppressWarnings("unchecked")
@@ -28,15 +43,15 @@ public class FrameVenda extends javax.swing.JFrame {
         jbtPesquisaCliente = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jtbVenda = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jComboBox3 = new javax.swing.JComboBox();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jbtSalvar1 = new javax.swing.JButton();
+        jtfValorTotal = new javax.swing.JTextField();
+        jcbProduto = new javax.swing.JComboBox();
+        jtfValorUn = new javax.swing.JTextField();
+        jtfCodigoVenda = new javax.swing.JTextField();
+        jtfQuantidade = new javax.swing.JTextField();
+        jbtAdicionar = new javax.swing.JButton();
         jbtExcluir1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -95,6 +110,7 @@ public class FrameVenda extends javax.swing.JFrame {
         jLabel37.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel37.setText("Data Venda");
 
+        jtfCodigo.setEditable(false);
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         jbtPesquisaVendedor.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -138,7 +154,7 @@ public class FrameVenda extends javax.swing.JFrame {
                 .add(18, 18, 18)
                 .add(jpn1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jpn1Layout.createSequentialGroup()
-                        .add(jtfCliente, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 204, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jtfCliente, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 213, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jbtPesquisaCliente, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jLabel35))
@@ -167,13 +183,9 @@ public class FrameVenda extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
-        jTable2.setAutoCreateRowSorter(true);
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jtbVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Produto", "Quantidade", "Valor Unitário", "Valor Total"
@@ -187,20 +199,40 @@ public class FrameVenda extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jtbVenda);
+        jtbVenda.getColumnModel().getColumn(0).setMinWidth(10);
+        jtbVenda.getColumnModel().getColumn(0).setPreferredWidth(10);
+        jtbVenda.getColumnModel().getColumn(1).setPreferredWidth(120);
+        jtbVenda.getColumnModel().getColumn(2).setMinWidth(10);
+        jtbVenda.getColumnModel().getColumn(2).setPreferredWidth(20);
+        jtbVenda.getColumnModel().getColumn(3).setMinWidth(10);
+        jtbVenda.getColumnModel().getColumn(3).setPreferredWidth(20);
+        jtbVenda.getColumnModel().getColumn(4).setMinWidth(10);
+        jtbVenda.getColumnModel().getColumn(4).setPreferredWidth(20);
 
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel9.setText("SubTotal:");
 
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
 
-        jbtSalvar1.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtSalvar1.setText("Adicionar");
+        jcbProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbProdutoActionPerformed(evt);
+            }
+        });
+
+        jbtAdicionar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jbtAdicionar.setText("Adicionar");
+        jbtAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAdicionarActionPerformed(evt);
+            }
+        });
 
         jbtExcluir1.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtExcluir1.setText("Excluir");
 
-        jLabel11.setText("Código");
+        jLabel11.setText("Código da Venda");
 
         jLabel12.setText("Produto");
 
@@ -239,27 +271,27 @@ public class FrameVenda extends javax.swing.JFrame {
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel1Layout.createSequentialGroup()
-                                .add(jbtSalvar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jbtAdicionar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .add(jPanel1Layout.createSequentialGroup()
-                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(jTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 98, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel11))
+                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                    .add(jLabel11, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .add(jtfCodigoVenda))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jLabel12)
-                                    .add(jComboBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 267, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(jcbProduto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 267, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jLabel13)
-                                    .add(jTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 133, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(jtfQuantidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 133, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jTextField6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 160, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jtfValorUn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 160, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jLabel14))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 162, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jtfValorTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 162, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jLabel15))))
                 .addContainerGap())
             .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -279,8 +311,8 @@ public class FrameVenda extends javax.swing.JFrame {
                             .add(jLabel12))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jComboBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(jtfCodigoVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jcbProduto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel14)
@@ -288,11 +320,11 @@ public class FrameVenda extends javax.swing.JFrame {
                             .add(jLabel13))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jTextField6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                            .add(jtfValorTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jtfValorUn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jtfQuantidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .add(3, 3, 3)
-                .add(jbtSalvar1)
+                .add(jbtAdicionar)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 302, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -376,6 +408,19 @@ public class FrameVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtCancelar1ActionPerformed
 
+    private void jbtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAdicionarActionPerformed
+        produtodavenda.getVenda_codigo().setCodigo(Integer.valueOf(jtfCodigoVenda.getText()));
+        produtodavenda.setQuantidade(Float.valueOf(jtfQuantidade.getText()));
+        produtodavenda.setValorUnitario(Float.valueOf(jtfValorUn.getText()));
+        produtodavenda.setValorTotal(Float.valueOf(jtfValorTotal.getText()));
+        produtosDasVendas.add(produtodavenda);
+
+    }//GEN-LAST:event_jbtAdicionarActionPerformed
+
+    private void jcbProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbProdutoActionPerformed
+         produtodavenda.setProduto_codigo(((Produto) jcbProduto.getSelectedItem()));
+    }//GEN-LAST:event_jcbProdutoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -412,7 +457,6 @@ public class FrameVenda extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -429,22 +473,39 @@ public class FrameVenda extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JButton jbtAdicionar;
     private javax.swing.JButton jbtCancelar;
     private javax.swing.JButton jbtCancelar1;
     private javax.swing.JButton jbtExcluir1;
     private javax.swing.JButton jbtNovo;
     private javax.swing.JButton jbtPesquisaCliente;
     private javax.swing.JButton jbtPesquisaVendedor;
-    private javax.swing.JButton jbtSalvar1;
+    private javax.swing.JComboBox jcbProduto;
     private com.toedter.calendar.JDateChooser jftData;
     private javax.swing.JPanel jpn1;
+    private javax.swing.JTable jtbVenda;
     private javax.swing.JTextField jtfCliente;
     private javax.swing.JTextField jtfCodigo;
+    private javax.swing.JTextField jtfCodigoVenda;
+    private javax.swing.JTextField jtfQuantidade;
+    private javax.swing.JTextField jtfValorTotal;
+    private javax.swing.JTextField jtfValorUn;
     private javax.swing.JTextField jtfVendedor;
     // End of variables declaration//GEN-END:variables
+    private ProdutosDaVenda produtodavenda;
+    private List<ProdutosDaVenda> produtosDasVendas;
+    private produtosDaVendaDAO produtosDaVendaDao;
+    
+    private Produto produto;
+    private List<Produto> produtos;
+    private ProdutoDAO produtoDao;
+    
+    public void atualizarCBProduto() {
+       produtos = produtoDao.buscarTodos();
+        for (Produto pr : produtos) {
+            jcbProduto.addItem(pr);
+        }
+        jcbProduto.setRenderer(new ComboBoxProduto());
+    }
+
 }
