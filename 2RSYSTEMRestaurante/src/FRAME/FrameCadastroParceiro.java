@@ -708,7 +708,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbSexoActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-        //try {
+        try {
           
         parceiro.setDataNascimento(jtfDataNacimento.getDate());
         parceiro.setDataCadastro(new Date());
@@ -721,9 +721,9 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         limpacampodatas();
         novoGrupo();
 
-       /* } catch (Exception e) {
+       } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Alguns campos do cadastro ainda não foram preenchidos!");
-        }*/
+        }
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
@@ -744,7 +744,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
         try {
             setParceiro(parceiros.get(jtbParceiros.getSelectedRow()));
-            //setaJCB();
+            setaJCB();
             jtbpParceiros.setSelectedIndex(1);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Favor Selecione um Fornecedor para Detalhar.");
@@ -755,7 +755,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         try {
             if (evt.getClickCount() == 2) {
             setParceiro(parceiros.get(jtbParceiros.getSelectedRow()));
-            //setaJCB();
+            setaJCB();
             jtbpParceiros.setSelectedIndex(1);
         }
         } catch (Exception e) {
@@ -883,6 +883,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     private CidadeDAO cidadeDao;
     //Endereco
     private EnderecoDAO enderecoDao;
+    private Endereco endereco;
     //UnidadeFederativa
     private UnidadeFederativaDAO unidadeFederativaDao;
     private List<UnidadeFederativa> unidadeFederativas;
@@ -968,14 +969,14 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     private void setaJCB() {
         jcbUF.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo().getCidade_codigo()
                 .getUnidadeFederativa_codigo());
-        
-        jcbCidade.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo().
-                getCidade_codigo());
+        jcbUF.setRenderer(new ComboBoxUF());
+        //jcbCidade.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo().
+        //        getCidade_codigo());
        
         //jcbCidade.getModel().setSelectedItem(fornecedor.getPessoa().getSexo().toString());
         
         jtfCodigo.setText(parceiro.getCodigo().toString());
-        
+         jcbCidade.setRenderer(new ComboBoxCidade());
         
     }
     private void limpacampodatas() {

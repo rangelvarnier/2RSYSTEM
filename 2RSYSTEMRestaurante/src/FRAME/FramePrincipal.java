@@ -85,6 +85,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         jbtSaida.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtSaida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/venda.png"))); // NOI18N
         jbtSaida.setToolTipText("Venda de Mercadoria");
+        jbtSaida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtSaidaActionPerformed(evt);
+            }
+        });
 
         jbtEntrada.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtEntrada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/conta.png"))); // NOI18N
@@ -431,6 +436,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void jmiColarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiColarActionPerformed
 
     }//GEN-LAST:event_jmiColarActionPerformed
+
+    private void jbtSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSaidaActionPerformed
+        new FrameVenda().setVisible(true);
+    }//GEN-LAST:event_jbtSaidaActionPerformed
 
     /**
      * @param args the command line arguments
