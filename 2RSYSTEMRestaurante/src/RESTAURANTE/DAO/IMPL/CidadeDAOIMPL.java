@@ -17,7 +17,7 @@ public class CidadeDAOIMPL implements CidadeDAO{
     @Override
     public void inserir(Cidade cidade) {
         Connection con = new Conexao().criarConexao();
-        String sql = "insert into Cidade value(?, ?, ?)";
+        String sql = "insert into cidade value(?, ?, ?)";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
             
@@ -34,7 +34,7 @@ public class CidadeDAOIMPL implements CidadeDAO{
     @Override
     public void alterar(Cidade cidade) {
         Connection con = new Conexao().criarConexao();
-        String sql = "update Cidade set nome = ?, unidadeFederativa_codigo = ?"
+        String sql = "update cidade set nome = ?, unidadeFederativa_codigo = ?"
                 + " where codigo = ?";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -51,7 +51,7 @@ public class CidadeDAOIMPL implements CidadeDAO{
     @Override
     public void remover(Cidade cidade) {
         Connection con = new Conexao().criarConexao();
-        String sql = "delete from Cidade"
+        String sql = "delete from cidade"
                 + " where codigo = ?";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -68,21 +68,17 @@ public class CidadeDAOIMPL implements CidadeDAO{
         Cidade cidade = null;
         UnidadeFederativaDAO unidadeFederativaDao = new UnidadeFederativaDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from Cidade"
+        String sql = "select * from cidade"
                 + " where codigo = ?";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
-            
             stmt.setInt(1, codigo);
-            
             ResultSet rs = stmt.executeQuery();
-            
             while(rs.next()){
                 cidade = new Cidade();
                 cidade.setCodigo(rs.getInt("codico"));
                 cidade.setNome(rs.getString("nome"));
-                cidade.setUnidadeFederativa_codigo(unidadeFederativaDao.buscarPorCodigo(rs.getInt("codigo")));
-
+                cidade.setUnidadeFederativa_codigo(unidadeFederativaDao.buscarPorCodigo(rs.getInt("unidadeFederativa_codigo")));
             }
             
         } catch (SQLException ex){
@@ -107,7 +103,7 @@ public class CidadeDAOIMPL implements CidadeDAO{
                 cidade.setCodigo(rs.getInt("codigo"));
                 cidade.setNome(rs.getString("nome"));
                 cidade.setUnidadeFederativa_codigo(unidadeFederativaDao.buscarPorCodigo
-                        (rs.getInt("codigo")));
+                        (rs.getInt("unidadeFederativa_codigo")));
                 cidades.add(cidade);
             }
             

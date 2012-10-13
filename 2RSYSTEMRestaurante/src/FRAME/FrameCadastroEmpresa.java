@@ -26,7 +26,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         cidadeDao = new CidadeDAOIMPL();
         enderecoDao = new EnderecoDAOIMPL();
         empresaDao = new EmpresaDAOIMPL();
-        
+
 
         novo();
         atualizarTabela();
@@ -326,7 +326,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
                                         .add(98, 98, 98)
                                         .add(jLabel26))
                                     .add(jPanel3Layout.createSequentialGroup()
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 20, Short.MAX_VALUE)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 14, Short.MAX_VALUE)
                                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                             .add(jtfCelular, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                             .add(jLabel32))
@@ -340,9 +340,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
                                             .add(jLabel24))
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(jPanel3Layout.createSequentialGroup()
-                                                .add(jLabel29)
-                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .add(jLabel29)
                                             .add(jPanel3Layout.createSequentialGroup()
                                                 .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                 .add(0, 0, Short.MAX_VALUE))))))
@@ -557,27 +555,27 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfNumeroActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-        //try {
-        empresa.setDataFundacao(jtfDataFundacao.getDate());
-        enderecoDao.inserir(empresa.getEndereco_codigo());
-        empresaDao.inserir(empresa);
+        try {
+            empresa.setDataFundacao(jtfDataFundacao.getDate());
+            enderecoDao.inserir(empresa.getEndereco_codigo());
+            empresaDao.inserir(empresa);
 
-        atualizarTabela();
-        limpacampodatas();
-        novo();
+            atualizarTabela();
+            limpacampodatas();
+            novo();
 
-        //} catch (Exception e) {
-        //  JOptionPane.showMessageDialog(rootPane, "Alguns campos do cadastro ainda não foram preenchidos!");
-        // }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Alguns campos do cadastro ainda não foram preenchidos!");
+        }
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
-        var = jcbUF.getSelectedIndex()+1; 
+        var = jcbUF.getSelectedIndex() + 1;
         empresa.getEndereco_codigo()
                 .getCidade_codigo()
                 .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
         atualizaCBCidade();
-        
+
     }//GEN-LAST:event_jcbUFActionPerformed
 
     private void jcbCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCidadeActionPerformed
@@ -588,12 +586,12 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbCidadeActionPerformed
 
     private void jtbEmpresasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbEmpresasMouseClicked
-       
-            if (evt.getClickCount() == 2) {
+
+        if (evt.getClickCount() == 2) {
             setEmpresa(empresas.get(jtbEmpresas.getSelectedRow()));
-            setaJCBEmpresa();
-            }
-        
+            //setaJCBEmpresa();
+        }
+
     }//GEN-LAST:event_jtbEmpresasMouseClicked
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
@@ -726,22 +724,23 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
     }
 
     public void atualizarCBUF() {
-       unidadesfederativas = unidadefederativaDao.buscarTodos();
+        unidadesfederativas = unidadefederativaDao.buscarTodos();
         for (UnidadeFederativa un : unidadesfederativas) {
             jcbUF.addItem(un);
         }
         jcbUF.setRenderer(new ComboBoxUF());
-   
+
 
     }
-    public void atualizaCBCidade(){
 
-            jcbCidade.removeAllItems();
-            cidades = null;
-            cidades = cidadeDao.buscaCidades(var);
+    public void atualizaCBCidade() {
+
+        jcbCidade.removeAllItems();
+        cidades = null;
+        cidades = cidadeDao.buscaCidades(var);
         for (Cidade ci : cidades) {
             jcbCidade.addItem(ci);
-            
+
         }
         jcbCidade.setRenderer(new ComboBoxCidade());
     }
@@ -766,25 +765,14 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         jtfDataFundacao.setCalendar(null);
 
     }
+
     private void setaJCBEmpresa() {
         jcbCidade.getModel().setSelectedItem(empresa.getEndereco_codigo().getCidade_codigo());
         jcbUF.getModel().setSelectedItem(empresa.getEndereco_codigo()
                 .getCidade_codigo().getUnidadeFederativa_codigo());
-        
-       // jtfDataFundacao.setCalendar(empresa.getDataFundacao());
+
+        // jtfDataFundacao.setCalendar(empresa.getDataFundacao());
 
     }
-    /*private void convertedataparacalendar(){
-        Date data = new Date();
-        data = empresa.getDataFundacao();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(data);
 
-        // formata e exibe a data e hora
-        Format formato = new SimpleDateFormat(
-          "dd/MM/yyyy - HH:mm:ss");
-        formato.format(cal);
-        jtfDataFundacao.setCalendar(cal);
-        
-    }*/
 }

@@ -26,8 +26,8 @@ public class NewJFrame extends javax.swing.JFrame {
         initComponents();
         pessoaDao = new PessoaDAOIMPL();
         parceiroDao = new ParceiroDAOIMPL();
-        setParceiros(parceiroDao.buscarTodos());
-        if (parceiroDao.buscarTodos().isEmpty()) {
+        setPessoas(pessoaDao.buscarTodos());
+        if (pessoaDao.buscarTodos().isEmpty()) {
         } else {
             jTable1.addRowSelectionInterval(0, 0);
         }
@@ -48,41 +48,24 @@ public class NewJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${parceiros}");
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${pessoas}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTable1, "");
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
-        columnBinding.setColumnName("Codigo");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cpf}"));
-        columnBinding.setColumnName("Cpf");
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nome}"));
+        columnBinding.setColumnName("Nome");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dataCadastro}"));
-        columnBinding.setColumnName("Data Cadastro");
-        columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dataNascimento}"));
-        columnBinding.setColumnName("Data Nascimento");
-        columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${limite}"));
-        columnBinding.setColumnName("Limite");
-        columnBinding.setColumnClass(Float.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pessoa}"));
-        columnBinding.setColumnName("Pessoa");
-        columnBinding.setColumnClass(RESTAURANTE.MODEL.Pessoa.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rg}"));
-        columnBinding.setColumnName("Rg");
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${endereco_codigo.cidade_codigo.nome}"));
+        columnBinding.setColumnName("Cidade");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${saldo}"));
-        columnBinding.setColumnName("Saldo");
-        columnBinding.setColumnClass(Float.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tipoPessoa}"));
-        columnBinding.setColumnName("Tipo Pessoa");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${endereco_codigo.cidade_codigo.unidadeFederativa_codigo.sigla}"));
+        columnBinding.setColumnName("Sigka");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pessoa.endereco_codigo.cidade_codigo.nome}"));
-        columnBinding.setColumnName("Pessoa.endereco_codigo.cidade_codigo.nome");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pessoa.endereco_codigo.cidade_codigo.unidadeFederativa_codigo.sigla}"));
-        columnBinding.setColumnName("Pessoa.endereco_codigo.cidade_codigo.unidade Federativa_codigo.sigla");
-        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${endereco_codigo}"));
+        columnBinding.setColumnName("Endereco_codigo");
+        columnBinding.setColumnClass(RESTAURANTE.MODEL.Endereco.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${endereco_codigo.cidade_codigo}"));
+        columnBinding.setColumnName("Endereco_codigo.cidade_codigo");
+        columnBinding.setColumnClass(RESTAURANTE.MODEL.Cidade.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(jTable1);
