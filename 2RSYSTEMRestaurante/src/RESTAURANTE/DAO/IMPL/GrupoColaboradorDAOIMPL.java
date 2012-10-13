@@ -21,7 +21,7 @@ public class GrupoColaboradorDAOIMPL implements GrupoColaboradorDAO {
 
             PreparedStatement stmt = con.prepareStatement(sql);
             
-            stmt.setLong(1, grupoColaborador.getCodigo());
+            stmt.setInt(1, grupoColaborador.getCodigo());
             stmt.setString(2, grupoColaborador.getDescricao());
             
             stmt.executeUpdate();
@@ -39,7 +39,7 @@ public class GrupoColaboradorDAOIMPL implements GrupoColaboradorDAO {
             PreparedStatement stmt = con.prepareStatement(sql);
             
             stmt.setString(1, grupoColaborador.getDescricao());
-            stmt.setLong(2, grupoColaborador.getCodigo());
+            stmt.setInt(2, grupoColaborador.getCodigo());
             
             stmt.executeUpdate();
         } catch (SQLException ex){
@@ -54,7 +54,7 @@ public class GrupoColaboradorDAOIMPL implements GrupoColaboradorDAO {
                 + " where codigo = ?";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setLong(1, grupoColaborador.getCodigo());
+            stmt.setInt(1, grupoColaborador.getCodigo());
             
             stmt.executeUpdate();
         } catch (SQLException ex){
@@ -63,19 +63,19 @@ public class GrupoColaboradorDAOIMPL implements GrupoColaboradorDAO {
     }
 
     @Override
-    public GrupoColaborador buscaPorId(Long codigo) {
+    public GrupoColaborador buscaPorId(Integer codigo) {
         GrupoColaborador grupoColaborador = null;
         Connection con = new Conexao().criarConexao();
         String sql = "select * from grupoColaboradores"
                 + " where codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setLong(1, codigo);
+            stmt.setInt(1, codigo);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 grupoColaborador = new GrupoColaborador();
-                grupoColaborador.setCodigo(rs.getLong("codigo"));
+                grupoColaborador.setCodigo(rs.getInt("codigo"));
                 grupoColaborador.setDescricao(rs.getString("descricao"));
             }
         } catch (SQLException ex) {
@@ -95,7 +95,7 @@ public class GrupoColaboradorDAOIMPL implements GrupoColaboradorDAO {
             
             while(rs.next()){
                 GrupoColaborador grupoColaborador = new GrupoColaborador();
-                grupoColaborador.setCodigo(rs.getLong("codigo"));
+                grupoColaborador.setCodigo(rs.getInt("codigo"));
                 grupoColaborador.setDescricao(rs.getString("descricao"));
                 
 

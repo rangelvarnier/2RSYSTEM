@@ -164,6 +164,14 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         columnBinding.setColumnName("Razão Social");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${inscEstadual}"));
+        columnBinding.setColumnName("Inscrição Estadual");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dataFuncacao}"));
+        columnBinding.setColumnName("Data Fundação");
+        columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jtbFornecedores.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -663,7 +671,6 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbUFActionPerformed
 
     private void jcbSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSexoActionPerformed
-
         if (jcbSexo.getSelectedIndex() == 0) {
             fornecedor.getPessoa().setSexo("F");
         } else {

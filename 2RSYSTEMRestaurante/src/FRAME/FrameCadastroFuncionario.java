@@ -12,6 +12,7 @@ import RESTAURANTE.DAO.IMPL.PessoaDAOIMPL;
 import RESTAURANTE.DAO.IMPL.UnidadeFederativaDAOIMPL;
 import RESTAURANTE.DAO.PessoaDAO;
 import RESTAURANTE.DAO.UTIL.ComboBoxCidade;
+import RESTAURANTE.DAO.UTIL.ComboBoxGrpColaborador;
 import RESTAURANTE.DAO.UTIL.ComboBoxUF;
 import RESTAURANTE.DAO.UnidadeFederativaDAO;
 import RESTAURANTE.MODEL.Cidade;
@@ -37,6 +38,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         colaboradorDao = new ColaboradorDAOIMPL();
         //Metodos
         novoGrupo();
+        atualizaCBFuncao();
         atualizaTabela();
         atualizarCBUF();
         atualizaCBCidade();
@@ -738,9 +740,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbSexoActionPerformed
 
     private void jcbfuncaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbfuncaoActionPerformed
-
         colaborador.setGrupoColaborador((GrupoColaborador) jcbfuncao.getSelectedItem());
-        System.out.println((GrupoColaborador) jcbfuncao.getSelectedItem());
     }//GEN-LAST:event_jcbfuncaoActionPerformed
 
     private void jcbSexoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbSexoFocusGained
@@ -774,6 +774,9 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
+        
+        enderecoDao.remover(colaborador.getPessoa().getEndereco_codigo());
+        pessoaDao.remover(colaborador.getPessoa());      
         colaboradorDao.remover(colaborador);
         novoGrupo();
         atualizaTabela();
@@ -787,6 +790,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     private void jtbColaboradoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbColaboradoresMouseClicked
         if (evt.getClickCount() == 2) {
             setColaborador(colaboradores.get(jtbColaboradores.getSelectedRow()));
+            setaJCB();
             jtbpcolaboradores.setSelectedIndex(1);
         }
     }//GEN-LAST:event_jtbColaboradoresMouseClicked
@@ -895,6 +899,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     //GrupoColaborador  
     private GrupoColaboradorDAO grupoColaboradorDao;
     private List<GrupoColaborador> grupoColaboradores;
+    
     //Cidade
     private List<Cidade> cidades;
     private CidadeDAO cidadeDao;
@@ -960,6 +965,16 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         }
         jcbCidade.setRenderer(new ComboBoxCidade());
     }
+    
+    public void atualizaCBFuncao(){
+        grupoColaboradores = grupoColaboradorDao.buscarTodos();
+        
+        for (GrupoColaborador co : grupoColaboradores) {
+            jcbfuncao.addItem(co);
+        }
+        jcbfuncao.setRenderer(new ComboBoxGrpColaborador());
+        
+    }
 
     private void novoGrupo() {
         setColaborador(new Colaborador(new Pessoa(new Endereco(new Cidade(new UnidadeFederativa())))));
@@ -991,5 +1006,20 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jtfDataContratação.setCalendar(null);
         jtfDataDemissão.setCalendar(null);
         jtfDataNacimento.setCalendar(null);
+    }
+    
+    private void setaJCB() {
+        
+        jcbfuncao.getModel().setSelectedItem(colaborador.getGrupoColaborador());
+        jtfCodigo.setText(colaborador.getCodigo().toString());
+        //System.out.println(parceiro.getPessoa().getEndereco_codigo().getCidade_codigo());
+        //jcbUF.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo().getCidade_codigo()
+          //      .getUnidadeFederativa_codigo());
+       
+       // jcbCidade.getModel().
+        
+        
+        
+        
     }
 }

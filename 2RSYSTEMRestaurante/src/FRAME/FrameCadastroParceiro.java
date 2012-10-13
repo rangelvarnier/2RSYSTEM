@@ -168,6 +168,14 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         columnBinding.setColumnName("Nome");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pessoa.endereco_codigo.cidade_codigo}"));
+        columnBinding.setColumnName("Cidade");
+        columnBinding.setColumnClass(RESTAURANTE.MODEL.Cidade.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pessoa.endereco_codigo.cidade_codigo.unidadeFederativa_codigo}"));
+        columnBinding.setColumnName("UF");
+        columnBinding.setColumnClass(RESTAURANTE.MODEL.UnidadeFederativa.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jtbParceiros.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -638,7 +646,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
          novoGrupo();
         jtbpParceiros.setSelectedIndex(1);
     }//GEN-LAST:event_jbtNovoActionPerformed
-
+    
     private void jtfBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfBairroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfBairroActionPerformed
@@ -710,7 +718,6 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
           
         parceiro.setDataNascimento(jtfDataNacimento.getDate());
         parceiro.setDataCadastro(new Date());
-
         enderecoDao.inserir(parceiro.getPessoa().getEndereco_codigo());
         pessoaDao.inserir(parceiro.getPessoa());
         parceiroDao.inserir(parceiro);
@@ -965,16 +972,15 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     }
 
     private void setaJCB() {
-        jcbUF.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo().getCidade_codigo()
-                .getUnidadeFederativa_codigo());
-        jcbUF.setRenderer(new ComboBoxUF());
-        //jcbCidade.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo().
-        //        getCidade_codigo());
+        
+       // jcbCidade.getModel().setSelectedItem(parceiro.getPessoa());
+        System.out.println(parceiro.getPessoa().getEndereco_codigo().getCidade_codigo());
+        //jcbUF.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo().getCidade_codigo()
+          //      .getUnidadeFederativa_codigo());
        
         //jcbCidade.getModel().setSelectedItem(fornecedor.getPessoa().getSexo().toString());
         
         jtfCodigo.setText(parceiro.getCodigo().toString());
-         jcbCidade.setRenderer(new ComboBoxCidade());
         
     }
     private void limpacampodatas() {
