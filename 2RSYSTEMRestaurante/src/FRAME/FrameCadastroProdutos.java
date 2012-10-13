@@ -762,7 +762,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
             for (SubGrupoItem subGrupo : subGrupoItens) {
                 jcbSubGrupo.addItem(subGrupo);
             }
-            //  jcbSubGrupo.setSelectedIndex(0);
+              jcbSubGrupo.setSelectedIndex(0);
         }
     }
 

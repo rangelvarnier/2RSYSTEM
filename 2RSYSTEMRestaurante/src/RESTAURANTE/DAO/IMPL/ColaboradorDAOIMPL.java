@@ -104,7 +104,7 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
                 colaborador.setDataNascimento(rs.getDate("dataNascimento"));
                 colaborador.setDataContradacao(rs.getDate("dataContradacao"));
                 colaborador.setDataDemissao(rs.getDate("dataDemissao"));
-                colaborador.setGrupoColaborador(grupoColaboradoresDao.buscaPorId(rs.getLong("grupoColaboradores_codigo")));
+                colaborador.setGrupoColaborador(grupoColaboradoresDao.buscaPorId(rs.getInt("grupoColaboradores_codigo")));
                 colaborador.setSalario(rs.getFloat("salario"));
                 colaborador.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
             }
@@ -135,7 +135,7 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
                 colaborador.setDataNascimento(rs.getDate("dataNascimento"));
                 colaborador.setDataContradacao(rs.getDate("dataContradacao"));
                 colaborador.setDataDemissao(rs.getDate("dataDemissao"));
-                colaborador.setGrupoColaborador(grupoColaboradoresDao.buscaPorId(rs.getLong("grupoColaboradores_codigo")));
+                colaborador.setGrupoColaborador(grupoColaboradoresDao.buscaPorId(rs.getInt("grupoColaboradores_codigo")));
                 colaborador.setSalario(rs.getFloat("salario"));
                 colaborador.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
 
@@ -189,7 +189,7 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
                 colaborador.setDataNascimento(rs.getDate("dataNascimento"));
                 colaborador.setDataContradacao(rs.getDate("dataContradacao"));
                 colaborador.setDataDemissao(rs.getDate("dataDemissao"));
-                colaborador.setGrupoColaborador(grupoColaboradoresDao.buscaPorId(rs.getLong("grupoColaboradores_codigo")));
+                colaborador.setGrupoColaborador(grupoColaboradoresDao.buscaPorId(rs.getInt("grupoColaboradores_codigo")));
                 colaborador.setSalario(rs.getFloat("salario"));
                 colaborador.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
                 colaboradores.add(colaborador);

@@ -8,7 +8,7 @@ public interface GrupoColaboradorDAO {
      void inserir(GrupoColaborador grupoColaborador);
      void alterar(GrupoColaborador grupoColaborador);
      void remover(GrupoColaborador grupoColaborador);
-     GrupoColaborador buscaPorId(Long codigo);
+     GrupoColaborador buscaPorId(Integer codigo);
      List<GrupoColaborador> buscarTodos();  
     
 }

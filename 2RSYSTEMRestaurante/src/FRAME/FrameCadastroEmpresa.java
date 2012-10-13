@@ -14,12 +14,6 @@ import RESTAURANTE.MODEL.Cidade;
 import RESTAURANTE.MODEL.Empresa;
 import RESTAURANTE.MODEL.Endereco;
 import RESTAURANTE.MODEL.UnidadeFederativa;
-import java.text.DateFormat;
-import java.text.Format;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
@@ -36,9 +30,10 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
 
         novo();
         atualizarTabela();
-        atualizarCombobox();
+        atualizarCBUF();
+        atualizaCBCidade();
         setcodigos();
-        convertedataparacalendar();
+        //convertedataparacalendar();
     }
 
     @SuppressWarnings("unchecked")
@@ -71,7 +66,6 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jtfNumero = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
-        jtfCep = new javax.swing.JTextField();
         jcbCidade = new javax.swing.JComboBox();
         jLabel30 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -85,6 +79,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         jtfCelular = new javax.swing.JFormattedTextField();
         jLabel32 = new javax.swing.JLabel();
         jtfDataFundacao = new com.toedter.calendar.JDateChooser();
+        jtfCep = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbEmpresas = new javax.swing.JTable();
 
@@ -105,10 +100,15 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         });
 
         jbtEditar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtEditar.setText("Editar");
+        jbtEditar.setText("Alterar");
+        jbtEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtEditarActionPerformed(evt);
+            }
+        });
 
         jbtCancelar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtCancelar.setText("Calcelar");
+        jbtCancelar.setText("Sair");
         jbtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtCancelarActionPerformed(evt);
@@ -125,6 +125,11 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
 
         jbtExcluir.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtExcluir.setText("Excluir");
+        jbtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtExcluirActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.TRAILING, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Grande", 0, 12))); // NOI18N
         jPanel3.setToolTipText("Cadastro");
@@ -222,17 +227,6 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         jLabel29.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel29.setText("CEP");
 
-        jtfCep.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${empresa.endereco_codigo.cep}"), jtfCep, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        jtfCep.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCepActionPerformed(evt);
-            }
-        });
-
         jcbCidade.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jcbCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,6 +287,15 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         jLabel32.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel32.setText("Celular");
 
+        try {
+            jtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${empresa.endereco_codigo.cep}"), jtfCep, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
+
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -323,7 +326,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
                                         .add(98, 98, 98)
                                         .add(jLabel26))
                                     .add(jPanel3Layout.createSequentialGroup()
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 16, Short.MAX_VALUE)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 20, Short.MAX_VALUE)
                                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                             .add(jtfCelular, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                             .add(jLabel32))
@@ -337,8 +340,12 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
                                             .add(jLabel24))
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(jLabel29)
-                                            .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 169, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                                            .add(jPanel3Layout.createSequentialGroup()
+                                                .add(jLabel29)
+                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .add(jPanel3Layout.createSequentialGroup()
+                                                .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                .add(0, 0, Short.MAX_VALUE))))))
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jLabel27)
@@ -423,11 +430,11 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
                             .add(jLabel32))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jcbUF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jcbCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jtfTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jtfCelular, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jtfCelular, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel27)
@@ -494,7 +501,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
                         .add(jbtExcluir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jbtCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(0, 255, Short.MAX_VALUE))
+                        .add(0, 264, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
                         .addContainerGap()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -510,9 +517,9 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel1)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(12, 12, 12)
                 .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -549,10 +556,6 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfNumeroActionPerformed
 
-    private void jtfCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCepActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCepActionPerformed
-
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
         //try {
         empresa.setDataFundacao(jtfDataFundacao.getDate());
@@ -569,10 +572,12 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
-        
+        var = jcbUF.getSelectedIndex()+1; 
         empresa.getEndereco_codigo()
                 .getCidade_codigo()
                 .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
+        atualizaCBCidade();
+        
     }//GEN-LAST:event_jcbUFActionPerformed
 
     private void jcbCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCidadeActionPerformed
@@ -584,12 +589,24 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
 
     private void jtbEmpresasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbEmpresasMouseClicked
        
-        if (evt.getClickCount() == 2) {
+            if (evt.getClickCount() == 2) {
             setEmpresa(empresas.get(jtbEmpresas.getSelectedRow()));
-            setaJCBEmpresa();       
-        }
- 
+            setaJCBEmpresa();
+            }
+        
     }//GEN-LAST:event_jtbEmpresasMouseClicked
+
+    private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
+        enderecoDao.remover(empresa.getEndereco_codigo());
+        empresaDao.remover(empresa);
+        atualizarTabela();
+    }//GEN-LAST:event_jbtExcluirActionPerformed
+
+    private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
+        enderecoDao.alterar(empresa.getEndereco_codigo());
+        empresaDao.alterar(empresa);
+        atualizarTabela();
+    }//GEN-LAST:event_jbtEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -655,7 +672,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JTable jtbEmpresas;
     private javax.swing.JTextField jtfBairro;
     private javax.swing.JFormattedTextField jtfCelular;
-    private javax.swing.JTextField jtfCep;
+    private javax.swing.JFormattedTextField jtfCep;
     private javax.swing.JFormattedTextField jtfCnpj;
     private javax.swing.JTextField jtfCodigo;
     private com.toedter.calendar.JDateChooser jtfDataFundacao;
@@ -669,6 +686,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jtfTelefone;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+    private Integer var;
     private Empresa empresa;
     private EmpresaDAO empresaDao;
     private List<Empresa> empresas;
@@ -707,19 +725,25 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         setEmpresas(empresaDao.buscarTodos());
     }
 
-    public void atualizarCombobox() {
-        unidadesfederativas = unidadefederativaDao.buscarTodos();
+    public void atualizarCBUF() {
+       unidadesfederativas = unidadefederativaDao.buscarTodos();
         for (UnidadeFederativa un : unidadesfederativas) {
             jcbUF.addItem(un);
         }
         jcbUF.setRenderer(new ComboBoxUF());
+   
 
-        cidades = cidadeDao.buscarTodos();
+    }
+    public void atualizaCBCidade(){
+
+            jcbCidade.removeAllItems();
+            cidades = null;
+            cidades = cidadeDao.buscaCidades(var);
         for (Cidade ci : cidades) {
             jcbCidade.addItem(ci);
+            
         }
         jcbCidade.setRenderer(new ComboBoxCidade());
-
     }
 
     private void setcodigos() {
@@ -743,14 +767,14 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
 
     }
     private void setaJCBEmpresa() {
-        jcbCidade.getModel().setSelectedItem(empresa.getEndereco_codigo().getCidade_codigo().getNome());
+        jcbCidade.getModel().setSelectedItem(empresa.getEndereco_codigo().getCidade_codigo());
         jcbUF.getModel().setSelectedItem(empresa.getEndereco_codigo()
-                .getCidade_codigo().getUnidadeFederativa_codigo().getSigla());
-        convertedataparacalendar();
+                .getCidade_codigo().getUnidadeFederativa_codigo());
+        
        // jtfDataFundacao.setCalendar(empresa.getDataFundacao());
 
     }
-    private void convertedataparacalendar(){
+    /*private void convertedataparacalendar(){
         Date data = new Date();
         data = empresa.getDataFundacao();
         Calendar cal = Calendar.getInstance();
@@ -762,5 +786,5 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         formato.format(cal);
         jtfDataFundacao.setCalendar(cal);
         
-    }
+    }*/
 }

@@ -258,6 +258,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         jMenu6.add(jmiUsuarios);
 
         jMenuItem1.setText("Cadastro da Empresa");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem1);
 
         jMenuBar1.add(jMenu6);
@@ -414,7 +419,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbHoraAncestorAdded
 
     private void jbtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtProdutoActionPerformed
-        new FrameCadastroProdutos().setVisible(true);
+         new FrameCadastroProdutos().setVisible(true);
     }//GEN-LAST:event_jbtProdutoActionPerformed
 
     private void jmiSubGrupoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSubGrupoItemActionPerformed
@@ -422,7 +427,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiSubGrupoItemActionPerformed
 
     private void jmiProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProdutoActionPerformed
-        new FrameCadastroProdutos().setVisible(true);
+         new FrameCadastroProdutos().setVisible(true);
     }//GEN-LAST:event_jmiProdutoActionPerformed
 
     private void jmiGrupoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGrupoItemActionPerformed
@@ -440,6 +445,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void jbtSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSaidaActionPerformed
         new FrameVenda().setVisible(true);
     }//GEN-LAST:event_jbtSaidaActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+         new FrameCadastroEmpresa().setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments

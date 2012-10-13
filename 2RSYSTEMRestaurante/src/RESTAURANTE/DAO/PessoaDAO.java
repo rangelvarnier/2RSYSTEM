@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PessoaDAO {
     
-     void inserir(Pessoa pessoa);
+    void inserir(Pessoa pessoa);
 
     void alterar(Pessoa pessoa);
 
