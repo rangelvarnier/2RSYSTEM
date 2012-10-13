@@ -18,7 +18,7 @@ public class Endereco {
     public Endereco(Cidade cidade) {
         this.cidade_codigo = cidade;
     }
-    
+
     public Endereco(Integer codigo, String rua, String numero, String cep, String bairro, Cidade cidade_codigo, String telefone, String celular, String email) {
         this.codigo = codigo;
         this.rua = rua;
@@ -29,7 +29,6 @@ public class Endereco {
         this.telefone = telefone;
         this.celular = celular;
         this.email = email;
-        
     }
 
     public Integer getCodigo() {
@@ -72,6 +71,14 @@ public class Endereco {
         this.bairro = bairro;
     }
 
+    public Cidade getCidade_codigo() {
+        return cidade_codigo;
+    }
+
+    public void setCidade_codigo(Cidade cidade_codigo) {
+        this.cidade_codigo = cidade_codigo;
+    }
+
     public String getTelefone() {
         return telefone;
     }
@@ -95,15 +102,8 @@ public class Endereco {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public Cidade getCidade_codigo() {
-        return cidade_codigo;
-    }
-
-    public void setCidade_codigo(Cidade cidade_codigo) {
-        this.cidade_codigo = cidade_codigo;
-    }
-
+    
+    
     @Override
     public String toString() {
         return String.valueOf(codigo);

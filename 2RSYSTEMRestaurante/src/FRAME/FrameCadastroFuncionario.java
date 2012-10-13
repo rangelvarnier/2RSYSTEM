@@ -21,10 +21,6 @@ import RESTAURANTE.MODEL.Endereco;
 import RESTAURANTE.MODEL.GrupoColaborador;
 import RESTAURANTE.MODEL.Pessoa;
 import RESTAURANTE.MODEL.UnidadeFederativa;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
@@ -33,14 +29,12 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
 
     public FrameCadastroFuncionario() {
         initComponents();
-        //IMPL
         unidadeFederativaDao = new UnidadeFederativaDAOIMPL();
         cidadeDao = new CidadeDAOIMPL();
         enderecoDao = new EnderecoDAOIMPL();
         pessoaDao = new PessoaDAOIMPL();
         grupoColaboradorDao = new GrupoColaboradorDAOIMPL();
         colaboradorDao = new ColaboradorDAOIMPL();
-        //Metodos
         novoGrupo();
         atualizaCBFuncao();
         atualizaTabela();
@@ -498,9 +492,9 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel3Layout.createSequentialGroup()
                                 .add(jLabel25)
-                                .add(0, 536, Short.MAX_VALUE))
-                            .add(jtfEmail))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(0, 530, Short.MAX_VALUE))
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jtfEmail))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(jPanel3Layout.createSequentialGroup()
                                 .add(jLabel32)
@@ -673,58 +667,50 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
         novoGrupo();
+        limpacampodatas();
+        jcbSexo.setSelectedIndex(0);
+        jcbfuncao.setSelectedIndex(0);
+        jcbUF.setSelectedIndex(0);
+        jcbCidade.setSelectedIndex(0);
         jtbpcolaboradores.setSelectedIndex(1);
     }//GEN-LAST:event_jbtNovoActionPerformed
-
     private void jtfBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfBairroActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jtfBairroActionPerformed
-
     private void jtfRuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfRuaActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jtfRuaActionPerformed
-
     private void jtfNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfNumeroActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jtfNumeroActionPerformed
-
     private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_jbtCancelarActionPerformed
     private void jtfCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoActionPerformed
     }//GEN-LAST:event_jtfCodigoActionPerformed
-
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-
         try {
+            colaborador.setDataDemissao(jtfDataDemissão.getDate());
             colaborador.setDataNascimento(jtfDataNacimento.getDate());
             colaborador.setDataContradacao(jtfDataContratação.getDate());
-            colaborador.setDataDemissao(jtfDataDemissão.getDate());
-
             enderecoDao.inserir(colaborador.getPessoa().getEndereco_codigo());
             pessoaDao.inserir(colaborador.getPessoa());
             colaboradorDao.inserir(colaborador);
-
             atualizaTabela();
             limpacampodatas();
+            jcbSexo.setSelectedIndex(0);
+            jcbfuncao.setSelectedIndex(0);
+            jcbUF.setSelectedIndex(0);
+            jcbCidade.setSelectedIndex(0);
             novoGrupo();
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Alguns campos do cadastro ainda não foram preenchidos!");
         }
-
     }//GEN-LAST:event_jbtSalvarActionPerformed
-
     private void jcbCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCidadeActionPerformed
-
         colaborador.getPessoa()
                 .getEndereco_codigo()
                 .setCidade_codigo(((Cidade) jcbCidade.getSelectedItem()));
     }//GEN-LAST:event_jcbCidadeActionPerformed
-
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
         var = jcbUF.getSelectedIndex() + 1;
         colaborador.getPessoa()
@@ -734,31 +720,23 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         atualizaCBCidade();
     }//GEN-LAST:event_jcbUFActionPerformed
     private void jcbSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSexoActionPerformed
-
         if (jcbSexo.getSelectedIndex() == 0) {
             colaborador.getPessoa().setSexo("F");
         } else {
             colaborador.getPessoa().setSexo("M");
         }
-
     }//GEN-LAST:event_jcbSexoActionPerformed
-
     private void jcbfuncaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbfuncaoActionPerformed
         colaborador.setGrupoColaborador((GrupoColaborador) jcbfuncao.getSelectedItem());
     }//GEN-LAST:event_jcbfuncaoActionPerformed
-
     private void jcbSexoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbSexoFocusGained
     }//GEN-LAST:event_jcbSexoFocusGained
-
     private void jcbSexoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jcbSexoAncestorAdded
     }//GEN-LAST:event_jcbSexoAncestorAdded
-
     private void jcbSexoAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jcbSexoAncestorMoved
     }//GEN-LAST:event_jcbSexoAncestorMoved
-
     private void jcbSexoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbSexoFocusLost
     }//GEN-LAST:event_jcbSexoFocusLost
-
     private void jtbpcolaboradoresStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpcolaboradoresStateChanged
         if (jtbpcolaboradores.getSelectedIndex() == 0) {
             jbtEditar.setVisible(false);
@@ -770,31 +748,29 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
             jbtExcluir.setVisible(true);
         }
     }//GEN-LAST:event_jtbpcolaboradoresStateChanged
-
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
-        
         setColaborador(colaboradores.get(jtbColaboradores.getSelectedRow()));
         setaJCB();
         jtbpcolaboradores.setSelectedIndex(1);
-
     }//GEN-LAST:event_jbtDetalharActionPerformed
-
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-
-        enderecoDao.remover(colaborador.getPessoa().getEndereco_codigo());
-        pessoaDao.remover(colaborador.getPessoa());
         colaboradorDao.remover(colaborador);
+        pessoaDao.remover(colaborador.getPessoa());
+        enderecoDao.remover(colaborador.getPessoa().getEndereco_codigo());
         novoGrupo();
+        limpacampodatas();
+        jcbSexo.setSelectedIndex(0);
+        jcbfuncao.setSelectedIndex(0);
+        jcbUF.setSelectedIndex(0);
+        jcbCidade.setSelectedIndex(0);
         atualizaTabela();
     }//GEN-LAST:event_jbtExcluirActionPerformed
-
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
         enderecoDao.alterar(colaborador.getPessoa().getEndereco_codigo());
         pessoaDao.alterar(colaborador.getPessoa());
         colaboradorDao.alterar(colaborador);
         atualizaTabela();
     }//GEN-LAST:event_jbtEditarActionPerformed
-
     private void jtbColaboradoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbColaboradoresMouseClicked
         if (evt.getClickCount() == 2) {
             setColaborador(colaboradores.get(jtbColaboradores.getSelectedRow()));
@@ -802,17 +778,14 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
             jtbpcolaboradores.setSelectedIndex(1);
         }
     }//GEN-LAST:event_jtbColaboradoresMouseClicked
-
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
         setColaboradores(colaboradorDao.buscarPorNome(jtfPesquisar.getText()));
         jtbColaboradores.addRowSelectionInterval(0, 0);
     }//GEN-LAST:event_jbtPesquisarActionPerformed
-
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -834,8 +807,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrameCadastroFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -900,26 +871,19 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
     private Integer var = null;
-    //Colaborador
     private Colaborador colaborador;
     private List<Colaborador> colaboradores;
     private ColaboradorDAO colaboradorDao;
-    //GrupoColaborador  
     private GrupoColaboradorDAO grupoColaboradorDao;
     private List<GrupoColaborador> grupoColaboradores;
-    //Cidade
     private List<Cidade> cidades;
     private CidadeDAO cidadeDao;
-    //Endereco
     private EnderecoDAO enderecoDao;
-    //UnidadeFederativa
     private UnidadeFederativaDAO unidadeFederativaDao;
     private List<UnidadeFederativa> unidadeFederativas;
-    //Pessoa
     private PessoaDAO pessoaDao;
     private List<Pessoa> pessoas;
 
-    //Metodos gets e sets
     public Colaborador getColaborador() {
         return colaborador;
     }
@@ -939,7 +903,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         this.colaboradores = ObservableCollections.observableList(colaboradores);
         firePropertyChange("colaboradores", colaboradoresVelhos, this.colaboradores);
     }
-    //Metodos
 
     public void atualizaTabela() {
         setColaboradores(colaboradorDao.buscarTodos());
@@ -948,7 +911,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         } else {
             jtbColaboradores.addRowSelectionInterval(0, 0);
         }
-
     }
 
     public void atualizarCBUF() {
@@ -957,29 +919,24 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
             jcbUF.addItem(un);
         }
         jcbUF.setRenderer(new ComboBoxUF());
-
     }
 
     public void atualizaCBCidade() {
-
         jcbCidade.removeAllItems();
         cidades = null;
         cidades = cidadeDao.buscaCidades(var);
         for (Cidade ci : cidades) {
             jcbCidade.addItem(ci);
-
         }
         jcbCidade.setRenderer(new ComboBoxCidade());
     }
 
     public void atualizaCBFuncao() {
         grupoColaboradores = grupoColaboradorDao.buscarTodos();
-
         for (GrupoColaborador co : grupoColaboradores) {
             jcbfuncao.addItem(co);
         }
         jcbfuncao.setRenderer(new ComboBoxGrpColaborador());
-
     }
 
     private void novoGrupo() {
@@ -1003,9 +960,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         } else {
             colaborador.setCodigo(colaboradorDao.buscaIdMaio() + 1);
         }
-
         jtfCodigo.setText(colaborador.getCodigo().toString());
-
     }
 
     private void limpacampodatas() {
@@ -1015,19 +970,15 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     }
 
     private void setaJCB() {
-
         jcbfuncao.getModel().setSelectedItem(colaborador.getGrupoColaborador());
-        jtfCodigo.setText(colaborador.getCodigo().toString());                  
+        jtfCodigo.setText(colaborador.getCodigo().toString());
         jtfDataNacimento.getDateEditor().setDate(colaborador.getDataNascimento());
         jtfDataContratação.getDateEditor().setDate(colaborador.getDataContradacao());
         jtfDataDemissão.getDateEditor().setDate(colaborador.getDataDemissao());
-        if(colaborador.getPessoa().getSexo().equals("F")){
+        if (colaborador.getPessoa().getSexo().equals("F")) {
             jcbSexo.setSelectedIndex(0);
-        }else{
+        } else {
             jcbSexo.setSelectedIndex(1);
         }
     }
-
-    
-    
 }
