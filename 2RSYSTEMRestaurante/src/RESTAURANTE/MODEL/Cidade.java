@@ -41,6 +41,7 @@ public class Cidade {
     public void setUnidadeFederativa_codigo(UnidadeFederativa unidadeFederativa_codigo) {
         this.unidadeFederativa_codigo = unidadeFederativa_codigo;
     }
+    
 
     @Override
     public String toString() {

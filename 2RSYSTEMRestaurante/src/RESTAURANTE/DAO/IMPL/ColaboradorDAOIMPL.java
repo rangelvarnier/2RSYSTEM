@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,10 +26,18 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
 
             stmt.setInt(1, colaborador.getCodigo());
             stmt.setString(2, colaborador.getCpf());
-            stmt.setString(3, colaborador.getRg());
-            stmt.setDate(4, new java.sql.Date(colaborador.getDataNascimento().getTime()));
+            stmt.setString(3, colaborador.getRg());          
+            if (colaborador.getDataNascimento() != null) {  
+                    stmt.setDate(4, new java.sql.Date(colaborador.getDataNascimento().getTime()));
+                } else {  
+                 stmt.setNull(4, Types.DATE);  
+            }
             stmt.setDate(5, new java.sql.Date(colaborador.getDataContradacao().getTime()));
-            stmt.setDate(6, new java.sql.Date(colaborador.getDataDemissao().getTime()));
+            if (colaborador.getDataNascimento() != null) {  
+                    stmt.setDate(6, new java.sql.Date(colaborador.getDataDemissao().getTime()));
+                } else {  
+                 stmt.setNull(6, Types.DATE);  
+            }
             stmt.setLong(7, colaborador.getGrupoColaborador().getCodigo());
             stmt.setFloat(8, colaborador.getSalario());
             stmt.setInt(9, colaborador.getPessoa().getCodigo());
@@ -52,9 +61,17 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
 
             stmt.setString(1, colaborador.getCpf());
             stmt.setString(2, colaborador.getRg());
-            stmt.setDate(3, new java.sql.Date(colaborador.getDataNascimento().getTime()));
-            stmt.setDate(4, new java.sql.Date(colaborador.getDataContradacao().getTime()));
-            stmt.setDate(5, new java.sql.Date(colaborador.getDataDemissao().getTime()));
+            if (colaborador.getDataNascimento() != null) {  
+                    stmt.setDate(4, new java.sql.Date(colaborador.getDataNascimento().getTime()));
+                } else {  
+                 stmt.setNull(4, Types.DATE);  
+            }
+            stmt.setDate(5, new java.sql.Date(colaborador.getDataContradacao().getTime()));
+            if (colaborador.getDataNascimento() != null) {  
+                    stmt.setDate(6, new java.sql.Date(colaborador.getDataDemissao().getTime()));
+                } else {  
+                 stmt.setNull(6, Types.DATE);  
+            }
             stmt.setLong(6, colaborador.getGrupoColaborador().getCodigo());
             stmt.setFloat(7, colaborador.getSalario());
             stmt.setInt(8, colaborador.getPessoa().getCodigo());
