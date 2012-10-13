@@ -31,6 +31,10 @@ public class Produto {
     public Produto() {
     }
 
+    public Produto(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+    
     public Produto(UnidadeMedida unidadeMedida, SubGrupoItem subGrupoItens, Fornecedor fornecedor) {
         this.unidadeMedida = unidadeMedida;
         this.subGrupoItens = subGrupoItens;

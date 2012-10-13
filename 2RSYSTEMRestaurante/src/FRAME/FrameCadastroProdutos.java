@@ -497,10 +497,12 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbpProdutosStateChanged
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
+       
         System.out.println(produto.getUnidadeMedida().getDescricao());
         System.out.println(produto.getSubGrupoItens().getDescricao());
         System.out.println(produto.getSubGrupoItens().getGrupoItem().getDescricao());
         System.out.println(produto.getFornecedor().getRazaoSocial());
+        System.out.println(produto.getFornecedor().getCodigo());
         produtoDao.inserir(produto);
         novoProduto();
         atualizaTabela();
@@ -665,7 +667,10 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     //UnidadeMedida
     private UnidadeMedidaDAO unidadeMedidaDao;
     List<UnidadeMedida> unidadeMedidas;
-
+    //FramePesqusia
+    FramePesquisaFornecedor frPesqFornecedor;
+        
+    
     public Produto getProduto() {
         return produto;
     }
@@ -712,6 +717,8 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     }
 
     private void atualizaComboBoxUnidadeMedida() {
+        jcbUnMedida.removeAllItems();
+        unidadeMedidas = null;
         if (unidadeMedidas != null) {
             unidadeMedidas.clear();
         } else {
@@ -764,7 +771,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     }
 
     public void setCampoFornecedor() {
-        jtfFornecedor.setText(fornecedor.getRazaoSocial());
+        jtfFornecedor.setText(produto.getFornecedor().getRazaoSocial());
     }
 
     private void novoProduto() {
