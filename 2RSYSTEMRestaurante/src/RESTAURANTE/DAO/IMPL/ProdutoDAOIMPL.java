@@ -19,6 +19,10 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
     public void inserir(Produto produto) {
         Connection con = new Conexao().criarConexao();
         String sql = "insert into produto value(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        //String sql = "insert into produto (codigo, codigoFabrica, descricao,"
+        //        + "precoVenda, unidadeMedida_codigo, subGrupoItens_codigo, "
+        //        + "fornecedor_codigo value(?, ?, ?, ?, ?, ?, ?) ";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 

@@ -48,7 +48,7 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
         jtbFornecedores = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(200, 100));
+        setTitle("Pesquisa de Fornecedores");
         setResizable(false);
 
         jtfPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
