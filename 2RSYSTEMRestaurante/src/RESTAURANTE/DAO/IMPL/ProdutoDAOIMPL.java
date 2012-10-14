@@ -18,14 +18,19 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
     @Override
     public void inserir(Produto produto) {
         Connection con = new Conexao().criarConexao();
-        String sql = "insert into produto value(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
-        //String sql = "insert into produto (codigo, codigoFabrica, descricao,"
-        //        + "precoVenda, unidadeMedida_codigo, subGrupoItens_codigo, "
-        //        + "fornecedor_codigo value(?, ?, ?, ?, ?, ?, ?) ";
+        //String sql = "insert into produto value(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        /*
+        String sql = "insert into produto (codigo, codigoFabrica, descricao,"
+                + "precoVenda, unidadeMedida_codigo, subGrupoItens_codigo, "
+                + "fornecedor_codigo value(?, ?, ?, ?, ?, ?, ?) ";
+        */
+        String sql = "INSERT INTO `2rsitem`.`produto` (`codigo`, `codigoFabrica`,"
+                + " `descricao`, `precoVenda`, `unidadeMedida_codigo`,"
+                + " `subGrupoItens_codigo`, `fornecedor_codigo`)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-
+            /*
             stmt.setInt(1, produto.getCodigo());
             stmt.setString(2, produto.getCodigoFabrica());
             stmt.setString(3, produto.getDescricao());
@@ -35,7 +40,15 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
             stmt.setInt(7, produto.getUnidadeMedida().getCodigo());
             stmt.setInt(8, produto.getSubGrupoItens().getCodigo());
             stmt.setInt(9, produto.getFornecedor().getCodigo());
-
+            */
+            
+            stmt.setInt(1, produto.getCodigo());
+            stmt.setString(2, produto.getCodigoFabrica());
+            stmt.setString(3, produto.getDescricao());
+            stmt.setFloat(4, produto.getPrecoVenda());
+            stmt.setInt(5, produto.getUnidadeMedida().getCodigo());
+            stmt.setInt(6, produto.getSubGrupoItens().getCodigo());
+            stmt.setInt(7, produto.getFornecedor().getCodigo());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

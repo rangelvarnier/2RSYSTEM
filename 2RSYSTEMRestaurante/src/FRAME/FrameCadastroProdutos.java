@@ -288,6 +288,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel3.setText("Preço Compra");
 
+        jtfPrecoCompra.setEditable(false);
         jtfPrecoCompra.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produto.precoCompra}"), jtfPrecoCompra, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -319,6 +320,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel11.setText("Saldo em estoque");
 
+        jtfSaldoEstoque.setEditable(false);
         jtfSaldoEstoque.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produto.saldoEstoque}"), jtfSaldoEstoque, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -721,7 +723,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         for (UnidadeMedida un : unidadeMedidas) {
             jcbUnMedida.addItem(un);
         }
-        // jcbUnMedida.setSelectedIndex(0);
+         //jcbUnMedida.setSelectedIndex(0);
         // }
     }
 
@@ -739,7 +741,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         for (GrupoItem gpItem : grupoItens) {
             jcbGrupoItem.addItem(gpItem);
         }
-        //         jcbGrupoItem.setSelectedIndex(0);
+           //      jcbGrupoItem.setSelectedIndex(0);
         // }
     }
 
@@ -757,7 +759,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         for (SubGrupoItem subGrupo : subGrupoItens) {
             jcbSubGrupo.addItem(subGrupo);
         }
-//              jcbSubGrupo.setSelectedIndex(0);
+         //     jcbSubGrupo.setSelectedIndex(0);
         // }
     }
 
