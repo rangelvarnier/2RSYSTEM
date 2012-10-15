@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,7 +29,11 @@ public class FornecedorDAOIMPL implements FornecedorDAO {
             stmt.setString(2, fornecedor.getRazaoSocial());
             stmt.setString(3, fornecedor.getCnpj());
             stmt.setString(4, fornecedor.getInscEstadual());
-            stmt.setDate(5, new java.sql.Date(fornecedor.getDataFuncacao().getTime()));
+            if (fornecedor.getDataFuncacao() != null) {  
+                    stmt.setDate(5, new java.sql.Date(fornecedor.getDataFuncacao().getTime()));
+                } else {  
+                 stmt.setNull(5, Types.DATE);  
+            }
             stmt.setDate(6, new java.sql.Date(fornecedor.getDataCadastro().getTime()));
             stmt.setInt(7, fornecedor.getPessoa().getCodigo());
 
@@ -50,7 +55,11 @@ public class FornecedorDAOIMPL implements FornecedorDAO {
             stmt.setString(1, fornecedor.getRazaoSocial());
             stmt.setString(2, fornecedor.getCnpj());
             stmt.setString(3, fornecedor.getInscEstadual());
-            stmt.setDate(4, new java.sql.Date(fornecedor.getDataFuncacao().getTime()));
+            if (fornecedor.getDataFuncacao() != null) {  
+                    stmt.setDate(4, new java.sql.Date(fornecedor.getDataFuncacao().getTime()));
+                } else {  
+                 stmt.setNull(4, Types.DATE);  
+            }
             stmt.setDate(5, new java.sql.Date(fornecedor.getDataCadastro().getTime()));
             stmt.setInt(6, fornecedor.getPessoa().getCodigo());
             stmt.setInt(7, fornecedor.getCodigo());

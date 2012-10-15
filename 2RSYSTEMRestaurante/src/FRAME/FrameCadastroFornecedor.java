@@ -632,10 +632,12 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
-
         novoGrupo();
-        jtbpFornecedores.setSelectedIndex(1);
-
+        limpacampodatas();
+        jcbSexo.setSelectedIndex(0);
+        jcbUF.setSelectedIndex(0);
+        jcbCidade.setSelectedIndex(0);
+        jtbpFornecedores.setSelectedIndex(1);  
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
@@ -692,19 +694,18 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbSexoAncestorAdded
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-        try {
-
-            fornecedor.setDataFuncacao(jtfDataFundacao.getDate());
+       try {
             fornecedor.setDataCadastro(new Date());
-
+            fornecedor.setDataFuncacao(jtfDataFundacao.getDate());
             enderecoDao.inserir(fornecedor.getPessoa().getEndereco_codigo());
             pessoaDao.inserir(fornecedor.getPessoa());
             fornecedorDao.inserir(fornecedor);
-
             atualizaTabela();
             limpacampodatas();
+            jcbSexo.setSelectedIndex(0);
+            jcbUF.setSelectedIndex(0);
+            jcbCidade.setSelectedIndex(0);
             novoGrupo();
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Alguns campos do cadastro ainda não foram preenchidos!");
         }
@@ -718,17 +719,21 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtEditarActionPerformed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        enderecoDao.remover(fornecedor.getPessoa().getEndereco_codigo());
-        pessoaDao.remover(fornecedor.getPessoa());
         fornecedorDao.remover(fornecedor);
+        pessoaDao.remover(fornecedor.getPessoa());
+        enderecoDao.remover(fornecedor.getPessoa().getEndereco_codigo());
         novoGrupo();
+        limpacampodatas();
+        jcbSexo.setSelectedIndex(0);        
+        jcbUF.setSelectedIndex(0);
+        jcbCidade.setSelectedIndex(0);
         atualizaTabela();
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
         try {
             setFornecedor(fornecedores.get(jtbFornecedores.getSelectedRow()));
-            //setaJCB();
+            setaJCB();
             jtbpFornecedores.setSelectedIndex(1);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Favor Selecione um Fornecedor para Detalhar.");
@@ -738,8 +743,9 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     private void jtbFornecedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbFornecedoresMouseClicked
         if (evt.getClickCount() == 2) {
             setFornecedor(fornecedores.get(jtbFornecedores.getSelectedRow()));
+            setaJCB();
             jtbpFornecedores.setSelectedIndex(1);
-            //setaJCB();
+           
         }
     }//GEN-LAST:event_jtbFornecedoresMouseClicked
 
@@ -945,15 +951,13 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     }
 
     private void setaJCB() {
-        jcbUF.getModel().setSelectedItem(fornecedor.getPessoa().getEndereco_codigo().getCidade_codigo()
-                .getUnidadeFederativa_codigo());
-
-        jcbCidade.getModel().setSelectedItem(fornecedor.getPessoa().getEndereco_codigo().
-                getCidade_codigo().getCodigo());
-
-        //jcbCidade.getModel().setSelectedItem(fornecedor.getPessoa().getSexo().toString());
-
+        jtfDataFundacao.getDateEditor().setDate(fornecedor.getDataFuncacao());
         jtfCodigo.setText(fornecedor.getCodigo().toString());
-
+        if (fornecedor.getPessoa().getSexo().equals("F")) {
+            jcbSexo.setSelectedIndex(0);
+        } else {
+            jcbSexo.setSelectedIndex(1);
+        }
+        
     }
 }

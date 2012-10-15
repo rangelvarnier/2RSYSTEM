@@ -1,6 +1,7 @@
 package FRAME;
 
 import RESTAURANTE.DAO.UTIL.Conexao;
+import RESTAURANTE.MODEL.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +13,7 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
     public FrameLoginUsuario() {
         initComponents();
         setLocationRelativeTo(null);
+        
 
 
     }
@@ -122,6 +124,8 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário ou Senha Incorretos!");
         }
+        
+        
 
     }//GEN-LAST:event_jbtLogarActionPerformed
 
@@ -174,7 +178,7 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField jtfLogin;
     private javax.swing.JPasswordField jtfsenha;
     // End of variables declaration//GEN-END:variables
-
+ 
     public boolean verificaLogin() {
         Connection con = new Conexao().criarConexao();
         String sql = "select usuario, senha from usuario";
@@ -188,6 +192,7 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
 
                 if (usu.equals(jtfLogin.getText()) && sen.equals(jtfsenha.getText()) == true) {
                     return true;
+                    
                 }
             }
         } catch (SQLException ex) {
@@ -195,4 +200,5 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
         }
         return false;
     }
+
 }

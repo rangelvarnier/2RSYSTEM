@@ -1,6 +1,7 @@
 package FRAME;
 
 
+import RESTAURANTE.MODEL.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
@@ -11,6 +12,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     public FramePrincipal() {
         initComponents();
+       
         this.setExtendedState(MAXIMIZED_BOTH);
     }
     @SuppressWarnings("unchecked")
@@ -52,7 +54,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("2RSystem");
 
         jbtParceiros.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -399,6 +401,8 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiFornecedoresActionPerformed
 
     private void jlbUsuarioLogadoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jlbUsuarioLogadoAncestorAdded
+
+        
     }//GEN-LAST:event_jlbUsuarioLogadoAncestorAdded
 
     private void jlbDataAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jlbDataAncestorAdded
@@ -522,6 +526,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiUsuarios;
     // End of variables declaration//GEN-END:variables
 
- 
-
+    
+    
 }

@@ -125,7 +125,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         });
 
         jbtEditar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtEditar.setText("Editar");
+        jbtEditar.setText("Alterar");
         jbtEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtEditarActionPerformed(evt);

@@ -62,15 +62,15 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
             stmt.setString(1, colaborador.getCpf());
             stmt.setString(2, colaborador.getRg());
             if (colaborador.getDataNascimento() != null) {  
-                    stmt.setDate(4, new java.sql.Date(colaborador.getDataNascimento().getTime()));
+                    stmt.setDate(3, new java.sql.Date(colaborador.getDataNascimento().getTime()));
                 } else {  
-                 stmt.setNull(4, Types.DATE);  
+                 stmt.setNull(3, Types.DATE);  
             }
-            stmt.setDate(5, new java.sql.Date(colaborador.getDataContradacao().getTime()));
+            stmt.setDate(4, new java.sql.Date(colaborador.getDataContradacao().getTime()));
             if (colaborador.getDataNascimento() != null) {  
-                    stmt.setDate(6, new java.sql.Date(colaborador.getDataDemissao().getTime()));
+                    stmt.setDate(5, new java.sql.Date(colaborador.getDataDemissao().getTime()));
                 } else {  
-                 stmt.setNull(6, Types.DATE);  
+                 stmt.setNull(5, Types.DATE);  
             }
             stmt.setLong(6, colaborador.getGrupoColaborador().getCodigo());
             stmt.setFloat(7, colaborador.getSalario());
