@@ -97,7 +97,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         });
 
         jbtEditar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtEditar.setText("Editar");
+        jbtEditar.setText("Alterar");
         jbtEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtEditarActionPerformed(evt);
@@ -201,7 +201,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE)
             .add(jPanel4Layout.createSequentialGroup()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel4Layout.createSequentialGroup()
@@ -288,6 +288,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel3.setText("Preço Compra");
 
+        jtfPrecoCompra.setEditable(false);
         jtfPrecoCompra.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produto.precoCompra}"), jtfPrecoCompra, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -319,6 +320,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel11.setText("Saldo em estoque");
 
+        jtfSaldoEstoque.setEditable(false);
         jtfSaldoEstoque.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produto.saldoEstoque}"), jtfSaldoEstoque, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -366,7 +368,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                         .add(jbtPesquisaFornecedor)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jtfFornecedor)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 189, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 195, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jtfSaldoEstoque)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel11))
@@ -466,7 +468,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                     .add(jbtNovo)
                     .add(jbtEditar)
                     .add(jbtSair))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jtbpProdutos.getAccessibleContext().setAccessibleName("Fornecedores");
@@ -480,6 +482,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
         jtbpProdutos.setSelectedIndex(1);
         novoProduto();
+        atualizaComponentes();
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jtbpProdutosStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpProdutosStateChanged
@@ -497,27 +500,24 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbpProdutosStateChanged
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-       
-        System.out.println(produto.getUnidadeMedida().getDescricao());
-        System.out.println(produto.getSubGrupoItens().getDescricao());
-        System.out.println(produto.getSubGrupoItens().getGrupoItem().getDescricao());
-        System.out.println(produto.getFornecedor().getRazaoSocial());
-        System.out.println(produto.getFornecedor().getCodigo());
         produtoDao.inserir(produto);
         novoProduto();
         atualizaTabela();
+        atualizaComponentes();
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
         produtoDao.alterar(produto);
         novoProduto();
         atualizaTabela();
+        atualizaComponentes();
     }//GEN-LAST:event_jbtEditarActionPerformed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-       produtoDao.remover(produto);
-       novoProduto();
-       atualizaTabela();
+        produtoDao.remover(produto);
+        novoProduto();
+        atualizaTabela();
+        atualizaComponentes();
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSairActionPerformed
@@ -603,7 +603,6 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 new FrameCadastroProdutos().setVisible(true);
@@ -669,8 +668,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     List<UnidadeMedida> unidadeMedidas;
     //FramePesqusia
     FramePesquisaFornecedor frPesqFornecedor;
-        
-    
+
     public Produto getProduto() {
         return produto;
     }
@@ -713,21 +711,20 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         atualizaComboBoxGrupoItem();
         atualizaComboBoxUnidadeMedida();
         atualizaComboBoxSubGrupoItem();
-
     }
 
     private void atualizaComboBoxUnidadeMedida() {
         jcbUnMedida.removeAllItems();
         unidadeMedidas = null;
-        if (unidadeMedidas != null) {
-            unidadeMedidas.clear();
-        } else {
-            unidadeMedidas = unidadeMedidaDao.buscarTodos();
-            for (UnidadeMedida un : unidadeMedidas) {
-                jcbUnMedida.addItem(un);
-            }
-            jcbUnMedida.setSelectedIndex(0);
+        //if (unidadeMedidas != null) {
+        //    unidadeMedidas.clear();
+        //} else {
+        unidadeMedidas = unidadeMedidaDao.buscarTodos();
+        for (UnidadeMedida un : unidadeMedidas) {
+            jcbUnMedida.addItem(un);
         }
+         //jcbUnMedida.setSelectedIndex(0);
+        // }
     }
 
     private void setaUNJcbUnidadeMedida() {
@@ -737,15 +734,15 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     private void atualizaComboBoxGrupoItem() {
         jcbGrupoItem.removeAllItems();
         grupoItens = null;
-        if (grupoItens != null) {
-            grupoItens.clear();
-        } else {
-            grupoItens = grupoItemDao.buscarTodos();
-            for (GrupoItem gpItem : grupoItens) {
-                jcbGrupoItem.addItem(gpItem);
-            }
-            jcbGrupoItem.setSelectedIndex(0);
+        // if (grupoItens != null) {
+        //     grupoItens.clear();
+        // } else {
+        grupoItens = grupoItemDao.buscarTodos();
+        for (GrupoItem gpItem : grupoItens) {
+            jcbGrupoItem.addItem(gpItem);
         }
+           //      jcbGrupoItem.setSelectedIndex(0);
+        // }
     }
 
     private void setaGrupoJCBGrupoItem() {
@@ -755,15 +752,15 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     private void atualizaComboBoxSubGrupoItem() {
         jcbSubGrupo.removeAllItems();
         subGrupoItens = null;
-        if (subGrupoItens != null) {
-            subGrupoItens.clear();
-        } else {
-            subGrupoItens = subGrupoItemDao.buscarPorGrupoItem(jcbGrupoItem.getSelectedIndex() + 1);
-            for (SubGrupoItem subGrupo : subGrupoItens) {
-                jcbSubGrupo.addItem(subGrupo);
-            }
-              jcbSubGrupo.setSelectedIndex(0);
+        // if (subGrupoItens != null) {
+        //     subGrupoItens.clear();
+        // } else {
+        subGrupoItens = subGrupoItemDao.buscarPorGrupoItem(jcbGrupoItem.getSelectedIndex() + 1);
+        for (SubGrupoItem subGrupo : subGrupoItens) {
+            jcbSubGrupo.addItem(subGrupo);
         }
+         //     jcbSubGrupo.setSelectedIndex(0);
+        // }
     }
 
     private void setaSubGrupoJCBSubGrupoItem() {
