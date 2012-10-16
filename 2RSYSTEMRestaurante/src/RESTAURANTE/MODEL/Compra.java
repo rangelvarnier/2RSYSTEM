@@ -10,15 +10,15 @@ public class Compra {
     private Float valorCompra;
     private Fornecedor fornecedor;
     private Colaborador colaborador;
-    private List<Produto> produtos;
+    private List<ProdutosDaCompra> produtosDaCompra;
 
-    public Compra(Integer codigo, Date dataCompra, Float valorCompra, Fornecedor fornecedor, Colaborador colaborador, List<Produto> produtos) {
+    public Compra(Integer codigo, Date dataCompra, Float valorCompra, Fornecedor fornecedor, Colaborador colaborador, List<ProdutosDaCompra> produtosDaCompra) {
         this.codigo = codigo;
         this.dataCompra = dataCompra;
         this.valorCompra = valorCompra;
         this.fornecedor = fornecedor;
         this.colaborador = colaborador;
-        this.produtos = produtos;
+        this.produtosDaCompra = produtosDaCompra;
     }
 
     public Compra() {
@@ -64,11 +64,11 @@ public class Compra {
         this.colaborador = colaborador;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
+    public List<ProdutosDaCompra> getProdutosDaCompra() {
+        return produtosDaCompra;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setProdutosDaCompra(List<ProdutosDaCompra> produtosDaCompra) {
+        this.produtosDaCompra = produtosDaCompra;
     }
 }

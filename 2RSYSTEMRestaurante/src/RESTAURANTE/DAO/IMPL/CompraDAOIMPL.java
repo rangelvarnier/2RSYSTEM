@@ -1,12 +1,12 @@
 package RESTAURANTE.DAO.IMPL;
 
+import RESTAURANTE.DAO.ColaboradorDAO;
 import RESTAURANTE.DAO.CompraDAO;
+import RESTAURANTE.DAO.FornecedorDAO;
 import RESTAURANTE.DAO.UTIL.Conexao;
 import RESTAURANTE.MODEL.Compra;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompraDAOIMPL implements CompraDAO {
@@ -75,11 +75,54 @@ public class CompraDAOIMPL implements CompraDAO {
 
     @Override
     public Compra buscarPorCodigo(Integer codigo) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Compra compra = null;
+        FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
+        ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from Compra"
+                + "where codigo = ?";
+        
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, codigo);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {                
+                compra = new Compra();
+                compra.setCodigo(rs.getInt("codigo"));
+                compra.setDataCompra(rs.getDate("dataCompra"));
+                compra.setValorCompra(rs.getFloat("valorCompra"));
+                compra.setFornecedor(fornecedorDao.buscaPorId(rs.getInt("fornecedo_codigo")));
+                compra.setColaborador(colaboradorDao.buscaPorId(rs.getInt("colaborador_codigo")));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return compra;
     }
 
     @Override
     public List<Compra> buscarTodos() {
-        throw new UnsupportedOperationException("Not supported yet.");
+             List<Compra> compras = new ArrayList<>();
+        FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
+        ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from Compra";
+        
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {                
+                Compra compra = new Compra();
+                compra.setCodigo(rs.getInt("codigo"));
+                compra.setDataCompra(rs.getDate("dataCompra"));
+                compra.setValorCompra(rs.getFloat("valorCompra"));
+                compra.setFornecedor(fornecedorDao.buscaPorId(rs.getInt("fornecedo_codigo")));
+                compra.setColaborador(colaboradorDao.buscaPorId(rs.getInt("colaborador_codigo")));
+                compras.add(compra);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return compras;
     }
 }
