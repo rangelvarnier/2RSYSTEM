@@ -30,7 +30,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         unidadeMedidaDao = new UnidadeMedidaDAOIMPL();
         atualizaTabela();
         atualizaComponentes();
-
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -603,6 +603,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 new FrameCadastroProdutos().setVisible(true);
@@ -723,7 +724,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         for (UnidadeMedida un : unidadeMedidas) {
             jcbUnMedida.addItem(un);
         }
-         //jcbUnMedida.setSelectedIndex(0);
+        //jcbUnMedida.setSelectedIndex(0);
         // }
     }
 
@@ -741,7 +742,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         for (GrupoItem gpItem : grupoItens) {
             jcbGrupoItem.addItem(gpItem);
         }
-           //      jcbGrupoItem.setSelectedIndex(0);
+        //      jcbGrupoItem.setSelectedIndex(0);
         // }
     }
 
@@ -759,7 +760,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         for (SubGrupoItem subGrupo : subGrupoItens) {
             jcbSubGrupo.addItem(subGrupo);
         }
-         //     jcbSubGrupo.setSelectedIndex(0);
+        //     jcbSubGrupo.setSelectedIndex(0);
         // }
     }
 
