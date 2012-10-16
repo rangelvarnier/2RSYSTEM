@@ -70,3 +70,9 @@ ALTER TABLE `2RSITEM`.`parceiro` CHANGE COLUMN `cpf` `cpf` VARCHAR(20) NOT NULL 
 
 //saldo estoque default null
 ALTER TABLE `2rsitem`.`produto` CHANGE COLUMN `saldoEstoque` `saldoEstoque` FLOAT NULL DEFAULT NULL  ;
+
+//tabela produto define preçoVenda Compra e estoque como default 0
+ALTER TABLE `2rsitem`.`produto` 
+CHANGE COLUMN `precoVenda` `precoVenda` FLOAT NULL DEFAULT 0  , 
+CHANGE COLUMN `precoCompra` `precoCompra` FLOAT NULL DEFAULT 0  ,
+CHANGE COLUMN `saldoEstoque` `saldoEstoque` FLOAT NULL DEFAULT 0  ;
