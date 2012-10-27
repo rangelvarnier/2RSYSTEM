@@ -1,6 +1,7 @@
 package RESTAURANTE.DAO;
 
 import RESTAURANTE.MODEL.ProdutosDaCompra;
+import java.util.List;
 
 public interface ProdutoDaCompraDAO {
 
@@ -12,5 +13,5 @@ public interface ProdutoDaCompraDAO {
 
     ProdutosDaCompra buscarPorCodigo(Integer codigo);
 
-    ProdutosDaCompra buscarTodos();
+    List<ProdutosDaCompra> buscarTodos();
 }
