@@ -341,9 +341,8 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                             .add(jLabel29)
-                                            .add(jPanel3Layout.createSequentialGroup()
-                                                .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                .add(0, 0, Short.MAX_VALUE))))))
+                                            .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                        .add(0, 0, Short.MAX_VALUE))))
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jLabel27)
@@ -540,6 +539,10 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
+        novo();
+        limpacampodatas();
+        jcbUF.setSelectedIndex(0);
+        jcbCidade.setSelectedIndex(0);
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jtfRuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfRuaActionPerformed
@@ -559,7 +562,8 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
             empresa.setDataFundacao(jtfDataFundacao.getDate());
             enderecoDao.inserir(empresa.getEndereco_codigo());
             empresaDao.inserir(empresa);
-
+            jcbUF.setSelectedIndex(0);
+            jcbCidade.setSelectedIndex(0);
             atualizarTabela();
             limpacampodatas();
             novo();
@@ -570,12 +574,12 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
+       
         var = jcbUF.getSelectedIndex() + 1;
         empresa.getEndereco_codigo()
                 .getCidade_codigo()
                 .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
         atualizaCBCidade();
-
     }//GEN-LAST:event_jcbUFActionPerformed
 
     private void jcbCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCidadeActionPerformed
@@ -589,15 +593,21 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
 
         if (evt.getClickCount() == 2) {
             setEmpresa(empresas.get(jtbEmpresas.getSelectedRow()));
-            //setaJCBEmpresa();
+            setaJCBEmpresa();
         }
 
     }//GEN-LAST:event_jtbEmpresasMouseClicked
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        enderecoDao.remover(empresa.getEndereco_codigo());
+
         empresaDao.remover(empresa);
+        enderecoDao.remover(empresa.getEndereco_codigo());
+        jcbUF.setSelectedIndex(0);
+        jcbCidade.setSelectedIndex(0);
+        limpacampodatas();
+        novo();
         atualizarTabela();
+        
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
@@ -717,6 +727,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
 
     private void novo() {
         setEmpresa(new Empresa(new Endereco(new Cidade(new UnidadeFederativa()))));
+        setcodigos();
     }
 
     private void atualizarTabela() {
@@ -740,7 +751,6 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         cidades = cidadeDao.buscaCidades(var);
         for (Cidade ci : cidades) {
             jcbCidade.addItem(ci);
-
         }
         jcbCidade.setRenderer(new ComboBoxCidade());
     }
@@ -756,8 +766,6 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         } else {
             empresa.setCodigo(empresaDao.buscarIdMaior() + 1);
         }
-
-        System.out.println(empresa.getEndereco_codigo().getCodigo());
         jtfCodigo.setText(empresa.getCodigo().toString());
     }
 
@@ -767,12 +775,14 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
     }
 
     private void setaJCBEmpresa() {
-        jcbCidade.getModel().setSelectedItem(empresa.getEndereco_codigo().getCidade_codigo());
-        jcbUF.getModel().setSelectedItem(empresa.getEndereco_codigo()
-                .getCidade_codigo().getUnidadeFederativa_codigo());
-
-        // jtfDataFundacao.setCalendar(empresa.getDataFundacao());
+       // jcbCidade.getModel().setSelectedItem(empresa.getEndereco_codigo().getCidade_codigo());
+       //jcbUF.getModel().setSelectedItem(empresa.getEndereco_codigo()
+       //         .getCidade_codigo().getUnidadeFederativa_codigo());
+        jtfCodigo.setText(empresa.getCodigo().toString());
+        jtfDataFundacao.getDateEditor().setDate(empresa.getDataFundacao());
+        
 
     }
+
 
 }
