@@ -1,4 +1,3 @@
-
 package FRAME;
 
 import RESTAURANTE.DAO.CidadeDAO;
@@ -28,15 +27,15 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
 
     public FrameCadastroParceiro() {
         initComponents();
-        
+
         unidadeFederativaDao = new UnidadeFederativaDAOIMPL();
         cidadeDao = new CidadeDAOIMPL();
         enderecoDao = new EnderecoDAOIMPL();
         pessoaDao = new PessoaDAOIMPL();
         parceiroDao = new ParceiroDAOIMPL();
-       
+
         novoGrupo();
-        atualizaTabela();  
+        atualizaTabela();
         atualizarCBUF();
         atualizaCBCidade();
         setcodigos();
@@ -643,10 +642,15 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
-         novoGrupo();
+        novoGrupo();
+        limpacampodatas();
+        jcbSexo.setSelectedIndex(0);
+        jcbTipoPessoa.setSelectedIndex(0);
+        jcbUF.setSelectedIndex(0);
+        jcbCidade.setSelectedIndex(0);
         jtbpParceiros.setSelectedIndex(1);
     }//GEN-LAST:event_jbtNovoActionPerformed
-    
+
     private void jtfBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfBairroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfBairroActionPerformed
@@ -672,16 +676,17 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     private void jcbTipoPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoPessoaActionPerformed
         if (jcbTipoPessoa.getSelectedIndex() == 0) {
             try {
-                jtfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+                jtfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory
+                        (new javax.swing.text.MaskFormatter("###.###.###-##")));
             } catch (ParseException ex) {
             }
-        }
-           else if (jcbTipoPessoa.getSelectedIndex() == 1) {
-                try {
-                    jtfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
-                } catch (ParseException ex) {
-                }
-            
+        } else if (jcbTipoPessoa.getSelectedIndex() == 1) {
+            try {
+                jtfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory
+                        (new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+            } catch (ParseException ex) {
+            }
+
         }
         if (jcbTipoPessoa.getSelectedIndex() == 0) {
             parceiro.setTipoPessoa("F");
@@ -697,7 +702,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbCidadeActionPerformed
 
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
-        var = jcbUF.getSelectedIndex()+1; 
+        var = jcbUF.getSelectedIndex() + 1;
         parceiro.getPessoa()
                 .getEndereco_codigo()
                 .getCidade_codigo()
@@ -715,18 +720,21 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
         try {
-          
-        parceiro.setDataNascimento(jtfDataNacimento.getDate());
-        parceiro.setDataCadastro(new Date());
-        enderecoDao.inserir(parceiro.getPessoa().getEndereco_codigo());
-        pessoaDao.inserir(parceiro.getPessoa());
-        parceiroDao.inserir(parceiro);
+            parceiro.setDataNascimento(jtfDataNacimento.getDate());
+            parceiro.setDataCadastro(new Date());
+            enderecoDao.inserir(parceiro.getPessoa().getEndereco_codigo());
+            pessoaDao.inserir(parceiro.getPessoa());
+            parceiroDao.inserir(parceiro);
 
-        atualizaTabela();
-        limpacampodatas();
-        novoGrupo();
+            atualizaTabela();
+            limpacampodatas();
+            jcbSexo.setSelectedIndex(0);
+            jcbTipoPessoa.setSelectedIndex(0);
+            jcbUF.setSelectedIndex(0);
+            jcbCidade.setSelectedIndex(0);
+            novoGrupo();
 
-       } catch (Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Alguns campos do cadastro ainda não foram preenchidos!");
         }
     }//GEN-LAST:event_jbtSalvarActionPerformed
@@ -739,10 +747,15 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtEditarActionPerformed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        enderecoDao.remover(parceiro.getPessoa().getEndereco_codigo());
-        pessoaDao.remover(parceiro.getPessoa());
         parceiroDao.remover(parceiro);
+        pessoaDao.remover(parceiro.getPessoa());
+        enderecoDao.remover(parceiro.getPessoa().getEndereco_codigo());
         novoGrupo();
+        limpacampodatas();
+        jcbSexo.setSelectedIndex(0);
+        jcbTipoPessoa.setSelectedIndex(0);
+        jcbUF.setSelectedIndex(0);
+        jcbCidade.setSelectedIndex(0);
         atualizaTabela();
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
@@ -757,22 +770,22 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
     private void jtbParceirosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbParceirosMouseClicked
-        try {
+        //try {
             if (evt.getClickCount() == 2) {
-            setParceiro(parceiros.get(jtbParceiros.getSelectedRow()));
-            setaJCB();
-            jtbpParceiros.setSelectedIndex(1);
-        }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Favor Selecione um Fornecedor para Detalhar.");
-        }
- 
-        
-        
+                setParceiro(parceiros.get(jtbParceiros.getSelectedRow()));
+                setaJCB();
+                jtbpParceiros.setSelectedIndex(1);
+            }
+        //} catch (Exception e) {
+         //   JOptionPane.showMessageDialog(rootPane, "Favor Selecione um Fornecedor para Detalhar.");
+       // }
+
+
+
     }//GEN-LAST:event_jtbParceirosMouseClicked
 
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
-        setParceiros(parceiroDao.buscarPorNome(jtfPesquisar.getText()));        
+        setParceiros(parceiroDao.buscarPorNome(jtfPesquisar.getText()));
         jtbParceiros.addRowSelectionInterval(0, 0);
     }//GEN-LAST:event_jbtPesquisarActionPerformed
 
@@ -882,7 +895,6 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     private Parceiro parceiro;
     private List<Parceiro> parceiros;
     private ParceiroDAO parceiroDao;
-   
     //Cidade
     private List<Cidade> cidades;
     private CidadeDAO cidadeDao;
@@ -915,41 +927,44 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         this.parceiros = ObservableCollections.observableList(parceiros);
         firePropertyChange("parceiros", parceirosVelhos, this.parceiros);
     }
+
     public void atualizaTabela() {
         setParceiros(parceiroDao.buscarTodos());
         if (parceiroDao.buscarTodos().isEmpty()) {
         } else {
             jtbParceiros.addRowSelectionInterval(0, 0);
         }
-        
+
     }
+
     public void atualizarCBUF() {
-       unidadeFederativas = unidadeFederativaDao.buscarTodos();
+        unidadeFederativas = unidadeFederativaDao.buscarTodos();
         for (UnidadeFederativa un : unidadeFederativas) {
             jcbUF.addItem(un);
         }
         jcbUF.setRenderer(new ComboBoxUF());
-   
+
 
     }
-    public void atualizaCBCidade(){
 
-            jcbCidade.removeAllItems();
-            cidades = null;
-            cidades = cidadeDao.buscaCidades(var);
+    public void atualizaCBCidade() {
+
+        jcbCidade.removeAllItems();
+        cidades = null;
+        cidades = cidadeDao.buscaCidades(var);
         for (Cidade ci : cidades) {
             jcbCidade.addItem(ci);
-            
+
         }
         jcbCidade.setRenderer(new ComboBoxCidade());
     }
 
     private void novoGrupo() {
-       setParceiro(new Parceiro(new Pessoa(new Endereco(new Cidade(new UnidadeFederativa())))));
+        setParceiro(new Parceiro(new Pessoa(new Endereco(new Cidade(new UnidadeFederativa())))));
         setcodigos();
-        
+
     }
-    
+
     private void setcodigos() {
         if (enderecoDao.buscarIdMaior() == null) {
             parceiro.getPessoa().getEndereco_codigo().setCodigo(1);
@@ -968,24 +983,25 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         }
 
         jtfCodigo.setText(parceiro.getCodigo().toString());
-        
+
     }
 
     private void setaJCB() {
-        
-       // jcbCidade.getModel().setSelectedItem(parceiro.getPessoa());
-        System.out.println(parceiro.getPessoa().getEndereco_codigo().getCidade_codigo());
-        //jcbUF.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo().getCidade_codigo()
-          //      .getUnidadeFederativa_codigo());
-       
-        //jcbCidade.getModel().setSelectedItem(fornecedor.getPessoa().getSexo().toString());
-        
         jtfCodigo.setText(parceiro.getCodigo().toString());
-        
+        jtfDataNacimento.getDateEditor().setDate(parceiro.getDataNascimento());
+        if (parceiro.getPessoa().getSexo().equals("F")) {
+            jcbSexo.setSelectedIndex(0);
+        } else {
+            jcbSexo.setSelectedIndex(1);
+        }
+        if (parceiro.getTipoPessoa().equals("F")) {
+            jcbTipoPessoa.setSelectedIndex(0);
+        } else {
+            jcbTipoPessoa.setSelectedIndex(1);
+        }
     }
+
     private void limpacampodatas() {
         jtfDataNacimento.setCalendar(null);
     }
-    
-   
 }

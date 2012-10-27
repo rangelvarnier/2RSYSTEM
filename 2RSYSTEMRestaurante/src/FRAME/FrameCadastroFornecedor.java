@@ -35,7 +35,6 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
 
         novoGrupo();
         atualizaTabela();
-
         atualizarCBUF();
         atualizaCBCidade();
         setcodigos();
