@@ -4,6 +4,9 @@
  */
 package FRAME;
 
+import RESTAURANTE.MODEL.Compra;
+import RESTAURANTE.MODEL.Fornecedor;
+
 /**
  *
  * @author Rangel
@@ -15,6 +18,7 @@ public class FrameCompra extends javax.swing.JFrame {
      */
     public FrameCompra() {
         initComponents();
+        compra = new Compra();
     }
 
     /**
@@ -37,7 +41,7 @@ public class FrameCompra extends javax.swing.JFrame {
         jtfCodigo = new javax.swing.JTextField();
         jdcDataCompra = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
-        jbtFornecedor = new javax.swing.JButton();
+        jbtPesquisaFornecedor = new javax.swing.JButton();
         jtfFornecedor = new javax.swing.JTextField();
         jbtColaborador = new javax.swing.JButton();
         jtfColaborador = new javax.swing.JTextField();
@@ -67,16 +71,18 @@ public class FrameCompra extends javax.swing.JFrame {
 
         jLabel3.setText("Data Compra");
 
-        jbtFornecedor.setText("Fornecedor");
+        jbtPesquisaFornecedor.setText("Fornecedor");
+        jbtPesquisaFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtPesquisaFornecedorActionPerformed(evt);
+            }
+        });
 
         jbtColaborador.setText("Colaborador");
 
         jtbProdutosCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
 
@@ -117,7 +123,7 @@ public class FrameCompra extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jdcDataCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jbtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jbtPesquisaFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jtfFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -149,7 +155,7 @@ public class FrameCompra extends javax.swing.JFrame {
                         .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbtFornecedor)
+                        .addComponent(jbtPesquisaFornecedor)
                         .addComponent(jbtColaborador)
                         .addComponent(jtfColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jtfFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -174,6 +180,10 @@ public class FrameCompra extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtPesquisaFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisaFornecedorActionPerformed
+        buscaFornecedor();
+    }//GEN-LAST:event_jbtPesquisaFornecedorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,8 +230,8 @@ public class FrameCompra extends javax.swing.JFrame {
     private javax.swing.JButton jbtAlterar;
     private javax.swing.JButton jbtColaborador;
     private javax.swing.JButton jbtExcluir;
-    private javax.swing.JButton jbtFornecedor;
     private javax.swing.JButton jbtNovo;
+    private javax.swing.JButton jbtPesquisaFornecedor;
     private javax.swing.JButton jbtSair;
     private javax.swing.JButton jbtSalvar;
     private com.toedter.calendar.JDateChooser jdcDataCompra;
@@ -231,4 +241,22 @@ public class FrameCompra extends javax.swing.JFrame {
     private javax.swing.JTextField jtfFornecedor;
     private javax.swing.JTextField jtfValorCompra;
     // End of variables declaration//GEN-END:variables
+    private Compra compra;
+
+    public void buscaFornecedor() {
+        //cria a tela de busca como modal
+        FramePesquisaFornecedor tela_busca = new FramePesquisaFornecedor();
+        tela_busca.setModal(true);
+        //exibe
+        tela_busca.setVisible(true);
+        //recupera os dados
+        Fornecedor f = new Fornecedor();
+        f = tela_busca.retornaFornecedor();
+        this.compra.setFornecedor(f);
+
+        if (compra.getFornecedor() != null) {
+            // jTF_Codigo.setText(String.valueOf(p.getCod()));
+            jtfFornecedor.setText(compra.getFornecedor().getRazaoSocial());
+        }
+    }
 }

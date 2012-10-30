@@ -17,6 +17,7 @@ public class ProdDaCompraTebleModel extends AbstractTableModel {
     private final int COL_VALTOTAL = 4;
     //lista dos produtos que serão exibidos
     private List<ProdutosDaCompra> produtosDaCompra;
+    private ProdutosDaCompra prodDaCompra;
 
     public ProdDaCompraTebleModel() {
         produtosDaCompra = new ArrayList();
@@ -97,24 +98,56 @@ public class ProdDaCompraTebleModel extends AbstractTableModel {
     
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {      
+        Produto produto = null;
         //pega o produto da linha
         ProdutosDaCompra prodCompra = produtosDaCompra.get(rowIndex);
  
         //verifica qual valor vai ser alterado
-        if (columnIndex == COL_COD) {
-           // prodCompra.setProduto();
-        } else if (columnIndex == COL_NOME) {
-           // prodCompra.setProduto();
-        } else if (columnIndex == COL_QUANT) {
+       if (columnIndex == COL_QUANT) {
             prodCompra.setQuantidade(Float.parseFloat(aValue.toString()));
         } else if (columnIndex == COL_VALUNIT) {
             prodCompra.setValorUnitario(Float.parseFloat(aValue.toString()));
         } else if (columnIndex == COL_VALTOTAL) {
             prodCompra.setValorTotal(Float.parseFloat(aValue.toString()));
         }
-        
          
         //avisa que os dados mudaram
         fireTableDataChanged();
     }
+    
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        boolean status = false;
+        if (columnIndex == COL_COD) {
+            status = false;
+        } else if (columnIndex == COL_NOME) {
+            status = false;
+        } else if (columnIndex == COL_QUANT) {
+            status = true;
+        } else if (columnIndex == COL_VALUNIT) {
+            status = true;
+        } else if (columnIndex == COL_VALTOTAL) {
+            status =  false;
+        }
+        return status;
+    }
+    
+    
+    
+    public void inserir (ProdutosDaCompra prodDaCompra){
+        produtosDaCompra.add(prodDaCompra);
+        fireTableDataChanged();
+    }
+    
+    public void excluir(int pos) {
+        produtosDaCompra.remove(pos);
+        fireTableDataChanged();
+    }
+    
+    public void excluir(ProdutosDaCompra prodDaCompra) {
+        produtosDaCompra.remove(prodDaCompra);
+        fireTableDataChanged();
+    }
+    
+    
 }

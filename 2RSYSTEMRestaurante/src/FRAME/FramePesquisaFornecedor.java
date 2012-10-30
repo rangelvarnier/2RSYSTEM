@@ -9,7 +9,6 @@ import RESTAURANTE.DAO.IMPL.FornecedorDAOIMPL;
 import RESTAURANTE.DAO.IMPL.PessoaDAOIMPL;
 import RESTAURANTE.DAO.PessoaDAO;
 import RESTAURANTE.MODEL.Fornecedor;
-import RESTAURANTE.MODEL.Produto;
 import java.util.List;
 import org.jdesktop.observablecollections.ObservableCollections;
 
@@ -17,7 +16,7 @@ import org.jdesktop.observablecollections.ObservableCollections;
  *
  * @author RANGEL
  */
-public class FramePesquisaFornecedor extends javax.swing.JFrame {
+public class FramePesquisaFornecedor extends javax.swing.JDialog {
 
     /**
      * Creates new form FramePesquisaFornecedor
@@ -47,7 +46,6 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbFornecedores = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pesquisa de Fornecedores");
         setResizable(false);
 
@@ -169,16 +167,14 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
 
     private void jbtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmarActionPerformed
         if (jtbFornecedores.getSelectedRow() != -1) {
-            frCadproduto.getProduto().setFornecedor(fornecedores.get(jtbFornecedores.getSelectedRow()));
-            frCadproduto.setCampoFornecedor();
+            fornecedor = fornecedores.get(jtbFornecedores.getSelectedRow());
             dispose();
         }
     }//GEN-LAST:event_jbtConfirmarActionPerformed
 
     private void jtbFornecedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbFornecedoresMouseClicked
         if (evt.getClickCount() == 2) {
-            frCadproduto.getProduto().setFornecedor(fornecedores.get(jtbFornecedores.getSelectedRow()));
-            frCadproduto.setCampoFornecedor();
+            fornecedor = fornecedores.get(jtbFornecedores.getSelectedRow());
             dispose();
         }
     }//GEN-LAST:event_jtbFornecedoresMouseClicked
@@ -237,20 +233,14 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
     private Fornecedor fornecedor;
     private List<Fornecedor> fornecedores;
     private FornecedorDAO fornecedorDao;
-    private Produto produto;
-    //Frame Produto
-    FrameCadastroProdutos frCadproduto;
 
-   /* public Fornecedor getFornecedor() {
+    public Fornecedor getFornecedor() {
         return fornecedor;
     }
 
     public void setFornecedor(Fornecedor fornecedor) {
-        Fornecedor fornecedorVelho = this.fornecedor;
         this.fornecedor = fornecedor;
-        firePropertyChange("fornecedor", fornecedorVelho, this.fornecedor);
     }
-    * */
 
     public List<Fornecedor> getFornecedores() {
         return fornecedores;
@@ -270,7 +260,7 @@ public class FramePesquisaFornecedor extends javax.swing.JFrame {
         }
     }
 
-    public void setFrameFornecedor(FrameCadastroProdutos frameCadastroProdutos) {
-        this.frCadproduto = frameCadastroProdutos;
+    public Fornecedor retornaFornecedor() {
+        return this.fornecedor;
     }
 }

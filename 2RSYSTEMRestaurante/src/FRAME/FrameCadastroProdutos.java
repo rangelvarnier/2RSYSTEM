@@ -556,9 +556,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbGrupoItemActionPerformed
 
     private void jbtPesquisaFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisaFornecedorActionPerformed
-        FramePesquisaFornecedor pesquisaFornecedor = new FramePesquisaFornecedor();
-        pesquisaFornecedor.setVisible(true);
-        pesquisaFornecedor.setFrameFornecedor(this);
+        buscaFornecedor();
     }//GEN-LAST:event_jbtPesquisaFornecedorActionPerformed
 
     private void jcbSubGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSubGrupoActionPerformed
@@ -775,5 +773,21 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
     private void novoProduto() {
         setProduto(new Produto(new UnidadeMedida(), new SubGrupoItem(new GrupoItem()), new Fornecedor()));
+    }
+    
+    public void buscaFornecedor() {
+        //cria a tela de busca como modal
+        FramePesquisaFornecedor tela_busca = new FramePesquisaFornecedor();
+        tela_busca.setModal(true);
+        //exibe
+        tela_busca.setVisible(true);
+        //recupera os dados
+        Fornecedor f = new Fornecedor();
+        f = tela_busca.retornaFornecedor();
+        this.produto.setFornecedor(f);
+
+        if (produto.getFornecedor() != null) {
+            jtfFornecedor.setText(produto.getFornecedor().getRazaoSocial());
+        }
     }
 }

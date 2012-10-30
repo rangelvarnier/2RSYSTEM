@@ -24,6 +24,10 @@ public class Compra {
     public Compra() {
     }
 
+    public Compra(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+    
     public Integer getCodigo() {
         return codigo;
     }
