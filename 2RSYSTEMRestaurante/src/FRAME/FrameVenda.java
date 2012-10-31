@@ -4,16 +4,18 @@ package FRAME;
 import RESTAURANTE.DAO.IMPL.ProdutoDAOIMPL;
 import RESTAURANTE.DAO.IMPL.produtosDaVendaDAOIMPL;
 import RESTAURANTE.DAO.ProdutoDAO;
-import RESTAURANTE.DAO.UTIL.ComboBoxProduto;
 import RESTAURANTE.DAO.produtosDaVendaDAO;
+import RESTAURANTE.MODEL.Colaborador;
 import RESTAURANTE.MODEL.Produto;
 import RESTAURANTE.MODEL.ProdutosDaVenda;
+import RESTAURANTE.MODEL.Venda;
 import java.util.List;
 
 public class FrameVenda extends javax.swing.JFrame {
 
     public FrameVenda() {
         initComponents();
+        venda = new Venda();
         produtoDao = new ProdutoDAOIMPL();
         produtosDaVendaDao = new produtosDaVendaDAOIMPL();
         
@@ -48,6 +50,9 @@ public class FrameVenda extends javax.swing.JFrame {
         jbtExcluir1 = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jbtCancelar1 = new javax.swing.JButton();
+        jbtCancelar2 = new javax.swing.JButton();
+        jLabel32 = new javax.swing.JLabel();
+        jtfVendedor1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Fornecedor");
@@ -81,6 +86,11 @@ public class FrameVenda extends javax.swing.JFrame {
         jLabel31.setText("Código");
 
         jtfVendedor.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jtfVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfVendedorActionPerformed(evt);
+            }
+        });
 
         jLabel33.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel33.setText("Vendedor");
@@ -135,7 +145,7 @@ public class FrameVenda extends javax.swing.JFrame {
                 .add(18, 18, 18)
                 .add(jpn1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jpn1Layout.createSequentialGroup()
-                        .add(jtfVendedor)
+                        .add(jtfVendedor, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jbtPesquisaVendedor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jLabel33))
@@ -216,6 +226,19 @@ public class FrameVenda extends javax.swing.JFrame {
             }
         });
 
+        jbtCancelar2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jbtCancelar2.setText("Adicionar");
+        jbtCancelar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtCancelar2ActionPerformed(evt);
+            }
+        });
+
+        jLabel32.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jLabel32.setText("Código");
+
+        jtfVendedor1.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -231,7 +254,13 @@ public class FrameVenda extends javax.swing.JFrame {
                         .add(jLabel9)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jLabel16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 119, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane2))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane2)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jbtCancelar2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 179, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel32)
+                            .add(jtfVendedor1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 127, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(jPanel1Layout.createSequentialGroup()
@@ -243,7 +272,13 @@ public class FrameVenda extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 355, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jLabel32)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jtfVendedor1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jbtCancelar2)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 283, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -290,7 +325,7 @@ public class FrameVenda extends javax.swing.JFrame {
                 .add(jpn1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(20, 20, 20)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jbtNovo)
                     .add(jbtCancelar)))
@@ -310,7 +345,7 @@ public class FrameVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfClienteActionPerformed
 
     private void jbtPesquisaVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisaVendedorActionPerformed
-        // TODO add your handling code here:
+        buscaVenda();
     }//GEN-LAST:event_jbtPesquisaVendedorActionPerformed
 
     private void jbtPesquisaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisaClienteActionPerformed
@@ -324,6 +359,14 @@ public class FrameVenda extends javax.swing.JFrame {
     private void jbtCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelar1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtCancelar1ActionPerformed
+
+    private void jtfVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfVendedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfVendedorActionPerformed
+
+    private void jbtCancelar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelar2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtCancelar2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -365,6 +408,7 @@ public class FrameVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel37;
@@ -374,6 +418,7 @@ public class FrameVenda extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton jbtCancelar;
     private javax.swing.JButton jbtCancelar1;
+    private javax.swing.JButton jbtCancelar2;
     private javax.swing.JButton jbtExcluir1;
     private javax.swing.JButton jbtNovo;
     private javax.swing.JButton jbtPesquisaCliente;
@@ -384,7 +429,10 @@ public class FrameVenda extends javax.swing.JFrame {
     private javax.swing.JTextField jtfCliente;
     private javax.swing.JTextField jtfCodigo;
     private javax.swing.JTextField jtfVendedor;
+    private javax.swing.JTextField jtfVendedor1;
     // End of variables declaration//GEN-END:variables
+    private Venda venda;
+    
     private ProdutosDaVenda produtodavenda;
     private List<ProdutosDaVenda> produtosDasVendas;
     private produtosDaVendaDAO produtosDaVendaDao;
@@ -393,6 +441,21 @@ public class FrameVenda extends javax.swing.JFrame {
     private List<Produto> produtos;
     private ProdutoDAO produtoDao;
     
-   
+    
+    public void buscaVenda() {
+        //cria a tela de busca como modal
+        FramePesquisaColaborador tela_busca = new FramePesquisaColaborador();
+        tela_busca.setModal(true);
+        //exibe
+        tela_busca.setVisible(true);
+        //recupera os dados
+        Colaborador c = new Colaborador();
+        c = tela_busca.retornaColaborador();
+        this.venda.setColaborador_codigo(c);
+
+        if (venda.getColaborador_codigo() != null) {
+            jtfVendedor.setText(venda.getColaborador_codigo().getPessoa().getNome());
+        }
+    }
 
 }
