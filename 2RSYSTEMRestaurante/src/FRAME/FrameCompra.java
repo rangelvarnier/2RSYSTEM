@@ -4,6 +4,7 @@
  */
 package FRAME;
 
+import RESTAURANTE.MODEL.Colaborador;
 import RESTAURANTE.MODEL.Compra;
 import RESTAURANTE.MODEL.Fornecedor;
 
@@ -79,6 +80,11 @@ public class FrameCompra extends javax.swing.JFrame {
         });
 
         jbtColaborador.setText("Colaborador");
+        jbtColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtColaboradorActionPerformed(evt);
+            }
+        });
 
         jtbProdutosCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -185,6 +191,10 @@ public class FrameCompra extends javax.swing.JFrame {
         buscaFornecedor();
     }//GEN-LAST:event_jbtPesquisaFornecedorActionPerformed
 
+    private void jbtColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtColaboradorActionPerformed
+        buscaColaborador();
+    }//GEN-LAST:event_jbtColaboradorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -257,6 +267,22 @@ public class FrameCompra extends javax.swing.JFrame {
         if (compra.getFornecedor() != null) {
             // jTF_Codigo.setText(String.valueOf(p.getCod()));
             jtfFornecedor.setText(compra.getFornecedor().getRazaoSocial());
+        }
+    }
+    
+    public void buscaColaborador() {
+        //cria a tela de busca como modal
+        FramePesquisaColaborador tela_busca = new FramePesquisaColaborador();
+        tela_busca.setModal(true);
+        //exibe
+        tela_busca.setVisible(true);
+        //recupera os dados
+        Colaborador c = new Colaborador();
+        c = tela_busca.retornaColaborador();
+        this.compra.setColaborador(c);
+
+        if (compra.getColaborador() != null) {
+            jtfColaborador.setText(compra.getColaborador().getPessoa().getNome());
         }
     }
 }
