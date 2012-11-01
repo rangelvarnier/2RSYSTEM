@@ -24,10 +24,12 @@ public class Compra {
     public Compra() {
     }
 
-    public Compra(Fornecedor fornecedor) {
+    public Compra(Fornecedor fornecedor, Colaborador colaborador, List<ProdutosDaCompra> produtosDaCompra) {
         this.fornecedor = fornecedor;
+        this.colaborador = colaborador;
+        this.produtosDaCompra = produtosDaCompra;
     }
-    
+
     public Integer getCodigo() {
         return codigo;
     }
