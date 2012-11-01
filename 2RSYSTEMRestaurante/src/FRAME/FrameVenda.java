@@ -4,6 +4,7 @@ package FRAME;
 import RESTAURANTE.DAO.IMPL.ProdutoDAOIMPL;
 import RESTAURANTE.DAO.IMPL.produtosDaVendaDAOIMPL;
 import RESTAURANTE.DAO.ProdutoDAO;
+import RESTAURANTE.DAO.VendaDAO;
 import RESTAURANTE.DAO.produtosDaVendaDAO;
 import RESTAURANTE.MODEL.Colaborador;
 import RESTAURANTE.MODEL.Parceiro;
@@ -11,6 +12,7 @@ import RESTAURANTE.MODEL.Produto;
 import RESTAURANTE.MODEL.ProdutosDaVenda;
 import RESTAURANTE.MODEL.Venda;
 import java.util.List;
+import org.jdesktop.observablecollections.ObservableCollections;
 
 public class FrameVenda extends javax.swing.JFrame {
 
@@ -28,6 +30,7 @@ public class FrameVenda extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jbtCancelar = new javax.swing.JButton();
@@ -52,7 +55,7 @@ public class FrameVenda extends javax.swing.JFrame {
         jbtExcluir1 = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jbtCancelar1 = new javax.swing.JButton();
-        jbtCancelar2 = new javax.swing.JButton();
+        jbtAdicionar = new javax.swing.JButton();
         jLabel32 = new javax.swing.JLabel();
         jtfVendedor1 = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
@@ -97,6 +100,10 @@ public class FrameVenda extends javax.swing.JFrame {
         jLabel31.setText("Código");
 
         jtfVendedor.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${venda.colaborador_codigo.pessoa.nome}"), jtfVendedor, org.jdesktop.beansbinding.BeanProperty.create("text"), "");
+        bindingGroup.addBinding(binding);
+
         jtfVendedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfVendedorActionPerformed(evt);
@@ -110,6 +117,10 @@ public class FrameVenda extends javax.swing.JFrame {
         jLabel35.setText("Cliente");
 
         jtfCliente.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${venda.cliente_codigo.pessoa.nome}"), jtfCliente, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jtfCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfClienteActionPerformed(evt);
@@ -237,11 +248,11 @@ public class FrameVenda extends javax.swing.JFrame {
             }
         });
 
-        jbtCancelar2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtCancelar2.setText("Adicionar");
-        jbtCancelar2.addActionListener(new java.awt.event.ActionListener() {
+        jbtAdicionar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jbtAdicionar.setText("Adicionar");
+        jbtAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtCancelar2ActionPerformed(evt);
+                jbtAdicionarActionPerformed(evt);
             }
         });
 
@@ -255,6 +266,9 @@ public class FrameVenda extends javax.swing.JFrame {
         jLabel34.setText("Produto");
 
         jtfProduto.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produtodavenda.produto_codigo.descricao}"), jtfProduto, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         jbtPesquisaProduto.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtPesquisaProduto.setText("Buscar");
@@ -270,15 +284,24 @@ public class FrameVenda extends javax.swing.JFrame {
 
         jtfQuantidade.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produtodavenda.quantidade}"), jtfQuantidade, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jLabel38.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel38.setText("Valor Unitário");
 
         jtfValorUnitário.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produtodavenda.valorUnitario}"), jtfValorUnitário, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jLabel39.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel39.setText("Total");
 
         jtfValorTotalItem.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produtodavenda.valorTotal}"), jtfValorTotalItem, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -304,7 +327,7 @@ public class FrameVenda extends javax.swing.JFrame {
                                         .add(jLabel32)
                                         .add(58, 58, 58)
                                         .add(jLabel34))
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jbtCancelar2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 179, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jbtAdicionar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 179, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                 .add(119, 119, 119))
                             .add(jPanel1Layout.createSequentialGroup()
                                 .add(jtfVendedor1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -352,7 +375,7 @@ public class FrameVenda extends javax.swing.JFrame {
                     .add(jtfValorUnitário, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jtfValorTotalItem, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jbtCancelar2)
+                .add(jbtAdicionar)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 283, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -407,6 +430,8 @@ public class FrameVenda extends javax.swing.JFrame {
                     .add(jbtCancelar)))
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -429,7 +454,8 @@ public class FrameVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtPesquisaClienteActionPerformed
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
-
+  
+        
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jbtCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelar1ActionPerformed
@@ -440,9 +466,16 @@ public class FrameVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfVendedorActionPerformed
 
-    private void jbtCancelar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelar2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtCancelar2ActionPerformed
+    private void jbtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAdicionarActionPerformed
+             
+        produtodavenda.setVenda_codigo(venda);
+        produtosDaVendaDao.inserir(produtodavenda);
+        venda.setCodigo(1);
+        venda.setDataVenda(jftData.getDate());
+        vendaDao.inserir(venda); 
+        atualizaTabela();
+       
+    }//GEN-LAST:event_jbtAdicionarActionPerformed
 
     private void jbtPesquisaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisaProdutoActionPerformed
         buscaProduto();
@@ -500,9 +533,9 @@ public class FrameVenda extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton jbtAdicionar;
     private javax.swing.JButton jbtCancelar;
     private javax.swing.JButton jbtCancelar1;
-    private javax.swing.JButton jbtCancelar2;
     private javax.swing.JButton jbtExcluir1;
     private javax.swing.JButton jbtNovo;
     private javax.swing.JButton jbtPesquisaCliente;
@@ -519,10 +552,13 @@ public class FrameVenda extends javax.swing.JFrame {
     private javax.swing.JTextField jtfValorUnitário;
     private javax.swing.JTextField jtfVendedor;
     private javax.swing.JTextField jtfVendedor1;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
     private Venda venda;
-    private ProdutosDaVenda produtosDaVenda;
+    private List<Venda> vendas;
+    private VendaDAO vendaDao;
     
+   
     private ProdutosDaVenda produtodavenda;
     private List<ProdutosDaVenda> produtosDasVendas;
     private produtosDaVendaDAO produtosDaVendaDao;
@@ -530,6 +566,49 @@ public class FrameVenda extends javax.swing.JFrame {
     private Produto produto;
     private List<Produto> produtos;
     private ProdutoDAO produtoDao;
+
+    public ProdutosDaVenda getProdutodavenda() {
+        return produtodavenda;
+    }
+
+    public void setProdutodavenda(ProdutosDaVenda produtodavenda) {
+        ProdutosDaVenda produtodavendaVelho = this.produtodavenda;
+        this.produtodavenda = produtodavenda;
+        firePropertyChange("produtodavenda", produtodavendaVelho, this.produtodavenda);
+    }
+
+    public List<ProdutosDaVenda> getProdutosDasVendas() {
+        return produtosDasVendas;
+    }
+
+    public void setProdutosDasVendas(List<ProdutosDaVenda> produtosDasVendas) {
+        List<ProdutosDaVenda> produtosDasVendasVelhos = this.produtosDasVendas;
+        this.produtosDasVendas = ObservableCollections.observableList(produtosDasVendas);
+        firePropertyChange("produtosDasVendas", produtosDasVendasVelhos, this.produtosDasVendas);
+    }
+    
+    
+
+    public Venda getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Venda venda) {
+        Venda vendaVelho = this.venda;
+        this.venda = venda;
+        firePropertyChange("venda", vendaVelho, this.venda);
+    }
+
+    public List<Venda> getVendas() {
+        return vendas;
+    }
+
+    public void setVendas(List<Venda> vendas) {
+        List<Venda> vendasVelhos = this.vendas;
+        this.vendas = ObservableCollections.observableList(vendas);
+        firePropertyChange("vendas", vendasVelhos, this.vendas);
+    }
+    
     
     
     public void buscaVendedor() {
@@ -577,5 +656,14 @@ public class FrameVenda extends javax.swing.JFrame {
             jtfProduto.setText(produtodavenda.getProduto_codigo().getDescricao());
         }
     }
+     public void atualizaTabela() {
+        setProdutosDasVendas(produtosDaVendaDao.buscarTodos());
+        setProdutosDasVendas(getProdutosDasVendas());
+        if (produtosDaVendaDao.buscarTodos().isEmpty()) {
+        } else {
+            jtbVenda.addRowSelectionInterval(0, 0);
+        }
+    }
+  
 
 }
