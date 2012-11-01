@@ -137,36 +137,8 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         columnBinding.setColumnName("Código");
         columnBinding.setColumnClass(Integer.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigoFabrica}"));
-        columnBinding.setColumnName("CodFabrica");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descricao}"));
         columnBinding.setColumnName("Descrição");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fornecedor.razaoSocial}"));
-        columnBinding.setColumnName("Fornecedor");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${precoVenda}"));
-        columnBinding.setColumnName("Preço Venda");
-        columnBinding.setColumnClass(Float.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${saldoEstoque}"));
-        columnBinding.setColumnName("Estoque");
-        columnBinding.setColumnClass(Float.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${subGrupoItens.grupoItem.descricao}"));
-        columnBinding.setColumnName("Grupo");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${subGrupoItens.descricao}"));
-        columnBinding.setColumnName("SubGrupo");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${unidadeMedida.sigla}"));
-        columnBinding.setColumnName("UN");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
@@ -221,7 +193,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 293, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jbtDetalhar)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jtbpProdutos.addTab("Produtos", jPanel4);
@@ -368,7 +340,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                         .add(jbtPesquisaFornecedor)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jtfFornecedor)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 195, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 201, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jtfSaldoEstoque)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel11))

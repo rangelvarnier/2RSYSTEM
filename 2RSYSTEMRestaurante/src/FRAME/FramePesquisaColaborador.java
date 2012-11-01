@@ -31,7 +31,7 @@ public class FramePesquisaColaborador extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbColaboradores = new javax.swing.JTable();
 
-        setTitle("Pesquisa de Fornecedores");
+        setTitle("Pesquisa de Colaboradores");
         setLocation(new java.awt.Point(100, 200));
 
         jtfPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
