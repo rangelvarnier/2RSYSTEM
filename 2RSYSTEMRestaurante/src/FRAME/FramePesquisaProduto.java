@@ -45,7 +45,6 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
         jtbProdutos = new javax.swing.JTable();
 
         setTitle("Pesquisa de Parceiros");
-        setLocation(new java.awt.Point(100, 200));
         setResizable(false);
 
         jtfPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -60,7 +59,7 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
         });
 
         jLabel1.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
-        jLabel1.setText("Pesquisa de Parceiros");
+        jLabel1.setText("Pesquisa de Produtos");
 
         jbtConfirmar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtConfirmar.setText("Confirmar");
@@ -108,7 +107,7 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 394, Short.MAX_VALUE)
+                        .addGap(0, 397, Short.MAX_VALUE)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

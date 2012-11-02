@@ -9,10 +9,13 @@ import RESTAURANTE.DAO.IMPL.CompraDAOIMPL;
 import RESTAURANTE.DAO.IMPL.ProdutoDaCompraDAOIMPL;
 import RESTAURANTE.DAO.ProdutoDAO;
 import RESTAURANTE.DAO.ProdutoDaCompraDAO;
+import RESTAURANTE.DAO.UTIL.ProdDaCompraTebleModel;
 import RESTAURANTE.MODEL.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,9 +29,13 @@ public class FrameCompra extends javax.swing.JFrame {
     public FrameCompra() {
         initComponents();
         novaCompra();
+        DefaultTableModel tableModel = new DefaultTableModel();
         compraDao = new CompraDAOIMPL();
         produtoDaCompraDao = new ProdutoDaCompraDAOIMPL();
 
+        
+        
+        
     }
 
     /**
@@ -112,13 +119,33 @@ public class FrameCompra extends javax.swing.JFrame {
 
         jtbProdutosCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null}
             },
             new String [] {
-
+                "Código", "Produto", "Quantidade", "Valor UN", "Valor Total"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtbProdutosCompra.setColumnSelectionAllowed(true);
+        jtbProdutosCompra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtbProdutosCompraKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtbProdutosCompra);
+        jtbProdutosCompra.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jtbProdutosCompra.getColumnModel().getColumn(0).setResizable(false);
+        jtbProdutosCompra.getColumnModel().getColumn(1).setResizable(false);
+        jtbProdutosCompra.getColumnModel().getColumn(2).setResizable(false);
+        jtbProdutosCompra.getColumnModel().getColumn(3).setResizable(false);
+        jtbProdutosCompra.getColumnModel().getColumn(4).setResizable(false);
 
         jLabel4.setText("Valor da Compra");
 
@@ -235,19 +262,25 @@ public class FrameCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-        
+
         compra.setCodigo(Integer.valueOf(jtfCodigo.getText()));
         compra.setDataCompra(jdcDataCompra.getDate());
-        
-        
+
+
         System.out.println(compra.getDataCompra());
-        
-        
-        
-        compraDao.inserir(compra);
-        
-        
+        System.out.println(compra.getFornecedor());
+
+
+        //compraDao.inserir(compra);
+
+
     }//GEN-LAST:event_jbtSalvarActionPerformed
+
+    private void jtbProdutosCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbProdutosCompraKeyPressed
+        if(evt.getKeyCode() == 114){
+            buscaProduto();
+        }
+    }//GEN-LAST:event_jtbProdutosCompraKeyPressed
 
     /**
      * @param args the command line arguments
@@ -284,7 +317,6 @@ public class FrameCompra extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new FrameCompra().setVisible(true);
             }
@@ -312,11 +344,13 @@ public class FrameCompra extends javax.swing.JFrame {
     private javax.swing.JTextField jtfFornecedor;
     private javax.swing.JTextField jtfValorCompra;
     // End of variables declaration//GEN-END:variables
+    
     private Compra compra;
     private CompraDAO compraDao;
     private Produto produto;
     private ProdutoDAO produtoDao;
-    private ProdutosDaCompra produtosDaCompra;
+    private List<ProdutosDaCompra> produtosDaCompra;
+    private ProdutosDaCompra produtoDaCompra;
     private ProdutoDaCompraDAO produtoDaCompraDao;
 
     public Compra getCompra() {
@@ -371,4 +405,23 @@ public class FrameCompra extends javax.swing.JFrame {
             jtfColaborador.setText(compra.getColaborador().getPessoa().getNome());
         }
     }
+    
+    public void buscaProduto() {
+        //cria a tela de busca como modal
+        FramePesquisaProduto tela_busca = new FramePesquisaProduto();
+        tela_busca.setModal(true);
+        //exibe
+        tela_busca.setVisible(true);
+        //recupera os dados
+        Produto p = new Produto();
+        p = tela_busca.retornaProduto();
+        this.produtoDaCompra.setProduto(p);
+        //seta na tela
+                
+        if (produtoDaCompra.getProduto() != null) {
+            Integer linhaSelecionada = jtbProdutosCompra.getSelectedRow();
+            jtbProdutosCompra.setValueAt(p.getCodigo(), linhaSelecionada, 1);
+        }
+    }
+
 }

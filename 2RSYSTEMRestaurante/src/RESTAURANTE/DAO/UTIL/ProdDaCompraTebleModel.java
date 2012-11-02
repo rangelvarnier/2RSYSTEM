@@ -27,7 +27,7 @@ public class ProdDaCompraTebleModel extends AbstractTableModel {
         this();
         produtosDaCompra.addAll(lista);
     }
-
+    
     @Override
     public int getRowCount() {
         //cada produto da lista sera uma linha
@@ -97,18 +97,18 @@ public class ProdDaCompraTebleModel extends AbstractTableModel {
     }
     
     @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {      
+    public void setValueAt(Object value, int row, int col) {      
         Produto produto = null;
         //pega o produto da linha
-        ProdutosDaCompra prodCompra = produtosDaCompra.get(rowIndex);
+        ProdutosDaCompra prodCompra = produtosDaCompra.get(row);
  
         //verifica qual valor vai ser alterado
-       if (columnIndex == COL_QUANT) {
-            prodCompra.setQuantidade(Float.parseFloat(aValue.toString()));
-        } else if (columnIndex == COL_VALUNIT) {
-            prodCompra.setValorUnitario(Float.parseFloat(aValue.toString()));
-        } else if (columnIndex == COL_VALTOTAL) {
-            prodCompra.setValorTotal(Float.parseFloat(aValue.toString()));
+       if (col == COL_QUANT) {
+            prodCompra.setQuantidade(Float.parseFloat(value.toString()));
+        } else if (col == COL_VALUNIT) {
+            prodCompra.setValorUnitario(Float.parseFloat(value.toString()));
+        } else if (col == COL_VALTOTAL) {
+            prodCompra.setValorTotal(Float.parseFloat(value.toString()));
         }
          
         //avisa que os dados mudaram
@@ -131,6 +131,7 @@ public class ProdDaCompraTebleModel extends AbstractTableModel {
         }
         return status;
     }
+    
     
     
     
