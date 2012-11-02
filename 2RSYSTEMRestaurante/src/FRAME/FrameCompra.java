@@ -29,7 +29,7 @@ public class FrameCompra extends javax.swing.JFrame {
     public FrameCompra() {
         initComponents();
         novaCompra();
-        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel = new DefaultTableModel();
         compraDao = new CompraDAOIMPL();
         produtoDaCompraDao = new ProdutoDaCompraDAOIMPL();
 
@@ -277,8 +277,23 @@ public class FrameCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jtbProdutosCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbProdutosCompraKeyPressed
+        int linha = jtbProdutosCompra.getSelectedRow();
+        int coluna = jtbProdutosCompra.getSelectedColumn();
         if (evt.getKeyCode() == 114) {
             buscaProduto();
+        } else if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 2) {
+            Object qtd = jtbProdutosCompra.getValueAt(linha, coluna);
+            produtoDaCompra.setQuantidade(Float.parseFloat(String.valueOf(qtd)));
+        } else if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 3) {
+            Object unit = jtbProdutosCompra.getValueAt(linha, coluna);
+            produtoDaCompra.setValorUnitario(Float.parseFloat(String.valueOf(unit)) );
+            
+            
+            
+            
+            jtbProdutosCompra.setValueAt(calculaTotalDoProduto(), linha, 4);
+        } else if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 4) {
+//            produtosDaCompra.add(produtoDaCompra);
         }
     }//GEN-LAST:event_jtbProdutosCompraKeyPressed
 
@@ -344,6 +359,7 @@ public class FrameCompra extends javax.swing.JFrame {
     private javax.swing.JTextField jtfFornecedor;
     private javax.swing.JTextField jtfValorCompra;
     // End of variables declaration//GEN-END:variables
+    DefaultTableModel tableModel;
     private Compra compra;
     private CompraDAO compraDao;
     private Produto produto;
@@ -418,7 +434,7 @@ public class FrameCompra extends javax.swing.JFrame {
         //recupera os dados
         p = tela_busca.retornaProduto();
         //seta o produto para o produto da compra
-        this.produtoDaCompra.setProduto(p);
+        produtoDaCompra.setProduto(p);
         //seta na tela o produto da compra
         if (produtoDaCompra.getProduto() != null) {
             Integer linhaSelecionada = jtbProdutosCompra.getSelectedRow();
@@ -426,5 +442,16 @@ public class FrameCompra extends javax.swing.JFrame {
             jtbProdutosCompra.setValueAt(p.getDescricao(), linhaSelecionada, 1);
             jtbProdutosCompra.setValueAt(p.getPrecoVenda(), linhaSelecionada, 3);
         }
+    }
+
+    private Float calculaTotalDoProduto() {
+        Float preco;
+        Float quant;
+        Float total = null;
+        preco = produtoDaCompra.getValorUnitario();
+        quant = produtoDaCompra.getQuantidade();
+        total = quant * preco;
+        produtoDaCompra.setValorTotal(total);
+        return produtoDaCompra.getValorTotal();
     }
 }
