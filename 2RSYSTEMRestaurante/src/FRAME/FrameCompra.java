@@ -33,9 +33,9 @@ public class FrameCompra extends javax.swing.JFrame {
         compraDao = new CompraDAOIMPL();
         produtoDaCompraDao = new ProdutoDaCompraDAOIMPL();
 
-        
-        
-        
+
+
+
     }
 
     /**
@@ -277,7 +277,7 @@ public class FrameCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jtbProdutosCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbProdutosCompraKeyPressed
-        if(evt.getKeyCode() == 114){
+        if (evt.getKeyCode() == 114) {
             buscaProduto();
         }
     }//GEN-LAST:event_jtbProdutosCompraKeyPressed
@@ -344,7 +344,6 @@ public class FrameCompra extends javax.swing.JFrame {
     private javax.swing.JTextField jtfFornecedor;
     private javax.swing.JTextField jtfValorCompra;
     // End of variables declaration//GEN-END:variables
-    
     private Compra compra;
     private CompraDAO compraDao;
     private Produto produto;
@@ -405,23 +404,27 @@ public class FrameCompra extends javax.swing.JFrame {
             jtfColaborador.setText(compra.getColaborador().getPessoa().getNome());
         }
     }
-    
+
     public void buscaProduto() {
+        //instancia produto
+        Produto p = new Produto();
+        //instancia produto da compra
+        produtoDaCompra = new ProdutosDaCompra();
         //cria a tela de busca como modal
         FramePesquisaProduto tela_busca = new FramePesquisaProduto();
         tela_busca.setModal(true);
-        //exibe
+        //exibe a tela de pesquisa do produto
         tela_busca.setVisible(true);
         //recupera os dados
-        Produto p = new Produto();
         p = tela_busca.retornaProduto();
+        //seta o produto para o produto da compra
         this.produtoDaCompra.setProduto(p);
-        //seta na tela
-                
+        //seta na tela o produto da compra
         if (produtoDaCompra.getProduto() != null) {
             Integer linhaSelecionada = jtbProdutosCompra.getSelectedRow();
-            jtbProdutosCompra.setValueAt(p.getCodigo(), linhaSelecionada, 1);
+            jtbProdutosCompra.setValueAt(p.getCodigo(), linhaSelecionada, 0);
+            jtbProdutosCompra.setValueAt(p.getDescricao(), linhaSelecionada, 1);
+            jtbProdutosCompra.setValueAt(p.getPrecoVenda(), linhaSelecionada, 3);
         }
     }
-
 }
