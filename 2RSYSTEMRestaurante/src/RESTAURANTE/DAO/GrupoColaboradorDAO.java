@@ -9,6 +9,8 @@ public interface GrupoColaboradorDAO {
      void alterar(GrupoColaborador grupoColaborador);
      void remover(GrupoColaborador grupoColaborador);
      GrupoColaborador buscaPorId(Integer codigo);
+     Integer buscarIdMaior();
+     List<GrupoColaborador> buscarPorDescricao(String descricao);
      List<GrupoColaborador> buscarTodos();  
     
 }

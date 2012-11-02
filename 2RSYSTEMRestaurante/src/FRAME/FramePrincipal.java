@@ -1,20 +1,18 @@
 package FRAME;
 
-
-import RESTAURANTE.MODEL.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 public class FramePrincipal extends javax.swing.JFrame {
 
     public FramePrincipal() {
         initComponents();
-       
+
         this.setExtendedState(MAXIMIZED_BOTH);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -36,7 +34,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jmiParceiros = new javax.swing.JMenuItem();
         jmiFornecedores = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
         jmiColaboradores = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmiProduto = new javax.swing.JMenuItem();
         jmiGrupoItem = new javax.swing.JMenuItem();
@@ -172,6 +172,8 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jmiFornecedores);
 
+        jMenu8.setText("Colaboradores");
+
         jmiColaboradores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
         jmiColaboradores.setText("Colaboradores");
         jmiColaboradores.setToolTipText("Colaboradores/Funcionários");
@@ -180,7 +182,17 @@ public class FramePrincipal extends javax.swing.JFrame {
                 jmiColaboradoresActionPerformed(evt);
             }
         });
-        jMenu1.add(jmiColaboradores);
+        jMenu8.add(jmiColaboradores);
+
+        jMenuItem2.setText("Grupo de Colaboradores");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem2);
+
+        jMenu1.add(jMenu8);
 
         jMenu2.setText("Produtos");
 
@@ -401,8 +413,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiFornecedoresActionPerformed
 
     private void jlbUsuarioLogadoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jlbUsuarioLogadoAncestorAdded
-
-        
     }//GEN-LAST:event_jlbUsuarioLogadoAncestorAdded
 
     private void jlbDataAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jlbDataAncestorAdded
@@ -423,7 +433,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbHoraAncestorAdded
 
     private void jbtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtProdutoActionPerformed
-         new FrameCadastroProdutos().setVisible(true);
+        new FrameCadastroProdutos().setVisible(true);
     }//GEN-LAST:event_jbtProdutoActionPerformed
 
     private void jmiSubGrupoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSubGrupoItemActionPerformed
@@ -431,7 +441,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiSubGrupoItemActionPerformed
 
     private void jmiProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProdutoActionPerformed
-         new FrameCadastroProdutos().setVisible(true);
+        new FrameCadastroProdutos().setVisible(true);
     }//GEN-LAST:event_jmiProdutoActionPerformed
 
     private void jmiGrupoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGrupoItemActionPerformed
@@ -439,11 +449,9 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiGrupoItemActionPerformed
 
     private void jmiCopiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCopiarActionPerformed
-
     }//GEN-LAST:event_jmiCopiarActionPerformed
 
     private void jmiColarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiColarActionPerformed
-
     }//GEN-LAST:event_jmiColarActionPerformed
 
     private void jbtSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSaidaActionPerformed
@@ -451,8 +459,12 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtSaidaActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-         new FrameCadastroEmpresa().setVisible(true);
+        new FrameCadastroEmpresa().setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        new FrameCadastroGrupoColaborador().setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -501,8 +513,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JButton jbtColaboradores;
@@ -525,7 +539,18 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiTrasnportadoras;
     private javax.swing.JMenuItem jmiUsuarios;
     // End of variables declaration//GEN-END:variables
+    FrameLoginUsuario frmlogin;
+    String usuario;
 
-    
-    
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        jlbUsuarioLogado.setText(usuario);
+    }
+    /* public void recebeUsuario(){
+     this.usuario = frmlogin.retornaUsuario();
+     }
+     */
 }

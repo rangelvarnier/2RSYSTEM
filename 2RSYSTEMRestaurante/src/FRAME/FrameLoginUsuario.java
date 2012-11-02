@@ -119,13 +119,11 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
     private void jbtLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLogarActionPerformed
 
         if (verificaLogin() == true) {
-            new FramePrincipal().setVisible(true);
+            
             dispose();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário ou Senha Incorretos!");
         }
-        
-        
 
     }//GEN-LAST:event_jbtLogarActionPerformed
 
@@ -178,7 +176,21 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField jtfLogin;
     private javax.swing.JPasswordField jtfsenha;
     // End of variables declaration//GEN-END:variables
- 
+    FramePrincipal frprincipal;
+    
+    Usuario usuario;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+
+    
+    
     public boolean verificaLogin() {
         Connection con = new Conexao().criarConexao();
         String sql = "select usuario, senha from usuario";
@@ -191,6 +203,10 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
                 String sen = rs3.getString("senha");
 
                 if (usu.equals(jtfLogin.getText()) && sen.equals(jtfsenha.getText()) == true) {
+                    frprincipal = new FramePrincipal();
+                    frprincipal.setVisible(true);
+                    frprincipal.setUsuario(usu);
+                    //setUser(usu);
                     return true;
                     
                 }
@@ -200,5 +216,6 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
         }
         return false;
     }
+    
 
 }

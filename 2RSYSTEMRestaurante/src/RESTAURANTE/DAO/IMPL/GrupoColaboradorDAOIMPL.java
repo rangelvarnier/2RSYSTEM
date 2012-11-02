@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GrupoColaboradorDAOIMPL implements GrupoColaboradorDAO {
 
@@ -108,5 +110,51 @@ public class GrupoColaboradorDAOIMPL implements GrupoColaboradorDAO {
         return grupoColaboradores;
     }
 
+    @Override
+    public List<GrupoColaborador> buscarPorDescricao(String descricao) {
+        List<GrupoColaborador> grupoColaboradores = new ArrayList<GrupoColaborador>();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from grupocolaborador where descricao like ? ";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, "%"+descricao+"%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                GrupoColaborador grupoColaborador = new GrupoColaborador();
+                grupoColaborador.setCodigo(rs.getInt("codigo"));
+                grupoColaborador.setDescricao(rs.getString("descricao"));
+                grupoColaboradores.add(grupoColaborador);
+            }
+
+        } catch (SQLException ex) {
+        }
+        return grupoColaboradores;
+    }
+
+    @Override
+    public Integer buscarIdMaior() {
+        Integer idmaior = null;
+        Connection con = new Conexao().criarConexao();
+        String sql = "select max(codigo) as codigo from grupoColaboradores";
+        PreparedStatement stmt; 
+        try {
+            stmt = con.prepareStatement(sql);
+            ResultSet rs2 = stmt.executeQuery(); 
+            rs2.next(); 
+            idmaior = rs2.getInt("codigo"); 
+
+            rs2.close(); 
+            stmt.close(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(ColaboradorDAOIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ 
+        return idmaior;
+    }
 }
+
+
+
  

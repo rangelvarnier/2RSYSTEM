@@ -11,6 +11,7 @@ import RESTAURANTE.MODEL.Parceiro;
 import RESTAURANTE.MODEL.Produto;
 import RESTAURANTE.MODEL.ProdutosDaVenda;
 import RESTAURANTE.MODEL.Venda;
+import java.util.Date;
 import java.util.List;
 import org.jdesktop.observablecollections.ObservableCollections;
 
@@ -22,7 +23,7 @@ public class FrameVenda extends javax.swing.JFrame {
         produtodavenda = new ProdutosDaVenda();
         produtoDao = new ProdutoDAOIMPL();
         produtosDaVendaDao = new produtosDaVendaDAOIMPL();
-        
+        jftData.setDate(new Date());
         
 
     }
@@ -203,32 +204,27 @@ public class FrameVenda extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
-        jtbVenda.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Produto", "Quantidade", "Valor Unitário", "Valor Total"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${produtosDasVendas}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbVenda);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${produto_codigo.descricao}"));
+        columnBinding.setColumnName("Produto");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${quantidade}"));
+        columnBinding.setColumnName("Quantidade");
+        columnBinding.setColumnClass(Float.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${valorTotal}"));
+        columnBinding.setColumnName("Valor Total");
+        columnBinding.setColumnClass(Float.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${valorUnitario}"));
+        columnBinding.setColumnName("Valor Unitario");
+        columnBinding.setColumnClass(Float.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
         jScrollPane2.setViewportView(jtbVenda);
-        jtbVenda.getColumnModel().getColumn(0).setMinWidth(10);
-        jtbVenda.getColumnModel().getColumn(0).setPreferredWidth(10);
-        jtbVenda.getColumnModel().getColumn(1).setPreferredWidth(120);
-        jtbVenda.getColumnModel().getColumn(2).setMinWidth(10);
-        jtbVenda.getColumnModel().getColumn(2).setPreferredWidth(20);
-        jtbVenda.getColumnModel().getColumn(3).setMinWidth(10);
-        jtbVenda.getColumnModel().getColumn(3).setPreferredWidth(20);
-        jtbVenda.getColumnModel().getColumn(4).setMinWidth(10);
-        jtbVenda.getColumnModel().getColumn(4).setPreferredWidth(20);
 
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel9.setText("SubTotal:");
