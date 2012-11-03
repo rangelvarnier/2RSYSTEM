@@ -9,12 +9,12 @@ import RESTAURANTE.DAO.IMPL.CompraDAOIMPL;
 import RESTAURANTE.DAO.IMPL.ProdutoDaCompraDAOIMPL;
 import RESTAURANTE.DAO.ProdutoDAO;
 import RESTAURANTE.DAO.ProdutoDaCompraDAO;
-import RESTAURANTE.DAO.UTIL.ProdDaCompraTebleModel;
 import RESTAURANTE.MODEL.*;
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,9 +32,6 @@ public class FrameCompra extends javax.swing.JFrame {
         tableModel = new DefaultTableModel();
         compraDao = new CompraDAOIMPL();
         produtoDaCompraDao = new ProdutoDaCompraDAOIMPL();
-
-
-
 
     }
 
@@ -134,6 +131,11 @@ public class FrameCompra extends javax.swing.JFrame {
             }
         });
         jtbProdutosCompra.setColumnSelectionAllowed(true);
+        jtbProdutosCompra.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtbProdutosCompraFocusGained(evt);
+            }
+        });
         jtbProdutosCompra.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jtbProdutosCompraKeyPressed(evt);
@@ -279,23 +281,27 @@ public class FrameCompra extends javax.swing.JFrame {
     private void jtbProdutosCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbProdutosCompraKeyPressed
         int linha = jtbProdutosCompra.getSelectedRow();
         int coluna = jtbProdutosCompra.getSelectedColumn();
-        if (evt.getKeyCode() == 114) {
-            buscaProduto();
-        } else if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 2) {
+
+        if (evt.getKeyCode() == evt.VK_ENTER && jtbProdutosCompra.getSelectedColumn() == 2) {
             Object qtd = jtbProdutosCompra.getValueAt(linha, coluna);
             produtoDaCompra.setQuantidade(Float.parseFloat(String.valueOf(qtd)));
-        } else if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 3) {
+        } else if (evt.getKeyCode() == evt.VK_ENTER && jtbProdutosCompra.getSelectedColumn() == 3) {
             Object unit = jtbProdutosCompra.getValueAt(linha, coluna);
-            produtoDaCompra.setValorUnitario(Float.parseFloat(String.valueOf(unit)) );
-            
-            
-            
-            
+            produtoDaCompra.setValorUnitario(Float.parseFloat(String.valueOf(unit)));
             jtbProdutosCompra.setValueAt(calculaTotalDoProduto(), linha, 4);
-        } else if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 4) {
-//            produtosDaCompra.add(produtoDaCompra);
+        }
+
+
+        if (evt.getKeyCode() == 114) {
+            buscaProduto();
+        }
+        if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 4) {
+            produtosDaCompra.add(produtoDaCompra);
         }
     }//GEN-LAST:event_jtbProdutosCompraKeyPressed
+
+    private void jtbProdutosCompraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtbProdutosCompraFocusGained
+    }//GEN-LAST:event_jtbProdutosCompraFocusGained
 
     /**
      * @param args the command line arguments
