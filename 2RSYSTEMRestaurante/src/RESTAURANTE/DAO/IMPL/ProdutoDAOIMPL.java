@@ -5,7 +5,10 @@ import RESTAURANTE.DAO.ProdutoDAO;
 import RESTAURANTE.DAO.SubGrupoItemDAO;
 import RESTAURANTE.DAO.UTIL.Conexao;
 import RESTAURANTE.DAO.UnidadeMedidaDAO;
+import RESTAURANTE.MODEL.Fornecedor;
+import RESTAURANTE.MODEL.GrupoItem;
 import RESTAURANTE.MODEL.Produto;
+import RESTAURANTE.MODEL.SubGrupoItem;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -199,5 +202,41 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
             ex.printStackTrace();
         }
         return produtos;
+    }
+
+    @Override
+    public List<Produto> buscarParametrosRelatorio(Integer fornecedor, Integer subgrupoitem) {
+        Produto produto = null;
+        List<Produto> produtos = new ArrayList<Produto>();
+        UnidadeMedidaDAO unidadeMedidaDao = new UnidadeMedidaDAOIMPL();
+        SubGrupoItemDAO subGrupoItemDao = new SubGrupoItensDAOIMPL();
+        FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from produto where fornecedor_codigo = ? and subGrupoItens_codigo = ?;";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, fornecedor);
+            stmt.setInt(2, subgrupoitem);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                produto = new Produto();
+                produto.setCodigo(rs.getInt("codigoFabrica"));
+                produto.setDescricao(rs.getString("descricao"));
+                produto.setPrecoVenda(rs.getFloat("precoVenda"));
+                produto.setPrecoCompra(rs.getFloat("precoCompra"));
+                produto.setSaldoEstoque(rs.getFloat("saldoEstoque"));
+                produto.setUnidadeMedida(unidadeMedidaDao.buscarPorCodigo(rs.getInt("unidadeMedida_codigo")));
+                produto.setSubGrupoItens(subGrupoItemDao.buscarPorCodigo(rs.getInt("subGrupoItens_codigo")));
+                produto.setFornecedor(fornecedorDao.buscaPorId(rs.getInt("fornecedor_codigo")));
+                produtos.add(produto);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return produtos;
+    
     }
 }

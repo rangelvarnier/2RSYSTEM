@@ -1,33 +1,17 @@
 
 package FRAME;
 
-import RESTAURANTE.DAO.FornecedorDAO;
-import RESTAURANTE.DAO.GrupoItemDAO;
-import RESTAURANTE.DAO.IMPL.FornecedorDAOIMPL;
-import RESTAURANTE.DAO.IMPL.GrupoItemDAOIMPL;
-import RESTAURANTE.DAO.IMPL.ProdutoDAOIMPL;
 import RESTAURANTE.DAO.IMPL.SubGrupoItensDAOIMPL;
-import RESTAURANTE.DAO.IMPL.UnidadeMedidaDAOIMPL;
-import RESTAURANTE.DAO.ProdutoDAO;
 import RESTAURANTE.DAO.SubGrupoItemDAO;
-import RESTAURANTE.DAO.UnidadeMedidaDAO;
-import RESTAURANTE.MODEL.Fornecedor;
-import RESTAURANTE.MODEL.GrupoItem;
-import RESTAURANTE.MODEL.Produto;
 import RESTAURANTE.MODEL.SubGrupoItem;
-import RESTAURANTE.MODEL.UnidadeMedida;
 import java.util.List;
 import org.jdesktop.observablecollections.ObservableCollections;
 
-public class FramePesquisaProduto extends javax.swing.JDialog {
+public class FramePesquisaSubGrupoItem extends javax.swing.JDialog {
 
-    public FramePesquisaProduto() {
+    public FramePesquisaSubGrupoItem() {
         initComponents();
-        produtoDao = new ProdutoDAOIMPL();
-        fornecedorDao = new FornecedorDAOIMPL();
-        grupoItemDao = new GrupoItemDAOIMPL();
         subGrupoItemDao = new SubGrupoItensDAOIMPL();
-        unidadeMedidaDao = new UnidadeMedidaDAOIMPL();
         atualizaTabela();
     }
 
@@ -42,7 +26,7 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
         jbtConfirmar = new javax.swing.JButton();
         jbtCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtbProdutos = new javax.swing.JTable();
+        jtbSubrupoItem = new javax.swing.JTable();
 
         setTitle("Pesquisa de Parceiros");
         setLocation(new java.awt.Point(100, 200));
@@ -60,7 +44,7 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
         });
 
         jLabel1.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
-        jLabel1.setText("Pesquisa de Produtos");
+        jLabel1.setText("Pesquisa de Sub Grupo de Itens");
 
         jbtConfirmar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtConfirmar.setText("Confirmar");
@@ -78,10 +62,10 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
             }
         });
 
-        jtbProdutos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jtbSubrupoItem.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${produtos}");
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbProdutos);
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${subGrupoItens}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbSubrupoItem);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
         columnBinding.setColumnName("Código");
         columnBinding.setColumnClass(Integer.class);
@@ -92,12 +76,12 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
-        jtbProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtbSubrupoItem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtbProdutosMouseClicked(evt);
+                jtbSubrupoItemMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jtbProdutos);
+        jScrollPane1.setViewportView(jtbSubrupoItem);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,7 +92,7 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 397, Short.MAX_VALUE)
+                        .addGap(0, 274, Short.MAX_VALUE)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,10 +131,10 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
-        setProdutos(produtoDao.buscarPorDescricao(jtfPesquisar.getText()));
-        if (produtoDao.buscarPorDescricao(jtfPesquisar.getText()).isEmpty()) {
+        setSubGrupoItens(subGrupoItemDao.buscarPorDescricao(jtfPesquisar.getText()));
+        if (subGrupoItemDao.buscarPorDescricao(jtfPesquisar.getText()).isEmpty()) {
         } else {
-            jtbProdutos.addRowSelectionInterval(0, 0);
+            jtbSubrupoItem.addRowSelectionInterval(0, 0);
         }
     }//GEN-LAST:event_jbtPesquisarActionPerformed
 
@@ -159,18 +143,18 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jbtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmarActionPerformed
-        if (jtbProdutos.getSelectedRow() != -1) {
-            produto = produtos.get(jtbProdutos.getSelectedRow());
+        if (jtbSubrupoItem.getSelectedRow() != -1) {
+            subGrupoItem = subGrupoItens.get(jtbSubrupoItem.getSelectedRow());
             dispose();
         }
     }//GEN-LAST:event_jbtConfirmarActionPerformed
 
-    private void jtbProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbProdutosMouseClicked
+    private void jtbSubrupoItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbSubrupoItemMouseClicked
         if (evt.getClickCount() == 2) {
-            produto = produtos.get(jtbProdutos.getSelectedRow());
+            subGrupoItem = subGrupoItens.get(jtbSubrupoItem.getSelectedRow());
             dispose();
         }
-    }//GEN-LAST:event_jtbProdutosMouseClicked
+    }//GEN-LAST:event_jtbSubrupoItemMouseClicked
 
     /**
      * @param args the command line arguments
@@ -193,13 +177,13 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FramePesquisaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FramePesquisaSubGrupoItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FramePesquisaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FramePesquisaSubGrupoItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FramePesquisaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FramePesquisaSubGrupoItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FramePesquisaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FramePesquisaSubGrupoItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -208,7 +192,7 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FramePesquisaProduto().setVisible(true);
+                new FramePesquisaSubGrupoItem().setVisible(true);
             }
         });
     }
@@ -218,58 +202,44 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
     private javax.swing.JButton jbtCancelar;
     private javax.swing.JButton jbtConfirmar;
     private javax.swing.JButton jbtPesquisar;
-    private javax.swing.JTable jtbProdutos;
+    private javax.swing.JTable jtbSubrupoItem;
     private javax.swing.JTextField jtfPesquisar;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
-    private Produto produto;
-    private List<Produto> produtos;
-    private ProdutoDAO produtoDao;
-    //Fornecedor
-    private Fornecedor fornecedor;
-    private FornecedorDAO fornecedorDao;
-    //Grupo
-    private GrupoItem grupoItem;
-    private GrupoItemDAO grupoItemDao;
-    List<GrupoItem> grupoItens;
+
     //SubGrupo
     private SubGrupoItem subGrupoItem;
     private SubGrupoItemDAO subGrupoItemDao;
     List<SubGrupoItem> subGrupoItens;
-    //UnidadeMedida
-    private UnidadeMedidaDAO unidadeMedidaDao;
-    List<UnidadeMedida> unidadeMedidas;
-    //FramePesqusia
 
-    public Produto getProduto() {
-        return produto;
+    public SubGrupoItem getSubGrupoItem() {
+        return subGrupoItem;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setSubGrupoItem(SubGrupoItem subGrupoItem) {
+        this.subGrupoItem = subGrupoItem;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
+    public List<SubGrupoItem> getSubGrupoItens() {
+        return subGrupoItens;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        List<Produto> produtosVelhos = this.produtos;
-        this.produtos = ObservableCollections.observableList(produtos);
-        firePropertyChange("produtos", produtosVelhos, this.produtos);
+    public void setSubGrupoItens(List<SubGrupoItem> subGrupoItens) {
+        List<SubGrupoItem> subGrupoItensVelhos = this.subGrupoItens;
+        this.subGrupoItens = ObservableCollections.observableList(subGrupoItens);
+        firePropertyChange("subGrupoItens", subGrupoItensVelhos, this.subGrupoItens);
     }
-
 
 
     public void atualizaTabela() {
-        setProdutos(produtoDao.buscarTodos());
-        if (produtoDao.buscarTodos().isEmpty()) {
+        setSubGrupoItens(subGrupoItemDao.buscarTodos());
+        if (subGrupoItemDao.buscarTodos().isEmpty()) {
         } else {
-            jtbProdutos.addRowSelectionInterval(0, 0);
+            jtbSubrupoItem.addRowSelectionInterval(0, 0);
         }
     }
 
-    public Produto retornaProduto() {
-        return this.produto;
+    public SubGrupoItem retornaSubGrupoItem() {
+        return this.subGrupoItem;
     }
 }

@@ -168,5 +168,27 @@ public class EmpresaDAOIMPL implements EmpresaDAO{
         }
         return empresas;
     }
+
+    @Override
+    public Empresa buscarazaoSocial() {
+        Connection con = new Conexao().criarConexao();
+        Empresa empresa = null;
+        String sql = "select razaoSocial from empresa";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                empresa = new Empresa();
+                empresa.setRazaoSocial(rs.getString("razaoSocial"));
+
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return empresa;
+    
+    }
     
 }

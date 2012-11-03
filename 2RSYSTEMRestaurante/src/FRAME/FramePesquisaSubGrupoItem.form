@@ -31,7 +31,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="397" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="274" max="32767" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -101,7 +101,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Hiragino Sans GB" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Pesquisa de Produtos"/>
+        <Property name="text" type="java.lang.String" value="Pesquisa de Sub Grupo de Itens"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jbtConfirmar">
@@ -133,7 +133,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jtbProdutos">
+        <Component class="javax.swing.JTable" name="jtbSubrupoItem">
           <Properties>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
@@ -157,7 +157,7 @@
             </Property>
           </Properties>
           <BindingProperties>
-            <BindingProperty name="elements" source="Form" sourcePath="${produtos}" target="jtbProdutos" targetPath="elements" updateStrategy="0" immediately="true">
+            <BindingProperty name="elements" source="Form" sourcePath="${subGrupoItens}" target="jtbSubrupoItem" targetPath="elements" updateStrategy="0" immediately="true">
               <Subbinding sourcePath="${codigo}">
                 <BindingParameter name="NAME" value="C&#xf3;digo"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
@@ -171,7 +171,7 @@
             </BindingProperty>
           </BindingProperties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtbProdutosMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtbSubrupoItemMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>
