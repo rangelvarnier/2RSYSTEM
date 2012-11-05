@@ -10,12 +10,18 @@ import RESTAURANTE.DAO.IMPL.ProdutoDaCompraDAOIMPL;
 import RESTAURANTE.DAO.ProdutoDAO;
 import RESTAURANTE.DAO.ProdutoDaCompraDAO;
 import RESTAURANTE.MODEL.*;
-import java.beans.PropertyChangeEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -32,7 +38,7 @@ public class FrameCompra extends javax.swing.JFrame {
         tableModel = new DefaultTableModel();
         compraDao = new CompraDAOIMPL();
         produtoDaCompraDao = new ProdutoDaCompraDAOIMPL();
-
+        produtosDaCompra = new ArrayList<ProdutosDaCompra>();
     }
 
     /**
@@ -64,6 +70,7 @@ public class FrameCompra extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jtfValorCompra = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Compra de Mercadoria");
@@ -131,11 +138,6 @@ public class FrameCompra extends javax.swing.JFrame {
             }
         });
         jtbProdutosCompra.setColumnSelectionAllowed(true);
-        jtbProdutosCompra.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jtbProdutosCompraFocusGained(evt);
-            }
-        });
         jtbProdutosCompra.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jtbProdutosCompraKeyPressed(evt);
@@ -150,6 +152,8 @@ public class FrameCompra extends javax.swing.JFrame {
         jtbProdutosCompra.getColumnModel().getColumn(4).setResizable(false);
 
         jLabel4.setText("Valor da Compra");
+
+        jLabel5.setText("F3 busca produtos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -196,6 +200,9 @@ public class FrameCompra extends javax.swing.JFrame {
                 .addComponent(jbtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jbtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,8 +232,10 @@ public class FrameCompra extends javax.swing.JFrame {
                                 .addComponent(jbtPesquisaFornecedor)))))
                 .addGap(11, 11, 11)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -279,29 +288,27 @@ public class FrameCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jtbProdutosCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbProdutosCompraKeyPressed
+
         int linha = jtbProdutosCompra.getSelectedRow();
         int coluna = jtbProdutosCompra.getSelectedColumn();
-
-        if (evt.getKeyCode() == evt.VK_ENTER && jtbProdutosCompra.getSelectedColumn() == 2) {
+        //seta o foco na celula que esta sendo editada
+        jtbProdutosCompra.setSurrendersFocusOnKeystroke(true);
+        if (evt.getKeyCode() == 114) {
+            buscaProduto();
+        } else if (evt.getKeyCode() == KeyEvent.VK_ENTER && jtbProdutosCompra.getSelectedColumn() == 2) {
             Object qtd = jtbProdutosCompra.getValueAt(linha, coluna);
             produtoDaCompra.setQuantidade(Float.parseFloat(String.valueOf(qtd)));
-        } else if (evt.getKeyCode() == evt.VK_ENTER && jtbProdutosCompra.getSelectedColumn() == 3) {
+        } else if (evt.getKeyCode() == KeyEvent.VK_ENTER && jtbProdutosCompra.getSelectedColumn() == 3) {
             Object unit = jtbProdutosCompra.getValueAt(linha, coluna);
             produtoDaCompra.setValorUnitario(Float.parseFloat(String.valueOf(unit)));
             jtbProdutosCompra.setValueAt(calculaTotalDoProduto(), linha, 4);
-        }
-
-
-        if (evt.getKeyCode() == 114) {
-            buscaProduto();
-        }
-        if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 4) {
+        } else if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 4) {
             produtosDaCompra.add(produtoDaCompra);
+            // tableModel.insertRow(linha+1, new Object[1]);
+
+
         }
     }//GEN-LAST:event_jtbProdutosCompraKeyPressed
-
-    private void jtbProdutosCompraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtbProdutosCompraFocusGained
-    }//GEN-LAST:event_jtbProdutosCompraFocusGained
 
     /**
      * @param args the command line arguments
@@ -348,6 +355,7 @@ public class FrameCompra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
