@@ -33,7 +33,7 @@ public class FramePesquisaCliente extends javax.swing.JDialog {
         jtbParceiros = new javax.swing.JTable();
 
         setTitle("Pesquisa de Parceiros");
-        setLocation(new java.awt.Point(100, 200));
+        setLocation(new java.awt.Point(290, 190));
         setResizable(false);
 
         jtfPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N

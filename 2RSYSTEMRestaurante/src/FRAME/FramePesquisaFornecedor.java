@@ -31,7 +31,7 @@ public class FramePesquisaFornecedor extends javax.swing.JDialog {
         jtbFornecedores = new javax.swing.JTable();
 
         setTitle("Pesquisa de Fornecedores");
-        setLocation(new java.awt.Point(100, 200));
+        setLocation(new java.awt.Point(290, 190));
         setResizable(false);
 
         jtfPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N

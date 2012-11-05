@@ -32,7 +32,7 @@ public class FramePesquisaColaborador extends javax.swing.JDialog {
         jtbColaboradores = new javax.swing.JTable();
 
         setTitle("Pesquisa de Colaboradores");
-        setLocation(new java.awt.Point(100, 200));
+        setLocation(new java.awt.Point(290, 190));
 
         jtfPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jtfPesquisar.setToolTipText("Campo de Pesquisa");
