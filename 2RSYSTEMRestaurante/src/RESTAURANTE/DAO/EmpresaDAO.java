@@ -9,6 +9,7 @@ public interface EmpresaDAO {
     void alterar(Empresa empresa);
     void remover(Empresa empresa);
     Empresa buscarPorCodigo(Integer codigo);  
+    Empresa buscarazaoSocial();
     Integer buscarIdMaior();
     List<Empresa> buscarTodos();
 }

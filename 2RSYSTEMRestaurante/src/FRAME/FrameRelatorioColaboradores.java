@@ -1,10 +1,9 @@
 package FRAME;
 
-import RESTAURANTE.DAO.IMPL.ProdutoDAOIMPL;
-import RESTAURANTE.DAO.ProdutoDAO;
-import RESTAURANTE.MODEL.Fornecedor;
-import RESTAURANTE.MODEL.Produto;
-import RESTAURANTE.MODEL.SubGrupoItem;
+import RESTAURANTE.DAO.ColaboradorDAO;
+import RESTAURANTE.DAO.IMPL.ColaboradorDAOIMPL;
+import RESTAURANTE.MODEL.Colaborador;
+import RESTAURANTE.MODEL.GrupoColaborador;
 import java.util.List;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -17,11 +16,10 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-public class FrameRelatorioProdutos extends javax.swing.JFrame {
+public class FrameRelatorioColaboradores extends javax.swing.JFrame {
 
-    public FrameRelatorioProdutos() {
+    public FrameRelatorioColaboradores() {
         initComponents();
-
     }
 
     @SuppressWarnings("unchecked")
@@ -34,21 +32,18 @@ public class FrameRelatorioProdutos extends javax.swing.JFrame {
         jbtCancelar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jbtPesquisaVendedor = new javax.swing.JButton();
-        jbtPesquisaVendedor2 = new javax.swing.JButton();
-        jtfFornecedor = new javax.swing.JTextField();
-        jtfSubGrupoItem = new javax.swing.JTextField();
+        jtfGrupoColaborador = new javax.swing.JTextField();
         jchbFiltro = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Relatório de Produtos");
+        setTitle("Relatório de Colaboradores");
         setLocation(new java.awt.Point(200, 100));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
-        jLabel1.setText("Relatório de Produtos");
+        jLabel1.setText("Relatório de Colaboradores");
 
         jbtGerarRelatorio.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtGerarRelatorio.setText("Gerar Relatório");
@@ -70,10 +65,7 @@ public class FrameRelatorioProdutos extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(102, 102, 102));
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel4.setText("Fornecedor");
-
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel3.setText("Sub Grupo de Item");
+        jLabel4.setText("Grupo de Colaborador");
 
         jbtPesquisaVendedor.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtPesquisaVendedor.setText("Buscar");
@@ -84,34 +76,14 @@ public class FrameRelatorioProdutos extends javax.swing.JFrame {
             }
         });
 
-        jbtPesquisaVendedor2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtPesquisaVendedor2.setText("Buscar");
-        jbtPesquisaVendedor2.setToolTipText("Pesquisa Vendedor");
-        jbtPesquisaVendedor2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtPesquisaVendedor2ActionPerformed(evt);
-            }
-        });
+        jtfGrupoColaborador.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
-        jtfFornecedor.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${fornecedor.razaoSocial}"), jtfFornecedor, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${grupoColaborador.descricao}"), jtfGrupoColaborador, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        jtfFornecedor.addActionListener(new java.awt.event.ActionListener() {
+        jtfGrupoColaborador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfFornecedorActionPerformed(evt);
-            }
-        });
-
-        jtfSubGrupoItem.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${subGrupoItem.descricao}"), jtfSubGrupoItem, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        jtfSubGrupoItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfSubGrupoItemActionPerformed(evt);
+                jtfGrupoColaboradorActionPerformed(evt);
             }
         });
 
@@ -128,38 +100,27 @@ public class FrameRelatorioProdutos extends javax.swing.JFrame {
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel3)
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(jtfFornecedor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 195, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jtfGrupoColaborador, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 251, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jbtPesquisaVendedor))
                     .add(jLabel4)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(jtfSubGrupoItem, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 195, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jbtPesquisaVendedor2))
                     .add(jchbFiltro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 164, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel5))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(217, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel5)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jLabel4)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jbtPesquisaVendedor)
-                    .add(jtfFornecedor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLabel3)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jtfSubGrupoItem, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jbtPesquisaVendedor2))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                    .add(jtfGrupoColaborador, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(62, 62, 62)
                 .add(jchbFiltro)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -204,22 +165,26 @@ public class FrameRelatorioProdutos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtGerarRelatorioActionPerformed
-        ProdutoDAO dao = new ProdutoDAOIMPL();
+        ColaboradorDAO dao = new ColaboradorDAOIMPL();
         try {
 
             if (jchbFiltro.isSelected() == true) {
-                List<Produto> dados = dao.buscarTodos();
+                List<Colaborador> dados = dao.buscarTodos();
+                //DataSource para o relatório com os dados dentro.
                 JRDataSource datasource = new JRBeanCollectionDataSource(dados);
-                JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioProdutos.jrxml");
+                //localiza arquivo .jrxml
+                JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioColaboradores.jrxml");
+                //campila para arquivo .jasper
                 JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
+                //Gerar arquivo para impressão
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
+                //Chama visualizador do relatório
                 JasperViewer.viewReport(jasperPrint);
                 dispose();
             } else {
-                System.out.println(fornecedor.getRazaoSocial());
-                List<Produto> dados = dao.buscarParametrosRelatorio(fornecedor.getCodigo(), subGrupoItem.getCodigo());
+                List<Colaborador> dados = dao.buscarParametrosRelatorio(grupoColaborador.getCodigo());
                 JRDataSource datasource = new JRBeanCollectionDataSource(dados);
-                JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioProdutos.jrxml");
+                JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioColaboradores.jrxml");
                 JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
                 JasperViewer.viewReport(jasperPrint);
@@ -235,22 +200,13 @@ public class FrameRelatorioProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jbtPesquisaVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisaVendedorActionPerformed
-        buscaFornecedor();
+        buscaGrupoColaborador();
         jchbFiltro.setSelected(false);
     }//GEN-LAST:event_jbtPesquisaVendedorActionPerformed
 
-    private void jbtPesquisaVendedor2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisaVendedor2ActionPerformed
-        buscaSubGrupoItem();
-        jchbFiltro.setSelected(false);
-    }//GEN-LAST:event_jbtPesquisaVendedor2ActionPerformed
+    private void jtfGrupoColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfGrupoColaboradorActionPerformed
 
-    private void jtfFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfFornecedorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfFornecedorActionPerformed
-
-    private void jtfSubGrupoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSubGrupoItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfSubGrupoItemActionPerformed
+    }//GEN-LAST:event_jtfGrupoColaboradorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,13 +225,13 @@ public class FrameRelatorioProdutos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrameRelatorioProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameRelatorioColaboradores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrameRelatorioProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameRelatorioColaboradores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrameRelatorioProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameRelatorioColaboradores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrameRelatorioProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameRelatorioColaboradores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -283,94 +239,74 @@ public class FrameRelatorioProdutos extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new FrameRelatorioProdutos().setVisible(true);
+                new FrameRelatorioColaboradores().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbtCancelar;
     private javax.swing.JButton jbtGerarRelatorio;
     private javax.swing.JButton jbtPesquisaVendedor;
-    private javax.swing.JButton jbtPesquisaVendedor2;
     private javax.swing.JCheckBox jchbFiltro;
-    private javax.swing.JTextField jtfFornecedor;
-    private javax.swing.JTextField jtfSubGrupoItem;
+    private javax.swing.JTextField jtfGrupoColaborador;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
-    private Fornecedor fornecedor = new Fornecedor();
-    ;
-    private SubGrupoItem subGrupoItem;
-    private Produto produto;
-    private List<Produto> produtos;
+    private Colaborador colaborador;
+    private List<Colaborador> colaboradores;
+    private GrupoColaborador grupoColaborador;
+    private List<GrupoColaborador> grupoColaboradores;
 
-    public Produto getProduto() {
-        return produto;
+    public Colaborador getColaborador() {
+        return colaborador;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setColaborador(Colaborador colaborador) {
+        Colaborador colaboradorVelho = this.colaborador;
+        this.colaborador = colaborador;
+        firePropertyChange("colaborador", colaboradorVelho, this.colaborador);
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
+    public List<Colaborador> getColaboradores() {
+        return colaboradores;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setColaboradores(List<Colaborador> colaboradores) {
+        this.colaboradores = colaboradores;
     }
 
-    public Fornecedor getFornecedor() {
-        return fornecedor;
+    public GrupoColaborador getGrupoColaborador() {
+        return grupoColaborador;
     }
 
-    public void setFornecedor(Fornecedor fornecedor) {
-        Fornecedor fornecedorVelho = this.fornecedor;
-        this.fornecedor = fornecedor;
-        firePropertyChange("fornecedor", fornecedorVelho, this.fornecedor);
+    public void setGrupoColaborador(GrupoColaborador grupoColaborador) {
+        this.grupoColaborador = grupoColaborador;
     }
 
-    public SubGrupoItem getSubGrupoItem() {
-        return subGrupoItem;
+    public List<GrupoColaborador> getGrupoColaboradores() {
+        return grupoColaboradores;
     }
 
-    public void setSubGrupoItem(SubGrupoItem subGrupoItem) {
-        this.subGrupoItem = subGrupoItem;
+    public void setGrupoColaboradores(List<GrupoColaborador> grupoColaboradores) {
+        this.grupoColaboradores = grupoColaboradores;
     }
 
-    public void buscaFornecedor() {
+    public void buscaGrupoColaborador() {
         //cria a tela de busca como modal
-        FramePesquisaFornecedor tela_busca = new FramePesquisaFornecedor();
+        FramePesquisaGrupoColaborador tela_busca = new FramePesquisaGrupoColaborador();
         tela_busca.setModal(true);
         //exibe
         tela_busca.setVisible(true);
         //recupera os dados
 
-        fornecedor = tela_busca.retornaFornecedor();
-        setFornecedor(fornecedor);
+        grupoColaborador = tela_busca.retornaGrupoColaborador();
+        setGrupoColaborador(grupoColaborador);
         //seta na tela
-        if (getFornecedor() != null) {
-            jtfFornecedor.setText(fornecedor.getRazaoSocial());
-        }
-    }
-
-    public void buscaSubGrupoItem() {
-        //cria a tela de busca como modal
-        FramePesquisaSubGrupoItem tela_busca = new FramePesquisaSubGrupoItem();
-        tela_busca.setModal(true);
-        //exibe
-        tela_busca.setVisible(true);
-        //recupera os dados
-        SubGrupoItem s = new SubGrupoItem();
-        s = tela_busca.retornaSubGrupoItem();
-        setSubGrupoItem(s);
-        //seta na tela
-        if (getSubGrupoItem() != null) {
-            jtfSubGrupoItem.setText(s.getDescricao());
+        if (getGrupoColaborador() != null) {
+            jtfGrupoColaborador.setText(grupoColaborador.getDescricao());
         }
     }
 }
