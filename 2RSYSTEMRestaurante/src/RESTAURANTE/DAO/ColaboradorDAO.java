@@ -13,5 +13,6 @@ public interface ColaboradorDAO {
     Integer buscaIdMaio();
     List<Colaborador> buscarTodos();
     List<Colaborador> buscarPorNome(String nome);
+    List<Colaborador> buscarParametrosRelatorio(Integer grupoColaborador);
     
 }

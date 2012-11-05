@@ -217,4 +217,40 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
         }
         return colaboradores;
     }
+
+    @Override
+    public List<Colaborador> buscarParametrosRelatorio(Integer grupoColaborador) {
+        Colaborador colaborador = null;
+        List<Colaborador> colaboradores = new ArrayList<Colaborador>();
+        GrupoColaboradorDAO grupoColaboradoresDao = new GrupoColaboradorDAOIMPL();
+        PessoaDAO pessoaDao = new PessoaDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from colaborador where grupoColaboradores_codigo = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, grupoColaborador);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                colaborador = new Colaborador();
+                colaborador.setCodigo(rs.getInt("codigo"));
+                colaborador.setCpf(rs.getString("cpf"));
+                colaborador.setRg(rs.getString("rg"));
+                colaborador.setDataNascimento(rs.getDate("dataNascimento"));
+                colaborador.setDataContradacao(rs.getDate("dataContradacao"));
+                colaborador.setDataDemissao(rs.getDate("dataDemissao"));
+                colaborador.setGrupoColaborador(grupoColaboradoresDao.buscaPorId(rs.getInt("grupoColaboradores_codigo")));
+                colaborador.setSalario(rs.getFloat("salario"));
+                colaborador.setPessoa(pessoaDao.buscarPorCodigo(rs.getInt("pessoa_codigo")));
+                colaboradores.add(colaborador);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return colaboradores;
+    
+    }
+    
 }
