@@ -401,7 +401,6 @@ public class FrameCompra extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new FrameCompra().setVisible(true);
             }
@@ -527,10 +526,9 @@ public class FrameCompra extends javax.swing.JFrame {
     }
 
     public void inserirLinha() {
+        int linha = jtbProdutosCompra.getSelectedRow();
         ((DefaultTableModel) jtbProdutosCompra.getModel()).addRow(new Vector());
-        int linha = jtbProdutosCompra.getRowCount() - 1;
-        int coluna = 0;
+        int coluna = -1;
         jtbProdutosCompra.changeSelection(linha, coluna, false, false);
-
     }
 }
