@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package FRAME;
 
 import RESTAURANTE.DAO.CompraDAO;
@@ -11,12 +7,14 @@ import RESTAURANTE.DAO.ProdutoDAO;
 import RESTAURANTE.DAO.ProdutoDaCompraDAO;
 import RESTAURANTE.MODEL.*;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
@@ -326,17 +324,17 @@ public class FrameCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-
+        //insere compra
+        try{
         compra.setCodigo(Integer.valueOf(jtfCodigo.getText()));
         compra.setDataCompra(jdcDataCompra.getDate());
-
-
-        System.out.println(compra.getDataCompra());
-        System.out.println(compra.getFornecedor());
-
-
-        //compraDao.inserir(compra);
-
+        
+        compraDao.inserir(compra);
+            JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso");
+            novaCompra();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Campo não preenchido \n" + e.getMessage());
+        }
 
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
@@ -547,5 +545,9 @@ public class FrameCompra extends javax.swing.JFrame {
         ((DefaultTableModel) jtbProdutosCompra.getModel()).addRow(new Vector());
         int coluna = -1;
         jtbProdutosCompra.changeSelection(linha, coluna, false, false);
+    }
+    
+    private void defineSaldoEstoque(){
+        produtoDaCompra.getProduto().setSaldoEstoque(produtoDaCompra.getQuantidade());
     }
 }
