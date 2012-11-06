@@ -26,10 +26,10 @@ public class FrameCompra extends javax.swing.JFrame {
         initComponents();
         novaCompra();
         tableModel = new DefaultTableModel();
-        inserirLinha();
         compraDao = new CompraDAOIMPL();
         produtoDaCompraDao = new ProdutoDaCompraDAOIMPL();
         produtosDaCompra = new ArrayList<ProdutosDaCompra>();
+
     }
 
     /**
@@ -137,6 +137,8 @@ public class FrameCompra extends javax.swing.JFrame {
         jtbProdutosCompra.getColumnModel().getColumn(3).setResizable(false);
         jtbProdutosCompra.getColumnModel().getColumn(4).setResizable(false);
 
+        jtfValorCompra.setEditable(false);
+
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Valor da Compra");
 
@@ -153,8 +155,7 @@ public class FrameCompra extends javax.swing.JFrame {
                         .addGap(753, 753, 753)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtfValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jtfValorCompra))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,6 +179,7 @@ public class FrameCompra extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jtfColaborador.setEditable(false);
         jtfColaborador.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         jbtColaborador.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -188,6 +190,7 @@ public class FrameCompra extends javax.swing.JFrame {
             }
         });
 
+        jtfFornecedor.setEditable(false);
         jtfFornecedor.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         jbtPesquisaFornecedor.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -339,7 +342,7 @@ public class FrameCompra extends javax.swing.JFrame {
 
     private void jtbProdutosCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbProdutosCompraKeyPressed
 
-        //pega o botão enter mas aplica função da tecla tab
+        //pega tecla enter mas aplica função da tecla tab
         InputMap imap = jtbProdutosCompra.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         imap.put(KeyStroke.getKeyStroke("pressed ENTER"), "selectNextColumnCell");
 
@@ -347,18 +350,24 @@ public class FrameCompra extends javax.swing.JFrame {
         int coluna = jtbProdutosCompra.getSelectedColumn();
         //seta o foco na celula que esta sendo editada
         jtbProdutosCompra.setSurrendersFocusOnKeystroke(true);
+        //se for precionado F3 abre tela de pesquisa de produto
         if (evt.getKeyCode() == 114) {
             buscaProduto();
-        } else if (evt.getKeyCode() == KeyEvent.VK_ENTER && jtbProdutosCompra.getSelectedColumn() == 2) {
+        } //se houver um enter na coluna 2 seta a quantidade no produto
+        else if (evt.getKeyCode() == KeyEvent.VK_ENTER && jtbProdutosCompra.getSelectedColumn() == 2) {
             Object qtd = jtbProdutosCompra.getValueAt(linha, coluna);
             produtoDaCompra.setQuantidade(Float.parseFloat(String.valueOf(qtd)));
-        } else if (evt.getKeyCode() == KeyEvent.VK_ENTER && jtbProdutosCompra.getSelectedColumn() == 3) {
+        } //se houver um enter na coluna 3 seta o valor UN do produto e calcula o total para a coluna 4
+        else if (evt.getKeyCode() == KeyEvent.VK_ENTER && jtbProdutosCompra.getSelectedColumn() == 3) {
             Object unit = jtbProdutosCompra.getValueAt(linha, coluna);
             produtoDaCompra.setValorUnitario(Float.parseFloat(String.valueOf(unit)));
             jtbProdutosCompra.setValueAt(calculaTotalDoProduto(), linha, 4);
-        } else if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 4) {
+        } //se houver um enter na coluna 4 adiciona o item da linha na lista, cria nova linha e calcula o total da venda
+        else if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 4) {
             produtosDaCompra.add(produtoDaCompra);
             inserirLinha();
+
+            jtfValorCompra.setText(String.valueOf(calculaTotalCompra()));
         }
 
     }//GEN-LAST:event_jtbProdutosCompraKeyPressed
@@ -401,6 +410,7 @@ public class FrameCompra extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new FrameCompra().setVisible(true);
             }
@@ -449,6 +459,8 @@ public class FrameCompra extends javax.swing.JFrame {
     private void novaCompra() {
         setCompra(new Compra(new Fornecedor(), new Colaborador(), new ArrayList<ProdutosDaCompra>()));
         limpaCampos();
+        inserirLinha();
+        compra.setValorCompra(0f);
     }
 
     private void limpaCampos() {
@@ -525,7 +537,12 @@ public class FrameCompra extends javax.swing.JFrame {
         return produtoDaCompra.getValorTotal();
     }
 
-    public void inserirLinha() {
+    private Float calculaTotalCompra() {
+        compra.setValorCompra(produtoDaCompra.getValorTotal() + compra.getValorCompra());
+        return compra.getValorCompra();
+    }
+
+    private void inserirLinha() {
         int linha = jtbProdutosCompra.getSelectedRow();
         ((DefaultTableModel) jtbProdutosCompra.getModel()).addRow(new Vector());
         int coluna = -1;
