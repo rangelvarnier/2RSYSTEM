@@ -10,18 +10,15 @@ import RESTAURANTE.DAO.IMPL.ProdutoDaCompraDAOIMPL;
 import RESTAURANTE.DAO.ProdutoDAO;
 import RESTAURANTE.DAO.ProdutoDaCompraDAO;
 import RESTAURANTE.MODEL.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
+import java.util.Vector;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 public class FrameCompra extends javax.swing.JFrame {
 
@@ -29,6 +26,7 @@ public class FrameCompra extends javax.swing.JFrame {
         initComponents();
         novaCompra();
         tableModel = new DefaultTableModel();
+        inserirLinha();
         compraDao = new CompraDAOIMPL();
         produtoDaCompraDao = new ProdutoDaCompraDAOIMPL();
         produtosDaCompra = new ArrayList<ProdutosDaCompra>();
@@ -67,7 +65,6 @@ public class FrameCompra extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Compra de Mercadoria");
-        setLocation(new java.awt.Point(200, 100));
         setResizable(false);
 
         jbtNovo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -91,6 +88,11 @@ public class FrameCompra extends javax.swing.JFrame {
 
         jbtExcluir.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtExcluir.setText("Excluir");
+        jbtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtExcluirActionPerformed(evt);
+            }
+        });
 
         jbtSair.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtSair.setText("Sair");
@@ -107,7 +109,7 @@ public class FrameCompra extends javax.swing.JFrame {
 
         jtbProdutosCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Produto", "Quantidade", "Valor UN", "Valor Total"
@@ -146,22 +148,24 @@ public class FrameCompra extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(753, 753, 753)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtfValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 940, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(753, 753, 753)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtfValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 940, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -335,6 +339,10 @@ public class FrameCompra extends javax.swing.JFrame {
 
     private void jtbProdutosCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbProdutosCompraKeyPressed
 
+        //pega o botão enter mas aplica função da tecla tab
+        InputMap imap = jtbProdutosCompra.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        imap.put(KeyStroke.getKeyStroke("pressed ENTER"), "selectNextColumnCell");
+
         int linha = jtbProdutosCompra.getSelectedRow();
         int coluna = jtbProdutosCompra.getSelectedColumn();
         //seta o foco na celula que esta sendo editada
@@ -350,11 +358,13 @@ public class FrameCompra extends javax.swing.JFrame {
             jtbProdutosCompra.setValueAt(calculaTotalDoProduto(), linha, 4);
         } else if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 4) {
             produtosDaCompra.add(produtoDaCompra);
-            // tableModel.insertRow(linha+1, new Object[1]);
-
-
+            inserirLinha();
         }
+
     }//GEN-LAST:event_jtbProdutosCompraKeyPressed
+
+    private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
+    }//GEN-LAST:event_jbtExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -391,6 +401,7 @@ public class FrameCompra extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new FrameCompra().setVisible(true);
             }
@@ -513,5 +524,13 @@ public class FrameCompra extends javax.swing.JFrame {
         total = quant * preco;
         produtoDaCompra.setValorTotal(total);
         return produtoDaCompra.getValorTotal();
+    }
+
+    public void inserirLinha() {
+        ((DefaultTableModel) jtbProdutosCompra.getModel()).addRow(new Vector());
+        int linha = jtbProdutosCompra.getRowCount() - 1;
+        int coluna = 0;
+        jtbProdutosCompra.changeSelection(linha, coluna, false, false);
+
     }
 }

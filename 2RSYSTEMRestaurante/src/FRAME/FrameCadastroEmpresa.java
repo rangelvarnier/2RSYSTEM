@@ -85,7 +85,6 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Empresa");
-        setLocation(new java.awt.Point(200, 100));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
@@ -341,8 +340,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                             .add(jLabel29)
-                                            .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                        .add(0, 0, Short.MAX_VALUE))))
+                                            .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jLabel27)
@@ -645,6 +643,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new FrameCadastroEmpresa().setVisible(true);
             }
@@ -734,7 +733,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         setEmpresas(empresaDao.buscarTodos());
     }
 
-    public void atualizarCBUF() {
+    private void atualizarCBUF() {
         unidadesfederativas = unidadefederativaDao.buscarTodos();
         for (UnidadeFederativa un : unidadesfederativas) {
             jcbUF.addItem(un);
@@ -744,7 +743,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
 
     }
 
-    public void atualizaCBCidade() {
+    private void atualizaCBCidade() {
 
         jcbCidade.removeAllItems();
         cidades = null;
