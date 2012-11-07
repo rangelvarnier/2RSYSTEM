@@ -63,7 +63,7 @@ public class CompraDAOIMPL implements CompraDAO {
     public void remover(Compra compra) {
         Connection con = new Conexao().criarConexao();
         String sql = "delete from compra"
-                + " where codigo = ?)";
+                + " where codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, compra.getCodigo());

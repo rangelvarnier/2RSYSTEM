@@ -11,6 +11,8 @@ public interface ProdutoDaCompraDAO {
 
     void remover(ProdutosDaCompra produtosDaCompra);
 
+    void removerAllProdutosDaCompra(ProdutosDaCompra produtosDaCompra);
+    
     ProdutosDaCompra buscarPorCodigo(Integer codigo);
 
     List<ProdutosDaCompra> buscarTodos();

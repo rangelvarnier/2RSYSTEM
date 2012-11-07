@@ -56,7 +56,7 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
 
     @Override
     public void remover(ProdutosDaCompra produtosDaCompra) {
-     Connection con = new Conexao().criarConexao();
+        Connection con = new Conexao().criarConexao();
         String sql = "delete from produtosdacompra "
                 + "where produto_codigo = ? and codigo_compra = ?";
         try {
@@ -78,12 +78,12 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
         ProdutoDAO produtoDao = new ProdutoDAOIMPL();
         Connection con = new Conexao().criarConexao();
         String sql = "select * from produtosdacompra where codigo = ?";
-        
+
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, codigo);
             ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 produtoDaCompra = new ProdutosDaCompra();
                 produtoDaCompra.setCompra(compraDao.buscarPorCodigo(rs.getInt("compra_codigo")));
                 produtoDaCompra.setProduto(produtoDao.buscarPorCodigo(rs.getInt("produto_codigo")));
@@ -104,11 +104,11 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
         ProdutoDAO produtoDao = new ProdutoDAOIMPL();
         Connection con = new Conexao().criarConexao();
         String sql = "select * from produtosdacompra";
-        
+
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 ProdutosDaCompra produtoDaCompra = new ProdutosDaCompra();
                 produtoDaCompra.setCompra(compraDao.buscarPorCodigo(rs.getInt("compra_codigo")));
                 produtoDaCompra.setProduto(produtoDao.buscarPorCodigo(rs.getInt("produto_codigo")));
@@ -123,4 +123,18 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
         return produtosDaCompra;
     }
 
+    @Override
+    public void removerAllProdutosDaCompra(ProdutosDaCompra produtosDaCompra) {
+        Connection con = new Conexao().criarConexao();
+        String sql = "delete from produtosdacompra where compra_codigo =?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+           
+            stmt.setInt(1, produtosDaCompra.getCompra().getCodigo());
+
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

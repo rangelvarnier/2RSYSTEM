@@ -327,18 +327,18 @@ public class FrameCompra extends javax.swing.JFrame {
         try {
             compra.setCodigo(Integer.valueOf(jtfCodigo.getText()));
             compra.setDataCompra(jdcDataCompra.getDate());
-            
+
             compraDao.inserir(compra);
-           
-            
+
+
             for (ProdutosDaCompra prod : this.produtosDaCompra) {
                 prod.setCompra(compra);
                 produtoDaCompraDao.inserir(prod);
             }
-            
+
             JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso");
-           
-        } catch (Exception e ) {
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Campo não preenchido \n" + e.getMessage());
         }
 
@@ -378,6 +378,8 @@ public class FrameCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbProdutosCompraKeyPressed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
+        produtoDaCompraDao.removerAllProdutosDaCompra(produtoDaCompra);
+        compraDao.remover(compra);
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     /**
