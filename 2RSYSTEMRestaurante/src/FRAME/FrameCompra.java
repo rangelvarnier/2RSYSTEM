@@ -7,7 +7,6 @@ import RESTAURANTE.DAO.ProdutoDAO;
 import RESTAURANTE.DAO.ProdutoDaCompraDAO;
 import RESTAURANTE.MODEL.*;
 import java.awt.event.KeyEvent;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -325,16 +324,23 @@ public class FrameCompra extends javax.swing.JFrame {
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
         //insere compra
-        try{
-        compra.setCodigo(Integer.valueOf(jtfCodigo.getText()));
-        compra.setDataCompra(jdcDataCompra.getDate());
-        
-        compraDao.inserir(compra);
+        try {
+            compra.setCodigo(Integer.valueOf(jtfCodigo.getText()));
+            compra.setDataCompra(jdcDataCompra.getDate());
+
+            compraDao.inserir(compra);
+            for (ProdutosDaCompra prod : this.produtosDaCompra) {
+                prod.setCompra(compra);
+                produtoDaCompraDao.inserir(prod);
+            }
+            
             JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso");
             novaCompra();
-        }catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Campo não preenchido \n" + e.getMessage());
         }
+
+
 
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
@@ -408,7 +414,6 @@ public class FrameCompra extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new FrameCompra().setVisible(true);
             }
@@ -546,8 +551,8 @@ public class FrameCompra extends javax.swing.JFrame {
         int coluna = -1;
         jtbProdutosCompra.changeSelection(linha, coluna, false, false);
     }
-    
-    private void defineSaldoEstoque(){
+
+    private void defineSaldoEstoque() {
         produtoDaCompra.getProduto().setSaldoEstoque(produtoDaCompra.getQuantidade());
     }
 }
