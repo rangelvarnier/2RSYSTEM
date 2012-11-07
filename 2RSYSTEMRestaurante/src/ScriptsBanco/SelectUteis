@@ -11,3 +11,10 @@ WHERE uf.sigla = 'SP';
 
 #--pesquisa todos os estados
 select * from unidadefederativa;
+
+
+#-- pesquisa compra
+SELECT * FROM COMPRA c 
+join produtosdacompra p
+where c.codigo =5
+and p.compra_codigo =5;

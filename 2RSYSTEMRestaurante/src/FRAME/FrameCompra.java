@@ -7,6 +7,7 @@ import RESTAURANTE.DAO.ProdutoDAO;
 import RESTAURANTE.DAO.ProdutoDaCompraDAO;
 import RESTAURANTE.MODEL.*;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -318,8 +319,7 @@ public class FrameCompra extends javax.swing.JFrame {
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
         novaCompra();
-        limpaCampos();
-
+        produtosDaCompra.removeAll(produtosDaCompra);
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
@@ -327,16 +327,18 @@ public class FrameCompra extends javax.swing.JFrame {
         try {
             compra.setCodigo(Integer.valueOf(jtfCodigo.getText()));
             compra.setDataCompra(jdcDataCompra.getDate());
-
+            
             compraDao.inserir(compra);
+           
+            
             for (ProdutosDaCompra prod : this.produtosDaCompra) {
                 prod.setCompra(compra);
                 produtoDaCompraDao.inserir(prod);
             }
             
             JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso");
-            novaCompra();
-        } catch (Exception e) {
+           
+        } catch (Exception e ) {
             JOptionPane.showMessageDialog(null, "Campo não preenchido \n" + e.getMessage());
         }
 
@@ -349,7 +351,7 @@ public class FrameCompra extends javax.swing.JFrame {
         //pega tecla enter mas aplica função da tecla tab
         InputMap imap = jtbProdutosCompra.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         imap.put(KeyStroke.getKeyStroke("pressed ENTER"), "selectNextColumnCell");
-
+        //identifica o indice da linha e coluna
         int linha = jtbProdutosCompra.getSelectedRow();
         int coluna = jtbProdutosCompra.getSelectedColumn();
         //seta o foco na celula que esta sendo editada
@@ -370,7 +372,6 @@ public class FrameCompra extends javax.swing.JFrame {
         else if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 4) {
             produtosDaCompra.add(produtoDaCompra);
             inserirLinha();
-
             jtfValorCompra.setText(String.valueOf(calculaTotalCompra()));
         }
 
@@ -414,6 +415,7 @@ public class FrameCompra extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new FrameCompra().setVisible(true);
             }
@@ -462,7 +464,6 @@ public class FrameCompra extends javax.swing.JFrame {
     private void novaCompra() {
         setCompra(new Compra(new Fornecedor(), new Colaborador(), new ArrayList<ProdutosDaCompra>()));
         limpaCampos();
-        inserirLinha();
         compra.setValorCompra(0f);
     }
 
@@ -472,6 +473,7 @@ public class FrameCompra extends javax.swing.JFrame {
         jtfFornecedor.setText("");
         jtfColaborador.setText("");
         jtfValorCompra.setText("");
+        limpaTabela();
     }
 
     public void buscaFornecedor() {
@@ -550,6 +552,12 @@ public class FrameCompra extends javax.swing.JFrame {
         ((DefaultTableModel) jtbProdutosCompra.getModel()).addRow(new Vector());
         int coluna = -1;
         jtbProdutosCompra.changeSelection(linha, coluna, false, false);
+    }
+
+    private void limpaTabela() {
+        ((DefaultTableModel) jtbProdutosCompra.getModel()).setNumRows(0);
+        jtbProdutosCompra.updateUI();
+        inserirLinha();
     }
 
     private void defineSaldoEstoque() {

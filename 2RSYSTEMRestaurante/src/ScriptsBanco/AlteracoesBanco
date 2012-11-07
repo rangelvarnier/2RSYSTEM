@@ -76,3 +76,8 @@ ALTER TABLE `2rsitem`.`produto`
 CHANGE COLUMN `precoVenda` `precoVenda` FLOAT NULL DEFAULT 0  , 
 CHANGE COLUMN `precoCompra` `precoCompra` FLOAT NULL DEFAULT 0  ,
 CHANGE COLUMN `saldoEstoque` `saldoEstoque` FLOAT NULL DEFAULT 0  ;
+
+
+//remove as chaves primarias da tabela produtosdacompra
+ALTER TABLE `2rsitem`.`produtosdacompra` 
+DROP PRIMARY KEY ;
