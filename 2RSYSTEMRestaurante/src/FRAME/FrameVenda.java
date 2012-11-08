@@ -27,12 +27,12 @@ public class FrameVenda extends javax.swing.JFrame {
 
     public FrameVenda() {
         initComponents();
-        novaVenda();
         vendaDao = new VendaDAOIMPL();
         tableModel = new DefaultTableModel();
         produtoDao = new ProdutoDAOIMPL();
         produtosDaVendaDao = new produtosDaVendaDAOIMPL();
         produtosDasVendas = new ArrayList<ProdutosDaVenda>();
+        novaVenda();
     }
 
     @SuppressWarnings("unchecked")
@@ -41,7 +41,7 @@ public class FrameVenda extends javax.swing.JFrame {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jbtCancelar = new javax.swing.JButton();
+        jbtSair = new javax.swing.JButton();
         jbtNovo = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jpn1 = new javax.swing.JPanel();
@@ -63,6 +63,7 @@ public class FrameVenda extends javax.swing.JFrame {
         jbtExcluir1 = new javax.swing.JButton();
         jlbValorTotalVenda = new javax.swing.JLabel();
         jbtSalvar = new javax.swing.JButton();
+        jbtCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Venda de Mercadoria");
@@ -70,11 +71,11 @@ public class FrameVenda extends javax.swing.JFrame {
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setResizable(false);
 
-        jbtCancelar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtCancelar.setText("Sair");
-        jbtCancelar.addActionListener(new java.awt.event.ActionListener() {
+        jbtSair.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jbtSair.setText("Sair");
+        jbtSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtCancelarActionPerformed(evt);
+                jbtSairActionPerformed(evt);
             }
         });
 
@@ -128,6 +129,15 @@ public class FrameVenda extends javax.swing.JFrame {
 
         jtfCodigo.setEditable(false);
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${venda.codigo}"), jtfCodigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jtfCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfCodigoActionPerformed(evt);
+            }
+        });
 
         jbtPesquisaVendedor.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtPesquisaVendedor.setText("Buscar");
@@ -235,7 +245,12 @@ public class FrameVenda extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
 
         jbtExcluir1.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtExcluir1.setText("Excluir");
+        jbtExcluir1.setText("Excluir Produto");
+        jbtExcluir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtExcluir1ActionPerformed(evt);
+            }
+        });
 
         jlbValorTotalVenda.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
 
@@ -258,11 +273,11 @@ public class FrameVenda extends javax.swing.JFrame {
                         .add(jbtSalvar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 179, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jbtExcluir1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 183, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 288, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(jLabel9)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jlbValorTotalVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 119, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane2))
+                        .add(jlbValorTotalVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jScrollPane2))
                 .addContainerGap())
             .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(jPanel1Layout.createSequentialGroup()
@@ -291,25 +306,34 @@ public class FrameVenda extends javax.swing.JFrame {
                     .add(0, 210, Short.MAX_VALUE)))
         );
 
+        jbtCancelar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jbtCancelar.setText("Cancelar");
+        jbtCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtCancelarActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
+                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(layout.createSequentialGroup()
+                        .add(jbtNovo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jbtCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jbtSair, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(0, 0, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(0, 0, Short.MAX_VALUE)
-                        .add(jLabel1))
-                    .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                                .add(jbtNovo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jbtCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(0, 0, Short.MAX_VALUE))))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jpn1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel1)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jpn1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -324,6 +348,7 @@ public class FrameVenda extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jbtNovo)
+                    .add(jbtSair)
                     .add(jbtCancelar)))
         );
 
@@ -332,11 +357,11 @@ public class FrameVenda extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
+    private void jbtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSairActionPerformed
 
         dispose();
         
-    }//GEN-LAST:event_jbtCancelarActionPerformed
+    }//GEN-LAST:event_jbtSairActionPerformed
 
     private void jtfClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfClienteActionPerformed
         // TODO add your handling code here:
@@ -367,7 +392,7 @@ public class FrameVenda extends javax.swing.JFrame {
                 prod.setVenda_codigo(venda);
                 produtosDaVendaDao.inserir(prod);
             }
-            
+            novaVenda();
             JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso");
            
         } catch (Exception e ) {
@@ -407,6 +432,18 @@ public class FrameVenda extends javax.swing.JFrame {
             jlbValorTotalVenda.setText(String.valueOf(calculaTotalCompra()));
         }
     }//GEN-LAST:event_jtbVendaKeyPressed
+
+    private void jtfCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoActionPerformed
+        
+    }//GEN-LAST:event_jtfCodigoActionPerformed
+
+    private void jbtExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluir1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtExcluir1ActionPerformed
+
+    private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -459,6 +496,7 @@ public class FrameVenda extends javax.swing.JFrame {
     private javax.swing.JButton jbtNovo;
     private javax.swing.JButton jbtPesquisaCliente;
     private javax.swing.JButton jbtPesquisaVendedor;
+    private javax.swing.JButton jbtSair;
     private javax.swing.JButton jbtSalvar;
     private com.toedter.calendar.JDateChooser jftData;
     private javax.swing.JLabel jlbValorTotalVenda;
@@ -490,6 +528,16 @@ public class FrameVenda extends javax.swing.JFrame {
         setVenda(new Venda(new Parceiro(), new Colaborador(), new ArrayList<ProdutosDaVenda>()));
         limpaCampos();
         venda.setValorVenda(0f);
+        setarCodigo();
+    }
+     
+    private void setarCodigo(){
+        if (vendaDao.buscaIdMaio() == null) {
+            venda.setCodigo(1);
+        } else {
+            venda.setCodigo(vendaDao.buscaIdMaio() + 1);
+        }
+        jtfCodigo.setText(venda.getCodigo().toString());
     }
 
     private void limpaCampos() {

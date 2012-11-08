@@ -7,7 +7,6 @@ import RESTAURANTE.DAO.ProdutoDAO;
 import RESTAURANTE.DAO.ProdutoDaCompraDAO;
 import RESTAURANTE.MODEL.*;
 import java.awt.event.KeyEvent;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -61,8 +60,9 @@ public class FrameCompra extends javax.swing.JFrame {
         jtfCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Compra de Mercadoria");
+        setLocation(new java.awt.Point(200, 100));
         setResizable(false);
 
         jbtNovo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N

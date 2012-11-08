@@ -69,6 +69,11 @@ public class Venda {
     public void setColaborador_codigo(Colaborador colaborador_codigo) {
         this.colaborador_codigo = colaborador_codigo;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(codigo);
+    }
     
     
 }
