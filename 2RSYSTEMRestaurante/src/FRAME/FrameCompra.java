@@ -59,10 +59,10 @@ public class FrameCompra extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jtfCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jbtPesquisarCompra = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Compra de Mercadoria");
-        setLocation(new java.awt.Point(200, 100));
         setResizable(false);
 
         jbtNovo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -207,6 +207,13 @@ public class FrameCompra extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel2.setText("Código");
 
+        jbtPesquisarCompra.setText("Pesquisar Compra");
+        jbtPesquisarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtPesquisarCompraActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -228,9 +235,14 @@ public class FrameCompra extends javax.swing.JFrame {
                     .addComponent(jbtPesquisaFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtfColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jtfColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jbtColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbtPesquisarCompra)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,14 +258,16 @@ public class FrameCompra extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jdcDataCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jbtColaborador)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbtColaborador)
+                            .addComponent(jbtPesquisarCompra))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jtfColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jtfFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(16, 16, 16))
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -392,6 +406,10 @@ public class FrameCompra extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
+    private void jbtPesquisarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarCompraActionPerformed
+        buscarCompra();
+    }//GEN-LAST:event_jbtPesquisarCompraActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -447,6 +465,7 @@ public class FrameCompra extends javax.swing.JFrame {
     private javax.swing.JButton jbtExcluir;
     private javax.swing.JButton jbtNovo;
     private javax.swing.JButton jbtPesquisaFornecedor;
+    private javax.swing.JButton jbtPesquisarCompra;
     private javax.swing.JButton jbtSair;
     private javax.swing.JButton jbtSalvar;
     private com.toedter.calendar.JDateChooser jdcDataCompra;
@@ -543,6 +562,38 @@ public class FrameCompra extends javax.swing.JFrame {
         }
     }
 
+    public void buscarCompra() {
+        //cria a tela de busca como modal
+        FramePesquisaCompra tela_busca = new FramePesquisaCompra();
+        tela_busca.setModal(true);
+        //exibe
+        tela_busca.setVisible(true);
+        //recupera os dados
+        Compra comp = new Compra();
+        comp = tela_busca.retornaCompra();
+        //seta na tela
+        if (comp != null) {
+            this.compra.setCodigo(comp.getCodigo());
+            this.compra.setDataCompra(comp.getDataCompra());
+            this.compra.setFornecedor(comp.getFornecedor());
+            this.compra.setColaborador(comp.getColaborador());
+            
+            jtfCodigo.setText(String.valueOf(compra.getCodigo()));
+            jdcDataCompra.setDate(compra.getDataCompra());
+            jtfFornecedor.setText(compra.getFornecedor().getPessoa().getNome());
+            jtfColaborador.setText(compra.getColaborador().getPessoa().getNome());
+            
+            compra = compraDao.buscarPorCodigo(compra.getCodigo());
+            System.out.println(compra.getCodigo());
+            //produtosDaCompra = produtoDaCompraDao.buscarPorCompra(compra);
+            //for (ProdutosDaCompra produtosDaCompra1 : produtosDaCompra) {
+            //    System.out.println(
+            //    produtosDaCompra1.getProduto().getDescricao());
+           // }
+ 
+        }
+    }
+
     private Float calculaTotalDoProduto() {
         Float preco;
         Float quant;
@@ -570,9 +621,5 @@ public class FrameCompra extends javax.swing.JFrame {
         ((DefaultTableModel) jtbProdutosCompra.getModel()).setNumRows(0);
         jtbProdutosCompra.updateUI();
         inserirLinha();
-    }
-
-    private void defineSaldoEstoque() {
-        produtoDaCompra.getProduto().setSaldoEstoque(produtoDaCompra.getQuantidade());
     }
 }

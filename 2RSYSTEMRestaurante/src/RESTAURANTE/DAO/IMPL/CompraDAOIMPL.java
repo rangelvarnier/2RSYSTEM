@@ -14,7 +14,10 @@ public class CompraDAOIMPL implements CompraDAO {
     @Override
     public void inserir(Compra compra) {
         Connection con = new Conexao().criarConexao();
-        String sql = "insert into compra value(?, ?, ?, ?, ?)";
+        String sql ="insert into compra(codigo, dataCompra, valorCompra,"
+                + " fornecedor_codigo, colaborador_codigo)"
+                + " values (?, ?, ?, ?, ?);"; 
+                //"insert into compra value(?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -27,7 +30,7 @@ public class CompraDAOIMPL implements CompraDAO {
             stmt.setFloat(3, compra.getValorCompra());
             stmt.setInt(4, compra.getFornecedor().getCodigo());
             stmt.setInt(5, compra.getColaborador().getCodigo());
-
+            
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -79,19 +82,19 @@ public class CompraDAOIMPL implements CompraDAO {
         FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
         ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from Compra"
-                + "where codigo = ?";
-        
+        String sql = "select codigo, dataCompra, valorCompra, fornecedor_codigo, colaborado_codigo from compra"
+                + "where codigo =?";
+
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, codigo);
             ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 compra = new Compra();
                 compra.setCodigo(rs.getInt("codigo"));
                 compra.setDataCompra(rs.getDate("dataCompra"));
                 compra.setValorCompra(rs.getFloat("valorCompra"));
-                compra.setFornecedor(fornecedorDao.buscaPorId(rs.getInt("fornecedo_codigo")));
+                compra.setFornecedor(fornecedorDao.buscaPorId(rs.getInt("fornecedor_codigo")));
                 compra.setColaborador(colaboradorDao.buscaPorId(rs.getInt("colaborador_codigo")));
             }
         } catch (SQLException ex) {
@@ -102,16 +105,43 @@ public class CompraDAOIMPL implements CompraDAO {
 
     @Override
     public List<Compra> buscarTodos() {
-             List<Compra> compras = new ArrayList<>();
+        List<Compra> compras = new ArrayList<>();
         FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
         ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
         Connection con = new Conexao().criarConexao();
         String sql = "select * from Compra";
-        
+
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
+                Compra compra = new Compra();
+                compra.setCodigo(rs.getInt("codigo"));
+                compra.setDataCompra(rs.getDate("dataCompra"));
+                compra.setValorCompra(rs.getFloat("valorCompra"));
+                compra.setFornecedor(fornecedorDao.buscaPorId(rs.getInt("fornecedor_codigo")));
+                compra.setColaborador(colaboradorDao.buscaPorId(rs.getInt("colaborador_codigo")));
+                compras.add(compra);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return compras;
+    }
+
+    @Override
+    public List<Compra> buscarCampoPesquisa(String parametro) {
+        List<Compra> compras = new ArrayList<>();
+        FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
+        ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from compra where pesquisa like ?";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, "%" + parametro + "%");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
                 Compra compra = new Compra();
                 compra.setCodigo(rs.getInt("codigo"));
                 compra.setDataCompra(rs.getDate("dataCompra"));

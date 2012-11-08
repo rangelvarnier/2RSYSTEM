@@ -88,6 +88,11 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
         });
 
         jtfPesquisar.setToolTipText("Busca por: Fornecedor, data, colaborador, documento");
+        jtfPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfPesquisarActionPerformed(evt);
+            }
+        });
 
         jbtConfirmar.setText("Confirmar");
         jbtConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -162,11 +167,7 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
-        //  setCompras(compraDao.buscarPorCodigo(Integer.valueOf(jtfPesquisar.getText())));
-        //  if (compraDao.buscarPorCodigo(jtfPesquisar.getText()).isEmpty()) {
-        //  } else {
-        //      jtbCompras.addRowSelectionInterval(0, 0);
-        //  }
+        executaPesquisa();
     }//GEN-LAST:event_jbtPesquisarActionPerformed
 
     private void jtbComprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbComprasMouseClicked
@@ -175,6 +176,10 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
             dispose();
         }
     }//GEN-LAST:event_jtbComprasMouseClicked
+
+    private void jtfPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPesquisarActionPerformed
+        executaPesquisa();
+    }//GEN-LAST:event_jtfPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,5 +264,13 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
 
     public Compra retornaCompra() {
         return this.compra;
+    }
+
+    private void executaPesquisa() {
+        setCompras(compraDao.buscarCampoPesquisa(jtfPesquisar.getText()));
+        if (compraDao.buscarCampoPesquisa(jtfPesquisar.getText()).isEmpty()) {
+        } else {
+            jtbCompras.addRowSelectionInterval(0, 0);
+        }
     }
 }

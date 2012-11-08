@@ -4,6 +4,7 @@ import RESTAURANTE.DAO.CompraDAO;
 import RESTAURANTE.DAO.ProdutoDAO;
 import RESTAURANTE.DAO.ProdutoDaCompraDAO;
 import RESTAURANTE.DAO.UTIL.Conexao;
+import RESTAURANTE.MODEL.Compra;
 import RESTAURANTE.MODEL.ProdutosDaCompra;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -77,7 +78,7 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
         CompraDAO compraDao = new CompraDAOIMPL();
         ProdutoDAO produtoDao = new ProdutoDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from produtosdacompra where codigo = ?";
+        String sql = "select * from produtosdacompra where compra_codigo = ?";
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -129,12 +130,40 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
         String sql = "delete from produtosdacompra where compra_codigo =?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-           
+
             stmt.setInt(1, produtosDaCompra.getCompra().getCodigo());
 
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public List<ProdutosDaCompra> buscarPorCompra(Compra compra) {
+        List<ProdutosDaCompra> produtosDaCompra = new ArrayList<ProdutosDaCompra>();
+        CompraDAO compraDao = new CompraDAOIMPL();
+        ProdutoDAO produtoDao = new ProdutoDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from produtosdacompra where compra_codigo =?";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            System.out.println(compra.getCodigo());
+            stmt.setInt(1, compra.getCodigo());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                ProdutosDaCompra produtoDaCompra = new ProdutosDaCompra();
+                produtoDaCompra.setCompra(compraDao.buscarPorCodigo(rs.getInt("compra_codigo")));
+                produtoDaCompra.setProduto(produtoDao.buscarPorCodigo(rs.getInt("produto_codigo")));
+                produtoDaCompra.setQuantidade(rs.getFloat("quantidade"));
+                produtoDaCompra.setValorUnitario(rs.getFloat("valorUnitario"));
+                produtoDaCompra.setValorTotal(rs.getFloat("valorTotal"));
+                produtosDaCompra.add(produtoDaCompra);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return produtosDaCompra;
     }
 }

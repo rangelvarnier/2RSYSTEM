@@ -22,4 +22,6 @@ public interface CompraDAO {
     Compra buscarPorCodigo(Integer codigo);
 
     List<Compra> buscarTodos();
+    
+    List<Compra> buscarCampoPesquisa(String parametro);
 }

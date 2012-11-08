@@ -81,3 +81,44 @@ CHANGE COLUMN `saldoEstoque` `saldoEstoque` FLOAT NULL DEFAULT 0  ;
 //remove as chaves primarias da tabela produtosdacompra
 ALTER TABLE `2rsitem`.`produtosdacompra` 
 DROP PRIMARY KEY ;
+
+//cria campo pesquisa na tabela compra
+ALTER TABLE `2rsitem`.`compra` ADD COLUMN `pesquisa` VARCHAR(150) NULL  AFTER `colaborador_codigo` ;
+
+//triger para adicionar na campo pesquisa conforme foi inserindo novas compras
+
+-- Trigger DDL Statements
+DELIMITER $$
+
+USE `2rsitem`$$
+
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `2rsitem`.`INSERT_BI`
+BEFORE INSERT ON `2rsitem`.`compra`
+FOR EACH ROW
+BEGIN
+
+   declare nomeFornecedor varchar(30);
+   declare nomeColaborador varchar(30);
+           
+select p.nome into nomeFornecedor from compra com
+        join fornecedor forn
+        on forn.codigo = com.fornecedor_codigo
+        join pessoa p
+            on p.codigo = forn.pessoa_codigo
+        where com.codigo = fornecedor_codigo;
+
+select p.nome into nomeColaborador from compra com
+        join colaborador col
+            on col.codigo = com.colaborador_codigo
+        join pessoa p
+            on p.codigo = col.pessoa_codigo
+        where com.codigo = colaborador_codigo;
+        
+    #concatena
+
+    set new.pesquisa = concat(nomeFornecedor,'-',
+             nomeColaborador,'-', new.dataCompra);
+
+END$$
