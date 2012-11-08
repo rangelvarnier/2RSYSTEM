@@ -21,6 +21,7 @@ public class FrameCompra extends javax.swing.JFrame {
 
     public FrameCompra() {
         initComponents();
+        setLocation(200, 100);
         novaCompra();
         tableModel = new DefaultTableModel();
         compraDao = new CompraDAOIMPL();
@@ -60,6 +61,8 @@ public class FrameCompra extends javax.swing.JFrame {
         jtfCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jbtPesquisarCompra = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Compra de Mercadoria");
@@ -141,7 +144,7 @@ public class FrameCompra extends javax.swing.JFrame {
         jLabel4.setText("Valor da Compra");
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("F3 busca produtos");
+        jLabel5.setText("P busca produtos");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -181,7 +184,7 @@ public class FrameCompra extends javax.swing.JFrame {
         jtfColaborador.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         jbtColaborador.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtColaborador.setText("Colaborador");
+        jbtColaborador.setText("Buscar");
         jbtColaborador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtColaboradorActionPerformed(evt);
@@ -192,7 +195,7 @@ public class FrameCompra extends javax.swing.JFrame {
         jtfFornecedor.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         jbtPesquisaFornecedor.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtPesquisaFornecedor.setText("Fornecedor");
+        jbtPesquisaFornecedor.setText("Buscar");
         jbtPesquisaFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtPesquisaFornecedorActionPerformed(evt);
@@ -214,60 +217,68 @@ public class FrameCompra extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jLabel6.setText("Fornecedor");
+
+        jLabel7.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jLabel7.setText("Colaborador");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jdcDataCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(59, 59, 59)
-                        .addComponent(jLabel3)))
-                .addGap(18, 18, 18)
+                        .addContainerGap()
+                        .addComponent(jLabel2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtfFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtPesquisaFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel3)
+                    .addComponent(jdcDataCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jtfColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jbtPesquisaFornecedor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtfFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jbtColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbtPesquisarCompra)))
+                        .addComponent(jbtPesquisarCompra))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jbtColaborador)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtfColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbtPesquisarCompra, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2))
-                            .addComponent(jbtPesquisaFornecedor, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jdcDataCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jbtColaborador)
-                            .addComponent(jbtPesquisarCompra))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jtfColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jtfFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(14, 14, 14))
+                    .addComponent(jdcDataCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jtfFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbtPesquisaFornecedor)
+                        .addComponent(jtfColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbtColaborador))
+                    .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -344,19 +355,14 @@ public class FrameCompra extends javax.swing.JFrame {
 
             compraDao.inserir(compra);
 
-
             for (ProdutosDaCompra prod : this.produtosDaCompra) {
                 prod.setCompra(compra);
                 produtoDaCompraDao.inserir(prod);
             }
-
             JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso");
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Campo não preenchido \n" + e.getMessage());
         }
-
-
 
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
@@ -371,19 +377,25 @@ public class FrameCompra extends javax.swing.JFrame {
         //seta o foco na celula que esta sendo editada
         jtbProdutosCompra.setSurrendersFocusOnKeystroke(true);
         //se for precionado F3 abre tela de pesquisa de produto
-        if (evt.getKeyCode() == 114) {
+        if (evt.getKeyCode() == KeyEvent.VK_P) {
             buscaProduto();
-        } //se houver um enter na coluna 2 seta a quantidade no produto
-        else if (evt.getKeyCode() == KeyEvent.VK_ENTER && jtbProdutosCompra.getSelectedColumn() == 2) {
-            Object qtd = jtbProdutosCompra.getValueAt(linha, coluna);
-            produtoDaCompra.setQuantidade(Float.parseFloat(String.valueOf(qtd)));
-        } //se houver um enter na coluna 3 seta o valor UN do produto e calcula o total para a coluna 4
-        else if (evt.getKeyCode() == KeyEvent.VK_ENTER && jtbProdutosCompra.getSelectedColumn() == 3) {
-            Object unit = jtbProdutosCompra.getValueAt(linha, coluna);
-            produtoDaCompra.setValorUnitario(Float.parseFloat(String.valueOf(unit)));
-            jtbProdutosCompra.setValueAt(calculaTotalDoProduto(), linha, 4);
-        } //se houver um enter na coluna 4 adiciona o item da linha na lista, cria nova linha e calcula o total da venda
-        else if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 4) {
+        }
+        try {
+            //se houver um enter na coluna 2 seta a quantidade no produto
+            if (evt.getKeyCode() == KeyEvent.VK_ENTER && jtbProdutosCompra.getSelectedColumn() == 2) {
+                Object qtd = jtbProdutosCompra.getValueAt(linha, coluna);
+                produtoDaCompra.setQuantidade(Float.parseFloat(String.valueOf(qtd)));
+            } //se houver um enter na coluna 3 seta o valor UN do produto e calcula o total para a coluna 4
+            else if (evt.getKeyCode() == KeyEvent.VK_ENTER && jtbProdutosCompra.getSelectedColumn() == 3) {
+                Object unit = jtbProdutosCompra.getValueAt(linha, coluna);
+                produtoDaCompra.setValorUnitario(Float.parseFloat(String.valueOf(unit)));
+                jtbProdutosCompra.setValueAt(calculaTotalDoProduto(), linha, 4);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Preencha os campos em branco!");
+        }
+        //se houver um enter na coluna 4 adiciona o item da linha na lista, cria nova linha e calcula o total da venda
+        if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 4) {
             produtosDaCompra.add(produtoDaCompra);
             inserirLinha();
             jtfValorCompra.setText(String.valueOf(calculaTotalCompra()));
@@ -445,7 +457,6 @@ public class FrameCompra extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new FrameCompra().setVisible(true);
             }
@@ -457,6 +468,8 @@ public class FrameCompra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -563,6 +576,8 @@ public class FrameCompra extends javax.swing.JFrame {
     }
 
     public void buscarCompra() {
+
+
         //cria a tela de busca como modal
         FramePesquisaCompra tela_busca = new FramePesquisaCompra();
         tela_busca.setModal(true);
@@ -573,24 +588,32 @@ public class FrameCompra extends javax.swing.JFrame {
         comp = tela_busca.retornaCompra();
         //seta na tela
         if (comp != null) {
+            limpaCampos();
+            limpaTabela();
+
             this.compra.setCodigo(comp.getCodigo());
             this.compra.setDataCompra(comp.getDataCompra());
             this.compra.setFornecedor(comp.getFornecedor());
             this.compra.setColaborador(comp.getColaborador());
-            
+            this.compra.setValorCompra(comp.getValorCompra());
+
             jtfCodigo.setText(String.valueOf(compra.getCodigo()));
             jdcDataCompra.setDate(compra.getDataCompra());
             jtfFornecedor.setText(compra.getFornecedor().getPessoa().getNome());
             jtfColaborador.setText(compra.getColaborador().getPessoa().getNome());
-            
-            compra = compraDao.buscarPorCodigo(compra.getCodigo());
-            System.out.println(compra.getCodigo());
-            //produtosDaCompra = produtoDaCompraDao.buscarPorCompra(compra);
-            //for (ProdutosDaCompra produtosDaCompra1 : produtosDaCompra) {
-            //    System.out.println(
-            //    produtosDaCompra1.getProduto().getDescricao());
-           // }
- 
+
+            produtosDaCompra = produtoDaCompraDao.buscarPorCompra(this.compra);
+            int linha = 0;
+            for (ProdutosDaCompra prods : produtosDaCompra) {
+                jtbProdutosCompra.getModel().setValueAt(prods.getProduto().getCodigo(), linha, 0);
+                jtbProdutosCompra.getModel().setValueAt(prods.getProduto().getDescricao(), linha, 1);
+                jtbProdutosCompra.getModel().setValueAt(prods.getQuantidade(), linha, 2);
+                jtbProdutosCompra.getModel().setValueAt(prods.getValorUnitario(), linha, 3);
+                jtbProdutosCompra.getModel().setValueAt(prods.getValorTotal(), linha, 4);
+                linha++;
+                inserirLinha();
+            }
+            jtfValorCompra.setText(String.valueOf(this.compra.getValorCompra()));
         }
     }
 

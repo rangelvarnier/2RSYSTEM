@@ -82,8 +82,9 @@ public class CompraDAOIMPL implements CompraDAO {
         FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
         ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select codigo, dataCompra, valorCompra, fornecedor_codigo, colaborado_codigo from compra"
-                + "where codigo =?";
+        String sql = "select codigo, dataCompra, valorCompra, fornecedor_codigo,"
+                + " colaborador_codigo from compra"
+                + " where codigo =?";
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);

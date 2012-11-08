@@ -111,7 +111,7 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setString(1, produto.getCodigoFabrica());
+            stmt.setInt(1, codigo);
 
             ResultSet rs = stmt.executeQuery();
 

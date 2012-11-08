@@ -149,7 +149,6 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            System.out.println(compra.getCodigo());
             stmt.setInt(1, compra.getCodigo());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
