@@ -2,6 +2,7 @@
 package FRAME;
 
 import RESTAURANTE.DAO.IMPL.ProdutoDAOIMPL;
+import RESTAURANTE.DAO.IMPL.VendaDAOIMPL;
 import RESTAURANTE.DAO.IMPL.produtosDaVendaDAOIMPL;
 import RESTAURANTE.DAO.ProdutoDAO;
 import RESTAURANTE.DAO.VendaDAO;
@@ -11,21 +12,27 @@ import RESTAURANTE.MODEL.Parceiro;
 import RESTAURANTE.MODEL.Produto;
 import RESTAURANTE.MODEL.ProdutosDaVenda;
 import RESTAURANTE.MODEL.Venda;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.jdesktop.observablecollections.ObservableCollections;
+import java.util.Vector;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
+import javax.swing.table.DefaultTableModel;
 
 public class FrameVenda extends javax.swing.JFrame {
 
     public FrameVenda() {
         initComponents();
-        venda = new Venda();
-        produtodavenda = new ProdutosDaVenda();
+        novaVenda();
+        vendaDao = new VendaDAOIMPL();
+        tableModel = new DefaultTableModel();
         produtoDao = new ProdutoDAOIMPL();
         produtosDaVendaDao = new produtosDaVendaDAOIMPL();
-        jftData.setDate(new Date());
-        
-
+        produtosDasVendas = new ArrayList<ProdutosDaVenda>();
     }
 
     @SuppressWarnings("unchecked")
@@ -54,20 +61,8 @@ public class FrameVenda extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jbtExcluir1 = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
-        jbtCancelar1 = new javax.swing.JButton();
-        jbtAdicionar = new javax.swing.JButton();
-        jLabel32 = new javax.swing.JLabel();
-        jtfVendedor1 = new javax.swing.JTextField();
-        jLabel34 = new javax.swing.JLabel();
-        jtfProduto = new javax.swing.JTextField();
-        jbtPesquisaProduto = new javax.swing.JButton();
-        jLabel36 = new javax.swing.JLabel();
-        jtfQuantidade = new javax.swing.JTextField();
-        jLabel38 = new javax.swing.JLabel();
-        jtfValorUnitário = new javax.swing.JTextField();
-        jLabel39 = new javax.swing.JLabel();
-        jtfValorTotalItem = new javax.swing.JTextField();
+        jlbValorTotalVenda = new javax.swing.JLabel();
+        jbtSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Venda de Mercadoria");
@@ -204,26 +199,34 @@ public class FrameVenda extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${produtosDasVendas}");
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbVenda);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${produto_codigo.descricao}"));
-        columnBinding.setColumnName("Produto");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${quantidade}"));
-        columnBinding.setColumnName("Quantidade");
-        columnBinding.setColumnClass(Float.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${valorTotal}"));
-        columnBinding.setColumnName("Valor Total");
-        columnBinding.setColumnClass(Float.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${valorUnitario}"));
-        columnBinding.setColumnName("Valor Unitario");
-        columnBinding.setColumnClass(Float.class);
-        columnBinding.setEditable(false);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
+        jtbVenda.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Códio", "Produto", "Quantidade", "Valor UN", "Valor Total"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, true, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtbVenda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtbVendaKeyPressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(jtbVenda);
 
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
@@ -234,70 +237,15 @@ public class FrameVenda extends javax.swing.JFrame {
         jbtExcluir1.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtExcluir1.setText("Excluir");
 
-        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jlbValorTotalVenda.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
 
-        jbtCancelar1.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtCancelar1.setText("Finalizar Venda");
-        jbtCancelar1.addActionListener(new java.awt.event.ActionListener() {
+        jbtSalvar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jbtSalvar.setText("Finalizar Venda");
+        jbtSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtCancelar1ActionPerformed(evt);
+                jbtSalvarActionPerformed(evt);
             }
         });
-
-        jbtAdicionar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtAdicionar.setText("Adicionar");
-        jbtAdicionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtAdicionarActionPerformed(evt);
-            }
-        });
-
-        jLabel32.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel32.setText("Código");
-
-        jtfVendedor1.setEditable(false);
-        jtfVendedor1.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-
-        jLabel34.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel34.setText("Produto");
-
-        jtfProduto.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produtodavenda.produto_codigo.descricao}"), jtfProduto, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        jbtPesquisaProduto.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtPesquisaProduto.setText("Buscar");
-        jbtPesquisaProduto.setToolTipText("Pesquisa Vendedor");
-        jbtPesquisaProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtPesquisaProdutoActionPerformed(evt);
-            }
-        });
-
-        jLabel36.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel36.setText("Quantidade");
-
-        jtfQuantidade.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produtodavenda.quantidade}"), jtfQuantidade, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        jLabel38.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel38.setText("Valor Unitário");
-
-        jtfValorUnitário.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produtodavenda.valorUnitario}"), jtfValorUnitário, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        jLabel39.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel39.setText("Total");
-
-        jtfValorTotalItem.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${produtodavenda.valorTotal}"), jtfValorTotalItem, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -307,87 +255,40 @@ public class FrameVenda extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(jbtCancelar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 179, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jbtSalvar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 179, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jbtExcluir1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 183, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 288, Short.MAX_VALUE)
                         .add(jLabel9)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jLabel16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 119, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane2)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .add(jLabel32)
-                                        .add(58, 58, 58)
-                                        .add(jLabel34))
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jbtAdicionar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 179, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(119, 119, 119))
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .add(jtfVendedor1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jtfProduto)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jbtPesquisaProduto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 71, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jtfQuantidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel36))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jtfValorUnitário, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 163, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel38))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .add(jLabel39)
-                                .add(133, 133, 133))
-                            .add(jtfValorTotalItem))))
+                        .add(jlbValorTotalVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 119, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane2))
                 .addContainerGap())
             .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(jPanel1Layout.createSequentialGroup()
-                    .add(0, 428, Short.MAX_VALUE)
+                    .add(0, 437, Short.MAX_VALUE)
                     .add(jLabel10)
-                    .add(0, 429, Short.MAX_VALUE)))
+                    .add(0, 438, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel32)
-                    .add(jLabel34)
-                    .add(jLabel36)
-                    .add(jLabel38)
-                    .add(jLabel39))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jtfVendedor1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jtfProduto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jbtPesquisaProduto)
-                    .add(jtfQuantidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jtfValorUnitário, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jtfValorTotalItem, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jbtAdicionar)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 283, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 374, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                         .add(jLabel9)
-                        .add(jLabel16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 22, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jlbValorTotalVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 22, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jbtCancelar1)
+                        .add(jbtSalvar)
                         .add(jbtExcluir1)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(jPanel1Layout.createSequentialGroup()
-                    .add(0, 219, Short.MAX_VALUE)
+                    .add(0, 211, Short.MAX_VALUE)
                     .add(jLabel10)
-                    .add(0, 218, Short.MAX_VALUE)))
+                    .add(0, 210, Short.MAX_VALUE)))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -420,7 +321,7 @@ public class FrameVenda extends javax.swing.JFrame {
                 .add(jpn1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(20, 20, 20)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jbtNovo)
                     .add(jbtCancelar)))
@@ -450,32 +351,62 @@ public class FrameVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtPesquisaClienteActionPerformed
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
-  
-        
+        novaVenda();
+        produtosDasVendas.removeAll(produtosDasVendas);       
     }//GEN-LAST:event_jbtNovoActionPerformed
 
-    private void jbtCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtCancelar1ActionPerformed
+    private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
+        try {
+            venda.setCodigo(Integer.valueOf(jtfCodigo.getText()));
+            venda.setDataVenda(jftData.getDate());
+            
+            vendaDao.inserir(venda);
+           
+            
+            for (ProdutosDaVenda prod : this.produtosDasVendas) {
+                prod.setVenda_codigo(venda);
+                produtosDaVendaDao.inserir(prod);
+            }
+            
+            JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso");
+           
+        } catch (Exception e ) {
+            JOptionPane.showMessageDialog(null, "Campo não preenchido \n" + e.getMessage());
+        }
+    }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jtfVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfVendedorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfVendedorActionPerformed
 
-    private void jbtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAdicionarActionPerformed
-             
-        produtodavenda.setVenda_codigo(venda);
-        produtosDaVendaDao.inserir(produtodavenda);
-        venda.setCodigo(1);
-        venda.setDataVenda(jftData.getDate());
-        vendaDao.inserir(venda); 
-        atualizaTabela();
-       
-    }//GEN-LAST:event_jbtAdicionarActionPerformed
-
-    private void jbtPesquisaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisaProdutoActionPerformed
-        buscaProduto();
-    }//GEN-LAST:event_jbtPesquisaProdutoActionPerformed
+    private void jtbVendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbVendaKeyPressed
+        //pega tecla enter mas aplica função da tecla tab
+        InputMap imap = jtbVenda.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        imap.put(KeyStroke.getKeyStroke("pressed ENTER"), "selectNextColumnCell");
+        //identifica o indice da linha e coluna
+        int linha = jtbVenda.getSelectedRow();
+        int coluna = jtbVenda.getSelectedColumn();
+        //seta o foco na celula que esta sendo editada
+        jtbVenda.setSurrendersFocusOnKeystroke(true);
+        //se for precionado F3 abre tela de pesquisa de produto
+        if (evt.getKeyCode() == 114) {
+            buscaProduto();
+        } //se houver um enter na coluna 2 seta a quantidade no produto
+        else if (evt.getKeyCode() == KeyEvent.VK_ENTER && jtbVenda.getSelectedColumn() == 2) {
+            Object qtd = jtbVenda.getValueAt(linha, coluna);
+            produtodavenda.setQuantidade(Float.parseFloat(String.valueOf(qtd)));
+        } //se houver um enter na coluna 3 seta o valor UN do produto e calcula o total para a coluna 4
+        else if (evt.getKeyCode() == KeyEvent.VK_ENTER && jtbVenda.getSelectedColumn() == 3) {
+            Object unit = jtbVenda.getValueAt(linha, coluna);
+            produtodavenda.setValorUnitario(Float.parseFloat(String.valueOf(unit)));
+            jtbVenda.setValueAt(calculaTotalDoProduto(), linha, 4);
+        } //se houver um enter na coluna 4 adiciona o item da linha na lista, cria nova linha e calcula o total da venda
+        else if (evt.getKeyCode() == 10 && jtbVenda.getSelectedColumn() == 4) {
+            produtosDasVendas.add(produtodavenda);
+            inserirLinha();
+            jlbValorTotalVenda.setText(String.valueOf(calculaTotalCompra()));
+        }
+    }//GEN-LAST:event_jtbVendaKeyPressed
 
     /**
      * @param args the command line arguments
@@ -515,98 +446,116 @@ public class FrameVenda extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JButton jbtAdicionar;
     private javax.swing.JButton jbtCancelar;
-    private javax.swing.JButton jbtCancelar1;
     private javax.swing.JButton jbtExcluir1;
     private javax.swing.JButton jbtNovo;
     private javax.swing.JButton jbtPesquisaCliente;
-    private javax.swing.JButton jbtPesquisaProduto;
     private javax.swing.JButton jbtPesquisaVendedor;
+    private javax.swing.JButton jbtSalvar;
     private com.toedter.calendar.JDateChooser jftData;
+    private javax.swing.JLabel jlbValorTotalVenda;
     private javax.swing.JPanel jpn1;
     private javax.swing.JTable jtbVenda;
     private javax.swing.JTextField jtfCliente;
     private javax.swing.JTextField jtfCodigo;
-    private javax.swing.JTextField jtfProduto;
-    private javax.swing.JTextField jtfQuantidade;
-    private javax.swing.JTextField jtfValorTotalItem;
-    private javax.swing.JTextField jtfValorUnitário;
     private javax.swing.JTextField jtfVendedor;
-    private javax.swing.JTextField jtfVendedor1;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
     private Venda venda;
-    private List<Venda> vendas;
     private VendaDAO vendaDao;
-    
-   
     private ProdutosDaVenda produtodavenda;
     private List<ProdutosDaVenda> produtosDasVendas;
     private produtosDaVendaDAO produtosDaVendaDao;
-    
     private Produto produto;
-    private List<Produto> produtos;
     private ProdutoDAO produtoDao;
-
-    public ProdutosDaVenda getProdutodavenda() {
-        return produtodavenda;
-    }
-
-    public void setProdutodavenda(ProdutosDaVenda produtodavenda) {
-        ProdutosDaVenda produtodavendaVelho = this.produtodavenda;
-        this.produtodavenda = produtodavenda;
-        firePropertyChange("produtodavenda", produtodavendaVelho, this.produtodavenda);
-    }
-
-    public List<ProdutosDaVenda> getProdutosDasVendas() {
-        return produtosDasVendas;
-    }
-
-    public void setProdutosDasVendas(List<ProdutosDaVenda> produtosDasVendas) {
-        List<ProdutosDaVenda> produtosDasVendasVelhos = this.produtosDasVendas;
-        this.produtosDasVendas = ObservableCollections.observableList(produtosDasVendas);
-        firePropertyChange("produtosDasVendas", produtosDasVendasVelhos, this.produtosDasVendas);
-    }
-    
-    
+    DefaultTableModel tableModel;
 
     public Venda getVenda() {
         return venda;
     }
 
     public void setVenda(Venda venda) {
-        Venda vendaVelho = this.venda;
         this.venda = venda;
-        firePropertyChange("venda", vendaVelho, this.venda);
+    }
+     
+     private void novaVenda() {
+        setVenda(new Venda(new Parceiro(), new Colaborador(), new ArrayList<ProdutosDaVenda>()));
+        limpaCampos();
+        venda.setValorVenda(0f);
     }
 
-    public List<Venda> getVendas() {
-        return vendas;
+    private void limpaCampos() {
+        jtfCodigo.setText("");
+        jftData.setDate(new Date());
+        jtfVendedor.setText("");
+        jtfCliente.setText("");
+        jlbValorTotalVenda.setText("");
+        limpaTabela();
     }
 
-    public void setVendas(List<Venda> vendas) {
-        List<Venda> vendasVelhos = this.vendas;
-        this.vendas = ObservableCollections.observableList(vendas);
-        firePropertyChange("vendas", vendasVelhos, this.vendas);
+    public void buscaProduto() {
+        //instancia produto
+        Produto p = new Produto();
+        //instancia produto da compra
+        produtodavenda = new ProdutosDaVenda();
+        //cria a tela de busca como modal
+        FramePesquisaProduto tela_busca = new FramePesquisaProduto();
+        tela_busca.setModal(true);
+        //exibe a tela de pesquisa do produto
+        tela_busca.setVisible(true);
+        //recupera os dados
+        p = tela_busca.retornaProduto();
+        //seta o produto para o produto da compra
+        produtodavenda.setProduto_codigo(p);
+        //seta na tela o produto da compra
+        if (produtodavenda.getProduto_codigo() != null) {
+            Integer linhaSelecionada = jtbVenda.getSelectedRow();
+            jtbVenda.setValueAt(p.getCodigo(), linhaSelecionada, 0);
+            jtbVenda.setValueAt(p.getDescricao(), linhaSelecionada, 1);
+            jtbVenda.setValueAt(p.getPrecoVenda(), linhaSelecionada, 3);
+        }
     }
-    
-    
-    
+
+    private Float calculaTotalDoProduto() {
+        Float preco;
+        Float quant;
+        Float total = null;
+        preco = produtodavenda.getValorUnitario();
+        quant = produtodavenda.getQuantidade();
+        total = quant * preco;
+        produtodavenda.setValorTotal(total);
+        return produtodavenda.getValorTotal();
+    }
+
+    private Float calculaTotalCompra() {
+        venda.setValorVenda(produtodavenda.getValorTotal() + venda.getValorVenda());
+        return venda.getValorVenda();
+    }
+
+    private void inserirLinha() {
+        int linha = jtbVenda.getSelectedRow();
+        ((DefaultTableModel) jtbVenda.getModel()).addRow(new Vector());
+        int coluna = -1;
+        jtbVenda.changeSelection(linha, coluna, false, false);
+    }
+
+    private void limpaTabela() {
+        ((DefaultTableModel) jtbVenda.getModel()).setNumRows(0);
+        jtbVenda.updateUI();
+        inserirLinha();
+    }
+
+    private void defineSaldoEstoque() {
+        produtodavenda.getProduto_codigo().setSaldoEstoque(produtodavenda.getQuantidade());
+    }
     public void buscaVendedor() {
         //cria a tela de busca como modal
         FramePesquisaColaborador tela_busca = new FramePesquisaColaborador();
@@ -636,30 +585,5 @@ public class FrameVenda extends javax.swing.JFrame {
         if (venda.getCliente_codigo() != null) {
             jtfCliente.setText(venda.getCliente_codigo().getPessoa().getNome());
         }
-    }
-     public void buscaProduto() {
-        //cria a tela de busca como modal
-        FramePesquisaProduto tela_busca = new FramePesquisaProduto();
-        tela_busca.setModal(true);
-        //exibe
-        tela_busca.setVisible(true);
-        //recupera os dados
-        Produto p = new Produto();
-        p = tela_busca.getProduto();
-        this.produtodavenda.setProduto_codigo(p);
-
-        if (produtodavenda.getProduto_codigo() != null) {
-            jtfProduto.setText(produtodavenda.getProduto_codigo().getDescricao());
-        }
-    }
-     public void atualizaTabela() {
-        setProdutosDasVendas(produtosDaVendaDao.buscarTodos());
-        setProdutosDasVendas(getProdutosDasVendas());
-        if (produtosDaVendaDao.buscarTodos().isEmpty()) {
-        } else {
-            jtbVenda.addRowSelectionInterval(0, 0);
-        }
-    }
-  
-
+     }
 }

@@ -97,6 +97,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         jbtEntrada.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtEntrada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/conta.png"))); // NOI18N
         jbtEntrada.setToolTipText("Entrada de Mercadoria");
+        jbtEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtEntradaActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Letter Gothic Std", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
@@ -487,6 +492,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         new FrameRelatorioColaboradores().setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jbtEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEntradaActionPerformed
+        new FrameCompra().setVisible(true);
+    }//GEN-LAST:event_jbtEntradaActionPerformed
 
     /**
      * @param args the command line arguments

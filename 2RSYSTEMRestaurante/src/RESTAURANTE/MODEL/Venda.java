@@ -2,6 +2,7 @@
 package RESTAURANTE.MODEL;
 
 import java.util.Date;
+import java.util.List;
 
 public class Venda {
     private Integer codigo;
@@ -9,18 +10,26 @@ public class Venda {
     private Float valorVenda;
     private Parceiro cliente_codigo;
     private Colaborador colaborador_codigo;
+    private List<ProdutosDaVenda> produtosDaVenda;
 
     public Venda() {
     }
 
-    public Venda(Integer codigo, Date dataVenda, Float valorVenda, Parceiro cliente_codigo, Colaborador colaborador_codigo) {
+    public Venda(Integer codigo, Date dataVenda, Float valorVenda, Parceiro cliente_codigo, Colaborador colaborador_codigo, List<ProdutosDaVenda> produtosDaVenda) {
         this.codigo = codigo;
         this.dataVenda = dataVenda;
         this.valorVenda = valorVenda;
         this.cliente_codigo = cliente_codigo;
         this.colaborador_codigo = colaborador_codigo;
+        this.produtosDaVenda = produtosDaVenda;
     }
 
+    public Venda(Parceiro cliente_codigo, Colaborador colaborador_codigo, List<ProdutosDaVenda> produtosDaVenda) {
+        this.cliente_codigo = cliente_codigo;
+        this.colaborador_codigo = colaborador_codigo;
+        this.produtosDaVenda = produtosDaVenda;
+    }
+    
     public Integer getCodigo() {
         return codigo;
     }
