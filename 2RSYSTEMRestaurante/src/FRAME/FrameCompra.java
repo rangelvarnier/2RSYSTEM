@@ -378,8 +378,18 @@ public class FrameCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbProdutosCompraKeyPressed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        produtoDaCompraDao.removerAllProdutosDaCompra(produtoDaCompra);
-        compraDao.remover(compra);
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente excluir a compra?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                produtoDaCompraDao.removerAllProdutosDaCompra(produtoDaCompra);
+                compraDao.remover(compra);
+                novaCompra();
+                produtosDaCompra.removeAll(produtosDaCompra);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     /**

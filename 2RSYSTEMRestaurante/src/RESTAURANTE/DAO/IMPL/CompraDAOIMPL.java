@@ -116,7 +116,7 @@ public class CompraDAOIMPL implements CompraDAO {
                 compra.setCodigo(rs.getInt("codigo"));
                 compra.setDataCompra(rs.getDate("dataCompra"));
                 compra.setValorCompra(rs.getFloat("valorCompra"));
-                compra.setFornecedor(fornecedorDao.buscaPorId(rs.getInt("fornecedo_codigo")));
+                compra.setFornecedor(fornecedorDao.buscaPorId(rs.getInt("fornecedor_codigo")));
                 compra.setColaborador(colaboradorDao.buscaPorId(rs.getInt("colaborador_codigo")));
                 compras.add(compra);
             }
