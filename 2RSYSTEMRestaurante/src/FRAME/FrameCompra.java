@@ -426,19 +426,22 @@ public class FrameCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbProdutosCompraKeyPressed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        try {
-            if (JOptionPane.showConfirmDialog(null,
-                    "Deseja realmente excluir a compra?",
-                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
-                produtoDaCompraDao.removerAllProdutosDaCompra(produtoDaCompra);
-                compraDao.remover(compra);
-                novaCompra();
-                produtosDaCompra.removeAll(produtosDaCompra);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
+        //  try {
+        //    if (JOptionPane.showConfirmDialog(null,
+        //          "Deseja realmente excluir a compra?",
+        //        "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+        System.out.println(produtoDaCompra.getCompra().getCodigo());
+        produtoDaCompraDao.removerAllProdutosDaCompra(produtoDaCompra);
+
+        compraDao.remover(compra);
+        novaCompra();
+
+        produtosDaCompra.removeAll(produtosDaCompra);
+        //      }
+        //  } catch (Exception e) {
+        //      JOptionPane.showMessageDialog(null, "Erro ao excluir!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        //      e.printStackTrace();
+        //  }
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtPesquisarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarCompraActionPerformed
@@ -477,10 +480,9 @@ public class FrameCompra extends javax.swing.JFrame {
             if (JOptionPane.showConfirmDialog(null,
                     "Deseja realmente excluir este produto?",
                     "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
-                ProdutosDaCompra produtocompra = new ProdutosDaCompra();
                 int linha = jtbProdutosCompra.getSelectedRow();
                 produtoDaCompra = produtosDaCompra.get(linha);
-                compra.setValorCompra(compra.getValorCompra() - produtocompra.getValorTotal());
+                compra.setValorCompra(compra.getValorCompra() - produtoDaCompra.getValorTotal());
                 produtosDaCompra.remove(produtosDaCompra.get(linha));
                 ((DefaultTableModel) jtbProdutosCompra.getModel()).removeRow(linha);
                 jtfValorCompra.setText(String.valueOf(compra.getValorCompra()));
@@ -689,8 +691,10 @@ public class FrameCompra extends javax.swing.JFrame {
             jtfColaborador.setText(compra.getColaborador().getPessoa().getNome());
 
             produtosDaCompra = produtoDaCompraDao.buscarPorCompra(this.compra);
+
             int linha = 0;
             for (ProdutosDaCompra prods : produtosDaCompra) {
+                System.out.println(prods.getCompra().getCodigo());
                 jtbProdutosCompra.getModel().setValueAt(prods.getProduto().getCodigo(), linha, 0);
                 jtbProdutosCompra.getModel().setValueAt(prods.getProduto().getDescricao(), linha, 1);
                 jtbProdutosCompra.getModel().setValueAt(prods.getQuantidade(), linha, 2);
