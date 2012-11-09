@@ -7,6 +7,7 @@ import RESTAURANTE.DAO.ProdutoDAO;
 import RESTAURANTE.DAO.ProdutoDaCompraDAO;
 import RESTAURANTE.MODEL.*;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -413,9 +414,13 @@ public class FrameCompra extends javax.swing.JFrame {
         }
         //se houver um enter na coluna 4 adiciona o item da linha na lista, cria nova linha e calcula o total da venda
         if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 4) {
+
             produtosDaCompra.add(produtoDaCompra);
             inserirLinha();
             jtfValorCompra.setText(String.valueOf(calculaTotalCompra()));
+
+
+
         }
 
     }//GEN-LAST:event_jtbProdutosCompraKeyPressed
@@ -432,6 +437,7 @@ public class FrameCompra extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
@@ -444,14 +450,22 @@ public class FrameCompra extends javax.swing.JFrame {
         try {
             compra.setCodigo(Integer.valueOf(jtfCodigo.getText()));
             compra.setDataCompra(jdcDataCompra.getDate());
-
-            compraDao.inserir(compra);
-
-            for (ProdutosDaCompra prod : this.produtosDaCompra) {
-                prod.setCompra(compra);
-                produtoDaCompraDao.inserir(prod);
+            try {
+                compraDao.inserir(compra);
+                JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
             }
-            JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso");
+            try {
+                for (ProdutosDaCompra prod : this.produtosDaCompra) {
+                    prod.setCompra(compra);
+                    produtoDaCompraDao.inserir(prod);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Campo não preenchido \n" + e.getMessage());
         }
@@ -465,7 +479,7 @@ public class FrameCompra extends javax.swing.JFrame {
                     "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
                 ProdutosDaCompra produtocompra = new ProdutosDaCompra();
                 int linha = jtbProdutosCompra.getSelectedRow();
-                produtoDaCompra = produtosDaCompra.get(linha);                
+                produtoDaCompra = produtosDaCompra.get(linha);
                 compra.setValorCompra(compra.getValorCompra() - produtocompra.getValorTotal());
                 produtosDaCompra.remove(produtosDaCompra.get(linha));
                 ((DefaultTableModel) jtbProdutosCompra.getModel()).removeRow(linha);
@@ -524,6 +538,7 @@ public class FrameCompra extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new FrameCompra().setVisible(true);
             }
@@ -645,8 +660,6 @@ public class FrameCompra extends javax.swing.JFrame {
     }
 
     public void buscarCompra() {
-
-
         //cria a tela de busca como modal
         FramePesquisaCompra tela_busca = new FramePesquisaCompra();
         tela_busca.setModal(true);

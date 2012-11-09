@@ -122,3 +122,5 @@ select p.nome into nomeColaborador from compra com
              nomeColaborador,'-', new.dataCompra);
 
 END$$
+
+
