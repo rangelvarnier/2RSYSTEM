@@ -14,6 +14,7 @@ public class FramePesquisaCliente extends javax.swing.JDialog {
 
     public FramePesquisaCliente() {
         initComponents();
+        setLocation(290, 190);
         pessoaDao = new PessoaDAOIMPL();
         parceiroDao = new ParceiroDAOIMPL();
         atualizaTabela();

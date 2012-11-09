@@ -27,7 +27,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
 
     public FrameCadastroParceiro() {
         initComponents();
-
+        setLocation(200, 100);
         unidadeFederativaDao = new UnidadeFederativaDAOIMPL();
         cidadeDao = new CidadeDAOIMPL();
         enderecoDao = new EnderecoDAOIMPL();

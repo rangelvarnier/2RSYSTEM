@@ -12,6 +12,7 @@ public class FramePesquisaFornecedor extends javax.swing.JDialog {
 
     public FramePesquisaFornecedor() {
         initComponents();
+        setLocation(290, 190);
         pessoaDao = new PessoaDAOIMPL();
         fornecedorDao = new FornecedorDAOIMPL();
         atualizaTabela();

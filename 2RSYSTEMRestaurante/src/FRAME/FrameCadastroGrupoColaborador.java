@@ -10,6 +10,7 @@ public class FrameCadastroGrupoColaborador extends javax.swing.JFrame {
 
     public FrameCadastroGrupoColaborador() {
         initComponents();
+        setLocation(200, 100);
         grupoColaboradorDao = new GrupoColaboradorDAOIMPL();
         novoGrupo();
         atualizaTabela();

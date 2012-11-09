@@ -20,6 +20,7 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
      */
     public FramePesquisaCompra() {
         initComponents();
+        setLocation(290, 190);
         compraDao = new CompraDAOIMPL();
         atualizaTabela();
     }

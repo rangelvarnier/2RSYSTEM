@@ -22,6 +22,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
 
     public FrameCadastroEmpresa() {
         initComponents();
+        setLocation(200, 100);
         unidadefederativaDao = new UnidadeFederativaDAOIMPL();
         cidadeDao = new CidadeDAOIMPL();
         enderecoDao = new EnderecoDAOIMPL();

@@ -13,6 +13,7 @@ public class FramePesquisaColaborador extends javax.swing.JDialog {
 
     public FramePesquisaColaborador() {
         initComponents();
+        setLocation(290, 190);
         pessoaDao = new PessoaDAOIMPL();
         colaboradorDao = new ColaboradorDAOIMPL();
         atualizaTabela();

@@ -29,6 +29,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
 
     public FrameCadastroFuncionario() {
         initComponents();
+        setLocation(200, 100);
         unidadeFederativaDao = new UnidadeFederativaDAOIMPL();
         cidadeDao = new CidadeDAOIMPL();
         enderecoDao = new EnderecoDAOIMPL();

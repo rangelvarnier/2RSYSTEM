@@ -11,6 +11,7 @@ public class FramePesquisaGrupoColaborador extends javax.swing.JDialog {
 
     public FramePesquisaGrupoColaborador() {
         initComponents();
+        setLocation(290, 190);
         grupoColaboradorDAO = new GrupoColaboradorDAOIMPL();
         atualizaTabela();
     }

@@ -20,6 +20,7 @@ public class FrameRelatorioColaboradores extends javax.swing.JFrame {
 
     public FrameRelatorioColaboradores() {
         initComponents();
+        setLocation(290, 190);
     }
 
     @SuppressWarnings("unchecked")

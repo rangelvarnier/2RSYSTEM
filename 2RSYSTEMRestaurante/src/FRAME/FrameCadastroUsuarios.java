@@ -12,6 +12,7 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
 
     public FrameCadastroUsuarios() {
         initComponents();
+        setLocation(200, 100);
         usuarioDao = new UsuarioDAOIMPL();
         novoUsuario();
         atualizaTabela();

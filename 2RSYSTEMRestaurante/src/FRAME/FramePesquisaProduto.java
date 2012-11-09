@@ -23,6 +23,7 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
 
     public FramePesquisaProduto() {
         initComponents();
+        setLocation(290, 190);
         produtoDao = new ProdutoDAOIMPL();
         fornecedorDao = new FornecedorDAOIMPL();
         grupoItemDao = new GrupoItemDAOIMPL();

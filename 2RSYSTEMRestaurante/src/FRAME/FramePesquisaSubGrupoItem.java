@@ -11,6 +11,7 @@ public class FramePesquisaSubGrupoItem extends javax.swing.JDialog {
 
     public FramePesquisaSubGrupoItem() {
         initComponents();
+        setLocation(290, 190);
         subGrupoItemDao = new SubGrupoItensDAOIMPL();
         atualizaTabela();
     }

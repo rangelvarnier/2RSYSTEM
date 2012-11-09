@@ -21,6 +21,7 @@ public class FrameRelatorioProdutos extends javax.swing.JFrame {
 
     public FrameRelatorioProdutos() {
         initComponents();
+        setLocation(290, 190);
 
     }
 

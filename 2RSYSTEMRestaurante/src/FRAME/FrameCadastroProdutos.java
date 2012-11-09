@@ -22,6 +22,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
     public FrameCadastroProdutos() {
         initComponents();
+        setLocation(200, 100);
         novoProduto();
         produtoDao = new ProdutoDAOIMPL();
         fornecedorDao = new FornecedorDAOIMPL();

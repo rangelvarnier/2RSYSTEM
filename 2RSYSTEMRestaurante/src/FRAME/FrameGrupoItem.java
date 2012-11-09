@@ -11,6 +11,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
 
     public FrameGrupoItem() {
         initComponents();
+        setLocation(200, 100);
         novoGrupo();
         grupoItemDao = new GrupoItemDAOIMPL();
         atualizaTabela();
