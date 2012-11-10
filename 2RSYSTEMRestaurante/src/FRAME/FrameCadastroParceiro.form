@@ -254,14 +254,14 @@
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                       </Subbinding>
-                      <Subbinding sourcePath="${pessoa.endereco_codigo.cidade_codigo}">
-                        <BindingParameter name="NAME" value="Cidade"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="RESTAURANTE.MODEL.Cidade.class"/>
+                      <Subbinding sourcePath="${limite}">
+                        <BindingParameter name="NAME" value="Limite"/>
+                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Float.class"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                       </Subbinding>
-                      <Subbinding sourcePath="${pessoa.endereco_codigo.cidade_codigo.unidadeFederativa_codigo}">
-                        <BindingParameter name="NAME" value="UF"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="RESTAURANTE.MODEL.UnidadeFederativa.class"/>
+                      <Subbinding sourcePath="${saldo}">
+                        <BindingParameter name="NAME" value="Saldo"/>
+                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Float.class"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                       </Subbinding>
                     </BindingProperty>

@@ -167,13 +167,13 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         columnBinding.setColumnName("Nome");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pessoa.endereco_codigo.cidade_codigo}"));
-        columnBinding.setColumnName("Cidade");
-        columnBinding.setColumnClass(RESTAURANTE.MODEL.Cidade.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${limite}"));
+        columnBinding.setColumnName("Limite");
+        columnBinding.setColumnClass(Float.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pessoa.endereco_codigo.cidade_codigo.unidadeFederativa_codigo}"));
-        columnBinding.setColumnName("UF");
-        columnBinding.setColumnClass(RESTAURANTE.MODEL.UnidadeFederativa.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${saldo}"));
+        columnBinding.setColumnName("Saldo");
+        columnBinding.setColumnClass(Float.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
@@ -725,7 +725,6 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
             enderecoDao.inserir(parceiro.getPessoa().getEndereco_codigo());
             pessoaDao.inserir(parceiro.getPessoa());
             parceiroDao.inserir(parceiro);
-
             atualizaTabela();
             limpacampodatas();
             jcbSexo.setSelectedIndex(0);
@@ -779,9 +778,6 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         //} catch (Exception e) {
          //   JOptionPane.showMessageDialog(rootPane, "Favor Selecione um Fornecedor para Detalhar.");
        // }
-
-
-
     }//GEN-LAST:event_jtbParceirosMouseClicked
 
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
@@ -934,7 +930,6 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         } else {
             jtbParceiros.addRowSelectionInterval(0, 0);
         }
-
     }
 
     public void atualizarCBUF() {
@@ -943,8 +938,6 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
             jcbUF.addItem(un);
         }
         jcbUF.setRenderer(new ComboBoxUF());
-
-
     }
 
     public void atualizaCBCidade() {

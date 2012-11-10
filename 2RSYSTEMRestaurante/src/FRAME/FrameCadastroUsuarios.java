@@ -30,7 +30,8 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jtfCodigo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jtfSenha = new javax.swing.JTextField();
+        jtfSenha = new javax.swing.JPasswordField();
+        AlterarSenha = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbUsuariosCadastrados = new javax.swing.JTable();
@@ -73,19 +74,29 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${usuario.senha}"), jtfSenha, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        AlterarSenha.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        AlterarSenha.setText("Alterar Senha");
+        AlterarSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AlterarSenhaActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jLabel2)
                     .add(jLabel3)
-                    .add(jtfUsuario, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 128, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 128, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jtfUsuario, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .add(jtfCodigo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                     .add(jLabel4)
-                    .add(jtfSenha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 128, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jtfSenha))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(AlterarSenha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -102,7 +113,9 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel3)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jtfSenha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jtfSenha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(AlterarSenha))
                 .addContainerGap())
         );
 
@@ -116,10 +129,6 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${usuario}"));
         columnBinding.setColumnName("Usuário");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${senha}"));
-        columnBinding.setColumnName("Senha");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
@@ -212,7 +221,7 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
                 .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 72, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jbtSalvar)
                     .add(jbtNovo)
@@ -260,11 +269,14 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
     private void jtbUsuariosCadastradosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbUsuariosCadastradosMouseClicked
        
         if (evt.getClickCount() == 1) {
-            setUsuario(usuarios.get(jtbUsuariosCadastrados.getSelectedRow()));
-            
+            setUsuario(usuarios.get(jtbUsuariosCadastrados.getSelectedRow()));            
         }
         
     }//GEN-LAST:event_jtbUsuariosCadastradosMouseClicked
+
+    private void AlterarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlterarSenhaActionPerformed
+        alteraSenhaUsuario();
+    }//GEN-LAST:event_AlterarSenhaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -302,6 +314,7 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AlterarSenha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -315,7 +328,7 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
     private javax.swing.JButton jbtsair;
     private javax.swing.JTable jtbUsuariosCadastrados;
     private javax.swing.JTextField jtfCodigo;
-    private javax.swing.JTextField jtfSenha;
+    private javax.swing.JPasswordField jtfSenha;
     private javax.swing.JTextField jtfUsuario;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
@@ -354,5 +367,12 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
     public void novoUsuario(){
         setUsuario(new Usuario());
     }
-
+    
+     public void alteraSenhaUsuario() {
+        FrameAlterarSenhaUsuario tela_busca = new FrameAlterarSenhaUsuario();
+        tela_busca.setModal(true);
+        tela_busca.setUsuario(usuarios.get(jtbUsuariosCadastrados.getSelectedRow()));
+        tela_busca.setVisible(true);
+        
+    }
 }
