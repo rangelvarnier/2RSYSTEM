@@ -662,6 +662,7 @@ public class FrameCompra extends javax.swing.JFrame {
     }
 
     public void buscarCompra() {
+        produtoDaCompra = new ProdutosDaCompra();
         //cria a tela de busca como modal
         FramePesquisaCompra tela_busca = new FramePesquisaCompra();
         tela_busca.setModal(true);
@@ -684,7 +685,8 @@ public class FrameCompra extends javax.swing.JFrame {
             this.compra.setFornecedor(comp.getFornecedor());
             this.compra.setColaborador(comp.getColaborador());
             this.compra.setValorCompra(comp.getValorCompra());
-
+            produtoDaCompra.setCompra(comp);
+            
             jtfCodigo.setText(String.valueOf(compra.getCodigo()));
             jdcDataCompra.setDate(compra.getDataCompra());
             jtfFornecedor.setText(compra.getFornecedor().getPessoa().getNome());
@@ -694,7 +696,6 @@ public class FrameCompra extends javax.swing.JFrame {
 
             int linha = 0;
             for (ProdutosDaCompra prods : produtosDaCompra) {
-                System.out.println(prods.getCompra().getCodigo());
                 jtbProdutosCompra.getModel().setValueAt(prods.getProduto().getCodigo(), linha, 0);
                 jtbProdutosCompra.getModel().setValueAt(prods.getProduto().getDescricao(), linha, 1);
                 jtbProdutosCompra.getModel().setValueAt(prods.getQuantidade(), linha, 2);
