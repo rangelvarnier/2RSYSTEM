@@ -172,6 +172,7 @@
           </BindingProperties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtbSubrupoItemMouseClicked"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtbSubrupoItemKeyPressed"/>
           </Events>
         </Component>
       </SubComponents>

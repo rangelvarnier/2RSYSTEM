@@ -88,6 +88,11 @@ public class FramePesquisaColaborador extends javax.swing.JDialog {
                 jtbColaboradoresMouseClicked(evt);
             }
         });
+        jtbColaboradores.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtbColaboradoresKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtbColaboradores);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -162,6 +167,13 @@ public class FramePesquisaColaborador extends javax.swing.JDialog {
             dispose();
         }
     }//GEN-LAST:event_jtbColaboradoresMouseClicked
+
+    private void jtbColaboradoresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbColaboradoresKeyPressed
+        if(evt.getKeyCode() == 10){
+            colaborador = colaboradores.get(jtbColaboradores.getSelectedRow());
+            dispose();
+        }
+    }//GEN-LAST:event_jtbColaboradoresKeyPressed
 
     /**
      * @param args the command line arguments

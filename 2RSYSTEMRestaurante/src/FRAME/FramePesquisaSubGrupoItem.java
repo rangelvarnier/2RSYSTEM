@@ -82,6 +82,11 @@ public class FramePesquisaSubGrupoItem extends javax.swing.JDialog {
                 jtbSubrupoItemMouseClicked(evt);
             }
         });
+        jtbSubrupoItem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtbSubrupoItemKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtbSubrupoItem);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -156,6 +161,13 @@ public class FramePesquisaSubGrupoItem extends javax.swing.JDialog {
             dispose();
         }
     }//GEN-LAST:event_jtbSubrupoItemMouseClicked
+
+    private void jtbSubrupoItemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbSubrupoItemKeyPressed
+       if(evt.getKeyCode() == 10){
+            subGrupoItem = subGrupoItens.get(jtbSubrupoItem.getSelectedRow());
+            dispose();
+        }
+    }//GEN-LAST:event_jtbSubrupoItemKeyPressed
 
     /**
      * @param args the command line arguments

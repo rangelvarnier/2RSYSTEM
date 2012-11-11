@@ -98,6 +98,11 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
                 jtbProdutosMouseClicked(evt);
             }
         });
+        jtbProdutos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtbProdutosKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtbProdutos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -172,6 +177,13 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
             dispose();
         }
     }//GEN-LAST:event_jtbProdutosMouseClicked
+
+    private void jtbProdutosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbProdutosKeyPressed
+        if(evt.getKeyCode() == 10){
+            produto = produtos.get(jtbProdutos.getSelectedRow());
+            dispose();
+        }
+    }//GEN-LAST:event_jtbProdutosKeyPressed
 
     /**
      * @param args the command line arguments

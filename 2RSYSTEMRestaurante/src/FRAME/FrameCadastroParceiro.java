@@ -167,9 +167,13 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         columnBinding.setColumnName("Nome");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${limite}"));
-        columnBinding.setColumnName("Limite");
-        columnBinding.setColumnClass(Float.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cpf}"));
+        columnBinding.setColumnName("CPF");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pessoa.endereco_codigo.celular}"));
+        columnBinding.setColumnName("Celular");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${saldo}"));
         columnBinding.setColumnName("Saldo");

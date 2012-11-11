@@ -149,6 +149,34 @@ public class VendaDAOIMPL implements VendaDAO{
         return vendas;
     }
 
+    @Override
+    public List<Venda> buscarCampoPesquisa(String parametro) {
+        List<Venda> vendas = new ArrayList<>();
+        ParceiroDAO parceiroDao = new ParceiroDAOIMPL();
+        ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from venda where pesquisa like ?";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, "%" + parametro + "%");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Venda venda = new Venda();
+                venda.setCodigo(rs.getInt("codigo"));
+                venda.setDataVenda(rs.getDate("dataCompra"));
+                venda.setValorVenda(rs.getFloat("valorCompra"));
+                venda.setCliente_codigo(parceiroDao.buscaPorId(rs.getInt("cliente_codigo")));
+                venda.setColaborador_codigo(colaboradorDao.buscaPorId(rs.getInt("colaborador_codigo")));
+                vendas.add(venda);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return vendas;
+    }
+    
+
     
     
 }

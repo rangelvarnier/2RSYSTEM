@@ -51,7 +51,7 @@ public class FrameVenda extends javax.swing.JFrame {
         jtfCliente = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
         jtfCodigo = new javax.swing.JTextField();
-        jftData = new com.toedter.calendar.JDateChooser();
+        jdcDataVenda = new com.toedter.calendar.JDateChooser();
         jbtPesquisaVendedor = new javax.swing.JButton();
         jtfVendedor = new javax.swing.JTextField();
         jbtPesquisaCliente = new javax.swing.JButton();
@@ -60,9 +60,9 @@ public class FrameVenda extends javax.swing.JFrame {
         jtbVenda = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jbtExcluir1 = new javax.swing.JButton();
+        jbtExcluirProduto = new javax.swing.JButton();
         jlbValorTotalVenda = new javax.swing.JLabel();
-        jbtSalvar = new javax.swing.JButton();
+        jbtFinalizarVenda = new javax.swing.JButton();
         jLabel36 = new javax.swing.JLabel();
         jbtCancelar = new javax.swing.JButton();
         jbtPesquisarVenda = new javax.swing.JButton();
@@ -174,7 +174,7 @@ public class FrameVenda extends javax.swing.JFrame {
                     .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 106, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(jpn1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jftData, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jdcDataVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 83, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jpn1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -210,7 +210,7 @@ public class FrameVenda extends javax.swing.JFrame {
                         .add(jbtPesquisaVendedor)
                         .add(jtfVendedor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(jbtPesquisaCliente))
-                    .add(jftData, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jdcDataVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -256,22 +256,22 @@ public class FrameVenda extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
 
-        jbtExcluir1.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtExcluir1.setText("Excluir Produto");
-        jbtExcluir1.addActionListener(new java.awt.event.ActionListener() {
+        jbtExcluirProduto.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jbtExcluirProduto.setText("Excluir Produto");
+        jbtExcluirProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtExcluir1ActionPerformed(evt);
+                jbtExcluirProdutoActionPerformed(evt);
             }
         });
 
         jlbValorTotalVenda.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jlbValorTotalVenda.setForeground(new java.awt.Color(255, 255, 255));
 
-        jbtSalvar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jbtSalvar.setText("Finalizar Venda");
-        jbtSalvar.addActionListener(new java.awt.event.ActionListener() {
+        jbtFinalizarVenda.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jbtFinalizarVenda.setText("Finalizar Venda");
+        jbtFinalizarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtSalvarActionPerformed(evt);
+                jbtFinalizarVendaActionPerformed(evt);
             }
         });
 
@@ -287,9 +287,9 @@ public class FrameVenda extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(jbtSalvar)
+                        .add(jbtFinalizarVenda)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jbtExcluir1)
+                        .add(jbtExcluirProduto)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(jLabel9)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -316,8 +316,8 @@ public class FrameVenda extends javax.swing.JFrame {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jlbValorTotalVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 22, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jbtSalvar)
-                        .add(jbtExcluir1)
+                        .add(jbtFinalizarVenda)
+                        .add(jbtExcluirProduto)
                         .add(jLabel9)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -423,14 +423,20 @@ public class FrameVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtPesquisaClienteActionPerformed
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
+        limpaCampos();
+        limpaTabela();
+        jbtAlterar.setVisible(false);
+        jbtExcluir.setVisible(false);
+        jbtExcluirProduto.setVisible(true);
+        jbtFinalizarVenda.setVisible(true);
         novaVenda();
         produtosDasVendas.removeAll(produtosDasVendas);
     }//GEN-LAST:event_jbtNovoActionPerformed
 
-    private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
+    private void jbtFinalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFinalizarVendaActionPerformed
         try {
             venda.setCodigo(Integer.valueOf(jtfCodigo.getText()));
-            venda.setDataVenda(jftData.getDate());
+            venda.setDataVenda(jdcDataVenda.getDate());
             vendaDao.inserir(venda);
             for (ProdutosDaVenda prod : this.produtosDasVendas) {
                 prod.setVenda_codigo(venda);
@@ -442,7 +448,7 @@ public class FrameVenda extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Campo não preenchido \n" + e.getMessage());
         }
-    }//GEN-LAST:event_jbtSalvarActionPerformed
+    }//GEN-LAST:event_jbtFinalizarVendaActionPerformed
 
     private void jtfVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfVendedorActionPerformed
         // TODO add your handling code here:
@@ -486,7 +492,7 @@ public class FrameVenda extends javax.swing.JFrame {
     private void jtfCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoActionPerformed
     }//GEN-LAST:event_jtfCodigoActionPerformed
 
-    private void jbtExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluir1ActionPerformed
+    private void jbtExcluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirProdutoActionPerformed
         try {
             if (JOptionPane.showConfirmDialog(null,
                     "Deseja realmente excluir este produto?",
@@ -504,10 +510,16 @@ public class FrameVenda extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao excluir!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
 
-    }//GEN-LAST:event_jbtExcluir1ActionPerformed
+    }//GEN-LAST:event_jbtExcluirProdutoActionPerformed
 
     private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
-        // TODO add your handling code here:
+        limpaCampos();
+        limpaTabela();
+        jbtAlterar.setVisible(false);
+        jbtExcluir.setVisible(false);
+        jbtExcluirProduto.setVisible(true);
+        jbtFinalizarVenda.setVisible(true);
+        novaVenda();
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jtbVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbVendaMouseClicked
@@ -518,24 +530,19 @@ public class FrameVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtPesquisarVendaActionPerformed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        /*  try {
-         if (JOptionPane.showConfirmDialog(null,
-         "Deseja realmente excluir a compra?",
-         "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
-         produtoDaCompraDao.removerAllProdutosDaCompra(produtoDaCompra);
-         compraDao.remover(compra);
-         novaCompra();
-         produtosDaCompra.removeAll(produtosDaCompra);
-         }
-         } catch (Exception e) {
-         JOptionPane.showMessageDialog(null, "Erro ao excluir!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-         }*/
-        produtosDaVendaDao.removerAllProdutosDaCompra(produtodavenda);
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente excluir esta Venda?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                produtosDaVendaDao.removerAllProdutosDaCompra(produtodavenda);
+                vendaDao.remover(venda);
+                novaVenda();
+                produtosDasVendas.removeAll(produtosDasVendas);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
 
-        vendaDao.remover(venda);
-        novaVenda();
-
-        produtosDasVendas.removeAll(produtosDasVendas);
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     /**
@@ -588,14 +595,14 @@ public class FrameVenda extends javax.swing.JFrame {
     private javax.swing.JButton jbtAlterar;
     private javax.swing.JButton jbtCancelar;
     private javax.swing.JButton jbtExcluir;
-    private javax.swing.JButton jbtExcluir1;
+    private javax.swing.JButton jbtExcluirProduto;
+    private javax.swing.JButton jbtFinalizarVenda;
     private javax.swing.JButton jbtNovo;
     private javax.swing.JButton jbtPesquisaCliente;
     private javax.swing.JButton jbtPesquisaVendedor;
     private javax.swing.JButton jbtPesquisarVenda;
     private javax.swing.JButton jbtSair;
-    private javax.swing.JButton jbtSalvar;
-    private com.toedter.calendar.JDateChooser jftData;
+    private com.toedter.calendar.JDateChooser jdcDataVenda;
     private javax.swing.JLabel jlbValorTotalVenda;
     private javax.swing.JPanel jpn1;
     private javax.swing.JTable jtbVenda;
@@ -639,7 +646,7 @@ public class FrameVenda extends javax.swing.JFrame {
 
     private void limpaCampos() {
         jtfCodigo.setText("");
-        jftData.setDate(new Date());
+        jdcDataVenda.setDate(new Date());
         jtfVendedor.setText("");
         jtfCliente.setText("");
         jlbValorTotalVenda.setText("");
@@ -735,45 +742,49 @@ public class FrameVenda extends javax.swing.JFrame {
     }
 
     public void buscarVenda() {
+        produtodavenda = new ProdutosDaVenda();
+        //cria a tela de busca como modal
+        FramePesquisaVenda tela_busca = new FramePesquisaVenda();
+        tela_busca.setModal(true);
+        //exibe
+        tela_busca.setVisible(true);
+        //recupera os dados
+        Venda vend = new Venda();
+        vend = tela_busca.retornaVenda();
+        //seta na tela
+        if (vend != null) {
+            limpaCampos();
+            limpaTabela();
+            jbtAlterar.setVisible(true);
+            jbtExcluir.setVisible(true);
+            jbtExcluirProduto.setVisible(false);
+            jbtFinalizarVenda.setVisible(false);
 
-        /*
-         //cria a tela de busca como modal
-         FramePesquisaCompra tela_busca = new FramePesquisaCompra();
-         tela_busca.setModal(true);
-         //exibe
-         tela_busca.setVisible(true);
-         //recupera os dados
-         Compra comp = new Compra();
-         comp = tela_busca.retornaCompra();
-         //seta na tela
-         if (comp != null) {
-         limpaCampos();
-         limpaTabela();
+            this.venda.setCodigo(vend.getCodigo());
+            this.venda.setDataVenda(vend.getDataVenda());
+            this.venda.setCliente_codigo(vend.getCliente_codigo());
+            this.venda.setColaborador_codigo(vend.getColaborador_codigo());
+            this.venda.setValorVenda(vend.getValorVenda());
+            produtodavenda.setVenda_codigo(vend);
 
-         this.compra.setCodigo(comp.getCodigo());
-         this.compra.setDataCompra(comp.getDataCompra());
-         this.compra.setFornecedor(comp.getFornecedor());
-         this.compra.setColaborador(comp.getColaborador());
-         this.compra.setValorCompra(comp.getValorCompra());
+            jtfCodigo.setText(String.valueOf(venda.getCodigo()));
+            jdcDataVenda.setDate(venda.getDataVenda());
+            jtfCliente.setText(venda.getCliente_codigo().getPessoa().getNome());
+            jtfVendedor.setText(venda.getColaborador_codigo().getPessoa().getNome());
 
-         jtfCodigo.setText(String.valueOf(compra.getCodigo()));
-         jdcDataCompra.setDate(compra.getDataCompra());
-         jtfFornecedor.setText(compra.getFornecedor().getPessoa().getNome());
-         jtfColaborador.setText(compra.getColaborador().getPessoa().getNome());
+            produtosDasVendas = produtosDaVendaDao.buscarPorCompra(this.venda);
 
-         produtosDaCompra = produtoDaCompraDao.buscarPorCompra(this.compra);
-         int linha = 0;
-         for (ProdutosDaCompra prods : produtosDaCompra) {
-         jtbProdutosCompra.getModel().setValueAt(prods.getProduto().getCodigo(), linha, 0);
-         jtbProdutosCompra.getModel().setValueAt(prods.getProduto().getDescricao(), linha, 1);
-         jtbProdutosCompra.getModel().setValueAt(prods.getQuantidade(), linha, 2);
-         jtbProdutosCompra.getModel().setValueAt(prods.getValorUnitario(), linha, 3);
-         jtbProdutosCompra.getModel().setValueAt(prods.getValorTotal(), linha, 4);
-         linha++;
-         inserirLinha();
-         }
-         jtfValorCompra.setText(String.valueOf(this.compra.getValorCompra()));
-         }
-         */
+            int linha = 0;
+            for (ProdutosDaVenda prods : produtosDasVendas) {
+                jtbVenda.getModel().setValueAt(prods.getProduto_codigo().getCodigo(), linha, 0);
+                jtbVenda.getModel().setValueAt(prods.getProduto_codigo().getDescricao(), linha, 1);
+                jtbVenda.getModel().setValueAt(prods.getQuantidade(), linha, 2);
+                jtbVenda.getModel().setValueAt(prods.getValorUnitario(), linha, 3);
+                jtbVenda.getModel().setValueAt(prods.getValorTotal(), linha, 4);
+                linha++;
+                inserirLinha();
+            }
+            jlbValorTotalVenda.setText(String.valueOf(this.venda.getValorVenda()));
+        }
     }
 }

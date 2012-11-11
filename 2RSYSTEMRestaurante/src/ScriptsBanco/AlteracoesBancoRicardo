@@ -1,1 +1,41 @@
 //1-    ALTER TABLE `2RSITEM`.`parceiro` ADD COLUMN `tipoPessoa` CHAR(1) NULL  AFTER `pessoa_codigo` ;
+
+
+//Alteracao Venda, criacao colula pesquisa
+ALTER TABLE `2rsitem`.`venda` ADD COLUMN `pesquisa` VARCHAR(150) NULL  AFTER `colaborador_codigo` ;
+
+//trigger de Venda
+
+-- Trigger DDL Statements
+DELIMITER $$
+
+USE `2RSITEM`$$
+
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `2RSITEM`.`INSERT_BI`
+BEFORE INSERT ON `2RSITEM`.`venda`
+FOR EACH ROW
+BEGIN
+
+   declare nomeParceiro varchar(30);
+   declare nomeColaborador varchar(30);
+           
+select p.nome into nomeParceiro from venda vem
+        join parceiro cli
+        on cli.codigo = vem.cliente_codigo
+        join pessoa p
+            on p.codigo = cli.pessoa_codigo
+        where vem.codigo = cliente_codigo;
+
+select p.nome into nomeColaborador from venda vem
+        join colaborador col
+            on col.codigo = vem.colaborador_codigo
+        join pessoa p
+            on p.codigo = col.pessoa_codigo
+        where vem.codigo = colaborador_codigo;
+
+    set new.pesquisa = concat(nomeParceiro,'-',
+             nomeColaborador,'-', new.dataVenda);
+
+END$$

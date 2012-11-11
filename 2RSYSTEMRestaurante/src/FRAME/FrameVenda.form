@@ -141,7 +141,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jftData" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                      <Component id="jdcDataVenda" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                       <Component id="jLabel37" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -187,7 +187,7 @@
                           <Component id="jtfVendedor" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jbtPesquisaCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jftData" min="-2" max="-2" attributes="0"/>
+                      <Component id="jdcDataVenda" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -259,7 +259,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfCodigoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jftData">
+        <Component class="com.toedter.calendar.JDateChooser" name="jdcDataVenda">
         </Component>
         <Component class="javax.swing.JButton" name="jbtPesquisaVendedor">
           <Properties>
@@ -318,9 +318,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jbtSalvar" min="-2" max="-2" attributes="0"/>
+                          <Component id="jbtFinalizarVenda" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jbtExcluir1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jbtExcluirProduto" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -354,8 +354,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jlbValorTotalVenda" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jbtSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jbtExcluir1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jbtFinalizarVenda" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jbtExcluirProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -449,7 +449,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jbtExcluir1">
+        <Component class="javax.swing.JButton" name="jbtExcluirProduto">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lucida Grande" size="12" style="0"/>
@@ -457,7 +457,7 @@
             <Property name="text" type="java.lang.String" value="Excluir Produto"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtExcluir1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtExcluirProdutoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jlbValorTotalVenda">
@@ -470,7 +470,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jbtSalvar">
+        <Component class="javax.swing.JButton" name="jbtFinalizarVenda">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lucida Grande" size="12" style="0"/>
@@ -478,7 +478,7 @@
             <Property name="text" type="java.lang.String" value="Finalizar Venda"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtSalvarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtFinalizarVendaActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel36">
