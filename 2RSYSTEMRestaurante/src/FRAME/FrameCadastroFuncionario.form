@@ -259,6 +259,9 @@
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Campo de Pesquisa"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfPesquisarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jbtPesquisar">
               <Properties>

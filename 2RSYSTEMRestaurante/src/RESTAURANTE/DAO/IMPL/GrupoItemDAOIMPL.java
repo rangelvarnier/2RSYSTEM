@@ -109,7 +109,7 @@ public class GrupoItemDAOIMPL implements GrupoItemDAO {
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, "%"+descricao+"%");
+            stmt.setString(1, "%" + descricao + "%");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

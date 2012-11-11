@@ -303,6 +303,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         jMenu4.setText("Ajuda");
 
         jMenuItem8.setText("Sobre");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem8);
 
         jMenuBar1.add(jMenu4);
@@ -496,6 +501,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void jbtEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEntradaActionPerformed
         new FrameCompra().setVisible(true);
     }//GEN-LAST:event_jbtEntradaActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        new FrameSobre().setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments

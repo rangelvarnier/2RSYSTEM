@@ -181,6 +181,11 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
 
         jtfPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jtfPesquisar.setToolTipText("Campo de Pesquisa");
+        jtfPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfPesquisarActionPerformed(evt);
+            }
+        });
 
         jbtPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtPesquisar.setText("Pesquisar");
@@ -781,8 +786,15 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbColaboradoresMouseClicked
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
         setColaboradores(colaboradorDao.buscarPorNome(jtfPesquisar.getText()));
-        jtbColaboradores.addRowSelectionInterval(0, 0);
+        if (colaboradorDao.buscarTodos().isEmpty()) {
+        } else {
+            jtbColaboradores.addRowSelectionInterval(0, 0);
+        }
     }//GEN-LAST:event_jbtPesquisarActionPerformed
+
+    private void jtfPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPesquisarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfPesquisarActionPerformed
     /**
      * @param args the command line arguments
      */

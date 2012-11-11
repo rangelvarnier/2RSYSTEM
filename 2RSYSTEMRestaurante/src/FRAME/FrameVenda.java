@@ -1,11 +1,11 @@
 package FRAME;
 
 import RESTAURANTE.DAO.IMPL.ProdutoDAOIMPL;
+import RESTAURANTE.DAO.IMPL.ProdutoDaVendaDAOIMPL;
 import RESTAURANTE.DAO.IMPL.VendaDAOIMPL;
-import RESTAURANTE.DAO.IMPL.produtosDaVendaDAOIMPL;
 import RESTAURANTE.DAO.ProdutoDAO;
+import RESTAURANTE.DAO.ProdutoDaVendaDAO;
 import RESTAURANTE.DAO.VendaDAO;
-import RESTAURANTE.DAO.produtosDaVendaDAO;
 import RESTAURANTE.MODEL.Colaborador;
 import RESTAURANTE.MODEL.Parceiro;
 import RESTAURANTE.MODEL.Produto;
@@ -30,7 +30,7 @@ public class FrameVenda extends javax.swing.JFrame {
         vendaDao = new VendaDAOIMPL();
         tableModel = new DefaultTableModel();
         produtoDao = new ProdutoDAOIMPL();
-        produtosDaVendaDao = new produtosDaVendaDAOIMPL();
+        produtosDaVendaDao = new ProdutoDaVendaDAOIMPL();
         produtosDasVendas = new ArrayList<ProdutosDaVenda>();
         novaVenda();
     }
@@ -530,6 +530,12 @@ public class FrameVenda extends javax.swing.JFrame {
          } catch (Exception e) {
          JOptionPane.showMessageDialog(null, "Erro ao excluir!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
          }*/
+        produtosDaVendaDao.removerAllProdutosDaCompra(produtodavenda);
+
+        vendaDao.remover(venda);
+        novaVenda();
+
+        produtosDasVendas.removeAll(produtosDasVendas);
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     /**
@@ -602,7 +608,7 @@ public class FrameVenda extends javax.swing.JFrame {
     private VendaDAO vendaDao;
     private ProdutosDaVenda produtodavenda;
     private List<ProdutosDaVenda> produtosDasVendas;
-    private produtosDaVendaDAO produtosDaVendaDao;
+    private ProdutoDaVendaDAO produtosDaVendaDao;
     private Produto produto;
     private ProdutoDAO produtoDao;
     DefaultTableModel tableModel;

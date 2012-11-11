@@ -195,7 +195,7 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, "%" + nome + "%");
+            stmt.setString(1, "%"+nome+"%");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
