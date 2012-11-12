@@ -20,7 +20,10 @@ public class VendaDAOIMPL implements VendaDAO{
     @Override
     public void inserir(Venda venda) {
        Connection con = new Conexao().criarConexao();
-        String sql = "insert into venda value(?, ?, ?, ?, ?)";
+        String sql ="insert into venda(codigo, dataVenda, valorVenda,"
+                + " cliente_codigo, colaborador_codigo)"
+                + " values (?, ?, ?, ?, ?)"; 
+               // "insert into venda value(?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 

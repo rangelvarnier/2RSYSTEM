@@ -17,7 +17,6 @@ public class CompraDAOIMPL implements CompraDAO {
         String sql ="insert into compra(codigo, dataCompra, valorCompra,"
                 + " fornecedor_codigo, colaborador_codigo)"
                 + " values (?, ?, ?, ?, ?);"; 
-                //"insert into compra value(?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
