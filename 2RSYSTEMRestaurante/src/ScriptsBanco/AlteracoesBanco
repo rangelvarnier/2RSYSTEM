@@ -123,4 +123,22 @@ select p.nome into nomeColaborador from compra com
 
 END$$
 
+// triger para ajustar o saldo de estoque quando houver compra de mercadoria
+
+
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `2rsitem`.`INSERT_BI`
+BEFORE INSERT ON `2rsitem`.`produtosdacompra`
+FOR EACH ROW
+BEGIN
+    
+    declare OLDsaldo float;
+    
+    select saldoEstoque into OLDsaldo from produto where codigo = new.produto_codigo;
+    
+    UPDATE produto SET saldoEstoque = new.quantidade + (OLDsaldo)
+        WHERE codigo = new.produto_codigo;
+END$$
+
 
