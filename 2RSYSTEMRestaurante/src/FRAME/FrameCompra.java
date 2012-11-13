@@ -426,22 +426,22 @@ public class FrameCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbProdutosCompraKeyPressed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        //  try {
-        //    if (JOptionPane.showConfirmDialog(null,
-        //          "Deseja realmente excluir a compra?",
-        //        "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
-        System.out.println(produtoDaCompra.getCompra().getCodigo());
-        produtoDaCompraDao.removerAllProdutosDaCompra(produtoDaCompra);
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente excluir a compra?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                produtoDaCompraDao.removerAllProdutosDaCompra(produtoDaCompra);
 
-        compraDao.remover(compra);
-        novaCompra();
+                compraDao.remover(compra);
+                novaCompra();
 
-        produtosDaCompra.removeAll(produtosDaCompra);
-        //      }
-        //  } catch (Exception e) {
-        //      JOptionPane.showMessageDialog(null, "Erro ao excluir!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        //      e.printStackTrace();
-        //  }
+                produtosDaCompra.removeAll(produtosDaCompra);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir!\nMotivo: "
+                    + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtPesquisarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarCompraActionPerformed
@@ -540,7 +540,6 @@ public class FrameCompra extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new FrameCompra().setVisible(true);
             }
@@ -686,7 +685,7 @@ public class FrameCompra extends javax.swing.JFrame {
             this.compra.setColaborador(comp.getColaborador());
             this.compra.setValorCompra(comp.getValorCompra());
             produtoDaCompra.setCompra(comp);
-            
+
             jtfCodigo.setText(String.valueOf(compra.getCodigo()));
             jdcDataCompra.setDate(compra.getDataCompra());
             jtfFornecedor.setText(compra.getFornecedor().getPessoa().getNome());
