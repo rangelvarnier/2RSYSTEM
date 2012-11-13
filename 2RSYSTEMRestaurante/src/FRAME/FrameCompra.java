@@ -502,7 +502,29 @@ public class FrameCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jbtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAlterarActionPerformed
-        // TODO add your handling code here:
+
+        try {
+            compra.setCodigo(Integer.valueOf(jtfCodigo.getText()));
+            compra.setDataCompra(jdcDataCompra.getDate());
+            try {
+                compraDao.alterar(compra);
+                JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+            try {
+                for (ProdutosDaCompra prod : this.produtosDaCompra) {
+                    prod.setCompra(compra);
+                    produtoDaCompraDao.alterar(prod);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Campo não preenchido \n" + e.getMessage());
+        }
     }//GEN-LAST:event_jbtAlterarActionPerformed
 
     /**

@@ -123,6 +123,44 @@ select p.nome into nomeColaborador from compra com
 
 END$$
 
+//triger de pesquisa na venda
+
+-- Trigger DDL Statements
+DELIMITER $$
+
+USE `2rsitem`$$
+
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `2rsitem`.`INSERT_BI`
+BEFORE INSERT ON `2rsitem`.`venda`
+FOR EACH ROW
+BEGIN
+
+   declare nomeParceiro varchar(30);
+   declare nomeColaborador varchar(30);
+           
+select p.nome into nomeParceiro from venda vem
+        join parceiro cli
+        on cli.codigo = vem.cliente_codigo
+        join pessoa p
+            on p.codigo = cli.pessoa_codigo
+        where vem.codigo = cliente_codigo;
+
+select p.nome into nomeColaborador from venda vem
+        join colaborador col
+            on col.codigo = vem.colaborador_codigo
+        join pessoa p
+            on p.codigo = col.pessoa_codigo
+        where vem.codigo = colaborador_codigo;
+
+    set new.pesquisa = concat(nomeParceiro,'-',
+             nomeColaborador,'-', new.dataVenda);
+
+END$$
+
+
+
 // triger para ajustar o saldo de estoque quando houver compra de mercadoria
 
 
