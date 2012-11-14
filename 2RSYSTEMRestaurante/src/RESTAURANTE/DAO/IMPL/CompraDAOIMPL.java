@@ -152,18 +152,25 @@ public class CompraDAOIMPL implements CompraDAO {
 
     @Override
     public List<Compra> buscarParametrosRelatorio(Integer fornecedor, Integer colaborador) {
-        Compra compra;
+        Compra compra = null;
         List<Compra> compras = new ArrayList<Compra>();
         ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
         FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from compra where fornecedor_codigo = ?"
-                + " and colaborador_codigo = ?";
+        String sql = "select * from compra where fornecedor_codigo = ? or colaborador_codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, fornecedor);
+            
+            if(fornecedor == null){
+                stmt.setInt(1, 0);
+            }else{
+                stmt.setInt(1, fornecedor);
+            }
+            if(colaborador == null){
+                stmt.setInt(2, 0);
+            }else{    
             stmt.setInt(2, colaborador);
-
+            }
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

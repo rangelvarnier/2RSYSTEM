@@ -215,15 +215,18 @@ public class FrameRelatorioCompras extends javax.swing.JFrame {
                 JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
                 JasperViewer.viewReport(jasperPrint);
-                dispose();
+                
             } else {
+               
                 List<Compra> dados = dao.buscarParametrosRelatorio(fornecedor.getCodigo(), colaborador.getCodigo());
-                JRDataSource datasource = new JRBeanCollectionDataSource(dados);
-                JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioCompras.jrxml");
-                JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
-                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
-                JasperViewer.viewReport(jasperPrint);
-                dispose();
+                
+                    JRDataSource datasource = new JRBeanCollectionDataSource(dados);
+                    JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioCompras.jrxml");
+                    JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
+                    JasperViewer.viewReport(jasperPrint);
+                    
+                
             }
         } catch (JRException ex) {
             System.out.println("Filtro não encontrado" + ex.getMessage());

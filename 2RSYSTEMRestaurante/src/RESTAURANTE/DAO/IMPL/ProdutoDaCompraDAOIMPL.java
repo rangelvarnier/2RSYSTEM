@@ -165,4 +165,36 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
         }
         return produtosDaCompra;
     }
+
+    @Override
+    public List<ProdutosDaCompra> buscarParametrosRelatorio(Integer codigo) {
+        CompraDAO compraDao = new CompraDAOIMPL();
+        List<ProdutosDaCompra> produtosdaCompras = new ArrayList<ProdutosDaCompra>(); 
+        ProdutosDaCompra produtosdaCompra = null;
+        
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from produtosdacompra where compra_codigo = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setInt(1, codigo);
+            
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                produtosdaCompra = new ProdutosDaCompra();
+                produtosdaCompra.getCompra().setCodigo(rs.getInt("compra_codigo"));
+                produtosdaCompra.getProduto().setCodigo(rs.getInt("produto_codigo"));
+                produtosdaCompra.setQuantidade(rs.getFloat("quantidade"));
+                produtosdaCompra.setValorUnitario(rs.getFloat("valorUnitario"));
+                produtosdaCompra.setValorTotal(rs.getFloat("valorTotal"));
+                produtosdaCompras.add(produtosdaCompra);
+            }
+
+        } catch (SQLException ex) {
+        }
+        return produtosdaCompras;
+    
+    
+    }
 }
