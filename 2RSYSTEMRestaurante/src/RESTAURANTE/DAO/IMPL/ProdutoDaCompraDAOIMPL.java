@@ -39,7 +39,7 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
         Connection con = new Conexao().criarConexao();
         String sql = "update produtosdacompra set quantidade = ?,"
                 + " valorUnitario = ?, valorTotal = ?"
-                + " where produto_codigo = ? and codigo_compra = ?";
+                + " where produto_codigo = ? and compra_codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
