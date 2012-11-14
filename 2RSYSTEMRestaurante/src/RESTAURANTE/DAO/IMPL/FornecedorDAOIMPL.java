@@ -90,8 +90,9 @@ public class FornecedorDAOIMPL implements FornecedorDAO {
         Fornecedor fornecedor = null;
         PessoaDAO pessoaDao = new PessoaDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from fornecedor"
-                + " where codigo = ?";
+        String sql = "select codigo, razaoSocial, cnpj, inscEstadual,"
+                + "dataFundacao, dataCadastro, pessoa_codigo"
+                + " from fornecedor where codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setLong(1, codigo);
@@ -141,7 +142,8 @@ public class FornecedorDAOIMPL implements FornecedorDAO {
         PessoaDAO pessoaDao = new PessoaDAOIMPL();
 
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from fornecedor";
+        String sql = "select codigo, razaoSocial, cnpj, inscEstadual,"
+                + "dataFundacao, dataCadastro, pessoa_codigo from fornecedor";
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -170,7 +172,9 @@ public class FornecedorDAOIMPL implements FornecedorDAO {
         List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
         PessoaDAO pessoaDao = new PessoaDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from fornecedor where razaoSocial like ? ";
+        String sql = "select codigo, razaoSocial, cnpj, inscEstadual,"
+                + "dataFundacao, dataCadastro, pessoa_codigo"
+                + " from fornecedor where razaoSocial like ? ";
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);

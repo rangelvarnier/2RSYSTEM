@@ -106,11 +106,6 @@
 				</textElement>
 				<text><![CDATA[COLABORADOR]]></text>
 			</staticText>
-			<textField>
-				<reportElement uuid="c4ccdfef-3143-48b8-ac5a-75035f3654ab" x="242" y="250" width="100" height="17"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{colaborador}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement uuid="675cced3-f438-48f5-946a-7ea25dfa9fab" x="312" y="16" width="77" height="20"/>
 				<box topPadding="3">
@@ -151,7 +146,7 @@
 			<textField>
 				<reportElement uuid="9ec75501-1689-4182-8635-4dd80e4af89c" x="225" y="0" width="87" height="13"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{colaborador}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{colaborador}.getPessoa().getNome()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="b3f9d835-a7e9-4a96-9fc1-569639038716" x="468" y="0" width="85" height="13"/>
@@ -161,7 +156,7 @@
 			<textField>
 				<reportElement uuid="9b9dc4e8-19bc-4746-990d-5f87a0ca7a44" x="312" y="0" width="77" height="13"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{fornecedor}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fornecedor}.getPessoa().getNome()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="65eaf73e-8ed2-4abe-9106-601036ea7cc1" x="389" y="0" width="79" height="13"/>

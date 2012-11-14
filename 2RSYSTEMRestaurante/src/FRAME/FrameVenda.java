@@ -101,10 +101,10 @@ public class FrameVenda extends javax.swing.JFrame {
         jLabel31.setText("Código");
 
         jLabel33.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel33.setText("Vendedor");
+        jLabel33.setText("Colaborador");
 
         jLabel35.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel35.setText("Cliente");
+        jLabel35.setText("Parceiro");
 
         jtfCliente.setEditable(false);
         jtfCliente.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N

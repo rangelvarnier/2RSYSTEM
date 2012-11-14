@@ -24,4 +24,6 @@ public interface CompraDAO {
     List<Compra> buscarTodos();
     
     List<Compra> buscarCampoPesquisa(String parametro);
+    
+    List<Compra> buscarParametrosRelatorio(Integer fornecedor, Integer colaborador);
 }

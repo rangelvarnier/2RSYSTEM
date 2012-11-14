@@ -86,7 +86,8 @@ public class EnderecoDAOIMPL implements EnderecoDAO{
         Endereco endereco = null;
         CidadeDAO cidadeDao = new CidadeDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from endereco"
+        String sql = "select codigo, rua, numero, cep, bairro, "
+                + "cidade_codigo, telefone, celular, email from endereco"
                 + " where codigo = ?";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -123,7 +124,8 @@ public class EnderecoDAOIMPL implements EnderecoDAO{
 
 
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from endereco";
+        String sql = "select codigo, rua, numero, cep, bairro, "
+                + "cidade_codigo, telefone, celular, email from endereco";
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
