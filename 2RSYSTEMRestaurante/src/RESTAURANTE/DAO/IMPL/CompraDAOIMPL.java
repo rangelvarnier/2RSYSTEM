@@ -39,9 +39,11 @@ public class CompraDAOIMPL implements CompraDAO {
     @Override
     public void alterar(Compra compra) {
         Connection con = new Conexao().criarConexao();
-        String sql = "update compra set dataCompra = ?, valorCompra = ?,"
-                + "fornecedor_codigo = ?, colaborador_codigo = ?,"
-                + "where codigo = ?)";
+       // String sql = "update compra set dataCompra = ?, valorCompra = ?, "
+       //         + "fornecedor_codigo = ?, colaborador_codigo = ?"
+       //         + " where codigo = ?";
+        
+        String sql = "update compra set dataCompra = ?, valorCompra = ?, fornecedor_codigo = ?, colaborador_codigo = ? where codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
