@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,7 +31,11 @@ public class EmpresaDAOIMPL implements EmpresaDAO{
             stmt.setString(5, empresa.getInscricaoEstadual());
             stmt.setString(6, empresa.getNomeProprietario());
             stmt.setString(7, empresa.getEmail());
-            stmt.setDate(8, new java.sql.Date(empresa.getDataFundacao().getTime()));
+            if (empresa.getDataFundacao() != null) {  
+                    stmt.setDate(8, new java.sql.Date(empresa.getDataFundacao().getTime()));
+                } else {  
+                 stmt.setNull(8, Types.DATE);  
+            }
             stmt.setInt(9, empresa.getEndereco_codigo().getCodigo());
            
             
@@ -55,7 +60,11 @@ public class EmpresaDAOIMPL implements EmpresaDAO{
             stmt.setString(4, empresa.getInscricaoEstadual());
             stmt.setString(5, empresa.getNomeProprietario());
             stmt.setString(6, empresa.getEmail());
-            stmt.setDate(7, new java.sql.Date(empresa.getDataFundacao().getTime()));
+            if (empresa.getDataFundacao() != null) {  
+                    stmt.setDate(7, new java.sql.Date(empresa.getDataFundacao().getTime()));
+                } else {  
+                 stmt.setNull(7, Types.DATE);  
+            }
             stmt.setInt(8, empresa.getEndereco_codigo().getCodigo());
             stmt.setInt(9, empresa.getCodigo());
             
@@ -86,7 +95,8 @@ public class EmpresaDAOIMPL implements EmpresaDAO{
         Empresa empresa = null;
         EnderecoDAO enderecoDao = new EnderecoDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from empresa"
+        String sql = "select codigo,razaoSocial,nomeFantasia,cnpj,inscricaoEstadual,"
+                + "nomeProprietario,email,dataFundacao,endereco_codigo from empresa"
                 + " where codigo = ?";
         try{
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -143,7 +153,8 @@ public class EmpresaDAOIMPL implements EmpresaDAO{
         EnderecoDAO enderecoDao = new EnderecoDAOIMPL();
 
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from empresa";
+        String sql = "select codigo,razaoSocial,nomeFantasia,cnpj,inscricaoEstadual,"
+                + "nomeProprietario,email,dataFundacao,endereco_codigo from empresa";
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
