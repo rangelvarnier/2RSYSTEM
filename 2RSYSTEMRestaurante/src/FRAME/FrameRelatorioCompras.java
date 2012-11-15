@@ -44,7 +44,7 @@ public class FrameRelatorioCompras extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Relatório de Produtos");
+        setTitle("Relatório de Compras");
         setLocation(new java.awt.Point(200, 100));
         setResizable(false);
 

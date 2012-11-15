@@ -3,17 +3,17 @@ package RESTAURANTE.MODEL;
 public class ProdutosDaCompra {
 
     private Compra compra;
-    private Produto Produto;
+    private Produto produto;
     private Float quantidade;
     private Float valorUnitario;
     private Float valorTotal;
 
     public Produto getProduto() {
-        return Produto;
+        return produto;
     }
 
     public void setProduto(Produto Produto) {
-        this.Produto = Produto;
+        this.produto = Produto;
     }
 
     public Compra getCompra() {

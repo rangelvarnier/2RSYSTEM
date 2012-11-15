@@ -7,8 +7,8 @@
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
-	<field name="compra" class="RESTAURANTE.MODEL.Compra"/>
-	<field name="produto" class="RESTAURANTE.MODEL.Produto"/>
+	<field name="venda_codigo" class="RESTAURANTE.MODEL.Venda"/>
+	<field name="produto_codigo" class="RESTAURANTE.MODEL.Produto"/>
 	<field name="quantidade" class="java.lang.Integer"/>
 	<field name="valorUnitario" class="java.lang.Float"/>
 	<field name="valorTotal" class="java.lang.Float"/>
@@ -18,9 +18,9 @@
 	<title>
 		<band height="70" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="202ecf83-32fc-4b08-9661-1384008bc390" style="Title" x="230" y="0" width="325" height="33"/>
+				<reportElement uuid="202ecf83-32fc-4b08-9661-1384008bc390" style="Title" x="159" y="0" width="396" height="33"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Relatório Itens da Compra]]></text>
+				<text><![CDATA[Relatório de Produtos da Venda]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -47,7 +47,7 @@
 				<textElement textAlignment="Center">
 					<font isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[COD DA COMPRA]]></text>
+				<text><![CDATA[COD DA VENDA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="f81719a6-64ee-4130-b618-b5a0d9514496" x="361" y="16" width="97" height="20"/>
@@ -119,7 +119,7 @@
 					<rightPen lineWidth="0.25" lineColor="#999999"/>
 				</box>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{compra}.getCodigo()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{venda_codigo}.getCodigo()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="164b49fc-6b30-4a6a-b61b-756a0db414d7" x="99" y="0" width="167" height="13"/>
@@ -131,7 +131,7 @@
 					<rightPen lineWidth="0.25" lineColor="#999999"/>
 				</box>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{produto}.getDescricao()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{produto_codigo}.getDescricao()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="31fafc3a-0040-4502-87bc-bc52d9b1827c" x="266" y="0" width="95" height="13"/>

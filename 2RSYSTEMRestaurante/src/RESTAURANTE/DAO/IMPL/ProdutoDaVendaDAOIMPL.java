@@ -168,6 +168,71 @@ public class ProdutoDaVendaDAOIMPL implements ProdutoDaVendaDAO{
         }
         return produtosDaVenda;
     }
+
+    @Override
+    public List<ProdutosDaVenda> buscarParametrosRelatorio(Integer codigo) {
+        VendaDAO vendaDao = new VendaDAOIMPL();
+        ProdutoDAO produtoDao = new ProdutoDAOIMPL();
+        List<ProdutosDaVenda> produtosdaVendas = new ArrayList<ProdutosDaVenda>(); 
+        ProdutosDaVenda produtosDavenda = null;
+        
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from produtosdavenda where venda_codigo = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setInt(1, codigo);
+            
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                produtosDavenda = new ProdutosDaVenda();
+                produtosDavenda.setVenda_codigo(vendaDao.buscaPorId(rs.getInt("venda_codigo")));
+                produtosDavenda.setProduto_codigo(produtoDao.buscarPorCodigo(rs.getInt("produto_codigo")));
+                produtosDavenda.setQuantidade(rs.getFloat("quantidade"));
+                produtosDavenda.setValorUnitario(rs.getFloat("valorUnitario"));
+                produtosDavenda.setValorTotal(rs.getFloat("valorTotal"));
+                produtosdaVendas.add(produtosDavenda);
+            }
+
+        } catch (SQLException ex) {
+        }
+        return produtosdaVendas;
+    
+    
+        }
+
+    @Override
+    public List<ProdutosDaVenda> buscarParametroParaImpressao(Integer codigodavenda) {
+        VendaDAO vendaDao = new VendaDAOIMPL();
+        ProdutoDAO produtoDao = new ProdutoDAOIMPL();
+        List<ProdutosDaVenda> produtosdaVendas = new ArrayList<ProdutosDaVenda>(); 
+        ProdutosDaVenda produtosDavenda = null;
+        
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from produtosdavenda where venda_codigo = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setInt(1, codigodavenda);
+            
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                produtosDavenda = new ProdutosDaVenda();
+                produtosDavenda.setVenda_codigo(vendaDao.buscaPorId(rs.getInt("venda_codigo")));
+                produtosDavenda.setProduto_codigo(produtoDao.buscarPorCodigo(rs.getInt("produto_codigo")));
+                produtosDavenda.setQuantidade(rs.getFloat("quantidade"));
+                produtosDavenda.setValorUnitario(rs.getFloat("valorUnitario"));
+                produtosDavenda.setValorTotal(rs.getFloat("valorTotal"));
+                produtosdaVendas.add(produtosDavenda);
+            }
+
+        } catch (SQLException ex) {
+        }
+        return produtosdaVendas;
+    
+    }
     
     
 }

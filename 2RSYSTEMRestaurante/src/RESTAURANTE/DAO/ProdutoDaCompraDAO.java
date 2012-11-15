@@ -14,5 +14,6 @@ public interface ProdutoDaCompraDAO {
     List<ProdutosDaCompra> buscarTodos();
     List<ProdutosDaCompra> buscarPorCompra(Compra compra);
     List<ProdutosDaCompra> buscarParametrosRelatorio(Integer codigo);
+ 
     
 }

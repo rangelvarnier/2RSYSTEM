@@ -14,7 +14,7 @@ public class Venda {
 
     public Venda() {
     }
-
+    
     public Venda(Integer codigo, Date dataVenda, Float valorVenda, Parceiro cliente_codigo, Colaborador colaborador_codigo, List<ProdutosDaVenda> produtosDaVenda) {
         this.codigo = codigo;
         this.dataVenda = dataVenda;

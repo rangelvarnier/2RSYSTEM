@@ -174,12 +174,48 @@ public class VendaDAOIMPL implements VendaDAO{
                 vendas.add(venda);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
         return vendas;
     }
-    
 
+    @Override
+    public List<Venda> buscarParametrosRelatorio(Integer parceiro, Integer colaborador) {
+        Venda venda;
+        List<Venda> vendas = new ArrayList<Venda>();
+        ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
+        ParceiroDAO parceiroDao = new ParceiroDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "select * from venda where cliente_codigo = ? or colaborador_codigo = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            if(parceiro == null){
+                stmt.setInt(1, 0);
+            }else{
+                stmt.setInt(1, parceiro);
+            }
+            if(colaborador == null){
+                stmt.setInt(2, 0);
+            }else{    
+            stmt.setInt(2, colaborador);
+            }
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                venda = new Venda();
+                venda.setCodigo(rs.getInt("codigo"));
+                venda.setDataVenda(rs.getDate("dataVenda"));
+                venda.setValorVenda(rs.getFloat("valorVenda"));
+                venda.setCliente_codigo(parceiroDao.buscaPorId(rs.getInt("cliente_codigo")));
+                venda.setColaborador_codigo(colaboradorDao.buscaPorId(rs.getInt("colaborador_codigo")));
+                vendas.add(venda);
+            }
+
+        } catch (SQLException ex) {
+        }
+        return vendas;
     
-    
+    }
+
+ 
 }

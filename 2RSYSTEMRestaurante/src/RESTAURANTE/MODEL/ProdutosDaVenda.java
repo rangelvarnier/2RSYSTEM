@@ -10,7 +10,7 @@ public class ProdutosDaVenda {
 
     public ProdutosDaVenda() {
     }
-
+    
     public ProdutosDaVenda(Venda venda_codigo, Produto produto_codigo, Float quantidade, Float valorUnitario, Float valorTotal) {
         this.venda_codigo = venda_codigo;
         this.produto_codigo = produto_codigo;

@@ -21,6 +21,16 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class FrameVenda extends javax.swing.JFrame {
 
@@ -64,6 +74,7 @@ public class FrameVenda extends javax.swing.JFrame {
         jlbValorTotalVenda = new javax.swing.JLabel();
         jbtFinalizarVenda = new javax.swing.JButton();
         jLabel36 = new javax.swing.JLabel();
+        jbtImprimir = new javax.swing.JButton();
         jbtCancelar = new javax.swing.JButton();
         jbtPesquisarVenda = new javax.swing.JButton();
         jbtExcluir = new javax.swing.JButton();
@@ -279,6 +290,14 @@ public class FrameVenda extends javax.swing.JFrame {
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
         jLabel36.setText("P busca produtos");
 
+        jbtImprimir.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jbtImprimir.setText("Imprimir");
+        jbtImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtImprimirActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -290,6 +309,8 @@ public class FrameVenda extends javax.swing.JFrame {
                         .add(jbtFinalizarVenda)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jbtExcluirProduto)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jbtImprimir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(jLabel9)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -318,7 +339,8 @@ public class FrameVenda extends javax.swing.JFrame {
                     .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(jbtFinalizarVenda)
                         .add(jbtExcluirProduto)
-                        .add(jLabel9)))
+                        .add(jLabel9)
+                        .add(jbtImprimir)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(jPanel1Layout.createSequentialGroup()
@@ -442,7 +464,10 @@ public class FrameVenda extends javax.swing.JFrame {
                 prod.setVenda_codigo(venda);
                 produtosDaVendaDao.inserir(prod);
             }
-            novaVenda();
+            jbtExcluirProduto.setEnabled(false);
+            jbtFinalizarVenda.setEnabled(false);
+            jbtImprimir.setVisible(true);
+            //novaVenda();
             JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso");
 
         } catch (Exception e) {
@@ -545,6 +570,21 @@ public class FrameVenda extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
+    private void jbtImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtImprimirActionPerformed
+        ProdutoDaVendaDAO dao = new ProdutoDaVendaDAOIMPL();
+        try {
+                    List<ProdutosDaVenda> dados = dao.buscarParametroParaImpressao(venda.getCodigo());
+                    JRDataSource datasource = new JRBeanCollectionDataSource(dados);
+                    JasperDesign jasper = JRXmlLoader.load("src/REPORT/Venda.jrxml");
+                    JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
+                    JasperViewer.viewReport(jasperPrint, false);
+                  
+        } catch (JRException ex) {
+            System.out.println("Filtro não encontrado" + ex.getMessage());
+        }
+    }//GEN-LAST:event_jbtImprimirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -597,6 +637,7 @@ public class FrameVenda extends javax.swing.JFrame {
     private javax.swing.JButton jbtExcluir;
     private javax.swing.JButton jbtExcluirProduto;
     private javax.swing.JButton jbtFinalizarVenda;
+    private javax.swing.JButton jbtImprimir;
     private javax.swing.JButton jbtNovo;
     private javax.swing.JButton jbtPesquisaCliente;
     private javax.swing.JButton jbtPesquisaVendedor;
@@ -633,6 +674,9 @@ public class FrameVenda extends javax.swing.JFrame {
         limpaCampos();
         venda.setValorVenda(0f);
         setarCodigo();
+        jbtImprimir.setVisible(false);
+        jbtExcluirProduto.setEnabled(true);
+        jbtFinalizarVenda.setEnabled(true);
     }
 
     private void setarCodigo() {

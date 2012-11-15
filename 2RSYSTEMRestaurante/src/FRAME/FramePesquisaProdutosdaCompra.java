@@ -30,7 +30,7 @@ public class FramePesquisaProdutosdaCompra extends javax.swing.JDialog {
         jbtConfirmar = new javax.swing.JButton();
         jbtCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtbColaboradores = new javax.swing.JTable();
+        jtbProdutosdaCompra = new javax.swing.JTable();
 
         setTitle("Pesquisa de Colaboradores");
         setLocation(new java.awt.Point(290, 190));
@@ -47,7 +47,7 @@ public class FramePesquisaProdutosdaCompra extends javax.swing.JDialog {
         });
 
         jLabel1.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
-        jLabel1.setText("Pesquisa de Colaboradores");
+        jLabel1.setText("Pesquisa de Produtos da Compra");
 
         jbtConfirmar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtConfirmar.setText("Confirmar");
@@ -65,10 +65,10 @@ public class FramePesquisaProdutosdaCompra extends javax.swing.JDialog {
             }
         });
 
-        jtbColaboradores.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jtbProdutosdaCompra.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${colaboradores}");
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbColaboradores);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbProdutosdaCompra);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
         columnBinding.setColumnName("Codigo");
         columnBinding.setColumnClass(Integer.class);
@@ -83,17 +83,17 @@ public class FramePesquisaProdutosdaCompra extends javax.swing.JDialog {
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
-        jtbColaboradores.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtbProdutosdaCompra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtbColaboradoresMouseClicked(evt);
+                jtbProdutosdaCompraMouseClicked(evt);
             }
         });
-        jtbColaboradores.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtbProdutosdaCompra.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtbColaboradoresKeyPressed(evt);
+                jtbProdutosdaCompraKeyPressed(evt);
             }
         });
-        jScrollPane1.setViewportView(jtbColaboradores);
+        jScrollPane1.setViewportView(jtbProdutosdaCompra);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,7 +104,7 @@ public class FramePesquisaProdutosdaCompra extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 330, Short.MAX_VALUE)
+                        .addGap(0, 256, Short.MAX_VALUE)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +146,7 @@ public class FramePesquisaProdutosdaCompra extends javax.swing.JDialog {
         setColaboradores(colaboradorDao.buscarPorNome(jtfPesquisar.getText()));
         if (colaboradorDao.buscarPorNome(jtfPesquisar.getText()).isEmpty()) {
         } else {
-            jtbColaboradores.addRowSelectionInterval(0, 0);
+            jtbProdutosdaCompra.addRowSelectionInterval(0, 0);
         }
     }//GEN-LAST:event_jbtPesquisarActionPerformed
 
@@ -155,25 +155,25 @@ public class FramePesquisaProdutosdaCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jbtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmarActionPerformed
-        if (jtbColaboradores.getSelectedRow() != -1) {
-            colaborador = colaboradores.get(jtbColaboradores.getSelectedRow());
+        if (jtbProdutosdaCompra.getSelectedRow() != -1) {
+            colaborador = colaboradores.get(jtbProdutosdaCompra.getSelectedRow());
             dispose();
         }
     }//GEN-LAST:event_jbtConfirmarActionPerformed
 
-    private void jtbColaboradoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbColaboradoresMouseClicked
+    private void jtbProdutosdaCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbProdutosdaCompraMouseClicked
         if (evt.getClickCount() == 2) {
-            colaborador = colaboradores.get(jtbColaboradores.getSelectedRow());
+            colaborador = colaboradores.get(jtbProdutosdaCompra.getSelectedRow());
             dispose();
         }
-    }//GEN-LAST:event_jtbColaboradoresMouseClicked
+    }//GEN-LAST:event_jtbProdutosdaCompraMouseClicked
 
-    private void jtbColaboradoresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbColaboradoresKeyPressed
+    private void jtbProdutosdaCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbProdutosdaCompraKeyPressed
         if(evt.getKeyCode() == 10){
-            colaborador = colaboradores.get(jtbColaboradores.getSelectedRow());
+            colaborador = colaboradores.get(jtbProdutosdaCompra.getSelectedRow());
             dispose();
         }
-    }//GEN-LAST:event_jtbColaboradoresKeyPressed
+    }//GEN-LAST:event_jtbProdutosdaCompraKeyPressed
 
     /**
      * @param args the command line arguments
@@ -221,7 +221,7 @@ public class FramePesquisaProdutosdaCompra extends javax.swing.JDialog {
     private javax.swing.JButton jbtCancelar;
     private javax.swing.JButton jbtConfirmar;
     private javax.swing.JButton jbtPesquisar;
-    private javax.swing.JTable jtbColaboradores;
+    private javax.swing.JTable jtbProdutosdaCompra;
     private javax.swing.JTextField jtfPesquisar;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
@@ -253,7 +253,7 @@ public class FramePesquisaProdutosdaCompra extends javax.swing.JDialog {
         setColaboradores(colaboradorDao.buscarTodos());
         if (colaboradorDao.buscarTodos().isEmpty()) {
         } else {
-            jtbColaboradores.addRowSelectionInterval(0, 0);
+            jtbProdutosdaCompra.addRowSelectionInterval(0, 0);
         }
     }
 

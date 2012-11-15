@@ -1,12 +1,9 @@
 package FRAME;
 
-import RESTAURANTE.DAO.CompraDAO;
-import RESTAURANTE.DAO.IMPL.CompraDAOIMPL;
-import RESTAURANTE.DAO.IMPL.ProdutoDaCompraDAOIMPL;
-import RESTAURANTE.DAO.ProdutoDaCompraDAO;
-import RESTAURANTE.MODEL.Colaborador;
-import RESTAURANTE.MODEL.Compra;
-import RESTAURANTE.MODEL.ProdutosDaCompra;
+import RESTAURANTE.DAO.IMPL.ProdutoDaVendaDAOIMPL;
+import RESTAURANTE.DAO.ProdutoDaVendaDAO;
+import RESTAURANTE.MODEL.ProdutosDaVenda;
+import RESTAURANTE.MODEL.Venda;
 import java.util.List;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -19,9 +16,9 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-public class FrameRelatorioItendeCompra extends javax.swing.JFrame {
+public class FrameRelatorioItendeVenda extends javax.swing.JFrame {
 
-    public FrameRelatorioItendeCompra() {
+    public FrameRelatorioItendeVenda() {
         initComponents();
         setLocation(290, 190);
 
@@ -38,17 +35,17 @@ public class FrameRelatorioItendeCompra extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jbtPesquisaFornecedor = new javax.swing.JButton();
-        jtfCodigoCompra = new javax.swing.JTextField();
+        jtfCodigoVenda = new javax.swing.JTextField();
         jchbFiltro = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Relatório de Produtos da Compra");
+        setTitle("Relatório Produtos da Venda");
         setLocation(new java.awt.Point(200, 100));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
-        jLabel1.setText("Relatório de Produtos da Compra");
+        jLabel1.setText("Relatório Produtos da Venda");
 
         jbtGerarRelatorio.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtGerarRelatorio.setText("Gerar Relatório");
@@ -70,7 +67,7 @@ public class FrameRelatorioItendeCompra extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(102, 102, 102));
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel4.setText("Codigo da Compra");
+        jLabel4.setText("Codigo da Venda");
 
         jbtPesquisaFornecedor.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtPesquisaFornecedor.setText("Buscar");
@@ -81,14 +78,14 @@ public class FrameRelatorioItendeCompra extends javax.swing.JFrame {
             }
         });
 
-        jtfCodigoCompra.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jtfCodigoVenda.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${fornecedor.razaoSocial}"), jtfCodigoCompra, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${fornecedor.razaoSocial}"), jtfCodigoVenda, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        jtfCodigoCompra.addActionListener(new java.awt.event.ActionListener() {
+        jtfCodigoVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCodigoCompraActionPerformed(evt);
+                jtfCodigoVendaActionPerformed(evt);
             }
         });
 
@@ -106,7 +103,7 @@ public class FrameRelatorioItendeCompra extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(jtfCodigoCompra, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jtfCodigoVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jbtPesquisaFornecedor))
                     .add(jLabel4)
@@ -124,7 +121,7 @@ public class FrameRelatorioItendeCompra extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jbtPesquisaFornecedor)
-                    .add(jtfCodigoCompra, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jtfCodigoVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 35, Short.MAX_VALUE)
                 .add(jchbFiltro)
                 .addContainerGap())
@@ -145,7 +142,7 @@ public class FrameRelatorioItendeCompra extends javax.swing.JFrame {
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                                .add(0, 98, Short.MAX_VALUE)
+                                .add(0, 155, Short.MAX_VALUE)
                                 .add(jLabel1))
                             .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
@@ -170,23 +167,23 @@ public class FrameRelatorioItendeCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtGerarRelatorioActionPerformed
-        ProdutoDaCompraDAO dao = new ProdutoDaCompraDAOIMPL();
+        ProdutoDaVendaDAO dao = new ProdutoDaVendaDAOIMPL();
         try {
 
             if (jchbFiltro.isSelected() == true) {
-                List<ProdutosDaCompra> dados = dao.buscarTodos();
+                List<ProdutosDaVenda> dados = dao.buscarTodos();
                 JRDataSource datasource = new JRBeanCollectionDataSource(dados);
-                JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioItensdaCompra.jrxml");
+                JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioItensdaVenda.jrxml");
                 JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
                 JasperViewer.viewReport(jasperPrint);
                 
             } else {
                
-                    List<ProdutosDaCompra> dados = dao.buscarParametrosRelatorio(compra.getCodigo());
+                    List<ProdutosDaVenda> dados = dao.buscarParametrosRelatorio(venda.getCodigo());
                 
                     JRDataSource datasource = new JRBeanCollectionDataSource(dados);
-                    JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioItensdaCompra.jrxml");
+                    JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioItensdaVenda.jrxml");
                     JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
                     JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
                     JasperViewer.viewReport(jasperPrint);
@@ -203,13 +200,13 @@ public class FrameRelatorioItendeCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jbtPesquisaFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisaFornecedorActionPerformed
-        buscaCompra();
+        buscaVenda();
         jchbFiltro.setSelected(false);
     }//GEN-LAST:event_jbtPesquisaFornecedorActionPerformed
 
-    private void jtfCodigoCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoCompraActionPerformed
+    private void jtfCodigoVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoVendaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCodigoCompraActionPerformed
+    }//GEN-LAST:event_jtfCodigoVendaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -228,13 +225,13 @@ public class FrameRelatorioItendeCompra extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrameRelatorioItendeCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameRelatorioItendeVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrameRelatorioItendeCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameRelatorioItendeVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrameRelatorioItendeCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameRelatorioItendeVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrameRelatorioItendeCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameRelatorioItendeVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -242,7 +239,7 @@ public class FrameRelatorioItendeCompra extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new FrameRelatorioItendeCompra().setVisible(true);
+                new FrameRelatorioItendeVenda().setVisible(true);
             }
         });
     }
@@ -255,54 +252,54 @@ public class FrameRelatorioItendeCompra extends javax.swing.JFrame {
     private javax.swing.JButton jbtGerarRelatorio;
     private javax.swing.JButton jbtPesquisaFornecedor;
     private javax.swing.JCheckBox jchbFiltro;
-    private javax.swing.JTextField jtfCodigoCompra;
+    private javax.swing.JTextField jtfCodigoVenda;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
-    private ProdutosDaCompra produtosdaCompra;
-    private List<ProdutosDaCompra> produtosdasCompras;
-    private Compra compra = new Compra();
+    private ProdutosDaVenda produtosdaVenda;
+    private List<ProdutosDaVenda> produtosdasVendas;
+    private Venda venda = new Venda();
 
-    public ProdutosDaCompra getProdutosdaCompra() {
-        return produtosdaCompra;
+    public ProdutosDaVenda getProdutosdaVenda() {
+        return produtosdaVenda;
     }
 
-    public void setProdutosdaCompra(ProdutosDaCompra produtosdaCompra) {
-        ProdutosDaCompra produtosdaCompraVelho = this.produtosdaCompra;
-        this.produtosdaCompra = produtosdaCompra;
-        firePropertyChange("produtosdaCompra", produtosdaCompraVelho, this.produtosdaCompra);
+    public void setProdutosdaVenda(ProdutosDaVenda produtosdaVenda) {
+        ProdutosDaVenda produtosdaVendaVelho = this.produtosdaVenda;
+        this.produtosdaVenda = produtosdaVenda;
+        firePropertyChange("produtosdaVenda", produtosdaVendaVelho, this.produtosdaVenda);
     }
 
-    public List<ProdutosDaCompra> getProdutosdasCompras() {
-        return produtosdasCompras;
+    public List<ProdutosDaVenda> getProdutosdasVendas() {
+        return produtosdasVendas;
     }
 
-    public void setProdutosdasCompras(List<ProdutosDaCompra> produtosdasCompras) {
-        this.produtosdasCompras = produtosdasCompras;
-    }
-   
-
-    public Compra getCompra() {
-        return compra;
+    public void setProdutosdasVendas(List<ProdutosDaVenda> produtosdasVendas) {
+        this.produtosdasVendas = produtosdasVendas;
     }
 
-    public void setCompra(Compra compra) {
-        this.compra = compra;
-        
+    public Venda getVenda() {
+        return venda;
     }
+
+    public void setVenda(Venda venda) {
+        this.venda = venda;
+    }
+
+
     
-    public void buscaCompra() {
+    public void buscaVenda() {
         //cria a tela de busca como modal
-        FramePesquisaCompra tela_busca = new FramePesquisaCompra();
+        FramePesquisaVenda tela_busca = new FramePesquisaVenda();
         tela_busca.setModal(true);
         //exibe
         tela_busca.setVisible(true);
         //recupera os dados
 
-        compra = tela_busca.retornaCompra();
-        setCompra(compra);
+        venda = tela_busca.retornaVenda();
+        setVenda(venda);
         //seta na tela
-        if (getCompra() != null) {
-            jtfCodigoCompra.setText(compra.getCodigo().toString());
+        if (getVenda() != null) {
+            jtfCodigoVenda.setText(venda.getCodigo().toString());
         }
     }
 }

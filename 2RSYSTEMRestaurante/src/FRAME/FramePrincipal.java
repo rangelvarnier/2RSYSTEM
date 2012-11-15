@@ -41,7 +41,8 @@ public class FramePrincipal extends javax.swing.JFrame {
         jmiProduto = new javax.swing.JMenuItem();
         jmiGrupoItem = new javax.swing.JMenuItem();
         jmiSubGrupoItem = new javax.swing.JMenuItem();
-        jmiTrasnportadoras = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -49,6 +50,8 @@ public class FramePrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu10 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jmiCopiar = new javax.swing.JMenuItem();
         jmiColar = new javax.swing.JMenuItem();
@@ -232,13 +235,21 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         jMenu1.add(jMenu2);
 
-        jmiTrasnportadoras.setText("Transportadora");
-        jmiTrasnportadoras.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem10.setText("Venda de Mercadoria");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiTrasnportadorasActionPerformed(evt);
+                jMenuItem10ActionPerformed(evt);
             }
         });
-        jMenu1.add(jmiTrasnportadoras);
+        jMenu1.add(jMenuItem10);
+
+        jMenuItem11.setText("Compra de Mercadoria");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem11);
 
         jMenuBar1.add(jMenu1);
 
@@ -270,12 +281,34 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
         jMenu9.add(jMenuItem4);
 
-        jMenuItem5.setText("Itens da Compra");
+        jMenuItem5.setText("Produtos da Compra");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu9.add(jMenuItem5);
 
         jMenu3.add(jMenu9);
 
         jMenu10.setText("Venda");
+
+        jMenuItem7.setText("Vendas");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem7);
+
+        jMenuItem9.setText("Produtos da Venda");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem9);
+
         jMenu3.add(jMenu10);
 
         jMenuBar1.add(jMenu3);
@@ -450,10 +483,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         new FrameCadastroUsuarios().setVisible(true);
     }//GEN-LAST:event_jmiUsuariosActionPerformed
 
-    private void jmiTrasnportadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTrasnportadorasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmiTrasnportadorasActionPerformed
-
     private void jmiFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFornecedoresActionPerformed
         new FrameCadastroFornecedor().setVisible(true);
     }//GEN-LAST:event_jmiFornecedoresActionPerformed
@@ -529,8 +558,28 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-    new FrameRelatorioCompras().setVisible(true);
+        new FrameRelatorioCompras().setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        new FrameRelatorioItendeCompra().setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        new FrameRelatorioItendeVenda().setVisible(true);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        new FrameRelatorioVenda().setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+         new FrameCompra().setVisible(true);
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        new FrameVenda().setVisible(true);
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -584,12 +633,16 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JButton jbtColaboradores;
     private javax.swing.JButton jbtEntrada;
     private javax.swing.JButton jbtFornecedor;
@@ -607,7 +660,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiParceiros;
     private javax.swing.JMenuItem jmiProduto;
     private javax.swing.JMenuItem jmiSubGrupoItem;
-    private javax.swing.JMenuItem jmiTrasnportadoras;
     private javax.swing.JMenuItem jmiUsuarios;
     // End of variables declaration//GEN-END:variables
     FrameLoginUsuario frmlogin;

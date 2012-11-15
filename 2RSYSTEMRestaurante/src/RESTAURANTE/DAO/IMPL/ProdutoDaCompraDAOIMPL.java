@@ -169,6 +169,7 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
     @Override
     public List<ProdutosDaCompra> buscarParametrosRelatorio(Integer codigo) {
         CompraDAO compraDao = new CompraDAOIMPL();
+        ProdutoDAO produtoDao = new ProdutoDAOIMPL();
         List<ProdutosDaCompra> produtosdaCompras = new ArrayList<ProdutosDaCompra>(); 
         ProdutosDaCompra produtosdaCompra = null;
         
@@ -183,8 +184,8 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
 
             while (rs.next()) {
                 produtosdaCompra = new ProdutosDaCompra();
-                produtosdaCompra.getCompra().setCodigo(rs.getInt("compra_codigo"));
-                produtosdaCompra.getProduto().setCodigo(rs.getInt("produto_codigo"));
+                produtosdaCompra.setCompra(compraDao.buscarPorCodigo(rs.getInt("compra_codigo")));
+                produtosdaCompra.setProduto(produtoDao.buscarPorCodigo(rs.getInt("produto_codigo")));
                 produtosdaCompra.setQuantidade(rs.getFloat("quantidade"));
                 produtosdaCompra.setValorUnitario(rs.getFloat("valorUnitario"));
                 produtosdaCompra.setValorTotal(rs.getFloat("valorTotal"));
@@ -197,4 +198,6 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
     
     
     }
+
+    
 }

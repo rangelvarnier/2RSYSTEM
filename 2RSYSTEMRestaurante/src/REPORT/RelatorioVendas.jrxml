@@ -7,20 +7,20 @@
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
-	<field name="compra" class="RESTAURANTE.MODEL.Compra"/>
-	<field name="produto" class="RESTAURANTE.MODEL.Produto"/>
-	<field name="quantidade" class="java.lang.Integer"/>
-	<field name="valorUnitario" class="java.lang.Float"/>
-	<field name="valorTotal" class="java.lang.Float"/>
+	<field name="codigo" class="java.lang.Integer"/>
+	<field name="dataVenda" class="java.lang.String"/>
+	<field name="valorVenda" class="java.lang.Float"/>
+	<field name="cliente_codigo" class="RESTAURANTE.MODEL.Parceiro"/>
+	<field name="colaborador_codigo" class="RESTAURANTE.MODEL.Colaborador"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="70" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="202ecf83-32fc-4b08-9661-1384008bc390" style="Title" x="230" y="0" width="325" height="33"/>
+				<reportElement uuid="202ecf83-32fc-4b08-9661-1384008bc390" style="Title" x="279" y="0" width="274" height="33"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Relatório Itens da Compra]]></text>
+				<text><![CDATA[Relatório de Vendas]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -36,7 +36,7 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="767659a7-80b6-4095-9a7f-bcd8ccabe1f6" x="0" y="16" width="99" height="20"/>
+				<reportElement uuid="767659a7-80b6-4095-9a7f-bcd8ccabe1f6" x="0" y="16" width="85" height="20"/>
 				<box topPadding="3">
 					<pen lineWidth="0.5" lineStyle="Double" lineColor="#999999"/>
 					<topPen lineWidth="0.5" lineStyle="Double" lineColor="#999999"/>
@@ -47,7 +47,7 @@
 				<textElement textAlignment="Center">
 					<font isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[COD DA COMPRA]]></text>
+				<text><![CDATA[CÓDIGO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="f81719a6-64ee-4130-b618-b5a0d9514496" x="361" y="16" width="97" height="20"/>
@@ -61,7 +61,7 @@
 				<textElement textAlignment="Center">
 					<font isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[VALOR UNITÁRIO]]></text>
+				<text><![CDATA[DATA VENDA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="712710b0-bd2a-4348-a913-5bb886ff4653" x="458" y="16" width="97" height="20"/>
@@ -75,10 +75,10 @@
 				<textElement textAlignment="Center">
 					<font isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[VALOR TOTAL]]></text>
+				<text><![CDATA[VALOR VENDA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="50c737cc-b7dc-46cd-b05c-4845637b37a4" x="99" y="16" width="167" height="20"/>
+				<reportElement uuid="50c737cc-b7dc-46cd-b05c-4845637b37a4" x="231" y="16" width="130" height="20"/>
 				<box topPadding="3">
 					<pen lineWidth="0.5" lineStyle="Double" lineColor="#999999"/>
 					<topPen lineWidth="0.5" lineStyle="Double" lineColor="#999999"/>
@@ -89,10 +89,10 @@
 				<textElement textAlignment="Center">
 					<font isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[PRODUTO]]></text>
+				<text><![CDATA[COLABORADOR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="675cced3-f438-48f5-946a-7ea25dfa9fab" x="266" y="16" width="95" height="20"/>
+				<reportElement uuid="675cced3-f438-48f5-946a-7ea25dfa9fab" x="85" y="16" width="146" height="20"/>
 				<box topPadding="3">
 					<pen lineWidth="0.25" lineStyle="Double"/>
 					<topPen lineWidth="0.25" lineStyle="Double"/>
@@ -103,71 +103,73 @@
 				<textElement textAlignment="Center">
 					<font isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[QUANTIDADE]]></text>
+				<text><![CDATA[PARCEIRO]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="13" splitType="Stretch">
 			<textField>
-				<reportElement uuid="a1013b7f-3db0-4d2a-ae6a-0df9ae3bf0fe" x="0" y="0" width="99" height="13"/>
-				<box topPadding="1" rightPadding="2">
-					<pen lineWidth="0.25" lineColor="#999999"/>
-					<topPen lineWidth="0.25" lineColor="#999999"/>
-					<leftPen lineWidth="0.25" lineColor="#999999"/>
-					<bottomPen lineWidth="0.25" lineColor="#999999"/>
-					<rightPen lineWidth="0.25" lineColor="#999999"/>
+				<reportElement uuid="6d3ad34f-4bcc-4b5c-8e6b-2310e466f573" x="0" y="0" width="85" height="13"/>
+				<box topPadding="1" leftPadding="0" rightPadding="2">
+					<pen lineWidth="0.25" lineStyle="Solid"/>
+					<topPen lineWidth="0.25" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid"/>
 				</box>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{compra}.getCodigo()]]></textFieldExpression>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="164b49fc-6b30-4a6a-b61b-756a0db414d7" x="99" y="0" width="167" height="13"/>
+				<reportElement uuid="b3f9d835-a7e9-4a96-9fc1-569639038716" x="458" y="0" width="97" height="13"/>
+				<box topPadding="1" rightPadding="2">
+					<pen lineWidth="0.25" lineStyle="Solid"/>
+					<topPen lineWidth="0.25" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{valorVenda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9b9dc4e8-19bc-4746-990d-5f87a0ca7a44" x="85" y="0" width="146" height="13"/>
 				<box topPadding="1" leftPadding="2">
-					<pen lineWidth="0.25" lineColor="#999999"/>
-					<topPen lineWidth="0.25" lineColor="#999999"/>
-					<leftPen lineWidth="0.25" lineColor="#999999"/>
-					<bottomPen lineWidth="0.25" lineColor="#999999"/>
-					<rightPen lineWidth="0.25" lineColor="#999999"/>
+					<pen lineWidth="0.25" lineStyle="Solid"/>
+					<topPen lineWidth="0.25" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid"/>
 				</box>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{produto}.getDescricao()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cliente_codigo}.getPessoa().getNome()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="31fafc3a-0040-4502-87bc-bc52d9b1827c" x="266" y="0" width="95" height="13"/>
-				<box topPadding="1" rightPadding="2">
-					<pen lineWidth="0.25" lineColor="#999999"/>
-					<topPen lineWidth="0.25" lineColor="#999999"/>
-					<leftPen lineWidth="0.25" lineColor="#999999"/>
-					<bottomPen lineWidth="0.25" lineColor="#999999"/>
-					<rightPen lineWidth="0.25" lineColor="#999999"/>
+				<reportElement uuid="65eaf73e-8ed2-4abe-9106-601036ea7cc1" x="361" y="0" width="97" height="13"/>
+				<box topPadding="1">
+					<pen lineWidth="0.25" lineStyle="Solid"/>
+					<topPen lineWidth="0.25" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid"/>
 				</box>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{dataVenda}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="87aa7290-6716-4522-89ab-188c559e9d6a" x="361" y="0" width="97" height="13"/>
-				<box topPadding="1" rightPadding="2">
-					<pen lineWidth="0.25" lineColor="#999999"/>
-					<topPen lineWidth="0.25" lineColor="#999999"/>
-					<leftPen lineWidth="0.25" lineColor="#999999"/>
-					<bottomPen lineWidth="0.25" lineColor="#999999"/>
-					<rightPen lineWidth="0.25" lineColor="#999999"/>
+				<reportElement uuid="9ec75501-1689-4182-8635-4dd80e4af89c" x="231" y="0" width="130" height="13"/>
+				<box topPadding="1" leftPadding="2" rightPadding="0">
+					<pen lineWidth="0.25" lineStyle="Solid"/>
+					<topPen lineWidth="0.25" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid"/>
 				</box>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{valorUnitario}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="a2ce8c41-bde4-476e-b6dd-20b95a6a512a" x="458" y="0" width="97" height="13"/>
-				<box topPadding="1" rightPadding="2">
-					<pen lineWidth="0.25" lineColor="#999999"/>
-					<topPen lineWidth="0.25" lineColor="#999999"/>
-					<leftPen lineWidth="0.25" lineColor="#999999"/>
-					<bottomPen lineWidth="0.25" lineColor="#999999"/>
-					<rightPen lineWidth="0.25" lineColor="#999999"/>
-				</box>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{valorTotal}]]></textFieldExpression>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{colaborador_codigo}.getPessoa().getNome()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

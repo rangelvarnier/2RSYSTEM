@@ -12,4 +12,6 @@ public interface VendaDAO {
     Integer buscaIdMaio();
     List<Venda> buscarTodos();
     List<Venda> buscarCampoPesquisa(String parametro);
+    List<Venda> buscarParametrosRelatorio(Integer parceiro, Integer colaborador);
+    
 }
