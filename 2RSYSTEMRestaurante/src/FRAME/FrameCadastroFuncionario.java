@@ -42,6 +42,9 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         atualizarCBUF();
         atualizaCBCidade();
         setcodigos();
+        jtbColaboradores.setAutoResizeMode(jtbColaboradores.AUTO_RESIZE_OFF);  
+        jtbColaboradores.getColumnModel().getColumn(0).setPreferredWidth(75);  
+        jtbColaboradores.getColumnModel().getColumn(1).setPreferredWidth(698);
     }
 
     @SuppressWarnings("unchecked")

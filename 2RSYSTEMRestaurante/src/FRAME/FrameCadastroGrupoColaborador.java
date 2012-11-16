@@ -14,6 +14,9 @@ public class FrameCadastroGrupoColaborador extends javax.swing.JFrame {
         grupoColaboradorDao = new GrupoColaboradorDAOIMPL();
         novoGrupo();
         atualizaTabela();
+        jtbGrupoColaborador.setAutoResizeMode(jtbGrupoColaborador.AUTO_RESIZE_OFF);  
+        jtbGrupoColaborador.getColumnModel().getColumn(0).setPreferredWidth(75);  
+        jtbGrupoColaborador.getColumnModel().getColumn(1).setPreferredWidth(474);
 
     }
 

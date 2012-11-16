@@ -33,13 +33,17 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         enderecoDao = new EnderecoDAOIMPL();
         pessoaDao = new PessoaDAOIMPL();
         parceiroDao = new ParceiroDAOIMPL();
-
         novoGrupo();
         atualizaTabela();
         atualizarCBUF();
         atualizaCBCidade();
         setcodigos();
-
+        jtbParceiros.setAutoResizeMode(jtbParceiros.AUTO_RESIZE_OFF);  
+        jtbParceiros.getColumnModel().getColumn(0).setPreferredWidth(75);  
+        jtbParceiros.getColumnModel().getColumn(1).setPreferredWidth(330);
+        jtbParceiros.getColumnModel().getColumn(2).setPreferredWidth(130);  
+        jtbParceiros.getColumnModel().getColumn(3).setPreferredWidth(130);
+        jtbParceiros.getColumnModel().getColumn(4).setPreferredWidth(108);
     }
 
     @SuppressWarnings("unchecked")

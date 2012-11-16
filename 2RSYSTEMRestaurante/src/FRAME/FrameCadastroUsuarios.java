@@ -16,6 +16,9 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
         usuarioDao = new UsuarioDAOIMPL();
         novoUsuario();
         atualizaTabela();
+        jtbUsuariosCadastrados.setAutoResizeMode(jtbUsuariosCadastrados.AUTO_RESIZE_OFF);  
+        jtbUsuariosCadastrados.getColumnModel().getColumn(0).setPreferredWidth(100);  
+        jtbUsuariosCadastrados.getColumnModel().getColumn(1).setPreferredWidth(642);
     }
 
     @SuppressWarnings("unchecked")
