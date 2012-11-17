@@ -14,6 +14,9 @@ public class FramePesquisaGrupoColaborador extends javax.swing.JDialog {
         setLocation(290, 190);
         grupoColaboradorDAO = new GrupoColaboradorDAOIMPL();
         atualizaTabela();
+        jtbGrupoColaboradores.setAutoResizeMode(jtbGrupoColaboradores.AUTO_RESIZE_OFF);  
+        jtbGrupoColaboradores.getColumnModel().getColumn(0).setPreferredWidth(110);  
+        jtbGrupoColaboradores.getColumnModel().getColumn(1).setPreferredWidth(543);
     }
 
     @SuppressWarnings("unchecked")

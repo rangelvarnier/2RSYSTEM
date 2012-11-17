@@ -23,6 +23,12 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
         setLocation(290, 190);
         compraDao = new CompraDAOIMPL();
         atualizaTabela();
+        jtbCompras.setAutoResizeMode(jtbCompras.AUTO_RESIZE_OFF);  
+        jtbCompras.getColumnModel().getColumn(0).setPreferredWidth(78);  
+        jtbCompras.getColumnModel().getColumn(1).setPreferredWidth(90);
+        jtbCompras.getColumnModel().getColumn(2).setPreferredWidth(176);
+        jtbCompras.getColumnModel().getColumn(3).setPreferredWidth(176);
+        jtbCompras.getColumnModel().getColumn(4).setPreferredWidth(100);
     }
 
     /**

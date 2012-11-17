@@ -2,6 +2,7 @@ package FRAME;
 
 import RESTAURANTE.DAO.UTIL.Conexao;
 import RESTAURANTE.MODEL.Usuario;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -59,6 +60,12 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Letter Gothic Std", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Sistema de Login");
+
+        jtfsenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfsenhaKeyPressed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,6 +137,17 @@ public class FrameLoginUsuario extends javax.swing.JFrame {
     private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_jbtCancelarActionPerformed
+
+    private void jtfsenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfsenhaKeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+           if (verificaLogin() == true) {
+            
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário ou Senha Incorretos!");
+        }
+       }
+    }//GEN-LAST:event_jtfsenhaKeyPressed
 
     /**
      * @param args the command line arguments

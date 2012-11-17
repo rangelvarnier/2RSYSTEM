@@ -18,6 +18,11 @@ public class FramePesquisaCliente extends javax.swing.JDialog {
         pessoaDao = new PessoaDAOIMPL();
         parceiroDao = new ParceiroDAOIMPL();
         atualizaTabela();
+        jtbParceiros.setAutoResizeMode(jtbParceiros.AUTO_RESIZE_OFF);  
+        jtbParceiros.getColumnModel().getColumn(0).setPreferredWidth(80);  
+        jtbParceiros.getColumnModel().getColumn(1).setPreferredWidth(433);
+        jtbParceiros.getColumnModel().getColumn(2).setPreferredWidth(140);
+        
     }
 
     @SuppressWarnings("unchecked")

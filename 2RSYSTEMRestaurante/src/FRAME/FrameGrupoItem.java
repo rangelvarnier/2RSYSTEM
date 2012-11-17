@@ -15,6 +15,9 @@ public class FrameGrupoItem extends javax.swing.JFrame {
         novoGrupo();
         grupoItemDao = new GrupoItemDAOIMPL();
         atualizaTabela();
+        jtbGrupoItem.setAutoResizeMode(jtbGrupoItem.AUTO_RESIZE_OFF);  
+        jtbGrupoItem.getColumnModel().getColumn(0).setPreferredWidth(76);  
+        jtbGrupoItem.getColumnModel().getColumn(1).setPreferredWidth(473);
 
     }
 

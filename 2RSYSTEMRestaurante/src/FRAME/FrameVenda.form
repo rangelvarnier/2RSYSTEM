@@ -328,7 +328,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jlbValorTotalVenda" min="-2" pref="107" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane2" pref="912" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="905" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -422,7 +422,6 @@
                     </Column>
                   </TableColumnModel>
                 </Property>
-                <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>

@@ -30,7 +30,13 @@ public class FrameCompra extends javax.swing.JFrame {
         compraDao = new CompraDAOIMPL();
         produtoDaCompraDao = new ProdutoDaCompraDAOIMPL();
         produtosDaCompra = new ArrayList<ProdutosDaCompra>();
-
+        jtbProdutosCompra.setAutoResizeMode(jtbProdutosCompra.AUTO_RESIZE_OFF);  
+        jtbProdutosCompra.getColumnModel().getColumn(0).setPreferredWidth(100);  
+        jtbProdutosCompra.getColumnModel().getColumn(1).setPreferredWidth(430);
+        jtbProdutosCompra.getColumnModel().getColumn(2).setPreferredWidth(110);  
+        jtbProdutosCompra.getColumnModel().getColumn(3).setPreferredWidth(112);
+        jtbProdutosCompra.getColumnModel().getColumn(4).setPreferredWidth(114);  
+        
     }
 
     /**

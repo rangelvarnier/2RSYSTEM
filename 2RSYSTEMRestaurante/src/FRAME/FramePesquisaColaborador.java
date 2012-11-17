@@ -17,6 +17,10 @@ public class FramePesquisaColaborador extends javax.swing.JDialog {
         pessoaDao = new PessoaDAOIMPL();
         colaboradorDao = new ColaboradorDAOIMPL();
         atualizaTabela();
+        jtbColaboradores.setAutoResizeMode(jtbColaboradores.AUTO_RESIZE_OFF);  
+        jtbColaboradores.getColumnModel().getColumn(0).setPreferredWidth(80);  
+        jtbColaboradores.getColumnModel().getColumn(1).setPreferredWidth(433);
+        jtbColaboradores.getColumnModel().getColumn(2).setPreferredWidth(140);
     }
 
     @SuppressWarnings("unchecked")

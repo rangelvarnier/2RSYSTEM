@@ -16,6 +16,11 @@ public class FramePesquisaFornecedor extends javax.swing.JDialog {
         pessoaDao = new PessoaDAOIMPL();
         fornecedorDao = new FornecedorDAOIMPL();
         atualizaTabela();
+        jtbFornecedores.setAutoResizeMode(jtbFornecedores.AUTO_RESIZE_OFF);  
+        jtbFornecedores.getColumnModel().getColumn(0).setPreferredWidth(75);  
+        jtbFornecedores.getColumnModel().getColumn(1).setPreferredWidth(150);
+        jtbFornecedores.getColumnModel().getColumn(2).setPreferredWidth(278);
+        jtbFornecedores.getColumnModel().getColumn(3).setPreferredWidth(150);
     }
 
     @SuppressWarnings("unchecked")

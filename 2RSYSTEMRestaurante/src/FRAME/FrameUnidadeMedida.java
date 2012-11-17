@@ -25,6 +25,12 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
         novaUnidadeMedida();
         unidadeMedidaDao = new UnidadeMedidaDAOIMPL();
         atualizaTabela();
+        jtbUnidadeMedida.setAutoResizeMode(jtbUnidadeMedida.AUTO_RESIZE_OFF);  
+        jtbUnidadeMedida.getColumnModel().getColumn(0).setPreferredWidth(70);  
+        jtbUnidadeMedida.getColumnModel().getColumn(1).setPreferredWidth(240);
+        jtbUnidadeMedida.getColumnModel().getColumn(2).setPreferredWidth(69);
+        jtbUnidadeMedida.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jtbUnidadeMedida.getColumnModel().getColumn(4).setPreferredWidth(100);
         
     }
 

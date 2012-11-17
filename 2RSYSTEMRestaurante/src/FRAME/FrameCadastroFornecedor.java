@@ -38,6 +38,11 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         atualizarCBUF();
         atualizaCBCidade();
         setcodigos();
+        jtbFornecedores.setAutoResizeMode(jtbFornecedores.AUTO_RESIZE_OFF);  
+        jtbFornecedores.getColumnModel().getColumn(0).setPreferredWidth(104);  
+        jtbFornecedores.getColumnModel().getColumn(1).setPreferredWidth(450);
+        jtbFornecedores.getColumnModel().getColumn(2).setPreferredWidth(120);  
+        jtbFornecedores.getColumnModel().getColumn(3).setPreferredWidth(103);
 
     }
 

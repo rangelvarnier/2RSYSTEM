@@ -214,7 +214,7 @@ public class FrameRelatorioProdutos extends javax.swing.JFrame {
                 JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioProdutos.jrxml");
                 JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
-                JasperViewer.viewReport(jasperPrint);
+                JasperViewer.viewReport(jasperPrint, false);
                 dispose();
             } else {
                 System.out.println(fornecedor.getRazaoSocial());
@@ -223,7 +223,7 @@ public class FrameRelatorioProdutos extends javax.swing.JFrame {
                 JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioProdutos.jrxml");
                 JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
-                JasperViewer.viewReport(jasperPrint);
+                JasperViewer.viewReport(jasperPrint, false);
                 dispose();
             }
         } catch (JRException ex) {

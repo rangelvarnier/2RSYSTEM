@@ -176,7 +176,7 @@ public class FrameRelatorioItendeVenda extends javax.swing.JFrame {
                 JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioItensdaVenda.jrxml");
                 JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
-                JasperViewer.viewReport(jasperPrint);
+                JasperViewer.viewReport(jasperPrint, false);
                 
             } else {
                
@@ -186,7 +186,7 @@ public class FrameRelatorioItendeVenda extends javax.swing.JFrame {
                     JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioItensdaVenda.jrxml");
                     JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
                     JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
-                    JasperViewer.viewReport(jasperPrint);
+                    JasperViewer.viewReport(jasperPrint, false);
                     
                 
             }

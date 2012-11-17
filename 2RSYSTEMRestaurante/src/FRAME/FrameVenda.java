@@ -43,6 +43,12 @@ public class FrameVenda extends javax.swing.JFrame {
         produtosDaVendaDao = new ProdutoDaVendaDAOIMPL();
         produtosDasVendas = new ArrayList<ProdutosDaVenda>();
         novaVenda();
+        jtbVenda.setAutoResizeMode(jtbVenda.AUTO_RESIZE_OFF);  
+        jtbVenda.getColumnModel().getColumn(0).setPreferredWidth(104);  
+        jtbVenda.getColumnModel().getColumn(1).setPreferredWidth(450);
+        jtbVenda.getColumnModel().getColumn(2).setPreferredWidth(115);  
+        jtbVenda.getColumnModel().getColumn(3).setPreferredWidth(115);
+        jtbVenda.getColumnModel().getColumn(4).setPreferredWidth(115);
     }
 
     @SuppressWarnings("unchecked")
@@ -243,7 +249,6 @@ public class FrameVenda extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jtbVenda.setColumnSelectionAllowed(true);
         jtbVenda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtbVendaMouseClicked(evt);
@@ -315,7 +320,7 @@ public class FrameVenda extends javax.swing.JFrame {
                         .add(jLabel9)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jlbValorTotalVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 912, Short.MAX_VALUE)
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 905, Short.MAX_VALUE)
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(jLabel36)
                         .add(0, 0, Short.MAX_VALUE)))

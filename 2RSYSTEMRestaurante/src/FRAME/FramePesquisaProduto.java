@@ -30,6 +30,9 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
         subGrupoItemDao = new SubGrupoItensDAOIMPL();
         unidadeMedidaDao = new UnidadeMedidaDAOIMPL();
         atualizaTabela();
+        jtbProdutos.setAutoResizeMode(jtbProdutos.AUTO_RESIZE_OFF);  
+        jtbProdutos.getColumnModel().getColumn(0).setPreferredWidth(110);  
+        jtbProdutos.getColumnModel().getColumn(1).setPreferredWidth(543);
     }
 
     @SuppressWarnings("unchecked")

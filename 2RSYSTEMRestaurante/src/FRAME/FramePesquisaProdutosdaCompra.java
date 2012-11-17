@@ -17,6 +17,10 @@ public class FramePesquisaProdutosdaCompra extends javax.swing.JDialog {
         pessoaDao = new PessoaDAOIMPL();
         colaboradorDao = new ColaboradorDAOIMPL();
         atualizaTabela();
+        jtbProdutosdaCompra.setAutoResizeMode(jtbProdutosdaCompra.AUTO_RESIZE_OFF);  
+        jtbProdutosdaCompra.getColumnModel().getColumn(0).setPreferredWidth(110);  
+        jtbProdutosdaCompra.getColumnModel().getColumn(1).setPreferredWidth(393);
+        jtbProdutosdaCompra.getColumnModel().getColumn(2).setPreferredWidth(150);
     }
 
     @SuppressWarnings("unchecked")

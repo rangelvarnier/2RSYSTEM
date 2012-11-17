@@ -180,7 +180,7 @@ public class FrameRelatorioColaboradores extends javax.swing.JFrame {
                 //Gerar arquivo para impressão
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
                 //Chama visualizador do relatório
-                JasperViewer.viewReport(jasperPrint);
+                JasperViewer.viewReport(jasperPrint, false);
                 dispose();
             } else {
                 List<Colaborador> dados = dao.buscarParametrosRelatorio(grupoColaborador.getCodigo());
@@ -188,7 +188,7 @@ public class FrameRelatorioColaboradores extends javax.swing.JFrame {
                 JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioColaboradores.jrxml");
                 JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
-                JasperViewer.viewReport(jasperPrint);
+                JasperViewer.viewReport(jasperPrint, false);
                 dispose();
             }
         } catch (JRException ex) {

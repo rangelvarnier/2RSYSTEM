@@ -20,6 +20,10 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
         subGrupoItemDao = new SubGrupoItensDAOIMPL();
         atualizaTabela();
         atualizaComboBoxGrupoItem();
+        jtbSubGrupoItem.setAutoResizeMode(jtbSubGrupoItem.AUTO_RESIZE_OFF);  
+        jtbSubGrupoItem.getColumnModel().getColumn(0).setPreferredWidth(100);  
+        jtbSubGrupoItem.getColumnModel().getColumn(1).setPreferredWidth(353);
+        jtbSubGrupoItem.getColumnModel().getColumn(2).setPreferredWidth(121);
     }
 
     @SuppressWarnings("unchecked")

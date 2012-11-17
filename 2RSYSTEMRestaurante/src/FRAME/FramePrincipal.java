@@ -103,7 +103,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         jbtEntrada.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtEntrada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/conta.png"))); // NOI18N
-        jbtEntrada.setToolTipText("Entrada de Mercadoria");
+        jbtEntrada.setToolTipText("Compra de Mercadoria");
         jbtEntrada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtEntradaActionPerformed(evt);
@@ -123,7 +123,9 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
 
+        jDesktopPane1.setBackground(new java.awt.Color(102, 102, 102));
         jDesktopPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jDesktopPane1.setForeground(new java.awt.Color(51, 51, 51));
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel2.setText("Usuário Logado:");

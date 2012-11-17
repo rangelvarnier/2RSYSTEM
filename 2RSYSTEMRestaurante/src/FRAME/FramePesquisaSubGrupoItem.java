@@ -14,6 +14,9 @@ public class FramePesquisaSubGrupoItem extends javax.swing.JDialog {
         setLocation(290, 190);
         subGrupoItemDao = new SubGrupoItensDAOIMPL();
         atualizaTabela();
+        jtbSubrupoItem.setAutoResizeMode(jtbSubrupoItem.AUTO_RESIZE_OFF);  
+        jtbSubrupoItem.getColumnModel().getColumn(0).setPreferredWidth(110);  
+        jtbSubrupoItem.getColumnModel().getColumn(1).setPreferredWidth(543);
     }
 
     @SuppressWarnings("unchecked")

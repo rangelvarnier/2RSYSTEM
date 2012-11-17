@@ -8,7 +8,7 @@ public class Colaborador {
     private String cpf;
     private String rg;
     private Date dataNascimento;
-    private Date dataContradacao;
+    private Date dataContratacao;
     private Date dataDemissao;
     private Float salario;
     private Pessoa pessoa;
@@ -19,7 +19,7 @@ public class Colaborador {
         this.cpf = cpf;
         this.rg = rg;
         this.dataNascimento = dataNascimento;
-        this.dataContradacao = dataContradacao;
+        this.dataContratacao = dataContradacao;
         this.dataDemissao = dataDemissao;
         this.salario = salario;
         this.pessoa = pessoa;
@@ -72,11 +72,11 @@ public class Colaborador {
     }
 
     public Date getDataContradacao() {
-        return dataContradacao;
+        return dataContratacao;
     }
 
     public void setDataContradacao(Date dataContradacao) {
-        this.dataContradacao = dataContradacao;
+        this.dataContratacao = dataContradacao;
     }
 
     public Date getDataDemissao() {

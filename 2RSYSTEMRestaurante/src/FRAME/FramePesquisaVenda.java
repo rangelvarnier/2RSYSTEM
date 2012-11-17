@@ -13,6 +13,13 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
         setLocation(290, 190);
         vendaDao = new VendaDAOIMPL();
         atualizaTabela();
+        jtbVendas.setAutoResizeMode(jtbVendas.AUTO_RESIZE_OFF);  
+        jtbVendas.getColumnModel().getColumn(0).setPreferredWidth(78);  
+        jtbVendas.getColumnModel().getColumn(1).setPreferredWidth(90);
+        jtbVendas.getColumnModel().getColumn(2).setPreferredWidth(176);
+        jtbVendas.getColumnModel().getColumn(3).setPreferredWidth(176);
+        jtbVendas.getColumnModel().getColumn(4).setPreferredWidth(100);
+        
     }
 
     @SuppressWarnings("unchecked")

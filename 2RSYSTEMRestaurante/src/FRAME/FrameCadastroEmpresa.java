@@ -35,6 +35,12 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         atualizaCBCidade();
         setcodigos();
         //convertedataparacalendar();
+        jtbEmpresas.setAutoResizeMode(jtbEmpresas.AUTO_RESIZE_OFF);  
+        jtbEmpresas.getColumnModel().getColumn(0).setPreferredWidth(70);  
+        jtbEmpresas.getColumnModel().getColumn(1).setPreferredWidth(330);
+        jtbEmpresas.getColumnModel().getColumn(2).setPreferredWidth(125);  
+        jtbEmpresas.getColumnModel().getColumn(3).setPreferredWidth(150);
+        jtbEmpresas.getColumnModel().getColumn(4).setPreferredWidth(131);  
     }
 
     @SuppressWarnings("unchecked")
@@ -462,10 +468,6 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cnpj}"));
         columnBinding.setColumnName("CNPJ");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${email}"));
-        columnBinding.setColumnName("Email");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${endereco_codigo.telefone}"));
