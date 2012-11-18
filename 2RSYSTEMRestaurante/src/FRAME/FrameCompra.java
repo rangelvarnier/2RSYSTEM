@@ -420,13 +420,9 @@ public class FrameCompra extends javax.swing.JFrame {
         }
         //se houver um enter na coluna 4 adiciona o item da linha na lista, cria nova linha e calcula o total da venda
         if (evt.getKeyCode() == 10 && jtbProdutosCompra.getSelectedColumn() == 4) {
-
             produtosDaCompra.add(produtoDaCompra);
             inserirLinha();
             jtfValorCompra.setText(String.valueOf(calculaTotalCompra()));
-
-
-
         }
 
     }//GEN-LAST:event_jtbProdutosCompraKeyPressed
@@ -520,25 +516,17 @@ public class FrameCompra extends javax.swing.JFrame {
                 e.printStackTrace();
             }
             try {
+                produtoDaCompra.setCompra(compra);
+                produtoDaCompraDao.removerAllProdutosDaCompra(produtoDaCompra);
                 int linha = 0;
-                while ( linha <= jtbProdutosCompra.getRowCount()-1) {
-                    Produto produto = new Produto();
-                    Object prod = jtbProdutosCompra.getValueAt(linha, 0);
-                    Object qtd = jtbProdutosCompra.getValueAt(linha, 2);
-                    Object valUn = jtbProdutosCompra.getValueAt(linha, 3);
-                    Object valTot = jtbProdutosCompra.getValueAt(linha, 4);
-                    
-                    
-                   // produto.setCodigo(Integer.parseInt(prod.toString()));
-                    
-                    produtoDaCompra.setProduto(produto);
-                    produtoDaCompra.setQuantidade(Float.parseFloat(String.valueOf(qtd)));
-                    produtoDaCompra.setValorUnitario(Float.parseFloat(String.valueOf(valUn)));
-                    produtoDaCompra.setValorTotal(Float.parseFloat(String.valueOf(valTot)));
+                while (linha < jtbProdutosCompra.getRowCount() - 1) {
+                    if (produtosDaCompra.get(linha) != null) {
+                        produtoDaCompra = produtosDaCompra.get(linha);
+                        produtoDaCompra.setCompra(compra);
 
-                    produtoDaCompra.setCompra(compra);
+                        produtoDaCompraDao.inserir(produtoDaCompra);
+                    }
 
-                  //  produtoDaCompraDao.alterar(produtoDaCompra);
                     linha++;
                 }
             } catch (Exception e) {
@@ -721,7 +709,7 @@ public class FrameCompra extends javax.swing.JFrame {
             limpaTabela();
             jbtAlterar.setVisible(true);
             jbtExcluir.setVisible(true);
-            jbtExcluirProduto.setVisible(false);
+            jbtExcluirProduto.setVisible(true);
             jbtFinalizarCompra.setVisible(false);
 
             this.compra.setCodigo(comp.getCodigo());
