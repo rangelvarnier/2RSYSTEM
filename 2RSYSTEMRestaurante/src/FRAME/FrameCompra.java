@@ -30,13 +30,13 @@ public class FrameCompra extends javax.swing.JFrame {
         compraDao = new CompraDAOIMPL();
         produtoDaCompraDao = new ProdutoDaCompraDAOIMPL();
         produtosDaCompra = new ArrayList<ProdutosDaCompra>();
-        jtbProdutosCompra.setAutoResizeMode(jtbProdutosCompra.AUTO_RESIZE_OFF);  
-        jtbProdutosCompra.getColumnModel().getColumn(0).setPreferredWidth(100);  
+        jtbProdutosCompra.setAutoResizeMode(jtbProdutosCompra.AUTO_RESIZE_OFF);
+        jtbProdutosCompra.getColumnModel().getColumn(0).setPreferredWidth(100);
         jtbProdutosCompra.getColumnModel().getColumn(1).setPreferredWidth(430);
-        jtbProdutosCompra.getColumnModel().getColumn(2).setPreferredWidth(110);  
+        jtbProdutosCompra.getColumnModel().getColumn(2).setPreferredWidth(110);
         jtbProdutosCompra.getColumnModel().getColumn(3).setPreferredWidth(112);
-        jtbProdutosCompra.getColumnModel().getColumn(4).setPreferredWidth(114);  
-        
+        jtbProdutosCompra.getColumnModel().getColumn(4).setPreferredWidth(114);
+
     }
 
     /**
@@ -520,9 +520,26 @@ public class FrameCompra extends javax.swing.JFrame {
                 e.printStackTrace();
             }
             try {
-                for (ProdutosDaCompra prod : this.produtosDaCompra) {
-                    prod.setCompra(compra);
-                    produtoDaCompraDao.alterar(prod);
+                int linha = 0;
+                while ( linha <= jtbProdutosCompra.getRowCount()-1) {
+                    Produto produto = new Produto();
+                    Object prod = jtbProdutosCompra.getValueAt(linha, 0);
+                    Object qtd = jtbProdutosCompra.getValueAt(linha, 2);
+                    Object valUn = jtbProdutosCompra.getValueAt(linha, 3);
+                    Object valTot = jtbProdutosCompra.getValueAt(linha, 4);
+                    
+                    
+                   // produto.setCodigo(Integer.parseInt(prod.toString()));
+                    
+                    produtoDaCompra.setProduto(produto);
+                    produtoDaCompra.setQuantidade(Float.parseFloat(String.valueOf(qtd)));
+                    produtoDaCompra.setValorUnitario(Float.parseFloat(String.valueOf(valUn)));
+                    produtoDaCompra.setValorTotal(Float.parseFloat(String.valueOf(valTot)));
+
+                    produtoDaCompra.setCompra(compra);
+
+                  //  produtoDaCompraDao.alterar(produtoDaCompra);
+                    linha++;
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
