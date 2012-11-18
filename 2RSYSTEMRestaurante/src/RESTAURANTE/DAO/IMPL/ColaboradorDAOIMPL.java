@@ -32,8 +32,8 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
                 } else {  
                  stmt.setNull(4, Types.DATE);  
             }
-            stmt.setDate(5, new java.sql.Date(colaborador.getDataContradacao().getTime()));
-            if (colaborador.getDataNascimento() != null) {  
+            stmt.setDate(5, new java.sql.Date(colaborador.getDataContratacao().getTime()));
+            if (colaborador.getDataDemissao() != null) {  
                     stmt.setDate(6, new java.sql.Date(colaborador.getDataDemissao().getTime()));
                 } else {  
                  stmt.setNull(6, Types.DATE);  
@@ -66,8 +66,8 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
                 } else {  
                  stmt.setNull(3, Types.DATE);  
             }
-            stmt.setDate(4, new java.sql.Date(colaborador.getDataContradacao().getTime()));
-            if (colaborador.getDataNascimento() != null) {  
+            stmt.setDate(4, new java.sql.Date(colaborador.getDataContratacao().getTime()));
+            if (colaborador.getDataDemissao() != null) {  
                     stmt.setDate(5, new java.sql.Date(colaborador.getDataDemissao().getTime()));
                 } else {  
                  stmt.setNull(5, Types.DATE);  
@@ -118,7 +118,7 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
                 colaborador.setCpf(rs.getString("cpf"));
                 colaborador.setRg(rs.getString("rg"));
                 colaborador.setDataNascimento(rs.getDate("dataNascimento"));
-                colaborador.setDataContradacao(rs.getDate("dataContradacao"));
+                colaborador.setDataContratacao(rs.getDate("dataContradacao"));
                 colaborador.setDataDemissao(rs.getDate("dataDemissao"));
                 colaborador.setGrupoColaborador(grupoColaboradoresDao.buscaPorId(rs.getInt("grupoColaboradores_codigo")));
                 colaborador.setSalario(rs.getFloat("salario"));
@@ -149,7 +149,7 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
                 colaborador.setCpf(rs.getString("cpf"));
                 colaborador.setRg(rs.getString("rg"));
                 colaborador.setDataNascimento(rs.getDate("dataNascimento"));
-                colaborador.setDataContradacao(rs.getDate("dataContradacao"));
+                colaborador.setDataContratacao(rs.getDate("dataContradacao"));
                 colaborador.setDataDemissao(rs.getDate("dataDemissao"));
                 colaborador.setGrupoColaborador(grupoColaboradoresDao.buscaPorId(rs.getInt("grupoColaboradores_codigo")));
                 colaborador.setSalario(rs.getFloat("salario"));
@@ -203,7 +203,7 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
                 colaborador.setCpf(rs.getString("cpf"));
                 colaborador.setRg(rs.getString("rg"));
                 colaborador.setDataNascimento(rs.getDate("dataNascimento"));
-                colaborador.setDataContradacao(rs.getDate("dataContradacao"));
+                colaborador.setDataContratacao(rs.getDate("dataContradacao"));
                 colaborador.setDataDemissao(rs.getDate("dataDemissao"));
                 colaborador.setGrupoColaborador(grupoColaboradoresDao.buscaPorId(rs.getInt("grupoColaboradores_codigo")));
                 colaborador.setSalario(rs.getFloat("salario"));
@@ -237,7 +237,7 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
                 colaborador.setCpf(rs.getString("cpf"));
                 colaborador.setRg(rs.getString("rg"));
                 colaborador.setDataNascimento(rs.getDate("dataNascimento"));
-                colaborador.setDataContradacao(rs.getDate("dataContradacao"));
+                colaborador.setDataContratacao(rs.getDate("dataContradacao"));
                 colaborador.setDataDemissao(rs.getDate("dataDemissao"));
                 colaborador.setGrupoColaborador(grupoColaboradoresDao.buscaPorId(rs.getInt("grupoColaboradores_codigo")));
                 colaborador.setSalario(rs.getFloat("salario"));

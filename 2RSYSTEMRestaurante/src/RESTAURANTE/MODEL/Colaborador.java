@@ -14,12 +14,12 @@ public class Colaborador {
     private Pessoa pessoa;
     private GrupoColaborador grupoColaborador;
 
-    public Colaborador(Integer codigo, String cpf, String rg, Date dataNascimento, Date dataContradacao, Date dataDemissao, Float salario, Pessoa pessoa, GrupoColaborador grupoColaborador) {
+    public Colaborador(Integer codigo, String cpf, String rg, Date dataNascimento, Date dataContratacao, Date dataDemissao, Float salario, Pessoa pessoa, GrupoColaborador grupoColaborador) {
         this.codigo = codigo;
         this.cpf = cpf;
         this.rg = rg;
         this.dataNascimento = dataNascimento;
-        this.dataContratacao = dataContradacao;
+        this.dataContratacao = dataContratacao;
         this.dataDemissao = dataDemissao;
         this.salario = salario;
         this.pessoa = pessoa;
@@ -71,11 +71,11 @@ public class Colaborador {
         this.dataNascimento = dataNascimento;
     }
 
-    public Date getDataContradacao() {
+    public Date getDataContratacao() {
         return dataContratacao;
     }
 
-    public void setDataContradacao(Date dataContradacao) {
+    public void setDataContratacao(Date dataContradacao) {
         this.dataContratacao = dataContradacao;
     }
 

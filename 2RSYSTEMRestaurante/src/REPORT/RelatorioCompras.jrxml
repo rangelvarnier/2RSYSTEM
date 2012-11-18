@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioProdutos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a8ac9aad-d3f0-49e5-b853-cd488a828fe6">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="17"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
@@ -12,6 +12,9 @@
 	<field name="valorCompra" class="java.lang.Float"/>
 	<field name="fornecedor" class="RESTAURANTE.MODEL.Fornecedor"/>
 	<field name="colaborador" class="RESTAURANTE.MODEL.Colaborador"/>
+	<variable name="VALOR_TOTAL_C" class="java.lang.Float" resetType="None" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorCompra}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -108,10 +111,66 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="13" splitType="Stretch">
+		<band height="15" splitType="Stretch">
 			<textField>
-				<reportElement uuid="6d3ad34f-4bcc-4b5c-8e6b-2310e466f573" x="0" y="0" width="85" height="13"/>
-				<box topPadding="1" leftPadding="0" rightPadding="2">
+				<reportElement uuid="b3f9d835-a7e9-4a96-9fc1-569639038716" x="458" y="0" width="97" height="15"/>
+				<box topPadding="1" rightPadding="2">
+					<pen lineWidth="0.25" lineStyle="Solid"/>
+					<topPen lineWidth="0.25" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorCompra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9b9dc4e8-19bc-4746-990d-5f87a0ca7a44" x="215" y="0" width="146" height="15"/>
+				<box topPadding="1" leftPadding="2">
+					<pen lineWidth="0.25" lineStyle="Solid"/>
+					<topPen lineWidth="0.25" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fornecedor}.getPessoa().getNome()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="65eaf73e-8ed2-4abe-9106-601036ea7cc1" x="361" y="0" width="97" height="15"/>
+				<box topPadding="1">
+					<pen lineWidth="0.25" lineStyle="Solid"/>
+					<topPen lineWidth="0.25" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataCompra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9ec75501-1689-4182-8635-4dd80e4af89c" x="85" y="0" width="130" height="15"/>
+				<box topPadding="1" leftPadding="2" rightPadding="0">
+					<pen lineWidth="0.25" lineStyle="Solid"/>
+					<topPen lineWidth="0.25" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{colaborador}.getPessoa().getNome()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6d3ad34f-4bcc-4b5c-8e6b-2310e466f573" x="0" y="0" width="85" height="15"/>
+				<box topPadding="1" rightPadding="2">
 					<pen lineWidth="0.25" lineStyle="Solid"/>
 					<topPen lineWidth="0.25" lineStyle="Solid"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid"/>
@@ -123,54 +182,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="b3f9d835-a7e9-4a96-9fc1-569639038716" x="458" y="0" width="97" height="13"/>
-				<box topPadding="1" rightPadding="2">
-					<pen lineWidth="0.25" lineStyle="Solid"/>
-					<topPen lineWidth="0.25" lineStyle="Solid"/>
-					<leftPen lineWidth="0.25" lineStyle="Solid"/>
-					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
-					<rightPen lineWidth="0.25" lineStyle="Solid"/>
-				</box>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{valorCompra}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="9b9dc4e8-19bc-4746-990d-5f87a0ca7a44" x="215" y="0" width="146" height="13"/>
-				<box topPadding="1" leftPadding="2">
-					<pen lineWidth="0.25" lineStyle="Solid"/>
-					<topPen lineWidth="0.25" lineStyle="Solid"/>
-					<leftPen lineWidth="0.25" lineStyle="Solid"/>
-					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
-					<rightPen lineWidth="0.25" lineStyle="Solid"/>
-				</box>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{fornecedor}.getPessoa().getNome()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="65eaf73e-8ed2-4abe-9106-601036ea7cc1" x="361" y="0" width="97" height="13"/>
-				<box topPadding="1">
-					<pen lineWidth="0.25" lineStyle="Solid"/>
-					<topPen lineWidth="0.25" lineStyle="Solid"/>
-					<leftPen lineWidth="0.25" lineStyle="Solid"/>
-					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
-					<rightPen lineWidth="0.25" lineStyle="Solid"/>
-				</box>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{dataCompra}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="9ec75501-1689-4182-8635-4dd80e4af89c" x="85" y="0" width="130" height="13"/>
-				<box topPadding="1" leftPadding="2" rightPadding="0">
-					<pen lineWidth="0.25" lineStyle="Solid"/>
-					<topPen lineWidth="0.25" lineStyle="Solid"/>
-					<leftPen lineWidth="0.25" lineStyle="Solid"/>
-					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
-					<rightPen lineWidth="0.25" lineStyle="Solid"/>
-				</box>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{colaborador}.getPessoa().getNome()]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 	<columnFooter>
@@ -181,6 +192,27 @@
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
+			<staticText>
+				<reportElement uuid="50c737cc-b7dc-46cd-b05c-4845637b37a4" x="317" y="0" width="141" height="15"/>
+				<box topPadding="3">
+					<pen lineWidth="0.5" lineStyle="Double" lineColor="#999999"/>
+					<topPen lineWidth="0.5" lineStyle="Double" lineColor="#999999"/>
+					<leftPen lineWidth="0.5" lineStyle="Double" lineColor="#999999"/>
+					<bottomPen lineWidth="0.5" lineStyle="Double" lineColor="#999999"/>
+					<rightPen lineWidth="0.5" lineStyle="Double" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[VALOR TOTAL DAS COMPRAS]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="700518db-5815-4f80-9e45-475225605184" x="458" y="1" width="95" height="14"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{VALOR_TOTAL_C}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>

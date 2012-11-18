@@ -700,7 +700,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         try {
             colaborador.setDataDemissao(jtfDataDemissão.getDate());
             colaborador.setDataNascimento(jtfDataNacimento.getDate());
-            colaborador.setDataContradacao(jtfDataContratação.getDate());
+            colaborador.setDataContratacao(jtfDataContratação.getDate());
             enderecoDao.inserir(colaborador.getPessoa().getEndereco_codigo());
             pessoaDao.inserir(colaborador.getPessoa());
             colaboradorDao.inserir(colaborador);
@@ -989,7 +989,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jcbfuncao.getModel().setSelectedItem(colaborador.getGrupoColaborador());
         jtfCodigo.setText(colaborador.getCodigo().toString());
         jtfDataNacimento.getDateEditor().setDate(colaborador.getDataNascimento());
-        jtfDataContratação.getDateEditor().setDate(colaborador.getDataContradacao());
+        jtfDataContratação.getDateEditor().setDate(colaborador.getDataContratacao());
         jtfDataDemissão.getDateEditor().setDate(colaborador.getDataDemissao());
         if (colaborador.getPessoa().getSexo().equals("F")) {
             jcbSexo.setSelectedIndex(0);

@@ -11,7 +11,7 @@
 	<field name="pessoa" class="RESTAURANTE.MODEL.Pessoa"/>
 	<field name="cpf" class="java.lang.String"/>
 	<field name="rg" class="java.lang.String"/>
-	<field name="dataContratacao" class="java.util.Date"/>
+	<field name="dataContratacao" class="java.lang.String"/>
 	<field name="salario" class="java.lang.Float"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -123,9 +123,9 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="12" splitType="Stretch">
+		<band height="14" splitType="Stretch">
 			<textField>
-				<reportElement uuid="2fb46f05-09ff-45b6-9abe-0f2b64e43455" x="492" y="0" width="63" height="12"/>
+				<reportElement uuid="2fb46f05-09ff-45b6-9abe-0f2b64e43455" x="492" y="0" width="63" height="14"/>
 				<box topPadding="1" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -139,7 +139,7 @@
 				<textFieldExpression><![CDATA[$F{salario}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="c0330f7f-a3d9-4e0c-a35f-178733c74326" x="292" y="0" width="76" height="12"/>
+				<reportElement uuid="c0330f7f-a3d9-4e0c-a35f-178733c74326" x="292" y="0" width="76" height="14"/>
 				<box topPadding="1" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -153,7 +153,7 @@
 				<textFieldExpression><![CDATA[$F{rg}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="26be4dd8-05f5-496c-9362-717d3e2ebbed" x="0" y="0" width="53" height="12"/>
+				<reportElement uuid="26be4dd8-05f5-496c-9362-717d3e2ebbed" x="0" y="0" width="53" height="14"/>
 				<box topPadding="1" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -167,7 +167,7 @@
 				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="b91df637-28e1-4a91-90f6-7d3abd47e14f" x="207" y="0" width="85" height="12"/>
+				<reportElement uuid="b91df637-28e1-4a91-90f6-7d3abd47e14f" x="207" y="0" width="85" height="14"/>
 				<box topPadding="1" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -181,22 +181,8 @@
 				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="26d55211-50a7-4daf-8b44-7975deea9566" x="368" y="0" width="124" height="12"/>
-				<box topPadding="1" rightPadding="2">
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Right">
-					<font size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{dataContratacao}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="4725e5f1-93dd-4e77-89a1-2c888fc3e23a" x="53" y="0" width="154" height="12"/>
-				<box topPadding="1" leftPadding="2" rightPadding="1">
+				<reportElement uuid="4725e5f1-93dd-4e77-89a1-2c888fc3e23a" x="53" y="0" width="154" height="14"/>
+				<box topPadding="1" leftPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -207,6 +193,20 @@
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pessoa}.getNome()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="442a72d8-a30d-4bda-b133-e62d2637a094" x="368" y="0" width="124" height="14"/>
+				<box topPadding="1" rightPadding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataContratacao}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

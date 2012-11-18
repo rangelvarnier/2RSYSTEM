@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,8 +28,12 @@ public class ParceiroDAOIMPL implements ParceiroDAO{
 
             stmt.setInt(1, parceiro.getCodigo());
             stmt.setString(2, parceiro.getCpf());
-            stmt.setString(3, parceiro.getRg());          
-            stmt.setDate(4, new java.sql.Date(parceiro.getDataNascimento().getTime()));
+            stmt.setString(3, parceiro.getRg());
+            if (parceiro.getDataNascimento() != null) {  
+                    stmt.setDate(4, new java.sql.Date(parceiro.getDataNascimento().getTime()));
+                } else {  
+                 stmt.setNull(4, Types.DATE);  
+            }
             stmt.setDate(5, new java.sql.Date(parceiro.getDataCadastro().getTime()));
             stmt.setFloat(6, parceiro.getLimite());
             stmt.setFloat(7, parceiro.getSaldo());

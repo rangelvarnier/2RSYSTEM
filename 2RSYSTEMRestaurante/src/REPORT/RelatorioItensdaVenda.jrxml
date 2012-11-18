@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioProdutos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a8ac9aad-d3f0-49e5-b853-cd488a828fe6">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="30"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
@@ -108,9 +108,9 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="13" splitType="Stretch">
+		<band height="15" splitType="Stretch">
 			<textField>
-				<reportElement uuid="a1013b7f-3db0-4d2a-ae6a-0df9ae3bf0fe" x="0" y="0" width="99" height="13"/>
+				<reportElement uuid="a1013b7f-3db0-4d2a-ae6a-0df9ae3bf0fe" x="0" y="0" width="99" height="15"/>
 				<box topPadding="1" rightPadding="2">
 					<pen lineWidth="0.25" lineColor="#999999"/>
 					<topPen lineWidth="0.25" lineColor="#999999"/>
@@ -118,11 +118,13 @@
 					<bottomPen lineWidth="0.25" lineColor="#999999"/>
 					<rightPen lineWidth="0.25" lineColor="#999999"/>
 				</box>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{venda_codigo}.getCodigo()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="164b49fc-6b30-4a6a-b61b-756a0db414d7" x="99" y="0" width="167" height="13"/>
+				<reportElement uuid="164b49fc-6b30-4a6a-b61b-756a0db414d7" x="99" y="0" width="167" height="15"/>
 				<box topPadding="1" leftPadding="2">
 					<pen lineWidth="0.25" lineColor="#999999"/>
 					<topPen lineWidth="0.25" lineColor="#999999"/>
@@ -130,11 +132,13 @@
 					<bottomPen lineWidth="0.25" lineColor="#999999"/>
 					<rightPen lineWidth="0.25" lineColor="#999999"/>
 				</box>
-				<textElement/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{produto_codigo}.getDescricao()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="31fafc3a-0040-4502-87bc-bc52d9b1827c" x="266" y="0" width="95" height="13"/>
+				<reportElement uuid="31fafc3a-0040-4502-87bc-bc52d9b1827c" x="266" y="0" width="95" height="15"/>
 				<box topPadding="1" rightPadding="2">
 					<pen lineWidth="0.25" lineColor="#999999"/>
 					<topPen lineWidth="0.25" lineColor="#999999"/>
@@ -142,11 +146,13 @@
 					<bottomPen lineWidth="0.25" lineColor="#999999"/>
 					<rightPen lineWidth="0.25" lineColor="#999999"/>
 				</box>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="87aa7290-6716-4522-89ab-188c559e9d6a" x="361" y="0" width="97" height="13"/>
+				<reportElement uuid="87aa7290-6716-4522-89ab-188c559e9d6a" x="361" y="0" width="97" height="15"/>
 				<box topPadding="1" rightPadding="2">
 					<pen lineWidth="0.25" lineColor="#999999"/>
 					<topPen lineWidth="0.25" lineColor="#999999"/>
@@ -154,11 +160,13 @@
 					<bottomPen lineWidth="0.25" lineColor="#999999"/>
 					<rightPen lineWidth="0.25" lineColor="#999999"/>
 				</box>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{valorUnitario}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="a2ce8c41-bde4-476e-b6dd-20b95a6a512a" x="458" y="0" width="97" height="13"/>
+				<reportElement uuid="a2ce8c41-bde4-476e-b6dd-20b95a6a512a" x="458" y="0" width="97" height="15"/>
 				<box topPadding="1" rightPadding="2">
 					<pen lineWidth="0.25" lineColor="#999999"/>
 					<topPen lineWidth="0.25" lineColor="#999999"/>
@@ -166,7 +174,9 @@
 					<bottomPen lineWidth="0.25" lineColor="#999999"/>
 					<rightPen lineWidth="0.25" lineColor="#999999"/>
 				</box>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{valorTotal}]]></textFieldExpression>
 			</textField>
 		</band>

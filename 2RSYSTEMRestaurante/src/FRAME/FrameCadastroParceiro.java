@@ -731,6 +731,11 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
             parceiro.setDataNascimento(jtfDataNacimento.getDate());
             parceiro.setDataCadastro(new Date());
             enderecoDao.inserir(parceiro.getPessoa().getEndereco_codigo());
+            if (jcbTipoPessoa.getSelectedIndex() == 0) {
+            parceiro.setTipoPessoa("F");
+            } else {
+            parceiro.setTipoPessoa("J");
+            }
             pessoaDao.inserir(parceiro.getPessoa());
             parceiroDao.inserir(parceiro);
             atualizaTabela();
