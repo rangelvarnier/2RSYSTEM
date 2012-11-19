@@ -380,6 +380,11 @@ public class FrameVenda extends javax.swing.JFrame {
 
         jbtAlterar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtAlterar.setText("Alterar");
+        jbtAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAlterarActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -565,7 +570,7 @@ public class FrameVenda extends javax.swing.JFrame {
             if (JOptionPane.showConfirmDialog(null,
                     "Deseja realmente excluir esta Venda?",
                     "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
-                produtosDaVendaDao.removerAllProdutosDaCompra(produtodavenda);
+                produtosDaVendaDao.removerAllProdutosDaVenda(produtodavenda);
                 vendaDao.remover(venda);
                 novaVenda();
                 produtosDasVendas.removeAll(produtosDasVendas);
@@ -590,6 +595,42 @@ public class FrameVenda extends javax.swing.JFrame {
             System.out.println("Filtro não encontrado" + ex.getMessage());
         }
     }//GEN-LAST:event_jbtImprimirActionPerformed
+
+    private void jbtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAlterarActionPerformed
+        try {
+            venda.setCodigo(Integer.valueOf(jtfCodigo.getText()));
+            venda.setDataVenda(jdcDataVenda.getDate());
+            try {
+                vendaDao.alterar(venda);
+                JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: "
+                        + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+            try {
+                produtodavenda.setVenda_codigo(venda);
+                produtosDaVendaDao.removerAllProdutosDaVenda(produtodavenda);
+                int linha = 0;
+                while (linha < jtbVenda.getRowCount() - 1) {
+                    if (produtosDasVendas.get(linha) != null) {
+                        produtodavenda = produtosDasVendas.get(linha);
+                        produtodavenda.setVenda_codigo(venda);
+
+                        produtosDaVendaDao.inserir(produtodavenda);
+                    }
+
+                    linha++;
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: "
+                        + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Campo não preenchido \n" + e.getMessage());
+        }
+    }//GEN-LAST:event_jbtAlterarActionPerformed
 
     /**
      * @param args the command line arguments

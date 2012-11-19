@@ -9,7 +9,7 @@ public interface ProdutoDaVendaDAO {
         void inserir(ProdutosDaVenda produtosDaVenda);
         void alterar(ProdutosDaVenda produtosDaVenda);
         void remover(ProdutosDaVenda produtosDaVenda);
-        void removerAllProdutosDaCompra(ProdutosDaVenda produtosDaVenda);
+        void removerAllProdutosDaVenda(ProdutosDaVenda produtosDaVenda);
         ProdutosDaVenda buscarPorCodigo(Integer codigo);
         List<ProdutosDaVenda> buscarTodos();
         List<ProdutosDaVenda> buscarPorCompra(Venda venda);
