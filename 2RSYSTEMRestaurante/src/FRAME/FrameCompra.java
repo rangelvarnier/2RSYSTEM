@@ -459,7 +459,8 @@ public class FrameCompra extends javax.swing.JFrame {
                 compraDao.inserir(compra);
                 JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso");
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: "
+                        + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
             try {
@@ -468,7 +469,8 @@ public class FrameCompra extends javax.swing.JFrame {
                     produtoDaCompraDao.inserir(prod);
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: " 
+                        + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
         } catch (Exception e) {
@@ -490,7 +492,8 @@ public class FrameCompra extends javax.swing.JFrame {
                 jtfValorCompra.setText(String.valueOf(compra.getValorCompra()));
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir!\nMotivo: " 
+                    + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbtExcluirProdutoActionPerformed
 
@@ -512,7 +515,8 @@ public class FrameCompra extends javax.swing.JFrame {
                 compraDao.alterar(compra);
                 JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso");
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: "
+                        + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
             try {
@@ -530,7 +534,8 @@ public class FrameCompra extends javax.swing.JFrame {
                     linha++;
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: "
+                        + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
         } catch (Exception e) {

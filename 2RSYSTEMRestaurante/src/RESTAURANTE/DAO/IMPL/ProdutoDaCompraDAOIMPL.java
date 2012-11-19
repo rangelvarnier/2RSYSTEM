@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
 
@@ -30,6 +31,8 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
 
             stmt.executeUpdate();
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: "
+                    + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -51,6 +54,8 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
 
             stmt.executeUpdate();
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Alterar!\nMotivo: "
+                    + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -68,6 +73,8 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
 
             stmt.executeUpdate();
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Deletar!\nMotivo: "
+                    + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -93,6 +100,8 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
                 produtoDaCompra.setValorTotal(rs.getFloat("valorTotal"));
             }
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Pesquisar!\nMotivo: "
+                    + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         return produtoDaCompra;
@@ -119,6 +128,8 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
                 produtosDaCompra.add(produtoDaCompra);
             }
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Pesquisar!\nMotivo: "
+                    + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         return produtosDaCompra;
@@ -135,6 +146,8 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
 
             stmt.executeUpdate();
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Deletar!\nMotivo: "
+                    + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -161,6 +174,8 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
                 produtosDaCompra.add(produtoDaCompra);
             }
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Pesquisar!\nMotivo: "
+                    + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         return produtosDaCompra;
@@ -170,16 +185,16 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
     public List<ProdutosDaCompra> buscarParametrosRelatorio(Integer codigo) {
         CompraDAO compraDao = new CompraDAOIMPL();
         ProdutoDAO produtoDao = new ProdutoDAOIMPL();
-        List<ProdutosDaCompra> produtosdaCompras = new ArrayList<ProdutosDaCompra>(); 
+        List<ProdutosDaCompra> produtosdaCompras = new ArrayList<ProdutosDaCompra>();
         ProdutosDaCompra produtosdaCompra = null;
-        
+
         Connection con = new Conexao().criarConexao();
         String sql = "select * from produtosdacompra where compra_codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            
+
             stmt.setInt(1, codigo);
-            
+
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -193,11 +208,12 @@ public class ProdutoDaCompraDAOIMPL implements ProdutoDaCompraDAO {
             }
 
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Pesquisar!\nMotivo: "
+                    + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
         return produtosdaCompras;
-    
-    
-    }
 
-    
+
+    }
 }

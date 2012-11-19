@@ -202,10 +202,11 @@ END$$
 
 //triger para ajustar o saldo de estoque quando excluir algum produto da compra
 
+
 CREATE
 DEFINER=`root`@`localhost`
-TRIGGER `2rsitem`.`DELETE_AD`
-AFTER DELETE ON `2rsitem`.`produtosdacompra`
+TRIGGER `2rsitem`.`DELETE_BD`
+BEFORE DELETE ON `2rsitem`.`produtosdacompra`
 FOR EACH ROW
 BEGIN
     
@@ -213,7 +214,7 @@ BEGIN
     
     select saldoEstoque into OLDsaldo from produto where codigo = old.produto_codigo;
     
-    UPDATE produto SET saldoEstoque = old.quantidade - (OLDsaldo)
+    UPDATE produto SET saldoEstoque = (OLDsaldo) - old.quantidade
         WHERE codigo = old.produto_codigo;
 END$$
 
