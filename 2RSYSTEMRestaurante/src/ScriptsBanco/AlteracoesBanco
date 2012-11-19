@@ -218,3 +218,26 @@ BEGIN
         WHERE codigo = old.produto_codigo;
 END$$
 
+//triguer para ajustar o saldo de estoque quando excluir algum priduto da venda
+
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `2rsitem`.`DELETE_BD`
+BEFORE DELETE ON `2rsitem`.`produtosdavenda`
+FOR EACH ROW
+BEGIN
+    
+    declare OLDsaldo float;
+    
+    select saldoEstoque into OLDsaldo from produto where codigo = old.produto_codigo;
+    
+    UPDATE produto SET saldoEstoque = (OLDsaldo) + old.quantidade
+        WHERE codigo = old.produto_codigo;
+END$$
+
+
+//cria chaves primarias para produto da compra
+ALTER TABLE `2rsitem`.`produtosdacompra` 
+ADD PRIMARY KEY (`compra_codigo`, `produto_codigo`) ;
+
+
