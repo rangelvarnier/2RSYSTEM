@@ -137,6 +137,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
             }
         });
 
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.TRAILING, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Grande", 0, 12))); // NOI18N
         jPanel3.setToolTipText("Cadastro");
 

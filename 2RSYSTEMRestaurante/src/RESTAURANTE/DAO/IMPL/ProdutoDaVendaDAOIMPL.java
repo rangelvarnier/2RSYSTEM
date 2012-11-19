@@ -74,7 +74,7 @@ public class ProdutoDaVendaDAOIMPL implements ProdutoDaVendaDAO{
     }
 
     @Override
-    public void removerAllProdutosDaCompra(ProdutosDaVenda produtosDaVenda) {
+    public void removerAllProdutosDaVenda(ProdutosDaVenda produtosDaVenda) {
          Connection con = new Conexao().criarConexao();
         String sql = "delete from produtosdavenda where venda_codigo =?";
         try {
