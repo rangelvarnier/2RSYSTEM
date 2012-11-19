@@ -111,6 +111,7 @@ public class FrameVenda extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
         jLabel1.setText("Venda de Mercadoria");
 
+        jpn1.setBackground(new java.awt.Color(153, 153, 153));
         jpn1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.TRAILING, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Grande", 0, 12))); // NOI18N
         jpn1.setToolTipText("Cadastro");
 

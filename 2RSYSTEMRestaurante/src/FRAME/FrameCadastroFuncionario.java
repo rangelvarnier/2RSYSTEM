@@ -44,7 +44,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         setcodigos();
         jtbColaboradores.setAutoResizeMode(jtbColaboradores.AUTO_RESIZE_OFF);  
         jtbColaboradores.getColumnModel().getColumn(0).setPreferredWidth(75);  
-        jtbColaboradores.getColumnModel().getColumn(1).setPreferredWidth(698);
+        jtbColaboradores.getColumnModel().getColumn(1).setPreferredWidth(686);
     }
 
     @SuppressWarnings("unchecked")
@@ -155,6 +155,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
         jLabel1.setText("Colaboradores");
 
+        jtbpcolaboradores.setBackground(new java.awt.Color(153, 153, 153));
         jtbpcolaboradores.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jtbpcolaboradores.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jtbpcolaboradores.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -162,6 +163,8 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                 jtbpcolaboradoresStateChanged(evt);
             }
         });
+
+        jPanel4.setBackground(new java.awt.Color(153, 153, 153));
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${colaboradores}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbColaboradores);
@@ -210,30 +213,39 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
             .add(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel4Layout.createSequentialGroup()
                         .add(jtfPesquisar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 148, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jbtPesquisar))
-                    .add(jbtDetalhar))
-                .add(0, 0, Short.MAX_VALUE))
+                        .add(jbtPesquisar)
+                        .add(0, 503, Short.MAX_VALUE))
+                    .add(jPanel4Layout.createSequentialGroup()
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1)
+                            .add(jPanel4Layout.createSequentialGroup()
+                                .add(jbtDetalhar)
+                                .add(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jtfPesquisar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jbtPesquisar))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
-                .add(3, 3, 3)
-                .add(jbtDetalhar))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jbtDetalhar)
+                .addContainerGap())
         );
 
         jtbpcolaboradores.addTab("Colaboradores", jPanel4);
 
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.TRAILING, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Grande", 0, 12))); // NOI18N
         jPanel3.setToolTipText("Cadastro");
 
@@ -554,7 +566,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel34))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 56, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel19)
                     .add(jLabel18))
@@ -660,7 +672,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                 .add(jLabel1)
                 .add(18, 18, 18)
                 .add(jtbpcolaboradores, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 17, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jbtSalvar)
                     .add(jbtExcluir)

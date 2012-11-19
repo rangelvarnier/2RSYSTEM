@@ -76,6 +76,7 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
         jLabel.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
         jLabel.setText("Unidade de Medida");
 
+        jtbpUnidadeMedida.setBackground(new java.awt.Color(153, 153, 153));
         jtbpUnidadeMedida.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jtbpUnidadeMedida.setToolTipText("");
         jtbpUnidadeMedida.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -83,6 +84,8 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
                 jtbpUnidadeMedidaStateChanged(evt);
             }
         });
+
+        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${unidadesDeMedidas}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbUnidadeMedida);
@@ -155,16 +158,20 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbtDetalhar))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtDetalhar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jtbpUnidadeMedida.addTab("Grupos", jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel2.setText("Código");

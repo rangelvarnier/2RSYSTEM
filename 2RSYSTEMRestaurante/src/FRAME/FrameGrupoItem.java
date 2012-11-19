@@ -85,6 +85,7 @@ public class FrameGrupoItem extends javax.swing.JFrame {
             }
         });
 
+        jtbpGrupoItem.setBackground(new java.awt.Color(153, 153, 153));
         jtbpGrupoItem.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jtbpGrupoItem.setToolTipText("");
         jtbpGrupoItem.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -92,6 +93,8 @@ public class FrameGrupoItem extends javax.swing.JFrame {
                 jtbpGrupoItemStateChanged(evt);
             }
         });
+
+        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${grupoItens}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbGrupoItem);
@@ -152,16 +155,20 @@ public class FrameGrupoItem extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jtfPesquisar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jbtPesquisar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 218, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jbtDetalhar))
+                .add(jbtDetalhar)
+                .addContainerGap())
         );
 
         jtbpGrupoItem.addTab("Grupos", jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel2.setText("Código");

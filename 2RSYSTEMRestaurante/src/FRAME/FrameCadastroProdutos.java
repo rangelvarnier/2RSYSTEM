@@ -34,7 +34,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         setaCodigos();
         jtbProdutos.setAutoResizeMode(jtbProdutos.AUTO_RESIZE_OFF);  
         jtbProdutos.getColumnModel().getColumn(0).setPreferredWidth(75);  
-        jtbProdutos.getColumnModel().getColumn(1).setPreferredWidth(702); 
+        jtbProdutos.getColumnModel().getColumn(1).setPreferredWidth(690); 
     }
 
     @SuppressWarnings("unchecked")
@@ -128,6 +128,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Hiragino Sans GB", 0, 24)); // NOI18N
         jLabel1.setText("Produtos");
 
+        jtbpProdutos.setBackground(new java.awt.Color(153, 153, 153));
         jtbpProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jtbpProdutos.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jtbpProdutos.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -135,6 +136,8 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                 jtbpProdutosStateChanged(evt);
             }
         });
+
+        jPanel4.setBackground(new java.awt.Color(102, 102, 102));
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${produtos}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbProdutos);
@@ -178,31 +181,38 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE)
             .add(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel4Layout.createSequentialGroup()
-                        .add(jtfPesquisar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 148, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jbtPesquisar))
-                    .add(jbtDetalhar))
-                .add(0, 0, Short.MAX_VALUE))
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 755, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .add(jPanel4Layout.createSequentialGroup()
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel4Layout.createSequentialGroup()
+                                .add(jtfPesquisar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 148, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jbtPesquisar))
+                            .add(jbtDetalhar))
+                        .add(0, 0, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jtfPesquisar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jbtPesquisar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 293, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jbtDetalhar)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jtbpProdutos.addTab("Produtos", jPanel4);
 
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.TRAILING, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Grande", 0, 12))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -397,7 +407,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                     .add(jtfSaldoEstoque, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jtfPrecoCompra, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jtfPrecoVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         jtbpProdutos.addTab("Cadastro", jPanel3);
@@ -440,7 +450,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                     .add(jbtNovo)
                     .add(jbtEditar)
                     .add(jbtSair))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         jtbpProdutos.getAccessibleContext().setAccessibleName("Fornecedores");
