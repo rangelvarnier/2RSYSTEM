@@ -94,7 +94,7 @@ USE `2rsitem`$$
 
 CREATE
 DEFINER=`root`@`localhost`
-TRIGGER `2rsitem`.`INSERT_BI`
+TRIGGER `2rsitem`.`INSERT_BIC`
 BEFORE INSERT ON `2rsitem`.`compra`
 FOR EACH ROW
 BEGIN
@@ -132,7 +132,7 @@ USE `2rsitem`$$
 
 CREATE
 DEFINER=`root`@`localhost`
-TRIGGER `2rsitem`.`INSERT_BI`
+TRIGGER `2rsitem`.`INSERT_BIV`
 BEFORE INSERT ON `2rsitem`.`venda`
 FOR EACH ROW
 BEGIN
@@ -166,7 +166,7 @@ END$$
 
 CREATE
 DEFINER=`root`@`localhost`
-TRIGGER `2rsitem`.`INSERT_BI`
+TRIGGER `2rsitem`.`INSERT_BIC`
 BEFORE INSERT ON `2rsitem`.`produtosdacompra`
 FOR EACH ROW
 BEGIN
@@ -175,7 +175,7 @@ BEGIN
     
     select saldoEstoque into OLDsaldo from produto where codigo = new.produto_codigo;
     
-    UPDATE produto SET saldoEstoque = new.quantidade + (OLDsaldo)
+    UPDATE produto SET saldoEstoque = (OLDsaldo) + new.quantidade 
         WHERE codigo = new.produto_codigo;
 END$$
 
@@ -186,7 +186,7 @@ END$$
 
 CREATE
 DEFINER=`root`@`localhost`
-TRIGGER `2rsitem`.`INSERT_BI`
+TRIGGER `2rsitem`.`INSERT_BIV`
 BEFORE INSERT ON `2rsitem`.`produtosdavenda`
 FOR EACH ROW
 BEGIN
@@ -195,7 +195,7 @@ BEGIN
     
     select saldoEstoque into OLDsaldo from produto where codigo = new.produto_codigo;
     
-    UPDATE produto SET saldoEstoque = new.quantidade - (OLDsaldo)
+    UPDATE produto SET saldoEstoque = (OLDsaldo) - new.quantidade
         WHERE codigo = new.produto_codigo;
 END$$
 
@@ -205,7 +205,7 @@ END$$
 
 CREATE
 DEFINER=`root`@`localhost`
-TRIGGER `2rsitem`.`DELETE_BD`
+TRIGGER `2rsitem`.`DELETE_BDC`
 BEFORE DELETE ON `2rsitem`.`produtosdacompra`
 FOR EACH ROW
 BEGIN
@@ -222,7 +222,7 @@ END$$
 
 CREATE
 DEFINER=`root`@`localhost`
-TRIGGER `2rsitem`.`DELETE_BD`
+TRIGGER `2rsitem`.`DELETE_BDV`
 BEFORE DELETE ON `2rsitem`.`produtosdavenda`
 FOR EACH ROW
 BEGIN
