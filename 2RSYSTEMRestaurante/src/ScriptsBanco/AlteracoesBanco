@@ -166,7 +166,7 @@ END$$
 
 CREATE
 DEFINER=`root`@`localhost`
-TRIGGER `2rsitem`.`INSERT_BIC`
+TRIGGER `2rsitem`.`INSERT_BIPC`
 BEFORE INSERT ON `2rsitem`.`produtosdacompra`
 FOR EACH ROW
 BEGIN
@@ -186,7 +186,7 @@ END$$
 
 CREATE
 DEFINER=`root`@`localhost`
-TRIGGER `2rsitem`.`INSERT_BIV`
+TRIGGER `2rsitem`.`INSERT_BIPV`
 BEFORE INSERT ON `2rsitem`.`produtosdavenda`
 FOR EACH ROW
 BEGIN
@@ -205,7 +205,7 @@ END$$
 
 CREATE
 DEFINER=`root`@`localhost`
-TRIGGER `2rsitem`.`DELETE_BDC`
+TRIGGER `2rsitem`.`DELETE_BDPC`
 BEFORE DELETE ON `2rsitem`.`produtosdacompra`
 FOR EACH ROW
 BEGIN
@@ -222,7 +222,7 @@ END$$
 
 CREATE
 DEFINER=`root`@`localhost`
-TRIGGER `2rsitem`.`DELETE_BDV`
+TRIGGER `2rsitem`.`DELETE_BDPV`
 BEFORE DELETE ON `2rsitem`.`produtosdavenda`
 FOR EACH ROW
 BEGIN
@@ -241,3 +241,6 @@ ALTER TABLE `2rsitem`.`produtosdacompra`
 ADD PRIMARY KEY (`compra_codigo`, `produto_codigo`) ;
 
 
+//zera estoque
+//obs antes remover todas as compras e vendas
+update produto set saldoEstoque = 0;
