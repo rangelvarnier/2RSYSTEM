@@ -42,7 +42,8 @@ public class CompraDAOIMPL implements CompraDAO {
        //         + "fornecedor_codigo = ?, colaborador_codigo = ?"
        //         + " where codigo = ?";
         
-        String sql = "update compra set dataCompra = ?, valorCompra = ?, fornecedor_codigo = ?, colaborador_codigo = ? where codigo = ?";
+        String sql = "update compra set dataCompra = ?, valorCompra = ?,"
+                + " fornecedor_codigo = ?, colaborador_codigo = ? where codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -189,6 +190,33 @@ public class CompraDAOIMPL implements CompraDAO {
         }
         return compras;
     
+    }
+
+    @Override
+    public List<Compra> buscarPorPeriodo(java.util.Date dataInicial, java.util.Date dataFinal) {
+       List<Compra> compras = new ArrayList<>();
+        FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
+        ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "SELECT * FROM 2rsitem.compra"
+                + " where dataCompra between ? and ? order by dataCompra;";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            //stmt.setDate(1, new java.util.Date());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Compra compra = new Compra();
+                compra.setCodigo(rs.getInt("codigo"));
+                compra.setDataCompra(rs.getDate("dataCompra"));
+                compra.setValorCompra(rs.getFloat("valorCompra"));
+                compra.setFornecedor(fornecedorDao.buscaPorId(rs.getInt("fornecedor_codigo")));
+                compra.setColaborador(colaboradorDao.buscaPorId(rs.getInt("colaborador_codigo")));
+                compras.add(compra);
+            }
+        } catch (SQLException ex) {
+        }
+        return compras;
     }
     
 }

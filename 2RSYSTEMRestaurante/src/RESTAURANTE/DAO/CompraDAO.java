@@ -2,6 +2,7 @@
 package RESTAURANTE.DAO;
 
 import RESTAURANTE.MODEL.Compra;
+import java.util.Date;
 import java.util.List;
 
 public interface CompraDAO {
@@ -10,7 +11,8 @@ public interface CompraDAO {
     void remover(Compra compra);
     Compra buscarPorCodigo(Integer codigo);
     List<Compra> buscarTodos();
-    List<Compra> buscarCampoPesquisa(String parametro);   
+    List<Compra> buscarCampoPesquisa(String parametro); 
+    List<Compra> buscarPorPeriodo(Date dataInicial, Date dataFinal); 
     List<Compra> buscarParametrosRelatorio(Integer fornecedor, Integer colaborador);
 
 }
