@@ -14,9 +14,9 @@ public class CompraDAOIMPL implements CompraDAO {
     @Override
     public void inserir(Compra compra) {
         Connection con = new Conexao().criarConexao();
-        String sql ="insert into compra(codigo, dataCompra, valorCompra,"
+        String sql = "insert into compra(codigo, dataCompra, valorCompra,"
                 + " fornecedor_codigo, colaborador_codigo)"
-                + " values (?, ?, ?, ?, ?);"; 
+                + " values (?, ?, ?, ?, ?);";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -29,7 +29,7 @@ public class CompraDAOIMPL implements CompraDAO {
             stmt.setFloat(3, compra.getValorCompra());
             stmt.setInt(4, compra.getFornecedor().getCodigo());
             stmt.setInt(5, compra.getColaborador().getCodigo());
-            
+
             stmt.executeUpdate();
         } catch (SQLException ex) {
         }
@@ -38,10 +38,10 @@ public class CompraDAOIMPL implements CompraDAO {
     @Override
     public void alterar(Compra compra) {
         Connection con = new Conexao().criarConexao();
-       // String sql = "update compra set dataCompra = ?, valorCompra = ?, "
-       //         + "fornecedor_codigo = ?, colaborador_codigo = ?"
-       //         + " where codigo = ?";
-        
+        // String sql = "update compra set dataCompra = ?, valorCompra = ?, "
+        //         + "fornecedor_codigo = ?, colaborador_codigo = ?"
+        //         + " where codigo = ?";
+
         String sql = "update compra set dataCompra = ?, valorCompra = ?,"
                 + " fornecedor_codigo = ?, colaborador_codigo = ? where codigo = ?";
         try {
@@ -163,16 +163,16 @@ public class CompraDAOIMPL implements CompraDAO {
         String sql = "select * from compra where fornecedor_codigo = ? or colaborador_codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            
-            if(fornecedor == null){
+
+            if (fornecedor == null) {
                 stmt.setInt(1, 0);
-            }else{
+            } else {
                 stmt.setInt(1, fornecedor);
             }
-            if(colaborador == null){
+            if (colaborador == null) {
                 stmt.setInt(2, 0);
-            }else{    
-            stmt.setInt(2, colaborador);
+            } else {
+                stmt.setInt(2, colaborador);
             }
             ResultSet rs = stmt.executeQuery();
 
@@ -189,12 +189,12 @@ public class CompraDAOIMPL implements CompraDAO {
         } catch (SQLException ex) {
         }
         return compras;
-    
+
     }
 
     @Override
     public List<Compra> buscarPorPeriodo(java.util.Date compraI, java.util.Date compraF) {
-           List<Compra> compras = new ArrayList<>();
+        List<Compra> compras = new ArrayList<>();
         FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
         ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
         Connection con = new Conexao().criarConexao();
@@ -219,7 +219,4 @@ public class CompraDAOIMPL implements CompraDAO {
         }
         return compras;
     }
-
-   
-    
 }

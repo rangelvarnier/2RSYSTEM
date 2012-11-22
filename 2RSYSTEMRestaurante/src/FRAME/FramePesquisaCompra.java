@@ -7,10 +7,9 @@ package FRAME;
 import RESTAURANTE.DAO.CompraDAO;
 import RESTAURANTE.DAO.IMPL.CompraDAOIMPL;
 import RESTAURANTE.MODEL.Compra;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -35,6 +34,7 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
         jtbCompras.getColumnModel().getColumn(3).setPreferredWidth(176);
         jtbCompras.getColumnModel().getColumn(4).setPreferredWidth(100);
         retornaPrimeiroDiaMes();
+        concatenaDadosCompra();
     }
 
     /**
@@ -356,6 +356,7 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
     private Compra compra;
     private List<Compra> compras;
     private CompraDAO compraDao;
+    private List<String> pesquisa;
 
     public Compra getCompra() {
         return compra;
@@ -392,11 +393,14 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
         Compra compraF = new Compra();
 
         if (jrbDocumento.isSelected()) {
-            setCompras(compraDao.buscarCampoPesquisa(jtfPesquisar.getText()));
-            if (compraDao.buscarCampoPesquisa(jtfPesquisar.getText()).isEmpty()) {
-            } else {
-                jtbCompras.addRowSelectionInterval(0, 0);
+            /*
+             * setCompras(compraDao.buscarCampoPesquisa(jtfPesquisar.getText()));
+             * if
+             * (compraDao.buscarCampoPesquisa(jtfPesquisar.getText()).isEmpty())
+             * { } else { jtbCompras.addRowSelectionInterval(0, 0);
             }
+             */
+            pesquisaParametro(jtfPesquisar.getText());
         } else if (jrbData.isSelected()) {
             compraI.setDataCompra(jdtDataInicial.getDate());
             compraF.setDataCompra(jdtDataFinal.getDate());
@@ -437,5 +441,31 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
         final Date ultimoDia = new Date(calendar.getTimeInMillis());
         jdtDataFinal.setDate(ultimoDia);
+    }
+
+    private void concatenaDadosCompra() {
+        pesquisa = new ArrayList<String>();
+
+        for (Compra comp : compras) {
+            pesquisa.add(comp.getCodigo()
+                    + " - " + comp.getFornecedor().getPessoa().getNome()
+                    + " - " + comp.getColaborador().getPessoa().getNome());
+        }
+        int i = 0;
+        while (i < pesquisa.size()) {
+            System.out.println(pesquisa.get(i));
+            i++;
+        }
+    }
+
+    private void pesquisaParametro(String parametro) {
+        int i = 0;
+         String co = null;
+        while (i < pesquisa.size()) {
+            if(pesquisa.equals(parametro));
+             co = pesquisa.get(i);
+            i++;
+        }
+        System.out.println(co);
     }
 }
