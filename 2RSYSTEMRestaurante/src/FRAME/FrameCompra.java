@@ -630,7 +630,8 @@ public class FrameCompra extends javax.swing.JFrame {
     }
 
     private void novaCompra() {
-        setCompra(new Compra(new Fornecedor(), new Colaborador(), new ArrayList<ProdutosDaCompra>()));
+        setCompra(new Compra(new Fornecedor(), new Colaborador(),
+                new ArrayList<ProdutosDaCompra>()));
         limpaCampos();
         compra.setValorCompra(0f);
     }

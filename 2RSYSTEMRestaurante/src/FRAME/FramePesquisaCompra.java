@@ -7,6 +7,7 @@ package FRAME;
 import RESTAURANTE.DAO.CompraDAO;
 import RESTAURANTE.DAO.IMPL.CompraDAOIMPL;
 import RESTAURANTE.MODEL.Compra;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -33,6 +34,7 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
         jtbCompras.getColumnModel().getColumn(2).setPreferredWidth(176);
         jtbCompras.getColumnModel().getColumn(3).setPreferredWidth(176);
         jtbCompras.getColumnModel().getColumn(4).setPreferredWidth(100);
+        retornaPrimeiroDiaMes();
     }
 
     /**
@@ -327,6 +329,7 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new FramePesquisaCompra().setVisible(true);
             }
@@ -416,12 +419,23 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
             jtfPesquisar.setEnabled(false);
         }
     }
-    
-    private void defineParametrosPesquisa(){
+
+    private void defineParametrosPesquisa() {
         jrbData.setSelected(true);
         jdtDataInicial.setDate(new Date());
         jdtDataFinal.setDate(new Date());
         verificaRadioButton();
     }
 
+    private void retornaPrimeiroDiaMes() {
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+        final Date primeiroDia = new Date(calendar.getTimeInMillis());
+        jdtDataInicial.setDate(primeiroDia);
+
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        final Date ultimoDia = new Date(calendar.getTimeInMillis());
+        jdtDataFinal.setDate(ultimoDia);
+    }
 }
