@@ -7,6 +7,9 @@ package FRAME;
 import RESTAURANTE.DAO.CompraDAO;
 import RESTAURANTE.DAO.IMPL.CompraDAOIMPL;
 import RESTAURANTE.MODEL.Compra;
+import java.util.*;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -22,9 +25,10 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
         initComponents();
         setLocation(290, 190);
         compraDao = new CompraDAOIMPL();
+        defineParametrosPesquisa();
         atualizaTabela();
-        jtbCompras.setAutoResizeMode(jtbCompras.AUTO_RESIZE_OFF);  
-        jtbCompras.getColumnModel().getColumn(0).setPreferredWidth(78);  
+        jtbCompras.setAutoResizeMode(jtbCompras.AUTO_RESIZE_OFF);
+        jtbCompras.getColumnModel().getColumn(0).setPreferredWidth(78);
         jtbCompras.getColumnModel().getColumn(1).setPreferredWidth(90);
         jtbCompras.getColumnModel().getColumn(2).setPreferredWidth(176);
         jtbCompras.getColumnModel().getColumn(3).setPreferredWidth(176);
@@ -134,6 +138,11 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
 
         btnGroupPesquisa.add(jrbData);
         jrbData.setText("Pesquisar por data");
+        jrbData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbDataActionPerformed(evt);
+            }
+        });
 
         btnGroupPesquisa.add(jrbDocumento);
         jrbDocumento.setText("Pesquisar por documento");
@@ -150,8 +159,8 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jrbDocumento)
-                    .addComponent(jrbData))
+                    .addComponent(jrbData)
+                    .addComponent(jrbDocumento))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -171,7 +180,7 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1))
@@ -187,13 +196,16 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jdtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel2))
-                                        .addGap(18, 18, 18)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jdtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jdtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jtfPesquisar))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel3))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jdtDataFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jbtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -203,24 +215,28 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbtPesquisar)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jdtDataFinal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jdtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1)
+                        .addGap(27, 81, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jdtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jdtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jbtPesquisar))))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -262,15 +278,19 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_jtfPesquisarActionPerformed
 
     private void jtbComprasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbComprasKeyPressed
-       if(evt.getKeyCode() == 10){
+        if (evt.getKeyCode() == 10) {
             compra = compras.get(jtbCompras.getSelectedRow());
             dispose();
         }
     }//GEN-LAST:event_jtbComprasKeyPressed
 
     private void jrbDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbDocumentoActionPerformed
-        // TODO add your handling code here:
+        verificaRadioButton();
     }//GEN-LAST:event_jrbDocumentoActionPerformed
+
+    private void jrbDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbDataActionPerformed
+        verificaRadioButton();
+    }//GEN-LAST:event_jrbDataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -307,7 +327,6 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new FramePesquisaCompra().setVisible(true);
             }
@@ -366,10 +385,43 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
     }
 
     private void executaPesquisa() {
-        setCompras(compraDao.buscarCampoPesquisa(jtfPesquisar.getText()));
-        if (compraDao.buscarCampoPesquisa(jtfPesquisar.getText()).isEmpty()) {
-        } else {
-            jtbCompras.addRowSelectionInterval(0, 0);
+        Compra compraI = new Compra();
+        Compra compraF = new Compra();
+
+        if (jrbDocumento.isSelected()) {
+            setCompras(compraDao.buscarCampoPesquisa(jtfPesquisar.getText()));
+            if (compraDao.buscarCampoPesquisa(jtfPesquisar.getText()).isEmpty()) {
+            } else {
+                jtbCompras.addRowSelectionInterval(0, 0);
+            }
+        } else if (jrbData.isSelected()) {
+            compraI.setDataCompra(jdtDataInicial.getDate());
+            compraF.setDataCompra(jdtDataFinal.getDate());
+            setCompras(compraDao.buscarPorPeriodo(compraI.getDataCompra(), compraF.getDataCompra()));
+            if (compraDao.buscarPorPeriodo(compraI.getDataCompra(), compraF.getDataCompra()).isEmpty()) {
+            } else {
+                jtbCompras.addRowSelectionInterval(0, 0);
+            }
         }
     }
+
+    private void verificaRadioButton() {
+        if (jrbDocumento.isSelected()) {
+            jdtDataInicial.setEnabled(false);
+            jdtDataFinal.setEnabled(false);
+            jtfPesquisar.setEnabled(true);
+        } else if (jrbData.isSelected()) {
+            jdtDataInicial.setEnabled(true);
+            jdtDataFinal.setEnabled(true);
+            jtfPesquisar.setEnabled(false);
+        }
+    }
+    
+    private void defineParametrosPesquisa(){
+        jrbData.setSelected(true);
+        jdtDataInicial.setDate(new Date());
+        jdtDataFinal.setDate(new Date());
+        verificaRadioButton();
+    }
+
 }

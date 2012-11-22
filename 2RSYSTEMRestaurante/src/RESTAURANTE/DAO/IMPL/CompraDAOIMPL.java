@@ -193,8 +193,8 @@ public class CompraDAOIMPL implements CompraDAO {
     }
 
     @Override
-    public List<Compra> buscarPorPeriodo(java.util.Date dataInicial, java.util.Date dataFinal) {
-       List<Compra> compras = new ArrayList<>();
+    public List<Compra> buscarPorPeriodo(java.util.Date compraI, java.util.Date compraF) {
+           List<Compra> compras = new ArrayList<>();
         FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
         ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
         Connection con = new Conexao().criarConexao();
@@ -203,7 +203,8 @@ public class CompraDAOIMPL implements CompraDAO {
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            //stmt.setDate(1, new java.util.Date());
+            stmt.setDate(1, new java.sql.Date(compraI.getTime()));
+            stmt.setDate(2, new java.sql.Date(compraF.getTime()));
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Compra compra = new Compra();
@@ -218,5 +219,7 @@ public class CompraDAOIMPL implements CompraDAO {
         }
         return compras;
     }
+
+   
     
 }

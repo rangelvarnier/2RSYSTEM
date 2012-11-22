@@ -12,7 +12,7 @@ public interface CompraDAO {
     Compra buscarPorCodigo(Integer codigo);
     List<Compra> buscarTodos();
     List<Compra> buscarCampoPesquisa(String parametro); 
-    List<Compra> buscarPorPeriodo(Date dataInicial, Date dataFinal); 
     List<Compra> buscarParametrosRelatorio(Integer fornecedor, Integer colaborador);
+    List<Compra> buscarPorPeriodo(Date compraI, Date compraF);
 
 }
