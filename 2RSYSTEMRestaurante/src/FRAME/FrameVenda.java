@@ -848,7 +848,7 @@ public class FrameVenda extends javax.swing.JFrame {
             limpaTabela();
             jbtAlterar.setVisible(true);
             jbtExcluir.setVisible(true);
-            jbtExcluirProduto.setVisible(false);
+            jbtExcluirProduto.setVisible(true);
             jbtFinalizarVenda.setVisible(false);
 
             this.venda.setCodigo(vend.getCodigo());
