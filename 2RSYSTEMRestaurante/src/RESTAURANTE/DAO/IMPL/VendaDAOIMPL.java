@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -211,6 +212,35 @@ public class VendaDAOIMPL implements VendaDAO{
                 vendas.add(venda);
             }
 
+        } catch (SQLException ex) {
+        }
+        return vendas;
+    
+    }
+
+    @Override
+    public List<Venda> buscarPorPeriodo(java.util.Date vendaI, java.util.Date vendaF) {
+        List<Venda> vendas = new ArrayList<>();
+        ParceiroDAO parceiroDao = new ParceiroDAOIMPL();
+        ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
+        Connection con = new Conexao().criarConexao();
+        String sql = "SELECT * FROM 2rsitem.venda"
+                + " where dataVenda between ? and ? order by dataVenda;";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setDate(1, new java.sql.Date(vendaI.getTime()));
+            stmt.setDate(2, new java.sql.Date(vendaF.getTime()));
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Venda venda = new Venda();
+                venda.setCodigo(rs.getInt("codigo"));
+                venda.setDataVenda(rs.getDate("dataVenda"));
+                venda.setValorVenda(rs.getFloat("valorVenda"));
+                venda.setCliente_codigo(parceiroDao.buscaPorId(rs.getInt("cliente_codigo")));
+                venda.setColaborador_codigo(colaboradorDao.buscaPorId(rs.getInt("colaborador_codigo")));
+                vendas.add(venda);
+            }
         } catch (SQLException ex) {
         }
         return vendas;

@@ -4,6 +4,9 @@ package FRAME;
 import RESTAURANTE.DAO.IMPL.VendaDAOIMPL;
 import RESTAURANTE.DAO.VendaDAO;
 import RESTAURANTE.MODEL.Venda;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class FramePesquisaVenda extends javax.swing.JDialog {
@@ -15,10 +18,10 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
         atualizaTabela();
         jtbVendas.setAutoResizeMode(jtbVendas.AUTO_RESIZE_OFF);  
         jtbVendas.getColumnModel().getColumn(0).setPreferredWidth(78);  
-        jtbVendas.getColumnModel().getColumn(1).setPreferredWidth(90);
-        jtbVendas.getColumnModel().getColumn(2).setPreferredWidth(176);
-        jtbVendas.getColumnModel().getColumn(3).setPreferredWidth(176);
-        jtbVendas.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jtbVendas.getColumnModel().getColumn(1).setPreferredWidth(99);
+        jtbVendas.getColumnModel().getColumn(2).setPreferredWidth(186);
+        jtbVendas.getColumnModel().getColumn(3).setPreferredWidth(186);
+        jtbVendas.getColumnModel().getColumn(4).setPreferredWidth(98);
         
     }
 
@@ -34,6 +37,15 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
         jtfPesquisar = new javax.swing.JTextField();
         jbtConfirmar = new javax.swing.JButton();
         jbtCancelar = new javax.swing.JButton();
+        jdtDataFinal = new com.toedter.calendar.JDateChooser();
+        jdtDataInicial = new com.toedter.calendar.JDateChooser();
+        jPanel1 = new javax.swing.JPanel();
+        jrbData = new javax.swing.JRadioButton();
+        jrbDocumento = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+
+        setTitle("Pesquisa de Vendas");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Pesquisa De Vendas");
@@ -76,6 +88,7 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jtbVendas);
 
+        jbtPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtPesquisar.setText("Pesquisar");
         jbtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +96,7 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
             }
         });
 
+        jtfPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jtfPesquisar.setToolTipText("Busca por: Fornecedor, data, colaborador, documento");
         jtfPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +104,7 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
             }
         });
 
+        jbtConfirmar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtConfirmar.setText("Confirmar");
         jbtConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,12 +112,63 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
             }
         });
 
+        jbtCancelar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtCancelar.setText("Cancelar");
         jbtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtCancelarActionPerformed(evt);
             }
         });
+
+        jdtDataFinal.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        jdtDataInicial.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jrbData.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jrbData.setText("Pesquisar por data");
+        jrbData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbDataActionPerformed(evt);
+            }
+        });
+
+        jrbDocumento.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jrbDocumento.setText("Pesquisar por documento");
+        jrbDocumento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbDocumentoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jrbData)
+                    .addComponent(jrbDocumento))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jrbData)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jrbDocumento)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jLabel2.setText("Data Inicial");
+
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jLabel3.setText("Data final");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,39 +177,65 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jdtDataInicial, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                                        .addGap(167, 167, 167)))
+                                .addComponent(jbtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel1))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jdtDataFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbtConfirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbtCancelar)
-                        .addGap(0, 457, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jdtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3))
+                            .addComponent(jbtPesquisar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbtPesquisar))))
-                .addGap(22, 22, 22)
+                            .addComponent(jdtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtConfirmar)
-                    .addComponent(jbtCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jbtCancelar)))
         );
 
         bindingGroup.bind();
@@ -183,6 +275,14 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
             dispose();
         }
     }//GEN-LAST:event_jtbVendasKeyPressed
+
+    private void jrbDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbDataActionPerformed
+        verificaRadioButton();
+    }//GEN-LAST:event_jrbDataActionPerformed
+
+    private void jrbDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbDocumentoActionPerformed
+        verificaRadioButton();
+    }//GEN-LAST:event_jrbDocumentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,10 +327,17 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtCancelar;
     private javax.swing.JButton jbtConfirmar;
     private javax.swing.JButton jbtPesquisar;
+    private com.toedter.calendar.JDateChooser jdtDataFinal;
+    private com.toedter.calendar.JDateChooser jdtDataInicial;
+    private javax.swing.JRadioButton jrbData;
+    private javax.swing.JRadioButton jrbDocumento;
     private javax.swing.JTable jtbVendas;
     private javax.swing.JTextField jtfPesquisar;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
@@ -238,6 +345,7 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
     private Venda venda;
     private List<Venda> vendas;
     private VendaDAO vendaDao;
+    private List<String> pesquisa;
 
     public Venda getVenda() {
         return venda;
@@ -270,10 +378,82 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
     }
 
     private void executaPesquisa() {
-        setVendas(vendaDao.buscarCampoPesquisa(jtfPesquisar.getText()));
-        if (vendaDao.buscarCampoPesquisa(jtfPesquisar.getText()).isEmpty()) {
-        } else {
-            jtbVendas.addRowSelectionInterval(0, 0);
+        Venda vendaI = new Venda();
+        Venda vendaF = new Venda();
+
+        if (jrbDocumento.isSelected()) {
+            /*
+             * setCompras(compraDao.buscarCampoPesquisa(jtfPesquisar.getText()));
+             * if
+             * (compraDao.buscarCampoPesquisa(jtfPesquisar.getText()).isEmpty())
+             * { } else { jtbCompras.addRowSelectionInterval(0, 0);
+            }
+             */
+            pesquisaParametro(jtfPesquisar.getText());
+        } else if (jrbData.isSelected()) {
+            vendaI.setDataVenda(jdtDataInicial.getDate());
+            vendaF.setDataVenda(jdtDataFinal.getDate());
+            setVendas(vendaDao.buscarPorPeriodo(vendaI.getDataVenda(), vendaF.getDataVenda()));
+            if (vendaDao.buscarPorPeriodo(vendaI.getDataVenda(), vendaF.getDataVenda()).isEmpty()) {
+            } else {
+                jtbVendas.addRowSelectionInterval(0, 0);
+            }
         }
+    }
+    private void verificaRadioButton() {
+        if (jrbDocumento.isSelected()) {
+            jdtDataInicial.setEnabled(false);
+            jdtDataFinal.setEnabled(false);
+            jtfPesquisar.setEnabled(true);
+        } else if (jrbData.isSelected()) {
+            jdtDataInicial.setEnabled(true);
+            jdtDataFinal.setEnabled(true);
+            jtfPesquisar.setEnabled(false);
+        }
+    }
+
+    private void defineParametrosPesquisa() {
+        jrbData.setSelected(true);
+        jdtDataInicial.setDate(new Date());
+        jdtDataFinal.setDate(new Date());
+        verificaRadioButton();
+    }
+
+    private void retornaPrimeiroDiaMes() {
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+        final Date primeiroDia = new Date(calendar.getTimeInMillis());
+        jdtDataInicial.setDate(primeiroDia);
+
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        final Date ultimoDia = new Date(calendar.getTimeInMillis());
+        jdtDataFinal.setDate(ultimoDia);
+    }
+
+    private void concatenaDadosCompra() {
+        pesquisa = new ArrayList<String>();
+
+        for (Venda vend : vendas) {
+            pesquisa.add(vend.getCodigo()
+                    + " - " + vend.getCliente_codigo().getPessoa().getNome()
+                    + " - " + vend.getColaborador_codigo().getPessoa().getNome());
+        }
+        int i = 0;
+        while (i < pesquisa.size()) {
+            System.out.println(pesquisa.get(i));
+            i++;
+        }
+    }
+
+    private void pesquisaParametro(String parametro) {
+        int i = 0;
+         String co = null;
+        while (i < pesquisa.size()) {
+            if(pesquisa.equals(parametro));
+             co = pesquisa.get(i);
+            i++;
+        }
+        System.out.println(co);
     }
 }

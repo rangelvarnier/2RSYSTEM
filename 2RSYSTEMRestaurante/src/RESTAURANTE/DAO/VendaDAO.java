@@ -2,6 +2,7 @@
 package RESTAURANTE.DAO;
 
 import RESTAURANTE.MODEL.Venda;
+import java.util.Date;
 import java.util.List;
 
 public interface VendaDAO {
@@ -13,5 +14,6 @@ public interface VendaDAO {
     List<Venda> buscarTodos();
     List<Venda> buscarCampoPesquisa(String parametro);
     List<Venda> buscarParametrosRelatorio(Integer parceiro, Integer colaborador);
+    List<Venda> buscarPorPeriodo(Date vendaI, Date vendaF);
     
 }
