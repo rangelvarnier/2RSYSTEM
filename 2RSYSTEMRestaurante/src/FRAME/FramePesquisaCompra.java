@@ -31,7 +31,6 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
         jtbCompras.getColumnModel().getColumn(3).setPreferredWidth(176);
         jtbCompras.getColumnModel().getColumn(4).setPreferredWidth(100);
         retornaPrimeiroDiaMes();
-        concatenaDadosCompra();
     }
 
     /**
@@ -326,7 +325,6 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new FramePesquisaCompra().setVisible(true);
             }
@@ -354,7 +352,7 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
     private List<Compra> compras;
     private CompraDAO compraDao;
     private List<String> pesquisa;
-    Map<String,Compra> dados;
+    Map<String, Compra> dados;
 
     public Compra getCompra() {
         return compra;
@@ -391,13 +389,12 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
         Compra compraF = new Compra();
 
         if (jrbDocumento.isSelected()) {
-            /*
-             * setCompras(compraDao.buscarCampoPesquisa(jtfPesquisar.getText()));
-             * if
-             * (compraDao.buscarCampoPesquisa(jtfPesquisar.getText()).isEmpty())
-             * { } else { jtbCompras.addRowSelectionInterval(0, 0); }
-             */
-            pesquisaParametro(jtfPesquisar.getText());
+            setCompras(compraDao.buscarCampoPesquisa(jtfPesquisar.getText()));
+            if (compraDao.buscarCampoPesquisa(jtfPesquisar.getText()).isEmpty()) {
+            } else {
+                jtbCompras.addRowSelectionInterval(0, 0);
+            }
+
         } else if (jrbData.isSelected()) {
             compraI.setDataCompra(jdtDataInicial.getDate());
             compraF.setDataCompra(jdtDataFinal.getDate());
@@ -439,92 +436,38 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
         final Date ultimoDia = new Date(calendar.getTimeInMillis());
         jdtDataFinal.setDate(ultimoDia);
     }
-    
-    
-    
-    
-    
-/*funcionando
+    /*funcionando
  
-    //metodo concatena todos os elementos da lista de compras
-    private void concatenaDadosCompra() {
-        pesquisa = new ArrayList<String>();
-        for (Compra comp : compras) {
-            pesquisa.add(comp.getCodigo()
-                    + " - " + comp.getFornecedor().getPessoa().getNome()
-                    + " - " + comp.getColaborador().getPessoa().getNome());
-        }
-    }
+     //metodo concatena todos os elementos da lista de compras
+     private void concatenaDadosCompra() {
+     pesquisa = new ArrayList<String>();
+     for (Compra comp : compras) {
+     pesquisa.add(comp.getCodigo()
+     + " - " + comp.getFornecedor().getPessoa().getNome()
+     + " - " + comp.getColaborador().getPessoa().getNome());
+     }
+     }
 
-    //este metodo faz busca dentro da Lista de compras 
-    private void pesquisaParametro(String parametro) {
-        List<String> result = new ArrayList<String>();
-        int i = 0;
-        String co = null;
-        while (i < pesquisa.size()) {
-            //pega o elemento da linha e add na string
-            co = pesquisa.get(i);            
-            //se o parametro esta na string co add a lista de resultado (substring)
-            if (co.contains(parametro)) {
-                result.add(co);
-            }
-            i++;
-        }
+     //este metodo faz busca dentro da Lista de compras 
+     private void pesquisaParametro(String parametro) {
+     List<String> result = new ArrayList<String>();
+     int i = 0;
+     String co = null;
+     while (i < pesquisa.size()) {
+     //pega o elemento da linha e add na string
+     co = pesquisa.get(i);            
+     //se o parametro esta na string co add a lista de resultado (substring)
+     if (co.contains(parametro)) {
+     result.add(co);
+     }
+     i++;
+     }
         
-        System.out.println("------------------");
-        for (String string : result) {
-            System.out.println(string);
-        }
-    }
-    * 
-    */
-    
-    
-    
-    
-    
-    
-    
-    private void concatenaDadosCompra() {
-       dados = new HashMap<String,Compra>();  
-        
-     //   pesquisa = new ArrayList<String>();
-        for (Compra comp : compras) {
-          String concat = comp.getCodigo()
-                    + " - " + comp.getFornecedor().getPessoa().getNome()
-                    + " - " + comp.getColaborador().getPessoa().getNome();
-            
-            for (Map.Entry<String, Compra> entry : dados.entrySet()) {
-                entry.setValue(comp); 
-                
-                 dados.put(concat, entry.getValue());
-            }
-        }
-        int i = 0;
-        while(i < dados.size()){
-            System.out.println(dados.size());
-        }
-    }
-    
-    private void pesquisaParametro(String parametro) {
-        List<String> result = new ArrayList<String>();
-        compras = new ArrayList<Compra>();
-        int i = 0;
-        String co = null;
-        while (i < dados.size()) {
-            //pega o elemento da linha e add na string
-            co = pesquisa.get(i);            
-            //se o parametro esta na string co add a lista de resultado (substring)
-            if (co.contains(parametro)) {
-                result.add(co);
-            }
-            i++;
-        }
-        
-        System.out.println("------------------");
-        for (String string : result) {
-            System.out.println(string);
-        }
-    }
-    
+     System.out.println("------------------");
+     for (String string : result) {
+     System.out.println(string);
+     }
+     }
+     * 
+     */
 }

@@ -133,11 +133,18 @@ public class CompraDAOIMPL implements CompraDAO {
         FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
         ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from compra where pesquisa like ?";
-
+        //String sql = "select * from compra where pesquisa like ?";
+        String sql = "SELECT * FROM compra com"
+                + " join fornecedor forn on forn.codigo = com.fornecedor_codigo "
+                + "join pessoa p on p.codigo = forn.pessoa_codigo "
+                + "join colaborador col on col.codigo = com.colaborador_codigo "
+                + "join pessoa pes on pes.codigo = col.pessoa_codigo "
+                + "where (com.codigo = ? or p.nome like ? or pes.nome like ?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, "%" + parametro + "%");
+            stmt.setString(1, parametro);
+            stmt.setString(2, "%" + parametro + "%");
+            stmt.setString(3, "%" + parametro + "%");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Compra compra = new Compra();
