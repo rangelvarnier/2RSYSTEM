@@ -14,14 +14,14 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
         initComponents();
         setLocation(290, 190);
         vendaDao = new VendaDAOIMPL();
-        atualizaTabela();
         defineParametrosPesquisa();
+        atualizaTabela();
         jtbVendas.setAutoResizeMode(jtbVendas.AUTO_RESIZE_OFF);
-        jtbVendas.getColumnModel().getColumn(0).setPreferredWidth(78);
+        jtbVendas.getColumnModel().getColumn(0).setPreferredWidth(75);
         jtbVendas.getColumnModel().getColumn(1).setPreferredWidth(99);
         jtbVendas.getColumnModel().getColumn(2).setPreferredWidth(186);
         jtbVendas.getColumnModel().getColumn(3).setPreferredWidth(186);
-        jtbVendas.getColumnModel().getColumn(4).setPreferredWidth(98);
+        jtbVendas.getColumnModel().getColumn(4).setPreferredWidth(96);
         retornaPrimeiroEUltimoDiaMes();
     }
 
@@ -349,7 +349,6 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
     private Venda venda;
     private List<Venda> vendas;
     private VendaDAO vendaDao;
-   
 
     public Venda getVenda() {
         return venda;
@@ -368,7 +367,7 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
         this.vendas = vendas;
         firePropertyChange("vendas", vendasOld, this.vendas);
     }
-    
+
     public void atualizaTabela() {
         setVendas(vendaDao.buscarTodos());
         if (vendaDao.buscarTodos().isEmpty()) {

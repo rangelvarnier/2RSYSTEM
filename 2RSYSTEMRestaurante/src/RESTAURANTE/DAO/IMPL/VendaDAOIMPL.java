@@ -1,4 +1,3 @@
-
 package RESTAURANTE.DAO.IMPL;
 
 import RESTAURANTE.DAO.ColaboradorDAO;
@@ -16,19 +15,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class VendaDAOIMPL implements VendaDAO{
+public class VendaDAOIMPL implements VendaDAO {
 
     @Override
     public void inserir(Venda venda) {
-       Connection con = new Conexao().criarConexao();
-        String sql ="insert into venda(codigo, dataVenda, valorVenda,"
+        Connection con = new Conexao().criarConexao();
+        String sql = "insert into venda(codigo, dataVenda, valorVenda,"
                 + " cliente_codigo, colaborador_codigo)"
-                + " values (?, ?, ?, ?, ?)"; 
-               
+                + " values (?, ?, ?, ?, ?)";
+
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setInt(1, venda.getCodigo());           
+            stmt.setInt(1, venda.getCodigo());
             stmt.setDate(2, new java.sql.Date(venda.getDataVenda().getTime()));
             stmt.setFloat(3, venda.getValorVenda());
             stmt.setInt(4, venda.getCliente_codigo().getCodigo());
@@ -58,7 +57,7 @@ public class VendaDAOIMPL implements VendaDAO{
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+
     }
 
     @Override
@@ -159,13 +158,13 @@ public class VendaDAOIMPL implements VendaDAO{
         ParceiroDAO parceiroDao = new ParceiroDAOIMPL();
         ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from venda ven"
-                + "join parceiro par on par.codigo = ven.cliente_codigo"
+        String sql = "select * from venda ven "
+                + "join parceiro par on par.codigo = ven.cliente_codigo "
                 + "join pessoa p on p.codigo = par.pessoa_codigo "
                 + "join colaborador col on col.codigo = ven.colaborador_codigo "
                 + "join pessoa pes on pes.codigo = col.pessoa_codigo "
                 + "where (ven.codigo = ? or p.nome like ? or pes.nome like ?)";
-        
+
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, parametro);
@@ -175,8 +174,8 @@ public class VendaDAOIMPL implements VendaDAO{
             while (rs.next()) {
                 Venda venda = new Venda();
                 venda.setCodigo(rs.getInt("codigo"));
-                venda.setDataVenda(rs.getDate("dataCompra"));
-                venda.setValorVenda(rs.getFloat("valorCompra"));
+                venda.setDataVenda(rs.getDate("dataVenda"));
+                venda.setValorVenda(rs.getFloat("valorVenda"));
                 venda.setCliente_codigo(parceiroDao.buscaPorId(rs.getInt("cliente_codigo")));
                 venda.setColaborador_codigo(colaboradorDao.buscaPorId(rs.getInt("colaborador_codigo")));
                 vendas.add(venda);
@@ -196,16 +195,16 @@ public class VendaDAOIMPL implements VendaDAO{
         String sql = "select * from venda where cliente_codigo = ? or colaborador_codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            
-            if(parceiro == null){
+
+            if (parceiro == null) {
                 stmt.setInt(1, 0);
-            }else{
+            } else {
                 stmt.setInt(1, parceiro);
             }
-            if(colaborador == null){
+            if (colaborador == null) {
                 stmt.setInt(2, 0);
-            }else{    
-            stmt.setInt(2, colaborador);
+            } else {
+                stmt.setInt(2, colaborador);
             }
             ResultSet rs = stmt.executeQuery();
 
@@ -222,7 +221,7 @@ public class VendaDAOIMPL implements VendaDAO{
         } catch (SQLException ex) {
         }
         return vendas;
-    
+
     }
 
     @Override
@@ -251,8 +250,6 @@ public class VendaDAOIMPL implements VendaDAO{
         } catch (SQLException ex) {
         }
         return vendas;
-    
-    }
 
- 
+    }
 }
