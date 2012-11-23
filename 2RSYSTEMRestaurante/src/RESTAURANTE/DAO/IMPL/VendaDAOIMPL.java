@@ -24,7 +24,7 @@ public class VendaDAOIMPL implements VendaDAO{
         String sql ="insert into venda(codigo, dataVenda, valorVenda,"
                 + " cliente_codigo, colaborador_codigo)"
                 + " values (?, ?, ?, ?, ?)"; 
-               // "insert into venda value(?, ?, ?, ?, ?)";
+               
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -159,11 +159,18 @@ public class VendaDAOIMPL implements VendaDAO{
         ParceiroDAO parceiroDao = new ParceiroDAOIMPL();
         ColaboradorDAO colaboradorDao = new ColaboradorDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from venda where pesquisa like ?";
-
+        String sql = "select * from venda ven"
+                + "join parceiro par on par.codigo = ven.cliente_codigo"
+                + "join pessoa p on p.codigo = par.pessoa_codigo "
+                + "join colaborador col on col.codigo = ven.colaborador_codigo "
+                + "join pessoa pes on pes.codigo = col.pessoa_codigo "
+                + "where (ven.codigo = ? or p.nome like ? or pes.nome like ?)";
+        
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, "%" + parametro + "%");
+            stmt.setString(1, parametro);
+            stmt.setString(2, "%" + parametro + "%");
+            stmt.setString(3, "%" + parametro + "%");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Venda venda = new Venda();

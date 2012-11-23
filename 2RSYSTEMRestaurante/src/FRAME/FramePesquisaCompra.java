@@ -30,7 +30,7 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
         jtbCompras.getColumnModel().getColumn(2).setPreferredWidth(176);
         jtbCompras.getColumnModel().getColumn(3).setPreferredWidth(176);
         jtbCompras.getColumnModel().getColumn(4).setPreferredWidth(100);
-        retornaPrimeiroDiaMes();
+        retornaPrimeiroEUltimoDiaMes();
     }
 
     /**
@@ -351,8 +351,7 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
     private Compra compra;
     private List<Compra> compras;
     private CompraDAO compraDao;
-    private List<String> pesquisa;
-    Map<String, Compra> dados;
+   
 
     public Compra getCompra() {
         return compra;
@@ -425,7 +424,7 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
         verificaRadioButton();
     }
 
-    private void retornaPrimeiroDiaMes() {
+    private void retornaPrimeiroEUltimoDiaMes() {
         Calendar calendar = Calendar.getInstance();
 
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));

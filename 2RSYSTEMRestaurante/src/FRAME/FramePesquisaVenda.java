@@ -1,4 +1,3 @@
-
 package FRAME;
 
 import RESTAURANTE.DAO.IMPL.VendaDAOIMPL;
@@ -16,13 +15,14 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
         setLocation(290, 190);
         vendaDao = new VendaDAOIMPL();
         atualizaTabela();
-        jtbVendas.setAutoResizeMode(jtbVendas.AUTO_RESIZE_OFF);  
-        jtbVendas.getColumnModel().getColumn(0).setPreferredWidth(78);  
+        defineParametrosPesquisa();
+        jtbVendas.setAutoResizeMode(jtbVendas.AUTO_RESIZE_OFF);
+        jtbVendas.getColumnModel().getColumn(0).setPreferredWidth(78);
         jtbVendas.getColumnModel().getColumn(1).setPreferredWidth(99);
         jtbVendas.getColumnModel().getColumn(2).setPreferredWidth(186);
         jtbVendas.getColumnModel().getColumn(3).setPreferredWidth(186);
         jtbVendas.getColumnModel().getColumn(4).setPreferredWidth(98);
-        
+        retornaPrimeiroEUltimoDiaMes();
     }
 
     @SuppressWarnings("unchecked")
@@ -30,6 +30,7 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
     private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
+        btnGroupTipoPesquisa = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbVendas = new javax.swing.JTable();
@@ -127,6 +128,7 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnGroupTipoPesquisa.add(jrbData);
         jrbData.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jrbData.setText("Pesquisar por data");
         jrbData.addActionListener(new java.awt.event.ActionListener() {
@@ -135,6 +137,7 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
             }
         });
 
+        btnGroupTipoPesquisa.add(jrbDocumento);
         jrbDocumento.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jrbDocumento.setText("Pesquisar por documento");
         jrbDocumento.addActionListener(new java.awt.event.ActionListener() {
@@ -270,7 +273,7 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
     }//GEN-LAST:event_jtfPesquisarActionPerformed
 
     private void jtbVendasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbVendasKeyPressed
-        if(evt.getKeyCode() == 10){
+        if (evt.getKeyCode() == 10) {
             venda = vendas.get(jtbVendas.getSelectedRow());
             dispose();
         }
@@ -326,6 +329,7 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btnGroupTipoPesquisa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -345,7 +349,7 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
     private Venda venda;
     private List<Venda> vendas;
     private VendaDAO vendaDao;
-    private List<String> pesquisa;
+   
 
     public Venda getVenda() {
         return venda;
@@ -364,7 +368,7 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
         this.vendas = vendas;
         firePropertyChange("vendas", vendasOld, this.vendas);
     }
-
+    
     public void atualizaTabela() {
         setVendas(vendaDao.buscarTodos());
         if (vendaDao.buscarTodos().isEmpty()) {
@@ -382,14 +386,11 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
         Venda vendaF = new Venda();
 
         if (jrbDocumento.isSelected()) {
-            /*
-             * setCompras(compraDao.buscarCampoPesquisa(jtfPesquisar.getText()));
-             * if
-             * (compraDao.buscarCampoPesquisa(jtfPesquisar.getText()).isEmpty())
-             * { } else { jtbCompras.addRowSelectionInterval(0, 0);
+            setVendas(vendaDao.buscarCampoPesquisa(jtfPesquisar.getText()));
+            if (vendaDao.buscarCampoPesquisa(jtfPesquisar.getText()).isEmpty()) {
+            } else {
+                jtbVendas.addRowSelectionInterval(0, 0);
             }
-             */
-            pesquisaParametro(jtfPesquisar.getText());
         } else if (jrbData.isSelected()) {
             vendaI.setDataVenda(jdtDataInicial.getDate());
             vendaF.setDataVenda(jdtDataFinal.getDate());
@@ -400,6 +401,7 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
             }
         }
     }
+
     private void verificaRadioButton() {
         if (jrbDocumento.isSelected()) {
             jdtDataInicial.setEnabled(false);
@@ -419,7 +421,7 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
         verificaRadioButton();
     }
 
-    private void retornaPrimeiroDiaMes() {
+    private void retornaPrimeiroEUltimoDiaMes() {
         Calendar calendar = Calendar.getInstance();
 
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
@@ -429,31 +431,5 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
         final Date ultimoDia = new Date(calendar.getTimeInMillis());
         jdtDataFinal.setDate(ultimoDia);
-    }
-
-    private void concatenaDadosCompra() {
-        pesquisa = new ArrayList<String>();
-
-        for (Venda vend : vendas) {
-            pesquisa.add(vend.getCodigo()
-                    + " - " + vend.getCliente_codigo().getPessoa().getNome()
-                    + " - " + vend.getColaborador_codigo().getPessoa().getNome());
-        }
-        int i = 0;
-        while (i < pesquisa.size()) {
-            System.out.println(pesquisa.get(i));
-            i++;
-        }
-    }
-
-    private void pesquisaParametro(String parametro) {
-        int i = 0;
-         String co = null;
-        while (i < pesquisa.size()) {
-            if(pesquisa.equals(parametro));
-             co = pesquisa.get(i);
-            i++;
-        }
-        System.out.println(co);
     }
 }
