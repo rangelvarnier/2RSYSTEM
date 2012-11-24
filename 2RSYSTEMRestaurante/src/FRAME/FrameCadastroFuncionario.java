@@ -42,8 +42,9 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         atualizarCBUF();
         atualizaCBCidade();
         setcodigos();
-        jtbColaboradores.setAutoResizeMode(jtbColaboradores.AUTO_RESIZE_OFF);  
-        jtbColaboradores.getColumnModel().getColumn(0).setPreferredWidth(75);  
+
+        jtbColaboradores.setAutoResizeMode(jtbColaboradores.AUTO_RESIZE_OFF);
+        jtbColaboradores.getColumnModel().getColumn(0).setPreferredWidth(75);
         jtbColaboradores.getColumnModel().getColumn(1).setPreferredWidth(500);
         jtbColaboradores.getColumnModel().getColumn(2).setPreferredWidth(186);
     }
@@ -701,6 +702,9 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jcbUF.setSelectedIndex(0);
         jcbCidade.setSelectedIndex(0);
         jtbpcolaboradores.setSelectedIndex(1);
+      
+        
+
     }//GEN-LAST:event_jbtNovoActionPerformed
     private void jtfBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfBairroActionPerformed
     }//GEN-LAST:event_jtfBairroActionPerformed
@@ -729,7 +733,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
             jcbCidade.setSelectedIndex(0);
             novoColaborador();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Alguns campos do cadastro ainda não foram preenchidos!");
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
         }
     }//GEN-LAST:event_jbtSalvarActionPerformed
     private void jcbCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCidadeActionPerformed
@@ -765,23 +769,29 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbSexoFocusLost
     private void jtbpcolaboradoresStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpcolaboradoresStateChanged
         if (jtbpcolaboradores.getSelectedIndex() == 0) {
-            jbtEditar.setVisible(false);
-            jbtExcluir.setVisible(false);
-            jbtSalvar.setVisible(false);
-        } else {
-            jbtSalvar.setVisible(true);
-            jbtEditar.setVisible(true);
-            jbtExcluir.setVisible(true);
+                jbtEditar.setVisible(false);
+                jbtExcluir.setVisible(false);
+                jbtSalvar.setVisible(false);
+        }else{ 
+                jbtEditar.setVisible(true);
+                jbtExcluir.setVisible(true);
+                jbtSalvar.setVisible(true);
         }
     }//GEN-LAST:event_jtbpcolaboradoresStateChanged
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
+        try{
         setColaborador(colaboradores.get(jtbColaboradores.getSelectedRow()));
         setaJCB();
         jbtSalvar.setEnabled(false);
         jtbpcolaboradores.setSelectedIndex(1);
+        
+
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, "Por favor para poder detalhar é preciso cadastrar um Colaborador.");
+        }
     }//GEN-LAST:event_jbtDetalharActionPerformed
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-         try {
+        try {
             if (JOptionPane.showConfirmDialog(null,
                     "Deseja realmente excluir este Colaborador ?",
                     "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
@@ -795,38 +805,38 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                 jcbUF.setSelectedIndex(0);
                 jcbCidade.setSelectedIndex(0);
                 atualizaTabela();
-                jbtSalvar.setEnabled(true);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-        
-    }//GEN-LAST:event_jbtExcluirActionPerformed
-    private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
-         try {
-            if (JOptionPane.showConfirmDialog(null,
-                    "Deseja realmente fazer esta auteração ?",
-                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
-                 enderecoDao.alterar(colaborador.getPessoa().getEndereco_codigo());
-                pessoaDao.alterar(colaborador.getPessoa());
-                colaboradorDao.alterar(colaborador);
-                atualizaTabela();
-                jbtSalvar.setEnabled(true);
-                JOptionPane.showMessageDialog(rootPane, "Alterado com sucesso!");
                 
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
 
-       
+    }//GEN-LAST:event_jbtExcluirActionPerformed
+    private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente fazer esta auteração ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                enderecoDao.alterar(colaborador.getPessoa().getEndereco_codigo());
+                pessoaDao.alterar(colaborador.getPessoa());
+                colaboradorDao.alterar(colaborador);
+                atualizaTabela();
+                JOptionPane.showMessageDialog(rootPane, "Alterado com sucesso!");
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_jbtEditarActionPerformed
     private void jtbColaboradoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbColaboradoresMouseClicked
         if (evt.getClickCount() == 2) {
             setColaborador(colaboradores.get(jtbColaboradores.getSelectedRow()));
             setaJCB();
-            jbtSalvar.setEnabled(false);
+            
             jtbpcolaboradores.setSelectedIndex(1);
+            
         }
     }//GEN-LAST:event_jtbColaboradoresMouseClicked
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
@@ -1000,6 +1010,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     private void novoColaborador() {
         setColaborador(new Colaborador(new Pessoa(new Endereco(new Cidade(new UnidadeFederativa())))));
         setcodigos();
+
     }
 
     private void setcodigos() {

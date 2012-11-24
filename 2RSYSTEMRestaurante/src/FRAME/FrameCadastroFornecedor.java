@@ -41,8 +41,8 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jtbFornecedores.setAutoResizeMode(jtbFornecedores.AUTO_RESIZE_OFF);
         jtbFornecedores.getColumnModel().getColumn(0).setPreferredWidth(100);
         jtbFornecedores.getColumnModel().getColumn(1).setPreferredWidth(445);
-        jtbFornecedores.getColumnModel().getColumn(2).setPreferredWidth(120);
-        jtbFornecedores.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jtbFornecedores.getColumnModel().getColumn(2).setPreferredWidth(123);
+        jtbFornecedores.getColumnModel().getColumn(3).setPreferredWidth(103);
 
     }
 
@@ -219,7 +219,7 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
                         .add(jtfPesquisar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 148, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jbtPesquisar)
-                        .add(0, 507, Short.MAX_VALUE))
+                        .add(0, 513, Short.MAX_VALUE))
                     .add(jPanel4Layout.createSequentialGroup()
                         .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jScrollPane1)
@@ -258,7 +258,7 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel18.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel18.setText("CNPJ");
+        jLabel18.setText("*CNPJ");
 
         jtfRazaoSocial.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jtfRazaoSocial.setToolTipText("Razão Social");
@@ -290,10 +290,10 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel21.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel21.setText("Inscrição Estadual");
+        jLabel21.setText("*Inscrição Estadual");
 
         jLabel22.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel22.setText("Nome Fantasia");
+        jLabel22.setText("*Nome Fantasia");
 
         jLabel23.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel23.setText("Data Fundação");
@@ -307,10 +307,10 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jLabel25.setText("E-mail");
 
         jLabel19.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel19.setText("Razão Social");
+        jLabel19.setText("*Razão Social");
 
         jLabel24.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel24.setText("Cidade");
+        jLabel24.setText("*Cidade");
 
         jtfRua.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -324,10 +324,10 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         });
 
         jLabel26.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel26.setText("Rua");
+        jLabel26.setText("*Rua");
 
         jLabel27.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel27.setText("Bairro");
+        jLabel27.setText("*Bairro");
 
         jtfBairro.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -341,7 +341,7 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         });
 
         jLabel28.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel28.setText("Numero");
+        jLabel28.setText("*Numero");
 
         jtfNumero.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -355,7 +355,7 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         });
 
         jLabel29.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel29.setText("CEP");
+        jLabel29.setText("*CEP");
 
         jcbCidade.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jcbCidade.addActionListener(new java.awt.event.ActionListener() {
@@ -365,12 +365,12 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         });
 
         jLabel30.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel30.setText("UF");
+        jLabel30.setText("*UF");
 
         jlbDataCadastro.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel4.setText("Codigo");
+        jLabel4.setText("*Codigo");
 
         jtfCodigo.setEditable(false);
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -396,7 +396,7 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel32.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel32.setText("Sexo");
+        jLabel32.setText("*Sexo");
 
         jcbSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Feminino", "Masculino" }));
         jcbSexo.addActionListener(new java.awt.event.ActionListener() {
@@ -487,7 +487,11 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
                             .add(jLabel27)
                             .add(jtfBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jtfRua)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jtfRua)
+                            .add(jPanel3Layout.createSequentialGroup()
+                                .add(jLabel26)
+                                .add(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel28)
@@ -503,29 +507,24 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
                                 .add(0, 0, Short.MAX_VALUE))
                             .add(jPanel3Layout.createSequentialGroup()
                                 .add(jcbCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 151, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(18, 18, 18)
                                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jPanel3Layout.createSequentialGroup()
-                                        .add(25, 25, 25)
-                                        .add(jLabel26))
+                                        .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .add(0, 0, Short.MAX_VALUE))
                                     .add(jPanel3Layout.createSequentialGroup()
-                                        .add(18, 18, 18)
+                                        .add(jLabel29)
+                                        .add(160, 160, 160)
                                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                             .add(jPanel3Layout.createSequentialGroup()
-                                                .add(jtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                .add(jLabel23)
+                                                .add(100, 100, 100)
+                                                .add(jLabel32)
                                                 .add(0, 0, Short.MAX_VALUE))
                                             .add(jPanel3Layout.createSequentialGroup()
-                                                .add(jLabel29)
-                                                .add(160, 160, 160)
-                                                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                    .add(jPanel3Layout.createSequentialGroup()
-                                                        .add(jLabel23)
-                                                        .add(100, 100, 100)
-                                                        .add(jLabel32)
-                                                        .add(0, 0, Short.MAX_VALUE))
-                                                    .add(jPanel3Layout.createSequentialGroup()
-                                                        .add(jtfDataFundacao, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                        .add(jcbSexo, 0, 0, Short.MAX_VALUE)))))))))))
+                                                .add(jtfDataFundacao, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                                .add(jcbSexo, 0, 0, Short.MAX_VALUE)))))))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -655,6 +654,8 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jcbCidade.setSelectedIndex(0);
         jtbpFornecedores.setSelectedIndex(1);
         jbtSalvar.setEnabled(true);
+        jbtEditar.setVisible(false);
+        jbtExcluir.setVisible(false);
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
@@ -775,7 +776,7 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
             jbtSalvar.setEnabled(false);
             jtbpFornecedores.setSelectedIndex(1);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Favor Selecione um Fornecedor para Detalhar.");
+            JOptionPane.showMessageDialog(rootPane, "Por favor para poder detalhar é preciso cadastrar um Fornecedor.");
         }
     }//GEN-LAST:event_jbtDetalharActionPerformed
 

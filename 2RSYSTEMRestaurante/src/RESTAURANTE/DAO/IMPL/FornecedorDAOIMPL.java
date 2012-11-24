@@ -172,9 +172,7 @@ public class FornecedorDAOIMPL implements FornecedorDAO {
         List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
         PessoaDAO pessoaDao = new PessoaDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select codigo, razaoSocial, cnpj, inscEstadual,"
-                + "dataFundacao, dataCadastro, pessoa_codigo"
-                + " from fornecedor where razaoSocial like ? ";
+        String sql = "select * from fornecedor where razaoSocial like ? ";
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);

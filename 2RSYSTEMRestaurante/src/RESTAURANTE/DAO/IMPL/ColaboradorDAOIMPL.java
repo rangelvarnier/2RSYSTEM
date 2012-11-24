@@ -189,11 +189,13 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
         GrupoColaboradorDAO grupoColaboradoresDao = new GrupoColaboradorDAOIMPL();
         PessoaDAO pessoaDao = new PessoaDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from colaborador join pessoa using(codigo) where nome like ? ";
+        String sql = "select * from colaborador col join "
+                + "pessoa pes on pes.codigo = col.pessoa_codigo"
+                + " where pes.nome like ?;";
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, "%"+nome+"%");
+            stmt.setString(1, "%" + nome + "%");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

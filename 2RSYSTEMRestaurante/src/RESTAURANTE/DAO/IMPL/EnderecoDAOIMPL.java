@@ -38,7 +38,7 @@ public class EnderecoDAOIMPL implements EnderecoDAO{
 
             stmt.executeUpdate();
         } catch (SQLException ex){
-            ex.printStackTrace();
+            Logger.getLogger(EnderecoDAOIMPL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -77,7 +77,7 @@ public class EnderecoDAOIMPL implements EnderecoDAO{
             
             stmt.executeUpdate();
         } catch (SQLException ex){
-            
+            Logger.getLogger(EnderecoDAOIMPL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -112,7 +112,7 @@ public class EnderecoDAOIMPL implements EnderecoDAO{
             
             } 
         }catch (SQLException ex){
-            
+           Logger.getLogger(EnderecoDAOIMPL.class.getName()).log(Level.SEVERE, null, ex); 
         }
         return endereco;
     }
@@ -147,6 +147,7 @@ public class EnderecoDAOIMPL implements EnderecoDAO{
             }
 
         } catch (SQLException ex) {
+            Logger.getLogger(EnderecoDAOIMPL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return enderecos;
         
@@ -167,7 +168,7 @@ public class EnderecoDAOIMPL implements EnderecoDAO{
             rs2.close(); 
             stmt.close(); 
         } catch (SQLException ex) {
-            Logger.getLogger(ColaboradorDAOIMPL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EnderecoDAOIMPL.class.getName()).log(Level.SEVERE, null, ex);
         }
  
         return idmaior;
