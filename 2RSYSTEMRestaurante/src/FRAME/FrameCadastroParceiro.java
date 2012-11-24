@@ -33,7 +33,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         enderecoDao = new EnderecoDAOIMPL();
         pessoaDao = new PessoaDAOIMPL();
         parceiroDao = new ParceiroDAOIMPL();
-        novoGrupo();
+        novoParceiro();
         atualizaTabela();
         atualizarCBUF();
         atualizaCBCidade();
@@ -553,7 +553,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel4)
                     .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 39, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel19)
                     .add(jLabel18))
@@ -661,7 +661,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
-        novoGrupo();
+        novoParceiro();
         limpacampodatas();
         jcbSexo.setSelectedIndex(0);
         jcbTipoPessoa.setSelectedIndex(0);
@@ -725,6 +725,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                 .getCidade_codigo()
                 .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
         atualizaCBCidade();
+
     }//GEN-LAST:event_jcbUFActionPerformed
 
     private void jcbSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSexoActionPerformed
@@ -753,7 +754,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
             jcbTipoPessoa.setSelectedIndex(0);
             jcbUF.setSelectedIndex(0);
             jcbCidade.setSelectedIndex(0);
-            novoGrupo();
+            novoParceiro();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Alguns campos do cadastro ainda não foram preenchidos!");
@@ -771,7 +772,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         parceiroDao.remover(parceiro);
         pessoaDao.remover(parceiro.getPessoa());
         enderecoDao.remover(parceiro.getPessoa().getEndereco_codigo());
-        novoGrupo();
+        novoParceiro();
         limpacampodatas();
         jcbSexo.setSelectedIndex(0);
         jcbTipoPessoa.setSelectedIndex(0);
@@ -960,6 +961,15 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         jcbUF.setRenderer(new ComboBoxUF());
     }
 
+    private void setaUFjcbUF() {
+        // jcbUF.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo()
+        //         .getCidade_codigo().getUnidadeFederativa_codigo());
+        // jcbCidade.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo()
+        //         .getCidade_codigo());
+        // System.out.println(parceiro.getPessoa().getEndereco_codigo()
+        //         .getCidade_codigo().getUnidadeFederativa_codigo().getNome());
+    }
+
     public void atualizaCBCidade() {
 
         jcbCidade.removeAllItems();
@@ -972,7 +982,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         jcbCidade.setRenderer(new ComboBoxCidade());
     }
 
-    private void novoGrupo() {
+    private void novoParceiro() {
         setParceiro(new Parceiro(new Pessoa(new Endereco(new Cidade(new UnidadeFederativa())))));
         setcodigos();
 

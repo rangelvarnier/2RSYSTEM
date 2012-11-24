@@ -49,8 +49,8 @@ public class ParceiroDAOIMPL implements ParceiroDAO{
     @Override
     public void alterar(Parceiro parceiro) {
         Connection con = new Conexao().criarConexao();
-        String sql = "update parceiro set cpf = ?, rg = ?, dataNascimento = ?, dataCadastro = ?"
-                + "limite = ?,saldo = ?,pessoa_codigo = ?, tipoPessoa = ?"
+        String sql = "update parceiro set cpf = ?, rg = ?, dataNascimento = ?, dataCadastro = ?,"
+                + "limite = ?, saldo = ?, pessoa_codigo = ?, tipoPessoa = ?"
                 + " where codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
