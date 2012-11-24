@@ -278,13 +278,13 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel21.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel21.setText("Sexo");
+        jLabel21.setText("*Sexo");
 
         jLabel22.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel22.setText("RG");
+        jLabel22.setText("*RG");
 
         jLabel23.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel23.setText("Data Contratação");
+        jLabel23.setText("*Data Contratação");
 
         jtfEmail.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -295,10 +295,10 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jLabel25.setText("E-mail");
 
         jLabel19.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel19.setText("Nome");
+        jLabel19.setText("*Nome");
 
         jLabel24.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel24.setText("Cidade");
+        jLabel24.setText("*Cidade");
 
         jtfBairro.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -312,10 +312,10 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         });
 
         jLabel26.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel26.setText("Rua");
+        jLabel26.setText("*Rua");
 
         jLabel27.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel27.setText("Bairro");
+        jLabel27.setText("*Bairro");
 
         jtfRua.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -329,7 +329,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         });
 
         jLabel28.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel28.setText("Numero");
+        jLabel28.setText("*Numero");
 
         jtfNumero.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -343,13 +343,13 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         });
 
         jLabel29.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel29.setText("CEP");
+        jLabel29.setText("*CEP");
 
         jLabel30.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel30.setText("UF");
+        jLabel30.setText("*UF");
 
         jLabel18.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel18.setText("CPF");
+        jLabel18.setText("*CPF");
 
         try {
             jtfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -400,7 +400,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel3.setText("Salário");
+        jLabel3.setText("*Salário");
 
         jtfSalario.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -411,7 +411,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jLabel33.setText("Data Demissão");
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel2.setText("Função");
+        jLabel2.setText("*Grupo de Colaborador");
 
         jLabel32.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel32.setText("Data Nacimento");
@@ -444,7 +444,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         });
 
         jLabel34.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel34.setText("Código");
+        jLabel34.setText("*Código");
 
         jcbfuncao.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jcbfuncao.addActionListener(new java.awt.event.ActionListener() {
@@ -517,7 +517,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel3Layout.createSequentialGroup()
                                 .add(jLabel25)
-                                .add(0, 530, Short.MAX_VALUE))
+                                .add(0, 0, Short.MAX_VALUE))
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jtfEmail))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)

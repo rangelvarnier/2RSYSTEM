@@ -404,7 +404,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="530" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="jtfEmail" alignment="1" max="32767" attributes="0"/>
                               </Group>
@@ -625,7 +625,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Sexo"/>
+                <Property name="text" type="java.lang.String" value="*Sexo"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel22">
@@ -633,7 +633,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="RG"/>
+                <Property name="text" type="java.lang.String" value="*RG"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel23">
@@ -641,7 +641,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Data Contrata&#xe7;&#xe3;o"/>
+                <Property name="text" type="java.lang.String" value="*Data Contrata&#xe7;&#xe3;o"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfEmail">
@@ -669,7 +669,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Nome"/>
+                <Property name="text" type="java.lang.String" value="*Nome"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel24">
@@ -677,7 +677,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cidade"/>
+                <Property name="text" type="java.lang.String" value="*Cidade"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfBairro">
@@ -700,7 +700,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Rua"/>
+                <Property name="text" type="java.lang.String" value="*Rua"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel27">
@@ -708,7 +708,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Bairro"/>
+                <Property name="text" type="java.lang.String" value="*Bairro"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfRua">
@@ -731,7 +731,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Numero"/>
+                <Property name="text" type="java.lang.String" value="*Numero"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfNumero">
@@ -754,7 +754,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="CEP"/>
+                <Property name="text" type="java.lang.String" value="*CEP"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel30">
@@ -762,7 +762,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="UF"/>
+                <Property name="text" type="java.lang.String" value="*UF"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel18">
@@ -770,7 +770,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="CPF"/>
+                <Property name="text" type="java.lang.String" value="*CPF"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="jtfCpf">
@@ -825,7 +825,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Sal&#xe1;rio"/>
+                <Property name="text" type="java.lang.String" value="*Sal&#xe1;rio"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfSalario">
@@ -853,7 +853,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Fun&#xe7;&#xe3;o"/>
+                <Property name="text" type="java.lang.String" value="*Grupo de Colaborador"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel32">
@@ -909,7 +909,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="C&#xf3;digo"/>
+                <Property name="text" type="java.lang.String" value="*C&#xf3;digo"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="jcbfuncao">
