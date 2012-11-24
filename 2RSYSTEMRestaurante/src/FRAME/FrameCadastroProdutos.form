@@ -10,9 +10,6 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Produtos"/>
-    <Property name="location" type="java.awt.Point" editor="org.netbeans.beaninfo.editors.PointEditor">
-      <Point value="[200, 100]"/>
-    </Property>
     <Property name="maximizedBounds" type="java.awt.Rectangle" editor="org.netbeans.beaninfo.editors.RectangleEditor">
       <Rectangle value="[0, 0, 0, 0]"/>
     </Property>
@@ -67,8 +64,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jtbpProdutos" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jtbpProdutos" min="-2" pref="401" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jbtSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -76,7 +73,7 @@
                   <Component id="jbtEditar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtSair" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="11" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -215,7 +212,7 @@
                           <Component id="jbtPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="301" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="284" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jbtDetalhar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -371,7 +368,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="177" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="jcbGrupoItem" pref="212" max="32767" attributes="0"/>
                               </Group>
@@ -446,7 +443,7 @@
                           <Component id="jtfPrecoCompra" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jtfPrecoVenda" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="101" max="32767" attributes="0"/>
+                      <EmptySpace pref="102" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -457,7 +454,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="C&#xf3;digo"/>
+                <Property name="text" type="java.lang.String" value="*C&#xf3;digo"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfCodigo">
@@ -473,7 +470,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o"/>
+                <Property name="text" type="java.lang.String" value="*Descri&#xe7;&#xe3;o"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfDescricaoProduto">
@@ -505,7 +502,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="C&#xf3;digo de f&#xe1;brica"/>
+                <Property name="text" type="java.lang.String" value="*C&#xf3;digo de f&#xe1;brica"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="jcbGrupoItem">
@@ -526,7 +523,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Grupo"/>
+                <Property name="text" type="java.lang.String" value="*Grupo"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
@@ -534,7 +531,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Sub Grupo"/>
+                <Property name="text" type="java.lang.String" value="*Sub Grupo"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="jcbSubGrupo">
@@ -555,7 +552,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Unidade Medida"/>
+                <Property name="text" type="java.lang.String" value="*Unidade Medida"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="jcbUnMedida">
@@ -600,7 +597,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Pre&#xe7;o Venda"/>
+                <Property name="text" type="java.lang.String" value="*Pre&#xe7;o Venda"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfPrecoVenda">
@@ -620,7 +617,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Fornecedor"/>
+                <Property name="text" type="java.lang.String" value="*Fornecedor"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfFornecedor">

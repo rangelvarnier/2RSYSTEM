@@ -81,7 +81,6 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Produtos");
-        setLocation(new java.awt.Point(200, 100));
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setResizable(false);
 
@@ -204,7 +203,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                     .add(jtfPesquisar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jbtPesquisar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jbtDetalhar)
                 .addContainerGap())
@@ -216,13 +215,13 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.TRAILING, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Grande", 0, 12))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel2.setText("Código");
+        jLabel2.setText("*Código");
 
         jtfCodigo.setEditable(false);
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel4.setText("Descrição");
+        jLabel4.setText("*Descrição");
 
         jtfDescricaoProduto.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -235,7 +234,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel5.setText("Código de fábrica");
+        jLabel5.setText("*Código de fábrica");
 
         jcbGrupoItem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbGrupoItem.setRenderer(new ComboBoxGrupoItem());
@@ -246,10 +245,10 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel6.setText("Grupo");
+        jLabel6.setText("*Grupo");
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel7.setText("Sub Grupo");
+        jLabel7.setText("*Sub Grupo");
 
         jcbSubGrupo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbSubGrupo.setRenderer(new ComboBoxSubGrupoItem());
@@ -260,7 +259,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         });
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel8.setText("Unidade Medida");
+        jLabel8.setText("*Unidade Medida");
 
         jcbUnMedida.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbUnMedida.setRenderer(new ComboBoxUnidadeMedida());
@@ -280,7 +279,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel9.setText("Preço Venda");
+        jLabel9.setText("*Preço Venda");
 
         jtfPrecoVenda.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -288,7 +287,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel10.setText("Fornecedor");
+        jLabel10.setText("*Fornecedor");
 
         jtfFornecedor.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -350,7 +349,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel3Layout.createSequentialGroup()
                                 .add(jLabel6)
-                                .add(0, 0, Short.MAX_VALUE))
+                                .add(0, 177, Short.MAX_VALUE))
                             .add(jcbGrupoItem, 0, 212, Short.MAX_VALUE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -407,7 +406,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                     .add(jtfSaldoEstoque, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jtfPrecoCompra, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jtfPrecoVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         jtbpProdutos.addTab("Cadastro", jPanel3);
@@ -442,15 +441,15 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jLabel1)
                 .add(18, 18, 18)
-                .add(jtbpProdutos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jtbpProdutos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 401, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jbtSalvar)
                     .add(jbtExcluir)
                     .add(jbtNovo)
                     .add(jbtEditar)
                     .add(jbtSair))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jtbpProdutos.getAccessibleContext().setAccessibleName("Fornecedores");
@@ -523,6 +522,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         setaGrupoJCBGrupoItem();
         setaSubGrupoJCBSubGrupoItem();
         setaUNJcbUnidadeMedida();
+        jbtSalvar.setEnabled(false);
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
     private void jtbProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbProdutosMouseClicked
@@ -532,6 +532,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
             setaGrupoJCBGrupoItem();
             setaSubGrupoJCBSubGrupoItem();
             setaUNJcbUnidadeMedida();
+            jbtSalvar.setEnabled(false);
         }
     }//GEN-LAST:event_jtbProdutosMouseClicked
 

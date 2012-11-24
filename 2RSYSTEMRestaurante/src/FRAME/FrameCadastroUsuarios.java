@@ -1,4 +1,3 @@
-
 package FRAME;
 
 import RESTAURANTE.DAO.IMPL.UsuarioDAOIMPL;
@@ -16,8 +15,8 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
         usuarioDao = new UsuarioDAOIMPL();
         novoUsuario();
         atualizaTabela();
-        jtbUsuariosCadastrados.setAutoResizeMode(jtbUsuariosCadastrados.AUTO_RESIZE_OFF);  
-        jtbUsuariosCadastrados.getColumnModel().getColumn(0).setPreferredWidth(100);  
+        jtbUsuariosCadastrados.setAutoResizeMode(jtbUsuariosCadastrados.AUTO_RESIZE_OFF);
+        jtbUsuariosCadastrados.getColumnModel().getColumn(0).setPreferredWidth(100);
         jtbUsuariosCadastrados.getColumnModel().getColumn(1).setPreferredWidth(642);
     }
 
@@ -44,7 +43,6 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
         jbtsair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setLocation(new java.awt.Point(200, 100));
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
@@ -149,7 +147,7 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -224,7 +222,7 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
                 .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 67, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jbtSalvar)
                     .add(jbtNovo)
@@ -238,15 +236,15 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-        
+
         try {
             usuarioDao.inserir(usuario);
-        atualizaTabela();
-        novoUsuario();
+            atualizaTabela();
+            novoUsuario();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Para inserir um novo Usuário, Informe aos campos, os dados necessários!");
         }
-        
+
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
@@ -255,26 +253,26 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
         try {
-            
-        usuarioDao.remover(usuario);
-        novoUsuario();
-        atualizaTabela();
+
+            usuarioDao.remover(usuario);
+            novoUsuario();
+            atualizaTabela();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Selecione um Usuário a ser Apagado!");
-            
+
         }
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtsairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtsairActionPerformed
-                dispose();
+        dispose();
     }//GEN-LAST:event_jbtsairActionPerformed
 
     private void jtbUsuariosCadastradosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbUsuariosCadastradosMouseClicked
-       
+
         if (evt.getClickCount() == 1) {
-            setUsuario(usuarios.get(jtbUsuariosCadastrados.getSelectedRow()));            
+            setUsuario(usuarios.get(jtbUsuariosCadastrados.getSelectedRow()));
         }
-        
+
     }//GEN-LAST:event_jtbUsuariosCadastradosMouseClicked
 
     private void AlterarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlterarSenhaActionPerformed
@@ -344,11 +342,10 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
     }
 
     public void setUsuario(Usuario usuario) {
-       
         Usuario usuarioVelho = this.usuario;
         this.usuario = usuario;
         firePropertyChange("usuario", usuarioVelho, this.usuario);
-       
+
     }
 
     public List<Usuario> getUsuarios() {
@@ -360,22 +357,20 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
         this.usuarios = ObservableCollections.observableList(usuarios);
         firePropertyChange("usuarios", usuarioVelhos, this.usuarios);
     }
-    
-    
-    
-    
+
     public void atualizaTabela() {
         setUsuarios(usuarioDao.buscarTodos());
     }
-    public void novoUsuario(){
+
+    public void novoUsuario() {
         setUsuario(new Usuario());
     }
-    
-     public void alteraSenhaUsuario() {
+
+    public void alteraSenhaUsuario() {
         FrameAlterarSenhaUsuario tela_busca = new FrameAlterarSenhaUsuario();
         tela_busca.setModal(true);
         tela_busca.setUsuario(usuarios.get(jtbUsuariosCadastrados.getSelectedRow()));
         tela_busca.setVisible(true);
-        
+
     }
 }

@@ -244,3 +244,18 @@ ADD PRIMARY KEY (`compra_codigo`, `produto_codigo`) ;
 //zera estoque
 //obs antes remover todas as compras e vendas
 update produto set saldoEstoque = 0;
+
+
+//renomeado primari key usuario de idusuario para codigo
+ALTER TABLE `2rsitem`.`usuario` DROP FOREIGN KEY `usuario_colaborador` ;
+ALTER TABLE `2rsitem`.`usuario` CHANGE COLUMN `idusuario` `codigo` INT(11) NOT NULL AUTO_INCREMENT  , 
+  ADD CONSTRAINT `usuario_colaborador`
+  FOREIGN KEY (`codigo` )
+  REFERENCES `2rsitem`.`colaborador` (`codigo` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+//deletado FK entre usuário e colaborador
+ALTER TABLE `2rsitem`.`usuario` DROP FOREIGN KEY `usuario_colaborador` ;
+

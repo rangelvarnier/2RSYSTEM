@@ -38,10 +38,10 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         atualizarCBUF();
         atualizaCBCidade();
         setcodigos();
-        jtbParceiros.setAutoResizeMode(jtbParceiros.AUTO_RESIZE_OFF);  
-        jtbParceiros.getColumnModel().getColumn(0).setPreferredWidth(75);  
+        jtbParceiros.setAutoResizeMode(jtbParceiros.AUTO_RESIZE_OFF);
+        jtbParceiros.getColumnModel().getColumn(0).setPreferredWidth(75);
         jtbParceiros.getColumnModel().getColumn(1).setPreferredWidth(326);
-        jtbParceiros.getColumnModel().getColumn(2).setPreferredWidth(130);  
+        jtbParceiros.getColumnModel().getColumn(2).setPreferredWidth(130);
         jtbParceiros.getColumnModel().getColumn(3).setPreferredWidth(130);
         jtbParceiros.getColumnModel().getColumn(4).setPreferredWidth(100);
     }
@@ -106,7 +106,6 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Parceiros");
-        setLocation(new java.awt.Point(200, 100));
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setResizable(false);
 
@@ -228,7 +227,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                         .add(0, 503, Short.MAX_VALUE))
                     .add(jPanel4Layout.createSequentialGroup()
                         .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jScrollPane1)
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
                             .add(jPanel4Layout.createSequentialGroup()
                                 .add(jbtDetalhar)
                                 .add(0, 0, Short.MAX_VALUE)))
@@ -243,7 +242,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                     .add(jbtPesquisar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 306, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jbtDetalhar)
                 .addContainerGap())
         );
@@ -554,7 +553,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel4)
                     .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel19)
                     .add(jLabel18))
@@ -696,14 +695,12 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     private void jcbTipoPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoPessoaActionPerformed
         if (jcbTipoPessoa.getSelectedIndex() == 0) {
             try {
-                jtfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory
-                        (new javax.swing.text.MaskFormatter("###.###.###-##")));
+                jtfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
             } catch (ParseException ex) {
             }
         } else if (jcbTipoPessoa.getSelectedIndex() == 1) {
             try {
-                jtfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory
-                        (new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+                jtfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
             } catch (ParseException ex) {
             }
 
@@ -744,9 +741,9 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
             parceiro.setDataCadastro(new Date());
             enderecoDao.inserir(parceiro.getPessoa().getEndereco_codigo());
             if (jcbTipoPessoa.getSelectedIndex() == 0) {
-            parceiro.setTipoPessoa("F");
+                parceiro.setTipoPessoa("F");
             } else {
-            parceiro.setTipoPessoa("J");
+                parceiro.setTipoPessoa("J");
             }
             pessoaDao.inserir(parceiro.getPessoa());
             parceiroDao.inserir(parceiro);
@@ -787,6 +784,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         try {
             setParceiro(parceiros.get(jtbParceiros.getSelectedRow()));
             setaJCB();
+            jbtSalvar.setEnabled(false);
             jtbpParceiros.setSelectedIndex(1);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Favor Selecione um Fornecedor para Detalhar.");
@@ -794,15 +792,12 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
     private void jtbParceirosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbParceirosMouseClicked
-        //try {
-            if (evt.getClickCount() == 2) {
-                setParceiro(parceiros.get(jtbParceiros.getSelectedRow()));
-                setaJCB();
-                jtbpParceiros.setSelectedIndex(1);
-            }
-        //} catch (Exception e) {
-         //   JOptionPane.showMessageDialog(rootPane, "Favor Selecione um Fornecedor para Detalhar.");
-       // }
+        if (evt.getClickCount() == 2) {
+            setParceiro(parceiros.get(jtbParceiros.getSelectedRow()));
+            setaJCB();
+            jbtSalvar.setEnabled(false);
+            jtbpParceiros.setSelectedIndex(1);
+        }
     }//GEN-LAST:event_jtbParceirosMouseClicked
 
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
