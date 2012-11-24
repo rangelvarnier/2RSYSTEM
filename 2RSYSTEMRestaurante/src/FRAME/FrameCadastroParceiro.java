@@ -346,6 +346,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         jLabel29.setText("CEP");
 
         jcbCidade.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jcbCidade.setRenderer(new ComboBoxCidade());
         jcbCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbCidadeActionPerformed(evt);
@@ -429,6 +430,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         jcbUF.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jcbUF.setRenderer(new ComboBoxUF());
         jcbUF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbUFActionPerformed(evt);
@@ -720,10 +722,10 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
 
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
         var = jcbUF.getSelectedIndex() + 1;
-        parceiro.getPessoa()
-                .getEndereco_codigo()
-                .getCidade_codigo()
-                .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
+    //    parceiro.getPessoa()
+    //            .getEndereco_codigo()
+    //            .getCidade_codigo()
+    //            .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
         atualizaCBCidade();
 
     }//GEN-LAST:event_jcbUFActionPerformed
@@ -782,14 +784,20 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
-        try {
+  //      try {
             setParceiro(parceiros.get(jtbParceiros.getSelectedRow()));
             setaJCB();
             jbtSalvar.setEnabled(false);
             jtbpParceiros.setSelectedIndex(1);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Favor Selecione um Fornecedor para Detalhar.");
-        }
+
+            setaJcbUF();
+            setaJcbCidade();
+
+
+            
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(rootPane, "Favor Selecione um Fornecedor para Detalhar.");
+//        }
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
     private void jtbParceirosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbParceirosMouseClicked
@@ -954,6 +962,8 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     }
 
     public void atualizarCBUF() {
+        jcbUF.removeAllItems();
+        unidadeFederativas = null;
         unidadeFederativas = unidadeFederativaDao.buscarTodos();
         for (UnidadeFederativa un : unidadeFederativas) {
             jcbUF.addItem(un);
@@ -961,17 +971,12 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         jcbUF.setRenderer(new ComboBoxUF());
     }
 
-    private void setaUFjcbUF() {
-        // jcbUF.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo()
-        //         .getCidade_codigo().getUnidadeFederativa_codigo());
-        // jcbCidade.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo()
-        //         .getCidade_codigo());
-        // System.out.println(parceiro.getPessoa().getEndereco_codigo()
-        //         .getCidade_codigo().getUnidadeFederativa_codigo().getNome());
+    private void setaJcbUF() {
+        jcbUF.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo()
+                .getCidade_codigo().getUnidadeFederativa_codigo());
     }
 
     public void atualizaCBCidade() {
-
         jcbCidade.removeAllItems();
         cidades = null;
         cidades = cidadeDao.buscaCidades(var);
@@ -980,6 +985,11 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
 
         }
         jcbCidade.setRenderer(new ComboBoxCidade());
+    }
+
+    private void setaJcbCidade() {
+        jcbCidade.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo()
+                .getCidade_codigo());
     }
 
     private void novoParceiro() {

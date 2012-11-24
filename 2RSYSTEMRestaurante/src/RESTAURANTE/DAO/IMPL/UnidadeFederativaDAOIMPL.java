@@ -69,8 +69,7 @@ public class UnidadeFederativaDAOIMPL implements UnidadeFederativaDAO{
     public UnidadeFederativa buscarPorCodigo(Integer codigo) {
         UnidadeFederativa unidadeFederativa = null;
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from unidadeFederativa"
-                + " where codigo = ?";
+        String sql = "select * from unidadeFederativa where codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setLong(1, codigo);
