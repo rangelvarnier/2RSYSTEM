@@ -36,7 +36,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         pessoaDao = new PessoaDAOIMPL();
         grupoColaboradorDao = new GrupoColaboradorDAOIMPL();
         colaboradorDao = new ColaboradorDAOIMPL();
-        novoGrupo();
+        novoColaborador();
         atualizaCBFuncao();
         atualizaTabela();
         atualizarCBUF();
@@ -108,7 +108,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Colaboradores");
-        setLocation(new java.awt.Point(200, 100));
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setResizable(false);
 
@@ -223,7 +222,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                         .add(0, 503, Short.MAX_VALUE))
                     .add(jPanel4Layout.createSequentialGroup()
                         .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
                             .add(jPanel4Layout.createSequentialGroup()
                                 .add(jbtDetalhar)
                                 .add(0, 0, Short.MAX_VALUE)))
@@ -237,7 +236,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                     .add(jtfPesquisar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jbtPesquisar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jbtDetalhar)
                 .addContainerGap())
@@ -566,7 +565,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel34))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 82, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel19)
                     .add(jLabel18))
@@ -689,7 +688,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
-        novoGrupo();
+        novoColaborador();
         limpacampodatas();
         jcbSexo.setSelectedIndex(0);
         jcbfuncao.setSelectedIndex(0);
@@ -722,7 +721,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
             jcbfuncao.setSelectedIndex(0);
             jcbUF.setSelectedIndex(0);
             jcbCidade.setSelectedIndex(0);
-            novoGrupo();
+            novoColaborador();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Alguns campos do cadastro ainda não foram preenchidos!");
         }
@@ -778,7 +777,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         colaboradorDao.remover(colaborador);
         pessoaDao.remover(colaborador.getPessoa());
         enderecoDao.remover(colaborador.getPessoa().getEndereco_codigo());
-        novoGrupo();
+        novoColaborador();
         limpacampodatas();
         jcbSexo.setSelectedIndex(0);
         jcbfuncao.setSelectedIndex(0);
@@ -967,7 +966,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jcbfuncao.setRenderer(new ComboBoxGrpColaborador());
     }
 
-    private void novoGrupo() {
+    private void novoColaborador() {
         setColaborador(new Colaborador(new Pessoa(new Endereco(new Cidade(new UnidadeFederativa())))));
         setcodigos();
     }
