@@ -38,10 +38,10 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         atualizarCBUF();
         atualizaCBCidade();
         setcodigos();
-        jtbFornecedores.setAutoResizeMode(jtbFornecedores.AUTO_RESIZE_OFF);  
-        jtbFornecedores.getColumnModel().getColumn(0).setPreferredWidth(100);  
+        jtbFornecedores.setAutoResizeMode(jtbFornecedores.AUTO_RESIZE_OFF);
+        jtbFornecedores.getColumnModel().getColumn(0).setPreferredWidth(100);
         jtbFornecedores.getColumnModel().getColumn(1).setPreferredWidth(445);
-        jtbFornecedores.getColumnModel().getColumn(2).setPreferredWidth(120);  
+        jtbFornecedores.getColumnModel().getColumn(2).setPreferredWidth(120);
         jtbFornecedores.getColumnModel().getColumn(3).setPreferredWidth(100);
 
     }
@@ -653,7 +653,8 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jcbSexo.setSelectedIndex(0);
         jcbUF.setSelectedIndex(0);
         jcbCidade.setSelectedIndex(0);
-        jtbpFornecedores.setSelectedIndex(1);  
+        jtbpFornecedores.setSelectedIndex(1);
+        jbtSalvar.setEnabled(true);
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
@@ -710,7 +711,7 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbSexoAncestorAdded
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-       try {
+        try {
             fornecedor.setDataCadastro(new Date());
             fornecedor.setDataFuncacao(jtfDataFundacao.getDate());
             enderecoDao.inserir(fornecedor.getPessoa().getEndereco_codigo());
@@ -728,28 +729,50 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
-        enderecoDao.alterar(fornecedor.getPessoa().getEndereco_codigo());
-        pessoaDao.alterar(fornecedor.getPessoa());
-        fornecedorDao.alterar(fornecedor);
-        atualizaTabela();
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente fazer esta auteração ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                enderecoDao.alterar(fornecedor.getPessoa().getEndereco_codigo());
+                pessoaDao.alterar(fornecedor.getPessoa());
+                fornecedorDao.alterar(fornecedor);
+                JOptionPane.showMessageDialog(rootPane, "Alterado com sucesso!");
+                atualizaTabela();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_jbtEditarActionPerformed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        fornecedorDao.remover(fornecedor);
-        pessoaDao.remover(fornecedor.getPessoa());
-        enderecoDao.remover(fornecedor.getPessoa().getEndereco_codigo());
-        novoGrupo();
-        limpacampodatas();
-        jcbSexo.setSelectedIndex(0);        
-        jcbUF.setSelectedIndex(0);
-        jcbCidade.setSelectedIndex(0);
-        atualizaTabela();
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente excluir este Fornecedor ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                fornecedorDao.remover(fornecedor);
+                pessoaDao.remover(fornecedor.getPessoa());
+                enderecoDao.remover(fornecedor.getPessoa().getEndereco_codigo());
+                novoGrupo();
+                limpacampodatas();
+                jcbSexo.setSelectedIndex(0);
+                jcbUF.setSelectedIndex(0);
+                jcbCidade.setSelectedIndex(0);
+                atualizaTabela();
+                jbtSalvar.setEnabled(true);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
         try {
             setFornecedor(fornecedores.get(jtbFornecedores.getSelectedRow()));
             setaJCB();
+            jbtSalvar.setEnabled(false);
             jtbpFornecedores.setSelectedIndex(1);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Favor Selecione um Fornecedor para Detalhar.");
@@ -760,8 +783,9 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         if (evt.getClickCount() == 2) {
             setFornecedor(fornecedores.get(jtbFornecedores.getSelectedRow()));
             setaJCB();
+            jbtSalvar.setEnabled(false);
             jtbpFornecedores.setSelectedIndex(1);
-           
+
         }
     }//GEN-LAST:event_jtbFornecedoresMouseClicked
 
@@ -939,6 +963,7 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         setFornecedor(new Fornecedor(new Pessoa(new Endereco(new Cidade(new UnidadeFederativa())))));
         setcodigos();
 
+
     }
 
     private void setcodigos() {
@@ -967,6 +992,7 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     }
 
     private void setaJCB() {
+
         jtfDataFundacao.getDateEditor().setDate(fornecedor.getDataFuncacao());
         jtfCodigo.setText(fornecedor.getCodigo().toString());
         if (fornecedor.getPessoa().getSexo().equals("F")) {
@@ -974,6 +1000,6 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         } else {
             jcbSexo.setSelectedIndex(1);
         }
-        
+
     }
 }

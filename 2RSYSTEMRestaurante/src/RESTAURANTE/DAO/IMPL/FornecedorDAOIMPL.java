@@ -46,7 +46,7 @@ public class FornecedorDAOIMPL implements FornecedorDAO {
     @Override
     public void alterar(Fornecedor fornecedor) {
         Connection con = new Conexao().criarConexao();
-        String sql = "update fornecedor set razaoSocial = ?, cnpj = ?, inscEstadual = ?, dataFundacao = ?"
+        String sql = "update fornecedor set razaoSocial = ?, cnpj = ?, inscEstadual = ?, dataFundacao = ?,"
                 + "dataCadastro = ?, pessoa_codigo = ?"
                 + " where codigo = ?";
         try {

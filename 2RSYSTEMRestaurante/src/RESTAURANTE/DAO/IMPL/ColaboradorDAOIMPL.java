@@ -95,7 +95,6 @@ public class ColaboradorDAOIMPL implements ColaboradorDAO {
             stmt.executeUpdate();
         } catch (SQLException ex) {
         }
-
     }
 
     @Override

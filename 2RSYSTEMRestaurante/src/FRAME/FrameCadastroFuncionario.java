@@ -44,7 +44,8 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         setcodigos();
         jtbColaboradores.setAutoResizeMode(jtbColaboradores.AUTO_RESIZE_OFF);  
         jtbColaboradores.getColumnModel().getColumn(0).setPreferredWidth(75);  
-        jtbColaboradores.getColumnModel().getColumn(1).setPreferredWidth(686);
+        jtbColaboradores.getColumnModel().getColumn(1).setPreferredWidth(500);
+        jtbColaboradores.getColumnModel().getColumn(2).setPreferredWidth(186);
     }
 
     @SuppressWarnings("unchecked")
@@ -166,13 +167,17 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(153, 153, 153));
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${colaboradores}");
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbColaboradores);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jtbColaboradores, "");
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
         columnBinding.setColumnName("Codigo");
         columnBinding.setColumnClass(Integer.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pessoa.nome}"));
-        columnBinding.setColumnName("Pessoa");
+        columnBinding.setColumnName("Nome");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${grupoColaborador.descricao}"));
+        columnBinding.setColumnName("Setor");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
@@ -236,7 +241,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                     .add(jtfPesquisar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jbtPesquisar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jbtDetalhar)
                 .addContainerGap())
@@ -565,7 +570,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel34))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 82, Short.MAX_VALUE)
+                .add(31, 31, 31)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel19)
                     .add(jLabel18))
@@ -635,7 +640,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                                 .add(jcbfuncao, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jtfDataContratação, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(jtfDataDemissão, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(21, 21, 21))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jtbpcolaboradores.addTab("Cadastro", jPanel3);
@@ -670,8 +675,8 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jLabel1)
                 .add(18, 18, 18)
-                .add(jtbpcolaboradores, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 17, Short.MAX_VALUE)
+                .add(jtbpcolaboradores, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 489, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 47, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jbtSalvar)
                     .add(jbtExcluir)
@@ -688,6 +693,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
+        jbtSalvar.setEnabled(true);
         novoColaborador();
         limpacampodatas();
         jcbSexo.setSelectedIndex(0);
@@ -771,30 +777,55 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
         setColaborador(colaboradores.get(jtbColaboradores.getSelectedRow()));
         setaJCB();
+        jbtSalvar.setEnabled(false);
         jtbpcolaboradores.setSelectedIndex(1);
     }//GEN-LAST:event_jbtDetalharActionPerformed
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        colaboradorDao.remover(colaborador);
-        pessoaDao.remover(colaborador.getPessoa());
-        enderecoDao.remover(colaborador.getPessoa().getEndereco_codigo());
-        novoColaborador();
-        limpacampodatas();
-        jcbSexo.setSelectedIndex(0);
-        jcbfuncao.setSelectedIndex(0);
-        jcbUF.setSelectedIndex(0);
-        jcbCidade.setSelectedIndex(0);
-        atualizaTabela();
+         try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente excluir este Colaborador ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                colaboradorDao.remover(colaborador);
+                pessoaDao.remover(colaborador.getPessoa());
+                enderecoDao.remover(colaborador.getPessoa().getEndereco_codigo());
+                novoColaborador();
+                limpacampodatas();
+                jcbSexo.setSelectedIndex(0);
+                jcbfuncao.setSelectedIndex(0);
+                jcbUF.setSelectedIndex(0);
+                jcbCidade.setSelectedIndex(0);
+                atualizaTabela();
+                jbtSalvar.setEnabled(true);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_jbtExcluirActionPerformed
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
-        enderecoDao.alterar(colaborador.getPessoa().getEndereco_codigo());
-        pessoaDao.alterar(colaborador.getPessoa());
-        colaboradorDao.alterar(colaborador);
-        atualizaTabela();
+         try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente fazer esta auteração ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                 enderecoDao.alterar(colaborador.getPessoa().getEndereco_codigo());
+                pessoaDao.alterar(colaborador.getPessoa());
+                colaboradorDao.alterar(colaborador);
+                atualizaTabela();
+                jbtSalvar.setEnabled(true);
+                JOptionPane.showMessageDialog(rootPane, "Alterado com sucesso!");
+                
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+       
     }//GEN-LAST:event_jbtEditarActionPerformed
     private void jtbColaboradoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbColaboradoresMouseClicked
         if (evt.getClickCount() == 2) {
             setColaborador(colaboradores.get(jtbColaboradores.getSelectedRow()));
             setaJCB();
+            jbtSalvar.setEnabled(false);
             jtbpcolaboradores.setSelectedIndex(1);
         }
     }//GEN-LAST:event_jtbColaboradoresMouseClicked
