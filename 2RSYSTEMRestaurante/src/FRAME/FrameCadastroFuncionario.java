@@ -785,9 +785,9 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
             jbtExcluir.setVisible(true);
             jbtSalvar.setVisible(true);
             
-            if(!(colaborador.getSalario() == null)){
+            if (!(colaborador.getSalario() == null)) {
                 jbtSalvar.setEnabled(false);
-            }            
+            }           
         }
     }//GEN-LAST:event_jtbpcolaboradoresStateChanged
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
@@ -1018,7 +1018,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         setColaborador(new Colaborador(new Pessoa(new Endereco(new Cidade(new UnidadeFederativa())))));
         setcodigos();
         jbtSalvar.setEnabled(true);
-
     }
 
     private void setcodigos() {

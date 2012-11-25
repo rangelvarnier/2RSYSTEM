@@ -253,13 +253,15 @@ public class FrameCadastroUsuarios extends javax.swing.JFrame {
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
         try {
-
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente excluir este Usuário ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
             usuarioDao.remover(usuario);
             novoUsuario();
             atualizaTabela();
+        }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Selecione um Usuário a ser Apagado!");
-
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbtExcluirActionPerformed
 

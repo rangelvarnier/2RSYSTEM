@@ -6,6 +6,7 @@ import RESTAURANTE.DAO.IMPL.PessoaDAOIMPL;
 import RESTAURANTE.DAO.PessoaDAO;
 import RESTAURANTE.MODEL.Fornecedor;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 public class FramePesquisaFornecedor extends javax.swing.JDialog {
@@ -164,9 +165,13 @@ public class FramePesquisaFornecedor extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jbtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmarActionPerformed
+        try{
         if (jtbFornecedores.getSelectedRow() != -1) {
             fornecedor = fornecedores.get(jtbFornecedores.getSelectedRow());
             dispose();
+        }
+         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "É preciso adicionar um Fornecedor para que possa fazer a pesquisa");
         }
     }//GEN-LAST:event_jbtConfirmarActionPerformed
 

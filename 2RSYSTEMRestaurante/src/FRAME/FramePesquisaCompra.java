@@ -8,6 +8,7 @@ import RESTAURANTE.DAO.CompraDAO;
 import RESTAURANTE.DAO.IMPL.CompraDAOIMPL;
 import RESTAURANTE.MODEL.Compra;
 import java.util.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -259,9 +260,13 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmarActionPerformed
+    try {
         if (jtbCompras.getSelectedRow() != -1) {
             compra = compras.get(jtbCompras.getSelectedRow());
             dispose();
+        }
+         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "É preciso realizar uma Compra para que possa fazer a pesquisa");
         }
     }//GEN-LAST:event_jbtConfirmarActionPerformed
 

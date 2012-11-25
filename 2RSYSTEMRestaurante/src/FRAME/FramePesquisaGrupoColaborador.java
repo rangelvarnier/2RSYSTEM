@@ -5,6 +5,7 @@ import RESTAURANTE.DAO.GrupoColaboradorDAO;
 import RESTAURANTE.DAO.IMPL.GrupoColaboradorDAOIMPL;
 import RESTAURANTE.MODEL.GrupoColaborador;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 public class FramePesquisaGrupoColaborador extends javax.swing.JDialog {
@@ -151,9 +152,13 @@ public class FramePesquisaGrupoColaborador extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jbtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmarActionPerformed
+        try{
         if (jtbGrupoColaboradores.getSelectedRow() != -1) {
             grupoColaborador = grupoColaboradores.get(jtbGrupoColaboradores.getSelectedRow());
             dispose();
+        }
+         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "É preciso adicionar um Grupo de Colaborador para que possa fazer a pesquisa");
         }
     }//GEN-LAST:event_jbtConfirmarActionPerformed
 

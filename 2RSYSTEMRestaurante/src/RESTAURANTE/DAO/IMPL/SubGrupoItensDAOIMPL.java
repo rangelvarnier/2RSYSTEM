@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -165,5 +167,28 @@ public class SubGrupoItensDAOIMPL implements SubGrupoItemDAO {
         } catch (SQLException ex) {
         }
         return subGrupoItens;
+    }
+
+    @Override
+    public Integer buscaIdMaio() {
+        Integer idmaior = null;
+        Connection con = new Conexao().criarConexao();
+        String sql = "select max(codigo) as codigo from subgrupoitem";
+        PreparedStatement stmt; 
+        try {
+            stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(); 
+            rs.next(); 
+            idmaior = rs.getInt("codigo"); 
+
+            rs.close(); 
+            stmt.close(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(GrupoItemDAOIMPL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ 
+        return idmaior;
+    
+    
     }
 }

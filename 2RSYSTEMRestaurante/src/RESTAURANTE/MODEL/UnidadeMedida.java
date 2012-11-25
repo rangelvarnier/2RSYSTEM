@@ -58,7 +58,12 @@ public class UnidadeMedida {
     public void setQuantidade(Float quantidade) {
         this.quantidade = quantidade;
     }
-    
+
+    @Override
+    public String toString() {
+        return String.valueOf(codigo);
+    }
+   
     
     
 }

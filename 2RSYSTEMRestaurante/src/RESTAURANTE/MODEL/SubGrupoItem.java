@@ -44,4 +44,10 @@ public class SubGrupoItem {
     public void setGrupoItem(GrupoItem grupoItem) {
         this.grupoItem = grupoItem;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(codigo);
+    }
+    
 }

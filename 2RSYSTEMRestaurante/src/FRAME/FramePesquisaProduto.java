@@ -17,6 +17,7 @@ import RESTAURANTE.MODEL.Produto;
 import RESTAURANTE.MODEL.SubGrupoItem;
 import RESTAURANTE.MODEL.UnidadeMedida;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 public class FramePesquisaProduto extends javax.swing.JDialog {
@@ -168,9 +169,13 @@ public class FramePesquisaProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jbtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmarActionPerformed
+       try{
         if (jtbProdutos.getSelectedRow() != -1) {
             produto = produtos.get(jtbProdutos.getSelectedRow());
             dispose();
+        }
+         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "É preciso adicionar um Produto para que possa fazer a pesquisa");
         }
     }//GEN-LAST:event_jbtConfirmarActionPerformed
 

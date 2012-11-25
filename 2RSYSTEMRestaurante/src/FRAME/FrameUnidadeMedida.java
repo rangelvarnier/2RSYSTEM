@@ -8,6 +8,7 @@ import RESTAURANTE.DAO.IMPL.UnidadeMedidaDAOIMPL;
 import RESTAURANTE.DAO.UnidadeMedidaDAO;
 import RESTAURANTE.MODEL.UnidadeMedida;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
@@ -22,16 +23,17 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
     public FrameUnidadeMedida() {
         initComponents();
         setLocation(200, 100);
-        novaUnidadeMedida();
+
         unidadeMedidaDao = new UnidadeMedidaDAOIMPL();
+        novaUnidadeMedida();
         atualizaTabela();
-        jtbUnidadeMedida.setAutoResizeMode(jtbUnidadeMedida.AUTO_RESIZE_OFF);  
-        jtbUnidadeMedida.getColumnModel().getColumn(0).setPreferredWidth(70);  
+        jtbUnidadeMedida.setAutoResizeMode(jtbUnidadeMedida.AUTO_RESIZE_OFF);
+        jtbUnidadeMedida.getColumnModel().getColumn(0).setPreferredWidth(70);
         jtbUnidadeMedida.getColumnModel().getColumn(1).setPreferredWidth(240);
         jtbUnidadeMedida.getColumnModel().getColumn(2).setPreferredWidth(69);
         jtbUnidadeMedida.getColumnModel().getColumn(3).setPreferredWidth(100);
         jtbUnidadeMedida.getColumnModel().getColumn(4).setPreferredWidth(100);
-        
+
     }
 
     /**
@@ -144,7 +146,7 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -174,7 +176,7 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel2.setText("Código");
+        jLabel2.setText("*Código");
 
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -182,7 +184,7 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel3.setText("Descrição");
+        jLabel3.setText("*Descrição");
 
         jtfDescricaoGrupo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -190,13 +192,13 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel4.setText("Sigla");
+        jLabel4.setText("*Sigla");
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${unidadeMedida.sigla}"), jtfSigla, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel5.setText("Fragmenta quantidade");
+        jLabel5.setText("*Fragmenta quantidade");
 
         jcbFragmentaQtd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbFragmentaQtd.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sim", "Não" }));
@@ -207,7 +209,7 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel6.setText("Quantidade");
+        jLabel6.setText("*Quantidade");
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${unidadeMedida.quantidade}"), jtfQuantidade, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
@@ -222,7 +224,6 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfDescricaoGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -232,8 +233,9 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jcbFragmentaQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(334, Short.MAX_VALUE))
+                            .addComponent(jcbFragmentaQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jtfDescricaoGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(308, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +326,7 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jtbpUnidadeMedida))
+                    .addComponent(jtbpUnidadeMedida, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -354,21 +356,24 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
             setUnidadeMedida(unidadesDeMedidas.get(jtbUnidadeMedida.getSelectedRow()));
             setaFragmentaqtd();
             jtbpUnidadeMedida.setSelectedIndex(1);
+            jbtSalvar.setEnabled(false);
         }
     }//GEN-LAST:event_jtbUnidadeMedidaMouseClicked
-    
+
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
         setUnidadesDeMedidas(unidadeMedidaDao.buscaPorDescricao(jtfPesquisar.getText()));
         jtbUnidadeMedida.addRowSelectionInterval(0, 0);
     }//GEN-LAST:event_jbtPesquisarActionPerformed
-    
+
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
         setUnidadeMedida(unidadesDeMedidas.get(jtbUnidadeMedida.getSelectedRow()));
         setaFragmentaqtd();
         jtbpUnidadeMedida.setSelectedIndex(1);
+        jbtSalvar.setEnabled(false);
     }//GEN-LAST:event_jbtDetalharActionPerformed
-    
+
     private void jtbpUnidadeMedidaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpUnidadeMedidaStateChanged
+
         if (jtbpUnidadeMedida.getSelectedIndex() == 0) {
             jbtEditar.setVisible(false);
             jbtExcluir.setVisible(false);
@@ -377,40 +382,67 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
             jbtSalvar.setVisible(true);
             jbtEditar.setVisible(true);
             jbtExcluir.setVisible(true);
+            if (!(unidadeMedida.getDescricao() == null)) {
+                jbtSalvar.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_jtbpUnidadeMedidaStateChanged
-    
+
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
         novaUnidadeMedida();
         jtbpUnidadeMedida.setSelectedIndex(1);
     }//GEN-LAST:event_jbtNovoActionPerformed
-    
+
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-        getSelectetCbxFragmentaQtg();
-        unidadeMedidaDao.inserir(unidadeMedida);
-        novaUnidadeMedida();
-        atualizaTabela();
-        
+        try {
+            if (unidadeMedida.getDescricao() == null) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
+            } else {
+                getSelectetCbxFragmentaQtg();
+                unidadeMedidaDao.inserir(unidadeMedida);
+                novaUnidadeMedida();
+                atualizaTabela();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
+        }
+
     }//GEN-LAST:event_jbtSalvarActionPerformed
-    
+
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
-        getSelectetCbxFragmentaQtg();
-        unidadeMedidaDao.alterar(unidadeMedida);
-        novaUnidadeMedida();
-        atualizaTabela();
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente fazer esta auteração ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                getSelectetCbxFragmentaQtg();
+                unidadeMedidaDao.alterar(unidadeMedida);
+                novaUnidadeMedida();
+                atualizaTabela();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbtEditarActionPerformed
-    
+
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        getSelectetCbxFragmentaQtg();
-        unidadeMedidaDao.remover(unidadeMedida);
-        novaUnidadeMedida();
-        atualizaTabela();
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente excluir esta Unidade de Medida ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                getSelectetCbxFragmentaQtg();
+                unidadeMedidaDao.remover(unidadeMedida);
+                novaUnidadeMedida();
+                atualizaTabela();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbtExcluirActionPerformed
-    
+
     private void jbtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSairActionPerformed
         dispose();
     }//GEN-LAST:event_jbtSairActionPerformed
-    
+
     private void jcbFragmentaQtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbFragmentaQtdActionPerformed
     }//GEN-LAST:event_jcbFragmentaQtdActionPerformed
 
@@ -449,7 +481,6 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
             public void run() {
                 new FrameUnidadeMedida().setVisible(true);
             }
@@ -485,27 +516,27 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
     private UnidadeMedida unidadeMedida;
     private UnidadeMedidaDAO unidadeMedidaDao;
     private List<UnidadeMedida> unidadesDeMedidas;
-    
+
     public UnidadeMedida getUnidadeMedida() {
         return unidadeMedida;
     }
-    
+
     public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
         UnidadeMedida unVelho = this.unidadeMedida;
         this.unidadeMedida = unidadeMedida;
         firePropertyChange("unidadeMedida", unVelho, this.unidadeMedida);
     }
-    
+
     public List<UnidadeMedida> getUnidadesDeMedidas() {
         return unidadesDeMedidas;
     }
-    
+
     public void setUnidadesDeMedidas(List<UnidadeMedida> unidadesDeMedidas) {
         List<UnidadeMedida> unVelho = this.unidadesDeMedidas;
         this.unidadesDeMedidas = ObservableCollections.observableList(unidadesDeMedidas);
         firePropertyChange("unidadesDeMedidas", unVelho, this.unidadesDeMedidas);
     }
-    
+
     private void atualizaTabela() {
         setUnidadesDeMedidas(unidadeMedidaDao.buscarTodos());
         if (unidadeMedidaDao.buscarTodos().isEmpty()) {
@@ -513,11 +544,13 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
             jtbUnidadeMedida.addRowSelectionInterval(0, 0);
         }
     }
-    
+
     private void novaUnidadeMedida() {
         setUnidadeMedida(new UnidadeMedida());
+        setcodigos();
+        jbtSalvar.setEnabled(true);
     }
-    
+
     private void setaFragmentaqtd() {
         if (unidadeMedida.getFragmentaQtd().equals(true)) {
             jcbFragmentaQtd.setSelectedIndex(0);
@@ -525,13 +558,22 @@ public class FrameUnidadeMedida extends javax.swing.JFrame {
             jcbFragmentaQtd.setSelectedIndex(1);
         }
     }
-    
+
     private void getSelectetCbxFragmentaQtg() {
         if (jcbFragmentaQtd.getSelectedIndex() == 0) {
             unidadeMedida.setFragmentaQtd(true);
         } else {
             unidadeMedida.setFragmentaQtd(false);
         }
-        
+
+    }
+
+    private void setcodigos() {
+        if (unidadeMedidaDao.buscaIdMaio() == null) {
+            unidadeMedida.setCodigo(1);
+        } else {
+            unidadeMedida.setCodigo(unidadeMedidaDao.buscaIdMaio() + 1);
+        }
+        jtfCodigo.setText(unidadeMedida.getCodigo().toString());
     }
 }

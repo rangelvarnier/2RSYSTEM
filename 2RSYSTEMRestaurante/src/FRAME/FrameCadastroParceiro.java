@@ -242,7 +242,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                     .add(jbtPesquisar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 306, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 34, Short.MAX_VALUE)
                 .add(jbtDetalhar)
                 .addContainerGap())
         );
@@ -278,7 +278,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel21.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel21.setText("Sexo");
+        jLabel21.setText("*Sexo");
 
         jLabel22.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel22.setText("RG/Insc.Estadual");
@@ -295,10 +295,10 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         jLabel25.setText("E-mail");
 
         jLabel19.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel19.setText("Nome");
+        jLabel19.setText("*Nome");
 
         jLabel24.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel24.setText("Cidade");
+        jLabel24.setText("*Cidade");
 
         jtfBairro.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -312,10 +312,10 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         });
 
         jLabel26.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel26.setText("Rua");
+        jLabel26.setText("*Rua");
 
         jLabel27.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel27.setText("Bairro");
+        jLabel27.setText("*Bairro");
 
         jtfRua.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -329,7 +329,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         });
 
         jLabel28.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel28.setText("Número");
+        jLabel28.setText("*Número");
 
         jtfNumero.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -343,7 +343,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         });
 
         jLabel29.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel29.setText("CEP");
+        jLabel29.setText("*CEP");
 
         jcbCidade.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jcbCidade.setRenderer(new ComboBoxCidade());
@@ -354,10 +354,10 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         });
 
         jLabel30.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel30.setText("UF");
+        jLabel30.setText("*UF");
 
         jLabel18.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel18.setText("CPF/CNPJ");
+        jLabel18.setText("*CPF/CNPJ");
 
         try {
             jtfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -421,10 +421,10 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         });
 
         jLabel32.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel32.setText("Pessoa");
+        jLabel32.setText("*Pessoa");
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel4.setText("Codigo");
+        jLabel4.setText("*Codigo");
 
         jtfCodigo.setEditable(false);
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -475,7 +475,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel3Layout.createSequentialGroup()
                                 .add(jLabel3)
-                                .add(0, 117, Short.MAX_VALUE))
+                                .add(0, 118, Short.MAX_VALUE))
                             .add(jtfSaldo)))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -722,10 +722,10 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
 
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
         var = jcbUF.getSelectedIndex() + 1;
-    //    parceiro.getPessoa()
-    //            .getEndereco_codigo()
-    //            .getCidade_codigo()
-    //            .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
+        //    parceiro.getPessoa()
+        //            .getEndereco_codigo()
+        //            .getCidade_codigo()
+        //            .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
         atualizaCBCidade();
 
     }//GEN-LAST:event_jcbUFActionPerformed
@@ -739,65 +739,95 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbSexoActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-        try {
-            parceiro.setDataNascimento(jtfDataNacimento.getDate());
-            parceiro.setDataCadastro(new Date());
-            enderecoDao.inserir(parceiro.getPessoa().getEndereco_codigo());
-            if (jcbTipoPessoa.getSelectedIndex() == 0) {
-                parceiro.setTipoPessoa("F");
-            } else {
-                parceiro.setTipoPessoa("J");
-            }
-            pessoaDao.inserir(parceiro.getPessoa());
-            parceiroDao.inserir(parceiro);
-            atualizaTabela();
-            limpacampodatas();
-            jcbSexo.setSelectedIndex(0);
-            jcbTipoPessoa.setSelectedIndex(0);
-            jcbUF.setSelectedIndex(0);
-            jcbCidade.setSelectedIndex(0);
-            novoParceiro();
 
+        try {
+            if (parceiro.getCpf() == null
+                    || parceiro.getCpf() == null
+                    || parceiro.getDataCadastro() == null
+                    || parceiro.getPessoa().getNome() == null
+                    || parceiro.getPessoa().getSexo() == null
+                    || parceiro.getPessoa().getEndereco_codigo().getBairro() == null
+                    || parceiro.getPessoa().getEndereco_codigo().getRua() == null
+                    || parceiro.getPessoa().getEndereco_codigo().getNumero() == null
+                    || parceiro.getPessoa().getEndereco_codigo().getCep() == null
+                    || parceiro.getPessoa().getEndereco_codigo().getCidade_codigo().getUnidadeFederativa_codigo().getSigla() == null) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
+            } else {
+                parceiro.setDataNascimento(jtfDataNacimento.getDate());
+                parceiro.setDataCadastro(new Date());
+                enderecoDao.inserir(parceiro.getPessoa().getEndereco_codigo());
+                if (jcbTipoPessoa.getSelectedIndex() == 0) {
+                    parceiro.setTipoPessoa("F");
+                } else {
+                    parceiro.setTipoPessoa("J");
+                }
+                pessoaDao.inserir(parceiro.getPessoa());
+                parceiroDao.inserir(parceiro);
+                atualizaTabela();
+                limpacampodatas();
+                jcbSexo.setSelectedIndex(0);
+                jcbTipoPessoa.setSelectedIndex(0);
+                jcbUF.setSelectedIndex(0);
+                jcbCidade.setSelectedIndex(0);
+                novoParceiro();
+
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Alguns campos do cadastro ainda não foram preenchidos!");
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
         }
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
-        enderecoDao.alterar(parceiro.getPessoa().getEndereco_codigo());
-        pessoaDao.alterar(parceiro.getPessoa());
-        parceiroDao.alterar(parceiro);
-        atualizaTabela();
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente fazer esta auteração ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                enderecoDao.alterar(parceiro.getPessoa().getEndereco_codigo());
+                pessoaDao.alterar(parceiro.getPessoa());
+                parceiroDao.alterar(parceiro);
+                atualizaTabela();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbtEditarActionPerformed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        parceiroDao.remover(parceiro);
-        pessoaDao.remover(parceiro.getPessoa());
-        enderecoDao.remover(parceiro.getPessoa().getEndereco_codigo());
-        novoParceiro();
-        limpacampodatas();
-        jcbSexo.setSelectedIndex(0);
-        jcbTipoPessoa.setSelectedIndex(0);
-        jcbUF.setSelectedIndex(0);
-        jcbCidade.setSelectedIndex(0);
-        atualizaTabela();
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente excluir este Parceiro ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                parceiroDao.remover(parceiro);
+                pessoaDao.remover(parceiro.getPessoa());
+                enderecoDao.remover(parceiro.getPessoa().getEndereco_codigo());
+                novoParceiro();
+                limpacampodatas();
+                jcbSexo.setSelectedIndex(0);
+                jcbTipoPessoa.setSelectedIndex(0);
+                jcbUF.setSelectedIndex(0);
+                jcbCidade.setSelectedIndex(0);
+                atualizaTabela();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
-  //      try {
-            setParceiro(parceiros.get(jtbParceiros.getSelectedRow()));
-            setaJCB();
+        try {
+        setParceiro(parceiros.get(jtbParceiros.getSelectedRow()));
+        setaJCB();
             jbtSalvar.setEnabled(false);
-            jtbpParceiros.setSelectedIndex(1);
+        jtbpParceiros.setSelectedIndex(1);
 
-            setaJcbUF();
-            setaJcbCidade();
+        setaJcbUF();
+        setaJcbCidade();
 
 
-            
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(rootPane, "Favor Selecione um Fornecedor para Detalhar.");
-//        }
+
+          } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Por favor para poder detalhar é preciso cadastrar um Parceiro.");
+        }
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
     private void jtbParceirosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbParceirosMouseClicked
@@ -995,6 +1025,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     private void novoParceiro() {
         setParceiro(new Parceiro(new Pessoa(new Endereco(new Cidade(new UnidadeFederativa())))));
         setcodigos();
+        jbtSalvar.setEnabled(true);
 
     }
 

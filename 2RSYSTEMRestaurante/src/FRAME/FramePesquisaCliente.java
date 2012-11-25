@@ -8,6 +8,7 @@ import RESTAURANTE.DAO.PessoaDAO;
 import RESTAURANTE.MODEL.Colaborador;
 import RESTAURANTE.MODEL.Parceiro;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 public class FramePesquisaCliente extends javax.swing.JDialog {
@@ -162,10 +163,15 @@ public class FramePesquisaCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jbtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmarActionPerformed
-        if (jtbParceiros.getSelectedRow() != -1) {
-            parceiro = parceiros.get(jtbParceiros.getSelectedRow());
-            dispose();
+        try {
+             if (jtbParceiros.getSelectedRow() != -1) {
+                parceiro = parceiros.get(jtbParceiros.getSelectedRow());
+                dispose();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "É preciso adicionar um parceiro para que possa fazer a pesquisa");
         }
+       
     }//GEN-LAST:event_jbtConfirmarActionPerformed
 
     private void jtbParceirosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbParceirosMouseClicked

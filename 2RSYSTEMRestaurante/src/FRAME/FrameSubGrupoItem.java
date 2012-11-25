@@ -1,4 +1,4 @@
-  package FRAME;
+package FRAME;
 
 import RESTAURANTE.DAO.GrupoItemDAO;
 import RESTAURANTE.DAO.IMPL.GrupoItemDAOIMPL;
@@ -8,6 +8,7 @@ import RESTAURANTE.DAO.UTIL.ComboBoxGrupoItem;
 import RESTAURANTE.MODEL.GrupoItem;
 import RESTAURANTE.MODEL.SubGrupoItem;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 public class FrameSubGrupoItem extends javax.swing.JFrame {
@@ -15,13 +16,14 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
     public FrameSubGrupoItem() {
         initComponents();
         setLocation(200, 100);
-        novoSubgrupo();
+
         grupoItemDao = new GrupoItemDAOIMPL();
         subGrupoItemDao = new SubGrupoItensDAOIMPL();
+        novoSubgrupo();
         atualizaTabela();
         atualizaComboBoxGrupoItem();
-        jtbSubGrupoItem.setAutoResizeMode(jtbSubGrupoItem.AUTO_RESIZE_OFF);  
-        jtbSubGrupoItem.getColumnModel().getColumn(0).setPreferredWidth(100);  
+        jtbSubGrupoItem.setAutoResizeMode(jtbSubGrupoItem.AUTO_RESIZE_OFF);
+        jtbSubGrupoItem.getColumnModel().getColumn(0).setPreferredWidth(100);
         jtbSubGrupoItem.getColumnModel().getColumn(1).setPreferredWidth(353);
         jtbSubGrupoItem.getColumnModel().getColumn(2).setPreferredWidth(121);
     }
@@ -189,7 +191,7 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel2.setText("Código");
+        jLabel2.setText("*Código");
 
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -197,7 +199,7 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel3.setText("Descrição");
+        jLabel3.setText("*Descrição");
 
         jtfDescricaoSubGrupo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -212,7 +214,7 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel4.setText("Grupo de Item");
+        jLabel4.setText("*Grupo de Item");
 
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -307,6 +309,7 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
         setSubGrupoItem(subGrupoItens.get(jtbSubGrupoItem.getSelectedRow()));
         setaGrupoJCBGrupoItem();
         jtbpSubGrupoItem.setSelectedIndex(1);
+        jbtSalvar.setEnabled(false);
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
     private void jtbpSubGrupoItemStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpSubGrupoItemStateChanged
@@ -318,24 +321,54 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
             jbtSalvar.setVisible(true);
             jbtAlterar.setVisible(true);
             jbtExcluir.setVisible(true);
+            if (!(subGrupoItem.getDescricao() == null)) {
+                jbtSalvar.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_jtbpSubGrupoItemStateChanged
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-        subGrupoItemDao.inserir(subGrupoItem);
-        novoSubgrupo();
-        atualizaTabela();
+        try {
+            if (subGrupoItem.getDescricao() == null
+                    || subGrupoItem.getGrupoItem() == null) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
+            } else {
+                subGrupoItemDao.inserir(subGrupoItem);
+                novoSubgrupo();
+                atualizaTabela();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
+        }
+
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jbtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAlterarActionPerformed
-        subGrupoItemDao.alterar(subGrupoItem);
-        atualizaTabela();
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente fazer esta auteração ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                subGrupoItemDao.alterar(subGrupoItem);
+                atualizaTabela();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbtAlterarActionPerformed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        subGrupoItemDao.remover(subGrupoItem);
-        novoSubgrupo();
-        atualizaTabela();
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente excluir este Sub Grupo ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                subGrupoItemDao.remover(subGrupoItem);
+                novoSubgrupo();
+                atualizaTabela();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
@@ -352,6 +385,7 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
             setSubGrupoItem(subGrupoItens.get(jtbSubGrupoItem.getSelectedRow()));
             setaGrupoJCBGrupoItem();
             jtbpSubGrupoItem.setSelectedIndex(1);
+            jbtSalvar.setEnabled(false);
         }
 
     }//GEN-LAST:event_jtbSubGrupoItemMouseClicked
@@ -449,6 +483,8 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
 
     private void novoSubgrupo() {
         setSubGrupoItem(new SubGrupoItem(new GrupoItem()));
+        setcodigos();
+        jbtSalvar.setEnabled(true);
     }
 
     private void atualizaComboBoxGrupoItem() {
@@ -462,9 +498,18 @@ public class FrameSubGrupoItem extends javax.swing.JFrame {
             jcbGrupoItem.setSelectedIndex(0);
         }
     }
-    
+
     //metodo pega um objeto e seleciona no comboBox
     private void setaGrupoJCBGrupoItem() {
         jcbGrupoItem.getModel().setSelectedItem(subGrupoItem.getGrupoItem());
+    }
+
+    private void setcodigos() {
+        if (subGrupoItemDao.buscaIdMaio() == null) {
+            subGrupoItem.setCodigo(1);
+        } else {
+            subGrupoItem.setCodigo(subGrupoItemDao.buscaIdMaio() + 1);
+        }
+        jtfCodigo.setText(subGrupoItem.getCodigo().toString());
     }
 }

@@ -181,7 +181,7 @@ public class FrameRelatorioColaboradores extends javax.swing.JFrame {
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
                 //Chama visualizador do relatório
                 JasperViewer.viewReport(jasperPrint, false);
-                dispose();
+                
             } else {
                 List<Colaborador> dados = dao.buscarParametrosRelatorio(grupoColaborador.getCodigo());
                 JRDataSource datasource = new JRBeanCollectionDataSource(dados);
@@ -189,7 +189,7 @@ public class FrameRelatorioColaboradores extends javax.swing.JFrame {
                 JasperReport jasperReport = JasperCompileManager.compileReport(jasper);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
                 JasperViewer.viewReport(jasperPrint, false);
-                dispose();
+                
             }
         } catch (JRException ex) {
             System.out.println("Filtro não encontrado" + ex.getMessage());

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class FramePesquisaVenda extends javax.swing.JDialog {
 
@@ -250,9 +251,13 @@ public class FramePesquisaVenda extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmarActionPerformed
+       try{
         if (jtbVendas.getSelectedRow() != -1) {
             venda = vendas.get(jtbVendas.getSelectedRow());
             dispose();
+        }
+         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "É preciso fazer uma Venda para que possa fazer a pesquisa");
         }
     }//GEN-LAST:event_jbtConfirmarActionPerformed
 
