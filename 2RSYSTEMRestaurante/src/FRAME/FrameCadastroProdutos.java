@@ -16,12 +16,13 @@ import RESTAURANTE.DAO.UnidadeMedidaDAO;
 import RESTAURANTE.MODEL.*;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 public class FrameCadastroProdutos extends javax.swing.JFrame {
 
     public FrameCadastroProdutos() {
-        initComponents();        
+        initComponents();
         setLocation(200, 100);
         novoProduto();
         produtoDao = new ProdutoDAOIMPL();
@@ -32,9 +33,9 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
         atualizaTabela();
         atualizaComponentes();
         setaCodigos();
-        jtbProdutos.setAutoResizeMode(jtbProdutos.AUTO_RESIZE_OFF);  
-        jtbProdutos.getColumnModel().getColumn(0).setPreferredWidth(75);  
-        jtbProdutos.getColumnModel().getColumn(1).setPreferredWidth(690); 
+        jtbProdutos.setAutoResizeMode(jtbProdutos.AUTO_RESIZE_OFF);
+        jtbProdutos.getColumnModel().getColumn(0).setPreferredWidth(75);
+        jtbProdutos.getColumnModel().getColumn(1).setPreferredWidth(690);
     }
 
     @SuppressWarnings("unchecked")
@@ -474,34 +475,65 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
             jbtSalvar.setVisible(false);
         } else {
             jbtSalvar.setVisible(true);
-            jbtDetalhar.setVisible(true);
             jbtEditar.setVisible(true);
             jbtExcluir.setVisible(true);
-            jbtNovo.setVisible(true);
+            if (!(produto.getCodigoFabrica() == null)) {
+                jbtSalvar.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_jtbpProdutosStateChanged
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-        produtoDao.inserir(produto);
-        novoProduto();
-        atualizaTabela();
-        atualizaComponentes();
-        setaCodigos();
+        try {
+            if (produto.getDescricao() == null
+                    || produto.getCodigoFabrica() == null
+                    || produto.getUnidadeMedida() == null
+                    || produto.getSubGrupoItens() == null
+                    || produto.getFornecedor() == null
+                    || produto.getPrecoVenda() == null
+                    || produto.getUnidadeMedida() == null) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
+            } else {
+                produtoDao.inserir(produto);
+                novoProduto();
+                atualizaTabela();
+                atualizaComponentes();
+                setaCodigos();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
+        }
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
-        produto.setSubGrupoItens((SubGrupoItem) jcbSubGrupo.getSelectedItem());
-        produtoDao.alterar(produto);
-        novoProduto();
-        atualizaTabela();
-        atualizaComponentes();
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente fazer esta auteração ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+
+                produto.setSubGrupoItens((SubGrupoItem) jcbSubGrupo.getSelectedItem());
+                produtoDao.alterar(produto);
+                atualizaTabela();
+                 JOptionPane.showMessageDialog(rootPane, "Alterado com sucesso!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbtEditarActionPerformed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        produtoDao.remover(produto);
-        novoProduto();
-        atualizaTabela();
-        atualizaComponentes();
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente excluir este Produto ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                produtoDao.remover(produto);
+                novoProduto();
+                atualizaTabela();
+                atualizaComponentes();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSairActionPerformed
@@ -517,22 +549,29 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtPesquisarActionPerformed
 
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
+        jcbSubGrupo.removeAllItems();
+        subGrupoItens = null;
         setProduto(produtos.get(jtbProdutos.getSelectedRow()));
         jtbpProdutos.setSelectedIndex(1);
         setaGrupoJCBGrupoItem();
         setaSubGrupoJCBSubGrupoItem();
         setaUNJcbUnidadeMedida();
         jbtSalvar.setEnabled(false);
+        jtfCodigo.setText(produto.getCodigo().toString());
+        
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
     private void jtbProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbProdutosMouseClicked
         if (evt.getClickCount() == 2) {
+            jcbSubGrupo.removeAllItems();
+            subGrupoItens = null;
             setProduto(produtos.get(jtbProdutos.getSelectedRow()));
             jtbpProdutos.setSelectedIndex(1);
             setaGrupoJCBGrupoItem();
             setaSubGrupoJCBSubGrupoItem();
             setaUNJcbUnidadeMedida();
             jbtSalvar.setEnabled(false);
+            jtfCodigo.setText(produto.getCodigo().toString());
         }
     }//GEN-LAST:event_jtbProdutosMouseClicked
 
@@ -587,7 +626,6 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 new FrameCadastroProdutos().setVisible(true);
@@ -758,9 +796,11 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
     private void novoProduto() {
         setProduto(new Produto(new UnidadeMedida(), new SubGrupoItem(new GrupoItem()), new Fornecedor()));
- 
+        jbtSalvar.setEnabled(true);
+        
     }
-    private void setaCodigos(){
+
+    private void setaCodigos() {
         if (produtoDao.buscaIdMaio() == null) {
             produto.setCodigo(1);
         } else {
@@ -769,6 +809,7 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
 
         jtfCodigo.setText(produto.getCodigo().toString());
     }
+
     public void buscaFornecedor() {
         //cria a tela de busca como modal
         FramePesquisaFornecedor tela_busca = new FramePesquisaFornecedor();
@@ -784,4 +825,8 @@ public class FrameCadastroProdutos extends javax.swing.JFrame {
             jtfFornecedor.setText(produto.getFornecedor().getRazaoSocial());
         }
     }
+     public void setacodigos (){
+        jtfCodigo.setText(produto.getCodigo().toString());
+            
+     }
 }

@@ -653,9 +653,8 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
         jcbUF.setSelectedIndex(0);
         jcbCidade.setSelectedIndex(0);
         jtbpFornecedores.setSelectedIndex(1);
-        jbtSalvar.setEnabled(true);
-        jbtEditar.setVisible(false);
-        jbtExcluir.setVisible(false);
+        
+ 
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
@@ -713,6 +712,17 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
         try {
+            if (   fornecedor.getCnpj() == null 
+                || fornecedor.getRazaoSocial() == null 
+                || fornecedor.getPessoa().getNome() == null 
+                || fornecedor.getPessoa().getEndereco_codigo().getBairro() == null
+                || fornecedor.getPessoa().getEndereco_codigo().getRua() == null 
+                || fornecedor.getPessoa().getEndereco_codigo().getNumero() == null
+                || fornecedor.getPessoa().getEndereco_codigo().getCep() == null 
+                || fornecedor.getPessoa().getEndereco_codigo().getCidade_codigo()
+                    .getUnidadeFederativa_codigo().getSigla() == null) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
+            }else{
             fornecedor.setDataCadastro(new Date());
             fornecedor.setDataFuncacao(jtfDataFundacao.getDate());
             enderecoDao.inserir(fornecedor.getPessoa().getEndereco_codigo());
@@ -724,8 +734,9 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
             jcbUF.setSelectedIndex(0);
             jcbCidade.setSelectedIndex(0);
             novoGrupo();
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Alguns campos do cadastro ainda não foram preenchidos!");
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
         }
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
@@ -804,6 +815,9 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
             jbtSalvar.setVisible(true);
             jbtEditar.setVisible(true);
             jbtExcluir.setVisible(true);
+             if(!(fornecedor.getRazaoSocial() == null)){
+                jbtSalvar.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_jtbpFornecedoresStateChanged
 
@@ -961,6 +975,7 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     }
 
     private void novoGrupo() {
+        jbtSalvar.setEnabled(true);
         setFornecedor(new Fornecedor(new Pessoa(new Endereco(new Cidade(new UnidadeFederativa())))));
         setcodigos();
 

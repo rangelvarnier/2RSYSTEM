@@ -185,7 +185,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jScrollPane1" pref="755" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" pref="762" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -212,7 +212,7 @@
                           <Component id="jbtPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="284" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="269" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jbtDetalhar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -443,7 +443,7 @@
                           <Component id="jtfPrecoCompra" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jtfPrecoVenda" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="102" max="32767" attributes="0"/>
+                      <EmptySpace pref="69" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

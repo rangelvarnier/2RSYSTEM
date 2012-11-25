@@ -4,6 +4,7 @@ import RESTAURANTE.DAO.GrupoColaboradorDAO;
 import RESTAURANTE.DAO.IMPL.GrupoColaboradorDAOIMPL;
 import RESTAURANTE.MODEL.GrupoColaborador;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 public class FrameCadastroGrupoColaborador extends javax.swing.JFrame {
@@ -14,8 +15,8 @@ public class FrameCadastroGrupoColaborador extends javax.swing.JFrame {
         grupoColaboradorDao = new GrupoColaboradorDAOIMPL();
         novoGrupo();
         atualizaTabela();
-        jtbGrupoColaborador.setAutoResizeMode(jtbGrupoColaborador.AUTO_RESIZE_OFF);  
-        jtbGrupoColaborador.getColumnModel().getColumn(0).setPreferredWidth(75);  
+        jtbGrupoColaborador.setAutoResizeMode(jtbGrupoColaborador.AUTO_RESIZE_OFF);
+        jtbGrupoColaborador.getColumnModel().getColumn(0).setPreferredWidth(75);
         jtbGrupoColaborador.getColumnModel().getColumn(1).setPreferredWidth(474);
 
     }
@@ -31,17 +32,17 @@ public class FrameCadastroGrupoColaborador extends javax.swing.JFrame {
         jbtSalvar = new javax.swing.JButton();
         jbtNovo = new javax.swing.JButton();
         jtbpGrupoColaborador = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jtfCodigo = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jtfDescricaoGrupo = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbGrupoColaborador = new javax.swing.JTable();
         jtfPesquisar = new javax.swing.JTextField();
         jbtPesquisar = new javax.swing.JButton();
         jbtDetalhar = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jtfCodigo = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jtfDescricaoGrupo = new javax.swing.JTextField();
         jbtSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -86,61 +87,11 @@ public class FrameCadastroGrupoColaborador extends javax.swing.JFrame {
 
         jtbpGrupoColaborador.setBackground(new java.awt.Color(153, 153, 153));
         jtbpGrupoColaborador.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
-        jtbpGrupoColaborador.setToolTipText("");
         jtbpGrupoColaborador.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jtbpGrupoColaboradorStateChanged(evt);
             }
         });
-
-        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
-
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel2.setText("Código");
-
-        jtfCodigo.setEditable(false);
-        jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${grupoColaborador.codigo}"), jtfCodigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel3.setText("Descrição");
-
-        jtfDescricaoGrupo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${grupoColaborador.descricao}"), jtfDescricaoGrupo, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel2)
-                    .add(jLabel3)
-                    .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jtfDescricaoGrupo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 256, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(284, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabel2)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLabel3)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jtfDescricaoGrupo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(179, Short.MAX_VALUE))
-        );
-
-        jtbpGrupoColaborador.addTab("Cadastro", jPanel3);
-        jPanel3.getAccessibleContext().setAccessibleName("");
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -216,6 +167,55 @@ public class FrameCadastroGrupoColaborador extends javax.swing.JFrame {
 
         jtbpGrupoColaborador.addTab("Grupos", jPanel2);
 
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
+
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jLabel2.setText("*Código");
+
+        jtfCodigo.setEditable(false);
+        jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${grupoColaborador.codigo}"), jtfCodigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jLabel3.setText("*Descrição");
+
+        jtfDescricaoGrupo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${grupoColaborador.descricao}"), jtfDescricaoGrupo, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel2)
+                    .add(jLabel3)
+                    .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jtfDescricaoGrupo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 335, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(205, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel2)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jLabel3)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jtfDescricaoGrupo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(179, Short.MAX_VALUE))
+        );
+
+        jtbpGrupoColaborador.addTab("Cadastro", jPanel3);
+        jPanel3.getAccessibleContext().setAccessibleName("");
+
         jbtSair.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtSair.setText("Sair");
         jbtSair.addActionListener(new java.awt.event.ActionListener() {
@@ -277,11 +277,17 @@ public class FrameCadastroGrupoColaborador extends javax.swing.JFrame {
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
         novoGrupo();
         jtbpGrupoColaborador.setSelectedIndex(1);
+        jbtSalvar.setEnabled(true);
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
-        setGrupoColaborador(grupoColaboradores.get(jtbGrupoColaborador.getSelectedRow()));
-        jtbpGrupoColaborador.setSelectedIndex(1);
+        try {
+            setGrupoColaborador(grupoColaboradores.get(jtbGrupoColaborador.getSelectedRow()));
+            jtbpGrupoColaborador.setSelectedIndex(1);
+            jbtSalvar.setEnabled(false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Por favor para poder detalhar é preciso cadastrar um Grupo de Colaborador.");
+        }
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
@@ -293,27 +299,58 @@ public class FrameCadastroGrupoColaborador extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtPesquisarActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-        grupoColaboradorDao.inserir(grupoColaborador);
-        novoGrupo();
-        atualizaTabela();
+        try {
+            if (grupoColaborador.getDescricao() == null) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
+            } else {
+            grupoColaboradorDao.inserir(grupoColaborador);
+            novoGrupo();
+            atualizaTabela(); 
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
+        }
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jtbGrupoColaboradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbGrupoColaboradorMouseClicked
-        if (evt.getClickCount() == 2) {
-            setGrupoColaborador(grupoColaboradores.get(jtbGrupoColaborador.getSelectedRow()));
-            jtbpGrupoColaborador.setSelectedIndex(1);
+        try {
+            if (evt.getClickCount() == 2) {
+                setGrupoColaborador(grupoColaboradores.get(jtbGrupoColaborador.getSelectedRow()));
+                jtbpGrupoColaborador.setSelectedIndex(1);
+                jbtSalvar.setEnabled(false);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Por favor para poder detalhar é preciso cadastrar um Grupo de Colaborador.");
         }
     }//GEN-LAST:event_jtbGrupoColaboradorMouseClicked
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
-        grupoColaboradorDao.remover(grupoColaborador);
-        novoGrupo();
-        atualizaTabela();
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente excluir este Grupo de Colaborador ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                grupoColaboradorDao.remover(grupoColaborador);
+                novoGrupo();
+                atualizaTabela();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
-        grupoColaboradorDao.alterar(grupoColaborador);
-        atualizaTabela();
+        try {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente fazer esta auteração ?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION) == 0) {
+                grupoColaboradorDao.alterar(grupoColaborador);
+                atualizaTabela();
+                JOptionPane.showMessageDialog(rootPane, "Alterado com sucesso!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbtEditarActionPerformed
 
     private void jtbpGrupoColaboradorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbpGrupoColaboradorStateChanged
@@ -325,6 +362,9 @@ public class FrameCadastroGrupoColaborador extends javax.swing.JFrame {
             jbtSalvar.setVisible(true);
             jbtEditar.setVisible(true);
             jbtExcluir.setVisible(true);
+            if(!(grupoColaborador.getDescricao() == null)){
+                jbtSalvar.setEnabled(false);
+            } 
         }
     }//GEN-LAST:event_jtbpGrupoColaboradorStateChanged
 
@@ -422,11 +462,15 @@ public class FrameCadastroGrupoColaborador extends javax.swing.JFrame {
     }
 
     private void novoGrupo() {
+        jbtSalvar.setEnabled(true);
         setGrupoColaborador(new GrupoColaborador());
+        
         if (grupoColaboradorDao.buscarIdMaior() == null) {
             grupoColaborador.setCodigo(1);
         } else {
             grupoColaborador.setCodigo(grupoColaboradorDao.buscarIdMaior() + 1);
         }
+        jtfCodigo.setText(grupoColaborador.getCodigo().toString());
     }
+    
 }

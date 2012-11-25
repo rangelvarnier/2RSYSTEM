@@ -114,7 +114,7 @@ public class GrupoColaboradorDAOIMPL implements GrupoColaboradorDAO {
     public List<GrupoColaborador> buscarPorDescricao(String descricao) {
         List<GrupoColaborador> grupoColaboradores = new ArrayList<GrupoColaborador>();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from grupocolaborador where descricao like ? ";
+        String sql = "select * from grupocolaboradores where descricao like ? ";
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
