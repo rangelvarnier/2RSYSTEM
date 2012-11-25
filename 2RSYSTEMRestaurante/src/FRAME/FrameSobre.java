@@ -22,11 +22,11 @@ public class FrameSobre extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+            .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
         );
 
         pack();
@@ -71,7 +71,7 @@ public class FrameSobre extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     public void inserirlogo() {
         try {
-            jLabel1.setIcon(new ImageIcon("src/IMG/Untitled-1.png"));
+            jLabel1.setIcon(new ImageIcon("src/IMG/logo.png"));
             add(jLabel1);
 
         } catch (Exception e) {

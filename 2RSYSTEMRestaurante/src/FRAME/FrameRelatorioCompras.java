@@ -118,6 +118,11 @@ public class FrameRelatorioCompras extends javax.swing.JFrame {
 
         jchbFiltro.setSelected(true);
         jchbFiltro.setText("Relatório sem Filtro");
+        jchbFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jchbFiltroActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel5.setText("Gerar Filtro por:");
@@ -254,6 +259,12 @@ public class FrameRelatorioCompras extends javax.swing.JFrame {
     private void jtfColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfColaboradorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfColaboradorActionPerformed
+
+    private void jchbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchbFiltroActionPerformed
+        if(jchbFiltro.isSelected()== true)
+            jtfFornecedor.setText(null);
+            jtfColaborador.setText(null);
+    }//GEN-LAST:event_jchbFiltroActionPerformed
 
     /**
      * @param args the command line arguments

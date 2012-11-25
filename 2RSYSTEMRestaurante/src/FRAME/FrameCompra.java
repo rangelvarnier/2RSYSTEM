@@ -236,18 +236,18 @@ public class FrameCompra extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel3.setText("Data Compra");
+        jLabel3.setText("*Data Compra");
 
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel2.setText("Código");
+        jLabel2.setText("*Código");
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel6.setText("Fornecedor");
+        jLabel6.setText("*Fornecedor");
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel7.setText("Colaborador");
+        jLabel7.setText("*Colaborador");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

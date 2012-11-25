@@ -88,7 +88,6 @@ public class FrameVenda extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Venda de Mercadoria");
-        setLocation(new java.awt.Point(200, 100));
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setResizable(false);
 
@@ -116,13 +115,13 @@ public class FrameVenda extends javax.swing.JFrame {
         jpn1.setToolTipText("Cadastro");
 
         jLabel31.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel31.setText("Código");
+        jLabel31.setText("*Código");
 
         jLabel33.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel33.setText("Colaborador");
+        jLabel33.setText("*Colaborador");
 
         jLabel35.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel35.setText("Parceiro");
+        jLabel35.setText("*Parceiro");
 
         jtfCliente.setEditable(false);
         jtfCliente.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -137,7 +136,7 @@ public class FrameVenda extends javax.swing.JFrame {
         });
 
         jLabel37.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel37.setText("Data Venda");
+        jLabel37.setText("*Data Venda");
 
         jtfCodigo.setEditable(false);
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N

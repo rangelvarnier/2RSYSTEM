@@ -118,6 +118,11 @@ public class FrameRelatorioProdutos extends javax.swing.JFrame {
 
         jchbFiltro.setSelected(true);
         jchbFiltro.setText("Relatório sem Filtro");
+        jchbFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jchbFiltroActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel5.setText("Gerar Filtro por:");
@@ -209,6 +214,8 @@ public class FrameRelatorioProdutos extends javax.swing.JFrame {
         try {
 
             if (jchbFiltro.isSelected() == true) {
+                jtfFornecedor.setText(null);
+                jtfSubGrupoItem.setText(null);
                 List<Produto> dados = dao.buscarTodos();
                 JRDataSource datasource = new JRBeanCollectionDataSource(dados);
                 JasperDesign jasper = JRXmlLoader.load("src/REPORT/RelatorioProdutos.jrxml");
@@ -252,6 +259,12 @@ public class FrameRelatorioProdutos extends javax.swing.JFrame {
     private void jtfSubGrupoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSubGrupoItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfSubGrupoItemActionPerformed
+
+    private void jchbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchbFiltroActionPerformed
+        if(jchbFiltro.isSelected()== true)
+            jtfFornecedor.setText(null);
+            jtfSubGrupoItem.setText(null);
+    }//GEN-LAST:event_jchbFiltroActionPerformed
 
     /**
      * @param args the command line arguments

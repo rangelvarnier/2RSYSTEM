@@ -24,7 +24,7 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
     public void inserir(Produto produto) {
         Connection con = new Conexao().criarConexao();
        
-        String sql = "INSERT INTO `2rsitem`.`produto` (`codigo`, `codigoFabrica`,"
+        String sql = "INSERT INTO `produto` (`codigo`, `codigoFabrica`,"
                 + " `descricao`, `precoVenda`, `unidadeMedida_codigo`,"
                 + " `subGrupoItens_codigo`, `fornecedor_codigo`)"
                 + " VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -197,11 +197,19 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
         SubGrupoItemDAO subGrupoItemDao = new SubGrupoItensDAOIMPL();
         FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from produto where fornecedor_codigo = ? and subGrupoItens_codigo = ?;";
+        String sql = "select * from produto where fornecedor_codigo = ? or subGrupoItens_codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, fornecedor);
-            stmt.setInt(2, subgrupoitem);
+            if (fornecedor == null) {
+                stmt.setInt(1, 0);
+            } else {
+                stmt.setInt(1, fornecedor);
+            }
+            if (subgrupoitem == null) {
+                stmt.setInt(2, 0);
+            } else {
+                stmt.setInt(2, subgrupoitem);
+            }
 
             ResultSet rs = stmt.executeQuery();
 
