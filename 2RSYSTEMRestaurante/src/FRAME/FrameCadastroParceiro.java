@@ -242,7 +242,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                     .add(jbtPesquisar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 306, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 19, Short.MAX_VALUE)
                 .add(jbtDetalhar)
                 .addContainerGap())
         );
@@ -346,7 +346,6 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         jLabel29.setText("*CEP");
 
         jcbCidade.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jcbCidade.setRenderer(new ComboBoxCidade());
         jcbCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbCidadeActionPerformed(evt);
@@ -430,7 +429,6 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         jtfCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
         jcbUF.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jcbUF.setRenderer(new ComboBoxUF());
         jcbUF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbUFActionPerformed(evt);
@@ -555,7 +553,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel4)
                     .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 67, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 57, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel19)
                     .add(jLabel18))
@@ -645,7 +643,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                 .add(jLabel1)
                 .add(18, 18, 18)
                 .add(jtbpParceiros, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 84, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jbtSalvar)
                     .add(jbtExcluir)
@@ -819,8 +817,6 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
 
             setaJcbUF();
             setaJcbCidade();
-
-
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Para poder detalhar"
@@ -1009,8 +1005,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         for (UnidadeFederativa un : unidadeFederativas) {
             jcbUF.addItem(un);
         }
-        // jcbUF.setRenderer(new ComboBoxUF());
-        jcbUF.setSelectedIndex(0);
+        jcbUF.setRenderer(new ComboBoxUF());
     }
 
     private void setaJcbUF() {
@@ -1025,7 +1020,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         for (Cidade ci : cidades) {
             jcbCidade.addItem(ci);
         }
-        //jcbCidade.setRenderer(new ComboBoxCidade());
+        jcbCidade.setRenderer(new ComboBoxCidade());
     }
 
     private void setaJcbCidade() {
