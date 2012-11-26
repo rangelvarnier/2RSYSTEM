@@ -715,8 +715,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbTipoPessoaActionPerformed
 
     private void jcbCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCidadeActionPerformed
-        parceiro.getPessoa().getEndereco_codigo()
-                .setCidade_codigo(((Cidade) jcbCidade.getSelectedItem()));
+        parceiro.getPessoa().getEndereco_codigo().setCidade_codigo(((Cidade) jcbCidade.getSelectedItem()));
     }//GEN-LAST:event_jcbCidadeActionPerformed
 
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
@@ -745,8 +744,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                     || parceiro.getPessoa().getEndereco_codigo().getRua() == null
                     || parceiro.getPessoa().getEndereco_codigo().getNumero() == null
                     || parceiro.getPessoa().getEndereco_codigo().getCep() == null
-                    || parceiro.getPessoa().getEndereco_codigo().getCidade_codigo()
-                    .getUnidadeFederativa_codigo().getSigla() == null) {
+                    || parceiro.getPessoa().getEndereco_codigo().getCidade_codigo().getUnidadeFederativa_codigo().getSigla() == null) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
             } else {
                 parceiro.setDataNascimento(jtfDataNacimento.getDate());
@@ -812,8 +810,8 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
         try {
             jcbCidade.removeAllItems();
-        cidades = null;
-            
+            cidades = null;
+
             setParceiro(parceiros.get(jtbParceiros.getSelectedRow()));
             setaJCB();
             jbtSalvar.setEnabled(false);
@@ -832,10 +830,16 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
 
     private void jtbParceirosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbParceirosMouseClicked
         if (evt.getClickCount() == 2) {
+            jcbCidade.removeAllItems();
+            cidades = null;
+            
             setParceiro(parceiros.get(jtbParceiros.getSelectedRow()));
             setaJCB();
             jbtSalvar.setEnabled(false);
             jtbpParceiros.setSelectedIndex(1);
+            
+            setaJcbUF();
+            setaJcbCidade();
         }
     }//GEN-LAST:event_jtbParceirosMouseClicked
 
@@ -1005,7 +1009,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         for (UnidadeFederativa un : unidadeFederativas) {
             jcbUF.addItem(un);
         }
-       // jcbUF.setRenderer(new ComboBoxUF());
+        // jcbUF.setRenderer(new ComboBoxUF());
         jcbUF.setSelectedIndex(0);
     }
 
