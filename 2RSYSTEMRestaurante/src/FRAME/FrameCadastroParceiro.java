@@ -227,7 +227,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                         .add(0, 503, Short.MAX_VALUE))
                     .add(jPanel4Layout.createSequentialGroup()
                         .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
                             .add(jPanel4Layout.createSequentialGroup()
                                 .add(jbtDetalhar)
                                 .add(0, 0, Short.MAX_VALUE)))
@@ -242,7 +242,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                     .add(jbtPesquisar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 306, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 29, Short.MAX_VALUE)
                 .add(jbtDetalhar)
                 .addContainerGap())
         );
@@ -555,7 +555,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel4)
                     .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 67, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel19)
                     .add(jLabel18))
@@ -715,19 +715,14 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbTipoPessoaActionPerformed
 
     private void jcbCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCidadeActionPerformed
-        parceiro.getPessoa()
-                .getEndereco_codigo()
+        parceiro.getPessoa().getEndereco_codigo()
                 .setCidade_codigo(((Cidade) jcbCidade.getSelectedItem()));
     }//GEN-LAST:event_jcbCidadeActionPerformed
 
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
-        var = jcbUF.getSelectedIndex() + 1;
-        //    parceiro.getPessoa()
-        //            .getEndereco_codigo()
-        //            .getCidade_codigo()
-        //            .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
+        //parceiro.getPessoa().getEndereco_codigo().getCidade_codigo()
+        //        .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
         atualizaCBCidade();
-
     }//GEN-LAST:event_jcbUFActionPerformed
 
     private void jcbSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSexoActionPerformed
@@ -750,7 +745,8 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                     || parceiro.getPessoa().getEndereco_codigo().getRua() == null
                     || parceiro.getPessoa().getEndereco_codigo().getNumero() == null
                     || parceiro.getPessoa().getEndereco_codigo().getCep() == null
-                    || parceiro.getPessoa().getEndereco_codigo().getCidade_codigo().getUnidadeFederativa_codigo().getSigla() == null) {
+                    || parceiro.getPessoa().getEndereco_codigo().getCidade_codigo()
+                    .getUnidadeFederativa_codigo().getSigla() == null) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
             } else {
                 parceiro.setDataNascimento(jtfDataNacimento.getDate());
@@ -815,18 +811,22 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
 
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
         try {
-        setParceiro(parceiros.get(jtbParceiros.getSelectedRow()));
-        setaJCB();
+            jcbCidade.removeAllItems();
+        cidades = null;
+            
+            setParceiro(parceiros.get(jtbParceiros.getSelectedRow()));
+            setaJCB();
             jbtSalvar.setEnabled(false);
-        jtbpParceiros.setSelectedIndex(1);
+            jtbpParceiros.setSelectedIndex(1);
 
-        setaJcbUF();
-        setaJcbCidade();
+            setaJcbUF();
+            setaJcbCidade();
 
 
 
-          } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Por favor para poder detalhar é preciso cadastrar um Parceiro.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Para poder detalhar"
+                    + " é preciso cadastrar um Parceiro.");
         }
     }//GEN-LAST:event_jbtDetalharActionPerformed
 
@@ -860,10 +860,14 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /*
+         * Set the Nimbus look and feel
+         */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /*
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the
+         * default look and feel. For details see
+         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -883,8 +887,11 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /*
+         * Create and display the form
+         */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 new FrameCadastroParceiro().setVisible(true);
@@ -998,28 +1005,28 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         for (UnidadeFederativa un : unidadeFederativas) {
             jcbUF.addItem(un);
         }
-        jcbUF.setRenderer(new ComboBoxUF());
+       // jcbUF.setRenderer(new ComboBoxUF());
+        jcbUF.setSelectedIndex(0);
     }
 
     private void setaJcbUF() {
-        jcbUF.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo()
-                .getCidade_codigo().getUnidadeFederativa_codigo());
+        jcbUF.getModel().setSelectedItem(parceiro.getPessoa().
+                getEndereco_codigo().getCidade_codigo().getUnidadeFederativa_codigo());
     }
 
     public void atualizaCBCidade() {
         jcbCidade.removeAllItems();
         cidades = null;
-        cidades = cidadeDao.buscaCidades(var);
+        cidades = cidadeDao.buscaCidades(jcbUF.getSelectedIndex() + 1);
         for (Cidade ci : cidades) {
             jcbCidade.addItem(ci);
-
         }
-        jcbCidade.setRenderer(new ComboBoxCidade());
+        //jcbCidade.setRenderer(new ComboBoxCidade());
     }
 
     private void setaJcbCidade() {
-        jcbCidade.getModel().setSelectedItem(parceiro.getPessoa().getEndereco_codigo()
-                .getCidade_codigo());
+        jcbCidade.getModel().setSelectedItem(parceiro.getPessoa().
+                getEndereco_codigo().getCidade_codigo());
     }
 
     private void novoParceiro() {
