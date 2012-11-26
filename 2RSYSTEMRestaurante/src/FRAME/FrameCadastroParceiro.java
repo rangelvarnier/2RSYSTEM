@@ -242,7 +242,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                     .add(jbtPesquisar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 306, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 14, Short.MAX_VALUE)
                 .add(jbtDetalhar)
                 .addContainerGap())
         );
@@ -553,7 +553,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel4)
                     .add(jtfCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 57, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 52, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel19)
                     .add(jLabel18))
@@ -717,8 +717,6 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbCidadeActionPerformed
 
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
-        //parceiro.getPessoa().getEndereco_codigo().getCidade_codigo()
-        //        .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
         atualizaCBCidade();
     }//GEN-LAST:event_jcbUFActionPerformed
 

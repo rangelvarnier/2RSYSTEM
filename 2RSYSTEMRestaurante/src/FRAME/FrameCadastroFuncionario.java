@@ -242,7 +242,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                     .add(jtfPesquisar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jbtPesquisar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jbtDetalhar)
                 .addContainerGap())
@@ -636,7 +636,7 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                                 .add(jcbfuncao, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jtfDataContratação, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(jtfDataDemissão, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         jtbpcolaboradores.addTab("Cadastro", jPanel3);
@@ -750,11 +750,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                 .setCidade_codigo(((Cidade) jcbCidade.getSelectedItem()));
     }//GEN-LAST:event_jcbCidadeActionPerformed
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
-        var = jcbUF.getSelectedIndex() + 1;
-        colaborador.getPessoa()
-                .getEndereco_codigo()
-                .getCidade_codigo()
-                .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
         atualizaCBCidade();
     }//GEN-LAST:event_jcbUFActionPerformed
     private void jcbSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSexoActionPerformed
@@ -792,11 +787,16 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbpcolaboradoresStateChanged
     private void jbtDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDetalharActionPerformed
         try {
+            jcbCidade.removeAllItems();
+            cidades = null;
+            
             setColaborador(colaboradores.get(jtbColaboradores.getSelectedRow()));
             setaJCB();
             jbtSalvar.setEnabled(false);
             jtbpcolaboradores.setSelectedIndex(1);
             
+            setaJcbUf();
+            setaJcbCidade();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Por favor para poder detalhar é preciso cadastrar um Colaborador.");
         }
@@ -816,7 +816,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                 jcbUF.setSelectedIndex(0);
                 jcbCidade.setSelectedIndex(0);
                 atualizaTabela();
-
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -833,7 +832,6 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
                 colaboradorDao.alterar(colaborador);
                 atualizaTabela();
                 JOptionPane.showMessageDialog(rootPane, "Alterado com sucesso!");
-
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -841,9 +839,15 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtEditarActionPerformed
     private void jtbColaboradoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbColaboradoresMouseClicked
         if (evt.getClickCount() == 2) {
+            jcbCidade.removeAllItems();
+            cidades = null;
+            
             setColaborador(colaboradores.get(jtbColaboradores.getSelectedRow()));
             setaJCB();
             jtbpcolaboradores.setSelectedIndex(1);
+            
+            setaJcbUf();
+            setaJcbCidade();
         }
     }//GEN-LAST:event_jtbColaboradoresMouseClicked
     private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
@@ -989,6 +993,8 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
     }
 
     public void atualizarCBUF() {
+        jcbUF.removeAllItems();
+        unidadeFederativas = null;
         unidadeFederativas = unidadeFederativaDao.buscarTodos();
         for (UnidadeFederativa un : unidadeFederativas) {
             jcbUF.addItem(un);
@@ -996,14 +1002,24 @@ public class FrameCadastroFuncionario extends javax.swing.JFrame {
         jcbUF.setRenderer(new ComboBoxUF());
     }
 
+    private void setaJcbUf(){
+        jcbUF.getModel().setSelectedItem(colaborador.getPessoa()
+                .getEndereco_codigo().getCidade_codigo().getUnidadeFederativa_codigo());
+    }
+    
     public void atualizaCBCidade() {
         jcbCidade.removeAllItems();
         cidades = null;
-        cidades = cidadeDao.buscaCidades(var);
+        cidades = cidadeDao.buscaCidades(jcbUF.getSelectedIndex() + 1);
         for (Cidade ci : cidades) {
             jcbCidade.addItem(ci);
         }
         jcbCidade.setRenderer(new ComboBoxCidade());
+    }
+    
+    private void setaJcbCidade(){
+        jcbCidade.getModel().setSelectedItem(colaborador.getPessoa()
+                .getEndereco_codigo().getCidade_codigo());
     }
 
     public void atualizaCBFuncao() {

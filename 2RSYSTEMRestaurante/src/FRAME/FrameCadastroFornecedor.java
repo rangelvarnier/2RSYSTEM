@@ -678,9 +678,6 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbCidadeActionPerformed
 
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
-        var = jcbUF.getSelectedIndex() + 1;
-        fornecedor.getPessoa().getEndereco_codigo().getCidade_codigo()
-                .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
         atualizaCBCidade();
     }//GEN-LAST:event_jcbUFActionPerformed
 
@@ -984,7 +981,7 @@ public class FrameCadastroFornecedor extends javax.swing.JFrame {
     public void atualizaCBCidade() {
         jcbCidade.removeAllItems();
         cidades = null;
-        cidades = cidadeDao.buscaCidades(var);
+        cidades = cidadeDao.buscaCidades(jcbUF.getSelectedIndex() + 1);
         for (Cidade ci : cidades) {
             jcbCidade.addItem(ci);
         }
