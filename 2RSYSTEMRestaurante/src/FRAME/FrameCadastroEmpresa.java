@@ -28,12 +28,12 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
         enderecoDao = new EnderecoDAOIMPL();
         empresaDao = new EmpresaDAOIMPL();
 
-
         novo();
         atualizarTabela();
         atualizarCBUF();
         atualizaCBCidade();
         setcodigos();
+        
         //convertedataparacalendar();
         jtbEmpresas.setAutoResizeMode(jtbEmpresas.AUTO_RESIZE_OFF);
         jtbEmpresas.getColumnModel().getColumn(0).setPreferredWidth(70);
@@ -536,9 +536,7 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
-
         dispose();
-
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
@@ -561,53 +559,51 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfNumeroActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
-        try {
-            if (empresa.getCnpj() == null 
-                   || empresa.getRazaoSocial() == null 
-                   || empresa.getEndereco_codigo().getBairro() == null
-                   || empresa.getEndereco_codigo().getRua() == null 
-                   || empresa.getEndereco_codigo().getNumero() == null
-                   || empresa.getEndereco_codigo().getCep() == null 
-                   || empresa.getEndereco_codigo().getCidade_codigo().getUnidadeFederativa_codigo().getSigla() == null) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
-            }else{
+//        try {
+//            if (empresa.getCnpj() == null 
+///                   || empresa.getRazaoSocial() == null 
+//                   || empresa.getEndereco_codigo().getBairro() == null
+//                   || empresa.getEndereco_codigo().getRua() == null 
+//                   || empresa.getEndereco_codigo().getNumero() == null
+//                   || empresa.getEndereco_codigo().getCep() == null 
+//                   || empresa.getEndereco_codigo().getCidade_codigo().getUnidadeFederativa_codigo().getSigla() == null) {
+//                JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
+//            }else{
             empresa.setDataFundacao(jtfDataFundacao.getDate());
             enderecoDao.inserir(empresa.getEndereco_codigo());
             empresaDao.inserir(empresa);
             jcbUF.setSelectedIndex(0);
             jcbCidade.setSelectedIndex(0);
             atualizarTabela();
-            limpacampodatas();
-            novo();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
-        }
+           // limpacampodatas();
+           // novo();
+//            }
+ //       } catch (Exception e) {
+ //           JOptionPane.showMessageDialog(null, "Preencha todos os campos Necessários.");
+  //      }
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
-
-        var = jcbUF.getSelectedIndex() + 1;
-        empresa.getEndereco_codigo()
-                .getCidade_codigo()
-                .setUnidadeFederativa_codigo(((UnidadeFederativa) jcbUF.getSelectedItem()));
         atualizaCBCidade();
     }//GEN-LAST:event_jcbUFActionPerformed
 
     private void jcbCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCidadeActionPerformed
-
         empresa.getEndereco_codigo()
                 .setCidade_codigo(((Cidade) jcbCidade.getSelectedItem()));
-
     }//GEN-LAST:event_jcbCidadeActionPerformed
 
     private void jtbEmpresasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbEmpresasMouseClicked
-
         if (evt.getClickCount() == 2) {
+            jcbCidade.removeAllItems();
+            empresas = null;
+            
             setEmpresa(empresas.get(jtbEmpresas.getSelectedRow()));
             setaJCBEmpresa();
+            
+            setaJcbUF();
+            setaJcbCidade();
+            
         }
-
     }//GEN-LAST:event_jtbEmpresasMouseClicked
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
@@ -724,7 +720,6 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jtfTelefone;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
-    private Integer var;
     private Empresa empresa;
     private EmpresaDAO empresaDao;
     private List<Empresa> empresas;
@@ -765,24 +760,32 @@ public class FrameCadastroEmpresa extends javax.swing.JFrame {
     }
 
     private void atualizarCBUF() {
+        jcbUF.removeAllItems();
+        unidadesfederativas = null;
         unidadesfederativas = unidadefederativaDao.buscarTodos();
         for (UnidadeFederativa un : unidadesfederativas) {
             jcbUF.addItem(un);
         }
         jcbUF.setRenderer(new ComboBoxUF());
-
-
+    }
+    
+    private void setaJcbUF(){
+        jcbUF.getModel().setSelectedItem(empresa.getEndereco_codigo()
+                .getCidade_codigo().getUnidadeFederativa_codigo());
     }
 
     private void atualizaCBCidade() {
-
         jcbCidade.removeAllItems();
         cidades = null;
-        cidades = cidadeDao.buscaCidades(var);
+        cidades = cidadeDao.buscaCidades(jcbUF.getSelectedIndex() + 1);
         for (Cidade ci : cidades) {
             jcbCidade.addItem(ci);
         }
         jcbCidade.setRenderer(new ComboBoxCidade());
+    }
+    
+    private void setaJcbCidade(){
+        jcbCidade.getModel().setSelectedItem(empresa.getEndereco_codigo().getCidade_codigo());
     }
 
     private void setcodigos() {

@@ -34,8 +34,6 @@ public class EnderecoDAOIMPL implements EnderecoDAO{
             stmt.setString(8, endereco.getCelular());
             stmt.setString(9, endereco.getEmail());
            
-            
-
             stmt.executeUpdate();
         } catch (SQLException ex){
             Logger.getLogger(EnderecoDAOIMPL.class.getName()).log(Level.SEVERE, null, ex);

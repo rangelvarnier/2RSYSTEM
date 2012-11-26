@@ -38,8 +38,6 @@ public class EmpresaDAOIMPL implements EmpresaDAO{
             }
             stmt.setInt(9, empresa.getEndereco_codigo().getCodigo());
            
-            
-
             stmt.executeUpdate();
         } catch (SQLException ex){
             ex.printStackTrace();
@@ -153,8 +151,9 @@ public class EmpresaDAOIMPL implements EmpresaDAO{
         EnderecoDAO enderecoDao = new EnderecoDAOIMPL();
 
         Connection con = new Conexao().criarConexao();
-        String sql = "select codigo,razaoSocial,nomeFantasia,cnpj,inscricaoEstadual,"
-                + "nomeProprietario,email,dataFundacao,endereco_codigo from empresa";
+        //String sql = "select codigo,razaoSocial,nomeFantasia,cnpj,inscricaoEstadual,"
+        //        + "nomeProprietario,email,dataFundacao,endereco_codigo from empresa";
+        String sql = "select * from empresa";
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
