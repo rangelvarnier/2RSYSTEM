@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b8ec3b8c-0abc-4bcd-903c-889442e3d2c4">
 	<property name="ireport.zoom" value="1.4641000000000006"/>
-	<property name="ireport.x" value="37"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[select pes.nome Fornecedor, sum(compra.valorCompra) Valor,
@@ -16,7 +16,11 @@ order by compra.valorCompra asc;]]>
 	<field name="Quantidade" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<variable name="variable1" class="java.lang.String"/>
+	<field name="compra" class="RESTAURANTE.MODEL.Compra"/>
+	<variable name="variable1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{compra}.getCodigo()]]></variableExpression>
+	</variable>
+	<variable name="variable2" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -70,10 +74,10 @@ order by compra.valorCompra asc;]]>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Fornecedor}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Fornecedor}.getPessoa().getNome()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="2238637d-ec10-47a5-a867-27f956afb581" x="354" y="0" width="124" height="20"/>
+				<reportElement uuid="2238637d-ec10-47a5-a867-27f956afb581" x="303" y="0" width="124" height="20"/>
 				<box topPadding="0" leftPadding="0"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="false"/>
@@ -81,12 +85,9 @@ order by compra.valorCompra asc;]]>
 				<textFieldExpression><![CDATA[$F{Valor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="7661b8f5-c7a2-445e-98f0-d54a4b969b35" x="229" y="0" width="125" height="20"/>
-				<box topPadding="0" leftPadding="0"/>
-				<textElement textAlignment="Justified">
-					<font fontName="Arial" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Quantidade}]]></textFieldExpression>
+				<reportElement uuid="41163e67-2fa4-44f7-ab29-b623b74c5ac5" x="175" y="1" width="128" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{variable1}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
