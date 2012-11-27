@@ -14,5 +14,5 @@ public interface CompraDAO {
     List<Compra> buscarCampoPesquisa(String parametro); 
     List<Compra> buscarParametrosRelatorio(Integer fornecedor, Integer colaborador);
     List<Compra> buscarPorPeriodo(Date compraI, Date compraF);
-
-}
+    List<Compra> relEstatisticaCompraFornecedor(Date compraI, Date compraF);
+ }

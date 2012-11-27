@@ -18,3 +18,12 @@ SELECT * FROM COMPRA c
 join produtosdacompra p
 where c.codigo =5
 and p.compra_codigo =5;
+
+
+#-- busca as compras de cada fornecedor em um periodo de datas
+select pes.nome Fornecedor, sum(compra.valorCompra) Valor from compra
+join fornecedor forn on forn.codigo = compra.fornecedor_codigo
+join pessoa pes on pes.codigo = forn.codigo
+where compra.dataCompra between '2012-10-10' and '2012-12-12'
+group by forn.codigo
+order by compra.valorCompra asc;
