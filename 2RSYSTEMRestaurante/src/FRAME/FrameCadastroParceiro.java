@@ -1030,7 +1030,6 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         setParceiro(new Parceiro(new Pessoa(new Endereco(new Cidade(new UnidadeFederativa())))));
         setcodigos();
         jbtSalvar.setEnabled(true);
-
     }
 
     private void setcodigos() {
