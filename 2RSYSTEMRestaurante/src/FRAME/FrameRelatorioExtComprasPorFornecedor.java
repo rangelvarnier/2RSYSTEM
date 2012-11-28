@@ -2,9 +2,7 @@ package FRAME;
 
 import RESTAURANTE.DAO.CompraDAO;
 import RESTAURANTE.DAO.IMPL.CompraDAOIMPL;
-import RESTAURANTE.MODEL.Colaborador;
 import RESTAURANTE.MODEL.Compra;
-import RESTAURANTE.MODEL.Fornecedor;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +16,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+
+
 
 public class FrameRelatorioExtComprasPorFornecedor extends javax.swing.JFrame {
 
@@ -161,7 +161,7 @@ public class FrameRelatorioExtComprasPorFornecedor extends javax.swing.JFrame {
             JasperViewer.viewReport(jasperPrint, false);
 
         } catch (JRException ex) {
-            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jbtGerarRelatorioActionPerformed
 
