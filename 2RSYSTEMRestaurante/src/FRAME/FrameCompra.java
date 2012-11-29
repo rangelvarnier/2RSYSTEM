@@ -469,6 +469,7 @@ public class FrameCompra extends javax.swing.JFrame {
                     prod.setCompra(compra);
                     produtoDaCompraDao.inserir(prod);
                 }
+               
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Erro ao Salvar!\nMotivo: " 
                         + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

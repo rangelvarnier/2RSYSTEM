@@ -103,7 +103,7 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
 
             while (rs.next()) {
                 produto = new Produto();
-                produto.setCodigo(rs.getInt("codigoFabrica"));
+                produto.setCodigo(rs.getInt("codigo"));
                 produto.setDescricao(rs.getString("descricao"));
                 produto.setPrecoVenda(rs.getFloat("precoVenda"));
                 produto.setPrecoCompra(rs.getFloat("precoCompra"));
