@@ -116,6 +116,11 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
                 jtfPesquisarActionPerformed(evt);
             }
         });
+        jtfPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfPesquisarKeyPressed(evt);
+            }
+        });
 
         jbtConfirmar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jbtConfirmar.setText("Confirmar");
@@ -303,6 +308,10 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
     private void jrbDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbDataActionPerformed
         verificaRadioButton();
     }//GEN-LAST:event_jrbDataActionPerformed
+
+    private void jtfPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesquisarKeyPressed
+        executaPesquisa();
+    }//GEN-LAST:event_jtfPesquisarKeyPressed
 
     /**
      * @param args the command line arguments
