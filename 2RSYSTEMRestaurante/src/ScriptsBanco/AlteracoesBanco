@@ -177,6 +177,9 @@ BEGIN
     
     UPDATE produto SET saldoEstoque = (OLDsaldo) + new.quantidade 
         WHERE codigo = new.produto_codigo;
+        
+    UPDATE produto set precoCompra = new.valorUnitario
+    	  WHERE codigo = new.produto_codigo; 
 END$$
 
 
