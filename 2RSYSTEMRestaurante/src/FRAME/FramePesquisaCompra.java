@@ -110,7 +110,7 @@ public class FramePesquisaCompra extends javax.swing.JDialog {
         });
 
         jtfPesquisar.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jtfPesquisar.setToolTipText("Busca por: Fornecedor, data, colaborador, documento");
+        jtfPesquisar.setToolTipText("Busca por: documento, fornecedor ou colaborador");
         jtfPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfPesquisarActionPerformed(evt);
