@@ -137,7 +137,7 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
 
             while (rs.next()) {
                 Produto produto = new Produto();
-                produto.setCodigo(rs.getInt("codigoFabrica"));
+                produto.setCodigo(rs.getInt("codigo"));
                 produto.setDescricao(rs.getString("descricao"));
                 produto.setPrecoVenda(rs.getFloat("precoVenda"));
                 produto.setPrecoCompra(rs.getFloat("precoCompra"));
@@ -190,14 +190,14 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
     }
 
     @Override
-    public List<Produto> buscarParametrosRelatorio(Integer fornecedor, Integer subgrupoitem) {
+    public List<Produto> buscarParametrosRelatorio(Integer fornecedor) {
         Produto produto = null;
         List<Produto> produtos = new ArrayList<Produto>();
         UnidadeMedidaDAO unidadeMedidaDao = new UnidadeMedidaDAOIMPL();
         SubGrupoItemDAO subGrupoItemDao = new SubGrupoItensDAOIMPL();
         FornecedorDAO fornecedorDao = new FornecedorDAOIMPL();
         Connection con = new Conexao().criarConexao();
-        String sql = "select * from produto where fornecedor_codigo = ? or subGrupoItens_codigo = ?";
+        String sql = "select * from produto where fornecedor_codigo = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             if (fornecedor == null) {
@@ -205,17 +205,13 @@ public class ProdutoDAOIMPL implements ProdutoDAO {
             } else {
                 stmt.setInt(1, fornecedor);
             }
-            if (subgrupoitem == null) {
-                stmt.setInt(2, 0);
-            } else {
-                stmt.setInt(2, subgrupoitem);
-            }
+            
 
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 produto = new Produto();
-                produto.setCodigo(rs.getInt("codigoFabrica"));
+                produto.setCodigo(rs.getInt("codigo"));
                 produto.setDescricao(rs.getString("descricao"));
                 produto.setPrecoVenda(rs.getFloat("precoVenda"));
                 produto.setPrecoCompra(rs.getFloat("precoCompra"));

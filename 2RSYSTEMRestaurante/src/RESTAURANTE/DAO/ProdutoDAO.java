@@ -10,6 +10,6 @@ public interface ProdutoDAO {
     Produto buscarPorCodigo(Integer codigo);
     List<Produto> buscarPorDescricao(String descricao);
     List<Produto> buscarTodos();
-    List<Produto> buscarParametrosRelatorio(Integer fornecedor, Integer subgrupoitem);
+    List<Produto> buscarParametrosRelatorio(Integer fornecedor);
     Integer buscaIdMaio();
 }

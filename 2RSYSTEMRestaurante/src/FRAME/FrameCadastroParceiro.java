@@ -395,7 +395,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel2.setText("Limite");
+        jLabel2.setText("*Limite");
 
         jtfLimite.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -403,7 +403,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        jLabel3.setText("Saldo");
+        jLabel3.setText("*Saldo");
 
         jtfSaldo.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
 
@@ -737,6 +737,8 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
             if (parceiro.getCpf() == null
                     || parceiro.getPessoa().getNome() == null
                     || parceiro.getPessoa().getSexo() == null
+                    || parceiro.getLimite() == null
+                    || parceiro.getSaldo() == null
                     || parceiro.getPessoa().getEndereco_codigo().getBairro() == null
                     || parceiro.getPessoa().getEndereco_codigo().getRua() == null
                     || parceiro.getPessoa().getEndereco_codigo().getNumero() == null
@@ -777,6 +779,7 @@ public class FrameCadastroParceiro extends javax.swing.JFrame {
                 pessoaDao.alterar(parceiro.getPessoa());
                 parceiroDao.alterar(parceiro);
                 atualizaTabela();
+                JOptionPane.showMessageDialog(rootPane, "Alterado com sucesso!");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro !\nMotivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

@@ -166,6 +166,7 @@
           </Properties>
           <BindingProperties>
             <BindingProperty name="elements" source="Form" sourcePath="${vendas}" target="jtbVendas" targetPath="elements" updateStrategy="0" immediately="true">
+              <Property name="name" type="java.lang.String" value=""/>
               <Subbinding sourcePath="${codigo}">
                 <BindingParameter name="NAME" value="C&#xf3;digo"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
